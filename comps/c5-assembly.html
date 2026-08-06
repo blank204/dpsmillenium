@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C5 — The Strike · DPS Millennium comp</title>
+<link rel="icon" href="./assets/shield.svg">
+<link rel="stylesheet" href="./tokens.css">
+<style>
+  /* ================================================================
+     THE STRIKE — the one authored moment on this page.
+
+     The crest is struck like a die: the outer rings DRAW via a conic
+     mask sweep, the shield body wipes down, the four quadrants are set
+     into it from the centre outward, and the bilingual lettering
+     resolves out of blur. An institution assembling itself, told in
+     the material of the mark.
+
+     Nothing here is required for the crest to be visible. Every layer's
+     resting state is fully painted; if the animation never runs — no
+     JS, unsupported @property, reduced motion — the finished crest is
+     simply there.
+     ================================================================ */
+
+  /* initial-value is the RESTING state, so an unregistered property
+     degrades to a fully drawn ring rather than an invisible one. */
+  @property --sweep {
+    syntax: "<angle>";
+    initial-value: 360deg;
+    inherits: false;
+  }
+
+  .seal { position: relative; aspect-ratio: 1296 / 1299; inline-size: 100%; }
+  .seal img { position: absolute; inset: 0; inline-size: 100%; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* 1 — the rings draw, like a compass closing a circle */
+    .seal .l-ring {
+      mask-image: conic-gradient(from -90deg, #000 var(--sweep), #0000 0);
+      animation: strike-sweep 900ms cubic-bezier(.16, 1, .3, 1) backwards;
+    }
+    @keyframes strike-sweep {
+      from { --sweep: 0deg; }
+      to   { --sweep: 360deg; }
+    }
+
+    /* 2 — the shield body wipes down into the ring */
+    .seal .l-body {
+      animation: strike-wipe 680ms 600ms cubic-bezier(.16, 1, .3, 1) backwards;
+    }
+    @keyframes strike-wipe {
+      from { clip-path: inset(0 0 100% 0); }
+      to   { clip-path: inset(0 0 0 0); }
+    }
+
+    /* 3 — the quadrants are set in, outward from the centre of the shield */
+    .seal .l-q {
+      transform-origin: 50% 47%;
+      animation: strike-set 520ms cubic-bezier(.16, 1, .3, 1) backwards;
+    }
+    .seal .l-gold  { animation-delay:  880ms; }
+    .seal .l-sail  { animation-delay:  960ms; }
+    .seal .l-globe { animation-delay: 1040ms; }
+    .seal .l-waves { animation-delay: 1120ms; }
+    .seal .l-stars { animation-delay: 1200ms; }
+    @keyframes strike-set {
+      from { opacity: 0; transform: scale(.58); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* 4 — the bilingual lettering resolves, as if engraved */
+    .seal .l-type {
+      animation: strike-engrave 760ms 1380ms cubic-bezier(.16, 1, .3, 1) backwards;
+    }
+    @keyframes strike-engrave {
+      from { opacity: 0; filter: blur(7px); transform: scale(1.035); }
+      to   { opacity: 1; filter: blur(0);   transform: none; }
+    }
+  }
+
+  /* ================================================================
+     Hero
+     ================================================================ */
+  .top { background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
+  .top .nav { border-block-end-color: rgba(216, 168, 0, .22); }
+
+  /* Ground: the crest's own star field. The box is the crop and the artwork
+     is oversized inside it, so what reads is the star pattern itself — never
+     the quadrant's silhouette. */
+  .top::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    inline-size: 46%;
+    block-size: 78%;
+    background: url("./assets/seal-l7-stars.svg") no-repeat 61% 62% / 340%;
+    opacity: .11;
+    pointer-events: none;
+  }
+
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: clamp(2rem, 6vw, 5.5rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 7vh, 5rem) clamp(3rem, 8vh, 5.5rem);
+  }
+  .hero__seal { inline-size: 100%; max-inline-size: 360px; margin-inline-start: auto; }
+  .hero h1 {
+    font-size: clamp(2.15rem, 1.05rem + 5.1vw, 4.4rem);
+    line-height: .99;
+    letter-spacing: -.025em;
+    max-inline-size: 13ch;
+  }
+  .hero__sub {
+    font-size: clamp(1.0625rem, 1rem + .5vw, 1.24rem);
+    color: #CFC0DA;
+    max-inline-size: 48ch;
+    margin-block-start: 1.4rem;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1.25rem 1.75rem; align-items: center; margin-block-start: 2.2rem; }
+  .hero .textlink { color: var(--gold); }
+
+  /* Facts row — the location, board and tentative date, stated as data. */
+  .facts {
+    position: relative;
+    margin: 0;
+    border-block-start: 1px solid rgba(216, 168, 0, .22);
+    padding-block: 1.35rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, auto));
+    gap: 1.1rem clamp(2rem, 5vw, 4.5rem);
+  }
+  .facts dt { font-size: .7rem; font-weight: 600; letter-spacing: .14em;
+              text-transform: uppercase; color: #A08BAF; margin-block-end: .3rem; }
+  .facts dd { margin: 0; font-family: var(--display); font-size: 1.1rem; color: var(--gold); }
+  .facts .hedge { font-family: var(--body); font-size: .8125rem; color: #A08BAF;
+                  margin-block-start: .3rem; max-inline-size: 34ch; }
+
+  /* ================================================================
+     Quick links — a routed list, not a grid of cards
+     ================================================================ */
+  .quick { padding-block: var(--section-y); }
+  .quick__list { list-style: none; margin: 2rem 0 0; padding: 0;
+                 border-block-start: 1px solid var(--rule); }
+  .quick__list li { border-block-end: 1px solid var(--rule); }
+  .quick__link {
+    display: grid;
+    grid-template-columns: auto minmax(0, 15rem) minmax(0, 1fr) auto;
+    gap: clamp(.9rem, 3vw, 2.5rem);
+    align-items: baseline;
+    padding-block: 1.15rem;
+    text-decoration: none;
+    /* transform, not padding — animating padding thrashes layout */
+    transition: transform .18s cubic-bezier(.16, 1, .3, 1);
+  }
+  .quick__link:hover, .quick__link:focus-visible { transform: translateX(.5rem); }
+  .quick__link::before {
+    content: "";
+    inline-size: .7em; block-size: .82em;
+    background: var(--k);
+    transform: translateY(.06em);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116'%3E%3Cpath d='M50 1L99 14V62C99 88 79 104 50 115C21 104 1 88 1 62V14Z'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  .quick__link h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 600; margin: 0; }
+  .quick__link p { font-size: .9375rem; color: var(--muted); }
+  .quick__link .go { font-size: .8125rem; color: var(--green); opacity: 0; transition: opacity .18s ease; }
+  .quick__link:hover .go, .quick__link:focus-visible .go { opacity: 1; }
+  .quick__link[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+  .quick__link .soon { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--green); }
+  @media (max-width: 46rem) {
+    .quick__link { grid-template-columns: auto minmax(0, 1fr); }
+    .quick__link p, .quick__link .go { grid-column: 2; }
+  }
+
+  /* ================================================================
+     Content
+     ================================================================ */
+  .band { position: relative; overflow: hidden; }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inline-size: 42%;
+    block-size: 46%;
+    background: url("./assets/seal-l6-waves.svg") no-repeat 39% 62% / 320%;
+    opacity: .07;
+    pointer-events: none;
+  }
+  .row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(1rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  .row .key { margin-block-end: 0; }
+  .row .lede { max-inline-size: 58ch; }
+
+  /* ================================================================
+     Newsletter
+     ================================================================ */
+  .news { background: var(--paper-2); padding-block: var(--section-y); }
+  .news__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                 gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+  .news h2 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); }
+  .news > .wrap > div > p { color: var(--muted); margin-block-start: .75rem; max-inline-size: 44ch; }
+  .news__form { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; }
+  .news__form label { flex: 1 1 14rem; display: grid; gap: .4rem; }
+  .news__form span { font-size: .7rem; font-weight: 600; letter-spacing: .14em;
+                     text-transform: uppercase; color: var(--green); }
+  .news__form input {
+    font: inherit; font-size: .9375rem;
+    padding: .8rem .9rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    background: var(--paper);
+    color: var(--purple);
+  }
+  .news__form input::placeholder { color: #8A73A0; }
+  .news__form input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-color: var(--purple); }
+  .news__note { font-size: .8125rem; color: var(--muted); margin-block-start: .9rem; }
+
+  @media (max-width: 52rem) {
+    .hero { grid-template-columns: 1fr; }
+    .hero__seal { max-inline-size: 240px; margin-inline: 0; }
+    .row { grid-template-columns: 1fr; gap: 1.1rem; }
+    .news__inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="compbar">
+  <strong>C5 — The Strike</strong>
+  <span>scroll away and back to replay</span>
+  <a href="./index.html">all comps</a>
+</div>
+
+<div class="top">
+  <header class="wrap">
+    <nav class="nav">
+      <a class="nav__brand" href="#">
+        <img src="./assets/shield.svg" alt="">
+        <span class="nav__name">DPS Millennium</span>
+      </a>
+      <div class="nav__links">
+        <a href="#now">What we know</a>
+        <a href="#campus">The campus</a>
+        <a href="#links">Quick links</a>
+        <a class="btn btn--gold" href="#register">Register interest</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="wrap hero">
+    <div>
+      <h1>Right now, this school is a building site.</h1>
+      <p class="hero__sub">It opens as DPS Millennium International School in April 2027.
+        Until then, we&rsquo;ll show you exactly how it&rsquo;s coming along.</p>
+      <div class="hero__cta">
+        <a class="btn btn--gold" href="#register">Register your interest</a>
+        <a class="textlink" href="#now">What we can tell you now</a>
+      </div>
+    </div>
+
+    <!-- The Strike. Eight layers of the real crest. -->
+    <div class="seal hero__seal" id="strike" role="img"
+         aria-label="DPS Millennium International School crest">
+      <img class="l-ring"          src="./assets/seal-l1-ring.svg" alt="">
+      <img class="l-body"          src="./assets/seal-l2-body.svg" alt="">
+      <img class="l-q l-gold"      src="./assets/seal-l3-gold.svg" alt="">
+      <img class="l-q l-sail"      src="./assets/seal-l4-sail.svg" alt="">
+      <img class="l-q l-globe"     src="./assets/seal-l5-globe.svg" alt="">
+      <img class="l-q l-waves"     src="./assets/seal-l6-waves.svg" alt="">
+      <img class="l-q l-stars"     src="./assets/seal-l7-stars.svg" alt="">
+      <img class="l-type"          src="./assets/seal-l8-lettering.svg" alt="">
+    </div>
+  </section>
+
+  <div class="wrap">
+    <dl class="facts">
+      <div><dt>Campus</dt><dd>Al Wukair, Qatar</dd></div>
+      <div><dt>Curriculum</dt><dd>CBSE</dd></div>
+      <div>
+        <dt>Tentative opening</dt>
+        <dd><time datetime="2027-04-04">4 April 2027</time></dd>
+        <p class="hedge">Dates may move as construction progresses. We&rsquo;ll say so here if they do.</p>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<main>
+  <section class="wrap quick" id="links" aria-labelledby="links-h">
+    <div class="key" style="--k: var(--green)"><h2 id="links-h">Quick links</h2></div>
+    <ul class="quick__list">
+      <li><a class="quick__link" href="#" style="--k: var(--gold)">
+        <h3>Fees structure</h3>
+        <p>What a place costs, per year group.</p>
+        <span class="go">View &rarr;</span>
+      </a></li>
+      <li><a class="quick__link" href="#" style="--k: var(--indigo)">
+        <h3>About us</h3>
+        <p>Mission, vision, and who is building this.</p>
+        <span class="go">View &rarr;</span>
+      </a></li>
+      <li><a class="quick__link" href="#" style="--k: var(--purple)">
+        <h3>Contact us</h3>
+        <p>P.O. Box, phone, email, and an enquiry form.</p>
+        <span class="go">View &rarr;</span>
+      </a></li>
+      <li><a class="quick__link" href="#" aria-disabled="true" style="--k: var(--green)">
+        <h3>Admissions</h3>
+        <p class="soon">Opens later</p>
+        <span class="go"></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <div class="wrap band">
+    <section class="section row" id="now" style="--k: var(--green)">
+      <div class="key"><h2>What we can tell you now</h2></div>
+      <p class="lede">The things that are already decided: a CBSE curriculum, a campus in
+        Al Wukair, and a target opening of April 2027. Everything else on this page, we add
+        as it becomes true.</p>
+    </section>
+
+    <section class="section row" id="campus" style="--k: var(--gold)">
+      <div class="key"><h2>The campus</h2></div>
+      <p class="lede">Construction is underway. We&rsquo;ll post progress here as it happens
+        &mdash; foundations, structure, classrooms &mdash; so you can watch the school take
+        shape before your child ever walks into it.</p>
+    </section>
+
+    <section class="section row" style="--k: var(--indigo)">
+      <div class="key"><h2>Curriculum</h2></div>
+      <p class="lede">We teach the CBSE curriculum, the same board followed at our two sister
+        schools in Doha.</p>
+    </section>
+
+    <section class="section row" id="group" style="--k: var(--purple)">
+      <div class="key"><h2>The DPS group</h2></div>
+      <p class="lede">We are not starting from nothing. DPS Modern Indian School has taught in
+        Doha for twenty-five years, and DPS Monarch International School alongside it. The
+        people opening this school have opened schools before.</p>
+    </section>
+  </div>
+
+  <section class="news" id="register" aria-labelledby="news-h">
+    <div class="wrap news__inner">
+      <div>
+        <h2 id="news-h">Hear it first</h2>
+        <p>Construction updates, admissions dates, and the fee structure when it&rsquo;s
+          confirmed. Roughly once a month, and nothing else.</p>
+      </div>
+      <div>
+        <form class="news__form" onsubmit="return false">
+          <label>
+            <span>Email address</span>
+            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <button class="btn" type="submit">Register interest</button>
+        </form>
+        <p class="news__note">Placeholder only &mdash; this form has no destination until
+          hosting is decided.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <img class="foot__seal" src="./assets/seal.svg" alt="">
+      <p class="foot__tag">Empowering Educational Excellence</p>
+      <p class="foot__ar">&#1605;&#1583;&#1585;&#1587;&#1577; &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</p>
+    </div>
+    <div class="foot__cols">
+      <div>
+        <p class="util">Campus</p>
+        <p>Al Wukair<br>Qatar</p>
+      </div>
+      <div>
+        <p class="util">Sister schools</p>
+        <ul>
+          <li><a href="#">DPS Modern Indian School</a></li>
+          <li><a href="#">DPS Monarch International School</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="util">Tentative opening</p>
+        <p><time datetime="2027-04-04">4 April 2027</time></p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap foot__base">
+    <p>DPS Millennium International School &middot; part of the DPS Group of Institutions</p>
+    <p>Arabic site to follow</p>
+  </div>
+</footer>
+
+<script>
+  /* Replay only. The crest is fully painted without this, and the CSS
+     sequence already runs on load. This just re-strikes it when the hero
+     comes back into view, so the moment isn't a one-time thing you miss. */
+  (function () {
+    var seal = document.getElementById('strike');
+    if (!seal || !window.IntersectionObserver) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var layers = seal.querySelectorAll('img');
+    var inView = true;
+
+    new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      if (!e.isIntersecting) { inView = false; return; }
+      if (inView) return;
+      inView = true;
+      layers.forEach(function (el) {
+        el.style.animation = 'none';
+        void el.offsetWidth;      // force reflow so the animation restarts
+        el.style.animation = '';
+      });
+    }, { threshold: 0.55 }).observe(seal);
+  })();
+</script>
+
+</body>
+</html>

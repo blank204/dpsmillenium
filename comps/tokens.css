@@ -1,0 +1,277 @@
+/* DPS Millennium — shared token layer for the design comps.
+   Colour hierarchy and type roles per the approved spec. */
+
+@font-face {
+  font-family: "Plex Serif";
+  src: url("./assets/fonts/plex-serif-400.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Serif";
+  src: url("./assets/fonts/plex-serif-600.woff2") format("woff2");
+  font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("./assets/fonts/plex-sans-400.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("./assets/fonts/plex-sans-500.woff2") format("woff2");
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("./assets/fonts/plex-sans-600.woff2") format("woff2");
+  font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Arabic";
+  src: url("./assets/fonts/plex-arabic-400.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Plex Arabic";
+  src: url("./assets/fonts/plex-arabic-600.woff2") format("woff2");
+  font-weight: 600; font-display: swap;
+}
+
+:root {
+  /* Working palette — five values, hierarchy enforced. */
+  --paper: #F5F2F7;
+  --paper-2: #ECE6F0;
+  --ink: #1B0A26;
+  --purple: #400068;
+  --green: #206838;
+  --gold: #D8A800;
+
+  /* Rare. Quadrant colours; never promoted to UI. */
+  --indigo: #382898;
+  --red: #D82818;
+
+  --rule: rgba(64, 0, 104, 0.15);
+  --rule-strong: rgba(64, 0, 104, 0.3);
+  --muted: #5C4470;
+
+  --display: "Plex Serif", Georgia, serif;
+  --body: "Plex Sans", system-ui, sans-serif;
+  --arabic: "Plex Arabic", "Plex Sans", sans-serif;
+
+  --measure: 34rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --section-y: clamp(4.5rem, 11vh, 8.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--rule-strong) var(--paper);
+}
+
+/* Browser surfaces we did not draw still belong to the design. */
+::selection { background: var(--gold); color: var(--ink); }
+:root { caret-color: var(--purple); accent-color: var(--purple); }
+::-webkit-scrollbar { inline-size: 12px; block-size: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule-strong); border: 3px solid var(--paper); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--purple); }
+
+/* Dates and figures are data — they get real tabular numerals. */
+time, .tnum, .datestrip dd { font-variant-numeric: tabular-nums; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--purple);
+  font-family: var(--body);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: inherit; }
+
+/* Utility role — the third voice, alongside display and body. */
+.util {
+  font-family: var(--body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 0;
+}
+
+.wrap {
+  max-inline-size: 78rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- Site chrome ------------------------------------------------------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.1rem;
+  border-block-end: 1px solid var(--rule);
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  margin-inline-end: auto;
+}
+.nav__brand img { inline-size: 30px; }
+.nav__name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.nav__links { display: flex; gap: 1.75rem; align-items: center; }
+.nav__links a {
+  font-size: 0.9375rem;
+  text-decoration: none;
+  padding-block: 0.35rem;
+  border-block-end: 2px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.nav__links a:hover { border-block-end-color: var(--gold); }
+@media (max-width: 46rem) { .nav__links { display: none; } }
+
+/* --- Controls ---------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--purple);
+  color: var(--paper);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: 2px;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.btn:hover { background: #4E0080; transform: translateY(-1px); }
+.btn--gold { background: var(--gold); color: var(--ink); }
+.btn--gold:hover { background: #E8B600; }
+
+.btn::after {
+  content: "";
+  inline-size: 1.1em; block-size: 1px;
+  background: currentColor;
+  transition: transform 0.18s ease;
+}
+.btn:hover::after { transform: translateX(3px); }
+
+.textlink {
+  font-size: 0.9375rem;
+  color: var(--green);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+:where(a, button):focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* --- Section keying ---------------------------------------------------- */
+
+.section { padding-block: var(--section-y); border-block-start: 1px solid var(--rule); }
+
+.key {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-block-end: 1.4rem;
+}
+/* The school's own shield, drawn, as the section marker — not an accent bar. */
+.key::before {
+  content: "";
+  inline-size: 0.72em;
+  block-size: 0.84em;
+  background: var(--k, var(--green));
+  flex: none;
+  transform: translateY(0.06em);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116'%3E%3Cpath d='M50 1L99 14V62C99 88 79 104 50 115C21 104 1 88 1 62V14Z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.key h2 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); }
+
+.lede { font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); max-inline-size: var(--measure); color: var(--muted); }
+
+/* --- Footer ------------------------------------------------------------ */
+
+.foot { background: var(--ink); color: var(--paper); padding-block: 4.5rem 3rem; }
+.foot a { color: var(--paper); }
+.foot__grid {
+  display: grid;
+  gap: 2.5rem clamp(2rem, 6vw, 5rem);
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+.foot__seal { inline-size: clamp(120px, 18vw, 168px); }
+.foot__cols { display: grid; gap: 2rem clamp(2rem, 5vw, 4rem); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+.foot .util { color: var(--gold); margin-block-end: 0.7rem; }
+.foot p, .foot li { font-size: 0.9375rem; color: #CDBCD8; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.foot__tag {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-block-start: 0.75rem;
+}
+.foot__ar { font-family: var(--arabic); direction: rtl; color: #CDBCD8; font-size: 0.95rem; }
+.foot__base {
+  margin-block-start: 3rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid rgba(216, 168, 0, 0.28);
+  display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between;
+  font-size: 0.8125rem; color: #A791B5;
+}
+@media (max-width: 46rem) {
+  .foot__grid { grid-template-columns: 1fr; }
+}
+
+/* --- Comp harness label (not part of the design) ----------------------- */
+
+.compbar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--body); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.5rem var(--gutter);
+  display: flex; gap: 1.25rem; align-items: center;
+}
+.compbar a { color: var(--gold); text-decoration: none; }
+.compbar span { color: #A791B5; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

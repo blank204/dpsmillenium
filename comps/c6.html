@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C6 — DPS Millennium</title>
+<link rel="icon" href="./assets/shield.svg">
+<style>
+/* =====================================================================
+   C6 — redesign against the reference video.
+   Crimson world -> DPS purple. Grotesque caps display, serif figures.
+   The Strike (crest animation) is carried over unchanged.
+   ===================================================================== */
+
+@font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-500.woff2") format("woff2"); font-weight:500; font-display:swap; }
+@font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-600.woff2") format("woff2"); font-weight:600; font-display:swap; }
+@font-face { font-family:"Plex Serif"; src:url("./assets/fonts/plex-serif-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Plex Serif"; src:url("./assets/fonts/plex-serif-600.woff2") format("woff2"); font-weight:600; font-display:swap; }
+@font-face { font-family:"Plex Arabic"; src:url("./assets/fonts/plex-arabic-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
+
+:root{
+  --paper:#F3EEE4;          /* warm ground, tinted off the gold rather than generic cream */
+  --paper-2:#E9E1D2;
+  --ink:#17061F;
+  --purple:#400068;
+  --purple-lift:#52008A;
+  --green:#1E5A33;
+  --gold:#D8A800;
+  --rule:rgba(23,6,31,.16);
+  --rule-ink:rgba(243,238,228,.20);
+  --muted:#5E4C6B;
+  --muted-ink:#C3B2CE;
+
+  --display:"Plex Sans",system-ui,sans-serif;
+  --body:"Plex Sans",system-ui,sans-serif;
+  --figure:"Plex Serif",Georgia,serif;
+  --arabic:"Plex Arabic","Plex Sans",sans-serif;
+
+  --gutter:clamp(1.25rem,5vw,4.5rem);
+  --sec:clamp(4rem,10vh,7.5rem);
+  --r:14px;
+  caret-color:var(--purple); accent-color:var(--purple);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scrollbar-color:rgba(23,6,31,.3) var(--paper)}
+::selection{background:var(--gold); color:var(--ink)}
+::-webkit-scrollbar{inline-size:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:rgba(23,6,31,.3); border:3px solid var(--paper); border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--purple)}
+
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+     font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;height:auto;display:block}
+p{margin:0}
+a{color:inherit}
+:where(a,button,input,summary):focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+.wrap{max-inline-size:82rem;margin-inline:auto;padding-inline:var(--gutter)}
+
+/* Display voice: grotesque, all caps, tight. */
+.h{font-family:var(--display);font-weight:600;text-transform:uppercase;
+   letter-spacing:-.022em;line-height:1.02;margin:0;text-wrap:balance}
+.h--xl{font-size:clamp(2.1rem,1rem + 5.2vw,4.6rem)}
+.h--lg{font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem)}
+.h--md{font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em}
+
+/* Tiny caps section label, pinned like the reference. */
+.eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+         color:var(--gold);margin:0 0 1.5rem}
+.on-paper .eyebrow{color:var(--green)}
+
+/* Slash filters / meta */
+.slash{display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.9375rem;margin:0;padding:0;list-style:none}
+.slash li{color:var(--muted)}
+.slash .is-on{color:var(--ink);font-weight:500}
+
+.lede{font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:var(--muted);max-inline-size:60ch}
+
+/* ---------- controls ---------- */
+.btn{display:inline-flex;align-items:center;gap:.7rem;background:var(--purple);color:var(--paper);
+     font-weight:500;font-size:.9375rem;text-decoration:none;padding:.85rem 1.5rem;border:0;
+     border-radius:99px;font-family:inherit;cursor:pointer;
+     transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)}
+.btn:hover{background:var(--purple-lift);transform:translateY(-2px)}
+.btn--gold{background:var(--gold);color:var(--ink)}
+.btn--gold:hover{background:#E8B600}
+.btn--ghost{background:transparent;color:inherit;border:1px solid currentColor}
+.btn--ghost:hover{background:rgba(243,238,228,.1)}
+
+/* circular arrow button, straight from the reference */
+.arrow{inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid var(--rule);
+       display:grid;place-items:center;font-size:.85rem;flex:none;
+       transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
+
+.pill{display:inline-block;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;
+      border:1px solid var(--rule);color:var(--muted)}
+
+/* =====================================================================
+   NAV — the DPS-MIS dropdown bar, rebuilt
+   ===================================================================== */
+.bar{background:var(--ink);color:var(--paper);position:relative;z-index:60}
+.bar__in{display:flex;align-items:center;gap:1.25rem;padding-block:.85rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;margin-inline-end:auto}
+.brand img{inline-size:32px}
+.brand b{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em}
+.brand span{display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+            color:var(--muted-ink);font-weight:500}
+
+.menu{display:flex;list-style:none;margin:0;padding:0}
+.menu > li{position:relative}
+.menu > li > a{display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;
+               font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+               white-space:nowrap}
+.menu > li > a::after{content:"";inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;
+                      border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em);
+                      transition:transform .2s ease}
+.menu > li > a:only-child::after,.menu > li.plain > a::after{display:none}
+.menu > li:hover > a,.menu > li:focus-within > a{color:var(--gold)}
+.menu > li:hover > a::after,.menu > li:focus-within > a::after{transform:rotate(225deg) translateY(-.25em)}
+
+.sub{position:absolute;inset-block-start:100%;inset-inline-start:0;min-inline-size:15rem;
+     background:var(--paper);color:var(--ink);list-style:none;margin:0;padding:.5rem 0;
+     border-radius:0 0 var(--r) var(--r);box-shadow:0 18px 40px -12px rgba(23,6,31,.45);
+     opacity:0;visibility:hidden;transform:translateY(-6px);
+     transition:opacity .18s ease,transform .18s ease,visibility .18s}
+.menu > li:hover .sub,.menu > li:focus-within .sub{opacity:1;visibility:visible;transform:none}
+.sub a{display:block;padding:.55rem 1.1rem;font-size:.875rem;text-decoration:none}
+.sub a:hover{background:var(--paper-2);color:var(--purple)}
+.sub li.off a{color:var(--muted);pointer-events:none}
+.sub li.off a::after{content:" — soon";font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+
+.bar__cta{display:flex;gap:.6rem;align-items:center}
+.burger{display:none;background:none;border:1px solid var(--rule-ink);color:inherit;
+        border-radius:99px;padding:.5rem .9rem;font:inherit;font-size:.8125rem;cursor:pointer}
+@media (max-width:64rem){
+  .menu{display:none}
+  .burger{display:block}
+  .menu.is-open{display:block;position:absolute;inset-block-start:100%;inset-inline:0;
+                background:var(--ink);padding:.5rem 0;border-block-start:1px solid var(--rule-ink)}
+  .menu.is-open > li > a{padding-inline:var(--gutter)}
+  .menu.is-open .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;
+                     background:transparent;color:var(--paper);border-radius:0;padding:0 0 .5rem}
+  .menu.is-open .sub a{padding-inline:calc(var(--gutter) + 1rem);color:var(--muted-ink)}
+  .menu.is-open .sub a:hover{background:transparent;color:var(--gold)}
+}
+
+/* =====================================================================
+   HERO — purple ground
+   ===================================================================== */
+.hero{background:var(--purple);color:var(--paper);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset-block-start:0;inset-inline-end:0;
+  inline-size:48%;block-size:100%;
+  background:url("./assets/seal-l7-stars.svg") no-repeat 61% 62%/340%;opacity:.10;pointer-events:none}
+.hero__in{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+          gap:clamp(2rem,6vw,5rem);align-items:center;
+          padding-block:clamp(3rem,8vh,5.5rem) clamp(3.5rem,9vh,6rem)}
+.hero__sub{font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:46ch;
+           margin-block-start:1.5rem}
+.hero__cta{display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem}
+
+/* ---------- The Strike (carried over) ---------- */
+@property --sweep{syntax:"<angle>";initial-value:360deg;inherits:false}
+.seal{position:relative;aspect-ratio:1296/1299;inline-size:100%;max-inline-size:370px;margin-inline-start:auto}
+.seal img{position:absolute;inset:0;inline-size:100%}
+@media (prefers-reduced-motion:no-preference){
+  .seal .l-ring{mask-image:conic-gradient(from -90deg,#000 var(--sweep),#0000 0);
+                animation:sweep 900ms cubic-bezier(.16,1,.3,1) backwards}
+  @keyframes sweep{from{--sweep:0deg}to{--sweep:360deg}}
+  .seal .l-body{animation:wipe 680ms 600ms cubic-bezier(.16,1,.3,1) backwards}
+  @keyframes wipe{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+  .seal .l-q{transform-origin:50% 47%;animation:set 520ms cubic-bezier(.16,1,.3,1) backwards}
+  .seal .l-gold{animation-delay:880ms}.seal .l-sail{animation-delay:960ms}
+  .seal .l-globe{animation-delay:1040ms}.seal .l-waves{animation-delay:1120ms}
+  .seal .l-stars{animation-delay:1200ms}
+  @keyframes set{from{opacity:0;transform:scale(.58)}to{opacity:1;transform:none}}
+  .seal .l-type{animation:engrave 760ms 1380ms cubic-bezier(.16,1,.3,1) backwards}
+  @keyframes engrave{from{opacity:0;filter:blur(7px);transform:scale(1.035)}
+                     to{opacity:1;filter:blur(0);transform:none}}
+}
+
+/* =====================================================================
+   COUNTDOWN — replaces the reference's stat counters.
+   We have no students to count. We have a date.
+   ===================================================================== */
+.count{background:var(--paper);border-block-end:1px solid var(--rule)}
+.count__in{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+           gap:1.5rem clamp(1.5rem,4vw,3.5rem);padding-block:clamp(2rem,5vh,3rem)}
+.count__cell + .count__cell{border-inline-start:1px solid var(--rule);padding-inline-start:clamp(1.5rem,4vw,3.5rem)}
+.count__n{font-family:var(--figure);font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1;
+          color:var(--purple);font-variant-numeric:tabular-nums}
+.count__k{font-family:var(--figure);font-size:1rem;color:var(--ink);margin-inline-start:.4rem}
+.count__d{font-size:.8125rem;color:var(--muted);margin-block-start:.5rem;max-inline-size:26ch}
+
+/* =====================================================================
+   PROGRAMME CARDS — the signature circle-fill hover
+   ===================================================================== */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin-block-start:2rem}
+.card{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--rule);
+      border-radius:var(--r);padding:1.5rem;min-block-size:11rem;
+      display:flex;flex-direction:column;gap:.75rem;text-decoration:none;background:transparent}
+/* the circle grows from the pointer and floods the card */
+.card::before{content:"";position:absolute;inline-size:230%;aspect-ratio:1;border-radius:50%;
+              background:var(--ink);z-index:-1;
+              inset-block-start:var(--my,50%);inset-inline-start:var(--mx,50%);
+              transform:translate(-50%,-50%) scale(0);
+              transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.card:hover::before,.card:focus-visible::before{transform:translate(-50%,-50%) scale(1)}
+.card h3,.card p,.card .pill,.card .arrow{transition:color .3s ease,border-color .3s ease}
+.card:hover h3,.card:focus-visible h3{color:var(--paper)}
+.card:hover p,.card:focus-visible p{color:var(--muted-ink)}
+.card:hover .pill,.card:focus-visible .pill{color:var(--paper);border-color:var(--rule-ink)}
+.card:hover .arrow,.card:focus-visible .arrow{color:var(--ink);background:var(--gold);border-color:var(--gold);transform:translateX(3px)}
+.card__foot{margin-block-start:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.card p{color:var(--muted);font-size:.9375rem}
+.card[aria-disabled="true"]{opacity:.55;pointer-events:none}
+
+/* =====================================================================
+   BANDS
+   ===================================================================== */
+.band{padding-block:var(--sec)}
+.band--green{background:var(--green);color:var(--paper)}
+.band--ink{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.band--ink::before{content:"";position:absolute;inset-block-end:0;inset-inline-start:0;
+  inline-size:44%;block-size:70%;
+  background:url("./assets/seal-l6-waves.svg") no-repeat 39% 62%/320%;opacity:.10;pointer-events:none}
+.band--green .lede,.band--ink .lede{color:var(--muted-ink)}
+.band__in{position:relative}
+
+/* word-by-word reveal; JS dims then lights. Default is fully readable. */
+.reveal span{transition:color .4s ease,opacity .4s ease}
+.reveal.is-armed span{color:rgba(243,238,228,.24)}
+.reveal.is-armed span.on{color:inherit}
+
+/* milestone list */
+.miles__warn{margin-block-start:2rem;font-size:.8125rem;color:var(--gold);max-inline-size:60ch;
+             border-inline-start:2px solid var(--gold);padding-inline-start:.9rem}
+.miles{list-style:none;margin:1.5rem 0 0;padding:0;border-block-start:1px solid var(--rule-ink)}
+.miles li{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;
+          align-items:baseline;padding-block:1.1rem;border-block-end:1px solid var(--rule-ink)}
+.miles time{font-family:var(--figure);color:var(--gold);font-variant-numeric:tabular-nums}
+.miles .st{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-ink)}
+.miles .st.done{color:var(--gold)}
+
+/* honest empty state for photography */
+.shot{margin-block-start:2.5rem;border:1px dashed var(--rule-ink);border-radius:var(--r);
+      padding:clamp(2rem,6vw,3.5rem);text-align:center;color:var(--muted-ink)}
+.shot p{font-size:.9375rem;max-inline-size:44ch;margin-inline:auto}
+
+/* =====================================================================
+   NOTICE BOARD (Information / Events / Circulars) + SCHOOL CALENDAR
+   ===================================================================== */
+/* --- three tabloids, on the green band --- */
+.tabloids{display:grid;grid-template-columns:repeat(auto-fit,minmax(17.5rem,1fr));
+          gap:clamp(1rem,1.6vw,1.4rem);margin-block-start:clamp(2rem,4vw,2.75rem)}
+.tabloid{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;
+         gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);
+         min-block-size:clamp(20rem,25vw,23.5rem);border-radius:var(--r);
+         border:1px solid rgba(243,238,228,.28);color:var(--paper);text-decoration:none}
+/* same circle-flood as the programme cards, inverted: cream floods the green */
+.tabloid::before{content:"";position:absolute;inline-size:230%;aspect-ratio:1;border-radius:50%;
+  background:var(--paper);z-index:-1;
+  inset-block-start:var(--my,50%);inset-inline-start:var(--mx,50%);
+  transform:translate(-50%,-50%) scale(0);
+  transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.tabloid:hover::before,.tabloid:focus-visible::before{transform:translate(-50%,-50%) scale(1)}
+.tabloid,.tabloid .pill,.tabloid .arrow,.tabloid time,.tabloid .tl__note,.tabloid .tl__foot{
+  transition:color .3s ease,border-color .3s ease,background .3s ease}
+.tabloid .pill{align-self:start;color:var(--paper);border-color:rgba(243,238,228,.42)}
+.tabloid .arrow{border-color:currentColor}
+.tabloid:hover,.tabloid:focus-visible{color:var(--ink)}
+.tabloid:hover .pill,.tabloid:focus-visible .pill{color:var(--ink);border-color:var(--rule)}
+.tabloid:hover time,.tabloid:focus-visible time{color:var(--purple)}
+.tabloid:hover .tl__note,.tabloid:focus-visible .tl__note{color:var(--muted)}
+.tabloid:hover .arrow,.tabloid:focus-visible .arrow{background:var(--gold);border-color:var(--gold);
+  color:var(--ink);transform:translateX(3px)}
+
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:1.05rem}
+.tl li{display:grid;gap:.15rem}
+.tl time{font-family:var(--figure);font-size:.82rem;color:var(--gold);font-variant-numeric:tabular-nums}
+.tl b{font-weight:500;font-size:1rem;line-height:1.4}
+.tl__note{font-size:.975rem;color:var(--muted-ink);line-height:1.6}
+.tl__foot{margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;
+          justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;
+          text-transform:uppercase}
+
+/* entrance stagger; JS arms it, so without JS all three are simply there */
+.tabloids.is-armed .tabloid{opacity:0;transform:translateY(14px)}
+.tabloids.is-armed .tabloid.on{opacity:1;transform:none;
+  transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+
+/* --- calendar: now the feature of the paper section --- */
+.calsec{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+        gap:clamp(1.75rem,5vw,4.5rem);align-items:center;margin-block-start:2rem}
+.keydates{list-style:none;margin:2rem 0 0;padding:0;border-block-start:1px solid var(--rule)}
+.keydates li{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;
+             align-items:baseline;padding-block:.95rem;border-block-end:1px solid var(--rule)}
+.keydates b{font-weight:500;font-size:.95rem}
+.keydates time,.keydates .tbc{font-family:var(--figure);color:var(--purple);
+                              font-variant-numeric:tabular-nums;white-space:nowrap}
+.keydates .tbc{color:var(--muted)}
+
+.cal{border:1px solid var(--rule);border-radius:var(--r);padding:clamp(1.5rem,3vw,2.25rem);
+     background:var(--paper)}
+/* .cal.cal--lg, not .cal--lg: the base .cal rules below have equal specificity
+   and come later in the file, so a single class would lose on source order. */
+.cal.cal--lg caption{font-size:1.15rem}
+.cal.cal--lg .cal__title{font-size:1.05rem}
+.cal.cal--lg td{padding:.28rem 0;font-size:.95rem}
+.cal.cal--lg td span{inline-size:2.65rem;block-size:2.65rem}
+.cal.cal--lg th{font-size:.72rem}
+@media (max-width:60rem){ .calsec{grid-template-columns:1fr} }
+.cal__head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+           margin-block-end:1.1rem}
+.cal__title{font-family:var(--display);text-transform:uppercase;font-weight:600;font-size:.95rem;
+            letter-spacing:-.01em;margin:0}
+.cal__nav{display:flex;gap:.4rem}
+.cal__nav button{inline-size:1.9rem;block-size:1.9rem;border-radius:50%;border:1px solid var(--rule);
+                 background:none;color:inherit;font:inherit;line-height:1;cursor:pointer;
+                 transition:background .2s ease,color .2s ease,border-color .2s ease}
+.cal__nav button:hover{background:var(--purple);color:var(--paper);border-color:var(--purple)}
+.cal table{inline-size:100%;border-collapse:collapse}
+.cal caption{font-family:var(--figure);font-size:.95rem;padding-block-end:.6rem;color:var(--ink)}
+.cal th{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+        font-weight:600;padding-block:.35rem}
+.cal td{text-align:center;padding:.15rem 0;font-size:.85rem;font-variant-numeric:tabular-nums}
+.cal td span{display:grid;place-items:center;inline-size:2rem;block-size:2rem;margin-inline:auto;
+             border-radius:50%}
+.cal .out span{color:rgba(23,6,31,.26)}
+.cal .today span{box-shadow:inset 0 0 0 1px var(--rule)}
+.cal .mark span{background:var(--gold);color:var(--ink);font-weight:600}
+.cal__key{margin-block-start:1.1rem;padding-block-start:.9rem;border-block-start:1px solid var(--rule);
+          display:flex;gap:.55rem;align-items:center;font-size:.8125rem;color:var(--muted);
+          background:none;border-inline:0;border-block-end:0;font-family:inherit;cursor:pointer;
+          inline-size:100%;text-align:start}
+.cal__key i{inline-size:.7rem;block-size:.7rem;border-radius:50%;background:var(--gold);flex:none}
+.cal__key:hover{color:var(--purple)}
+.cal__fallback{list-style:none;margin:0;padding:0;font-size:.875rem}
+.cal__fallback li{display:flex;gap:.75rem;justify-content:space-between;padding-block:.5rem;
+                  border-block-end:1px solid var(--rule)}
+.cal__fallback time{font-family:var(--figure);color:var(--purple)}
+
+@media (max-width:60rem){ .nb{grid-template-columns:1fr} }
+
+/* =====================================================================
+   NEWSLETTER + FOOTER
+   ===================================================================== */
+.news{background:var(--paper-2);padding-block:var(--sec)}
+.news__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+          gap:clamp(1.5rem,5vw,4rem);align-items:center}
+.form{display:flex;flex-wrap:wrap;gap:.75rem;align-items:end}
+.form label{flex:1 1 15rem;display:grid;gap:.4rem}
+.form label span{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.form input{font:inherit;font-size:.9375rem;padding:.85rem 1rem;border:1px solid var(--rule);
+            border-radius:99px;background:var(--paper);color:var(--ink)}
+.form input::placeholder{color:#8A7794}
+.note{font-size:.8125rem;color:var(--muted);margin-block-start:.9rem}
+
+.foot{background:var(--ink);color:var(--paper);padding-block:4rem 2.5rem}
+.foot__top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2.5rem clamp(2rem,6vw,5rem);align-items:start}
+.foot__cols{display:grid;gap:2rem clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
+.foot h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 .8rem;font-weight:600}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.foot a{font-size:.9rem;color:var(--muted-ink);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot__seal{inline-size:clamp(110px,15vw,150px)}
+.foot__ar{font-family:var(--arabic);direction:rtl;color:var(--muted-ink);font-size:.95rem;margin-block-start:.6rem}
+.foot__pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem}
+.foot__base{margin-block-start:3rem;padding-block-start:1.5rem;border-block-start:1px solid var(--rule-ink);
+            display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;
+            font-size:.8125rem;color:#9C86AB}
+
+@media (max-width:52rem){
+  .hero__in{grid-template-columns:1fr}
+  .seal{max-inline-size:230px;margin-inline:0}
+  .news__in,.foot__top{grid-template-columns:1fr}
+  .count__cell + .count__cell{border-inline-start:0;padding-inline-start:0}
+  .miles li{grid-template-columns:1fr auto}
+}
+.compbar{position:sticky;top:0;z-index:80;background:#000;color:#fff;font-size:.7rem;
+         letter-spacing:.1em;text-transform:uppercase;padding:.45rem var(--gutter);display:flex;gap:1.25rem}
+.compbar a{color:var(--gold);text-decoration:none}
+.compbar span{color:#999}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="compbar"><strong>C6</strong><span>reference-led redesign</span><a href="./index.html">all comps</a></div>
+
+<!-- ============================ NAV ============================ -->
+<div class="bar">
+  <div class="wrap bar__in">
+    <a class="brand" href="#">
+      <img src="./assets/shield.svg" alt="">
+      <span style="display:block">
+        <b style="display:block">DPS Millennium</b>
+        <span>International School</span>
+      </span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menu</button>
+
+    <ul class="menu" id="menu">
+      <li class="plain"><a href="#top">Home</a></li>
+      <li>
+        <a href="#" aria-haspopup="true">About Us</a>
+        <ul class="sub">
+          <li><a href="#">Mission &amp; Vision</a></li>
+          <li><a href="#">Objectives</a></li>
+          <li><a href="#">Key Visionaries</a></li>
+          <li><a href="#">The DPS Group</a></li>
+          <li><a href="#">Our Story</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" aria-haspopup="true">The Campus</a>
+        <ul class="sub">
+          <li><a href="#campus">Construction Progress</a></li>
+          <li><a href="#">Location &amp; Access</a></li>
+          <li class="off"><a href="#">Facilities</a></li>
+          <li class="off"><a href="#">Virtual Tour</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" aria-haspopup="true">Admissions</a>
+        <ul class="sub">
+          <li><a href="#register">Register Interest</a></li>
+          <li><a href="#">Fees Structure</a></li>
+          <li class="off"><a href="#">How to Apply</a></li>
+          <li class="off"><a href="#">Age &amp; Year Groups</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#notices" aria-haspopup="true">Notice Board</a>
+        <ul class="sub">
+          <li><a href="#notices">Information Corner</a></li>
+          <li><a href="#notices">Events Corner</a></li>
+          <li><a href="#notices">Academic Circulars</a></li>
+          <li><a href="#notices">School Calendar</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" aria-haspopup="true">Curriculum</a>
+        <ul class="sub">
+          <li><a href="#">CBSE at Millennium</a></li>
+          <li class="off"><a href="#">Subjects Offered</a></li>
+          <li class="off"><a href="#">Assessment</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" aria-haspopup="true">Contact</a>
+        <ul class="sub">
+          <li><a href="#">Enquiry Form</a></li>
+          <li><a href="#">P.O. Box &amp; Address</a></li>
+          <li><a href="#">Phone &amp; Email</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="bar__cta"><a class="btn btn--gold" href="#register">Register</a></div>
+  </div>
+</div>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <div class="wrap hero__in">
+    <div>
+      <p class="eyebrow">Al Wukair, Qatar &middot; CBSE</p>
+      <h1 class="h h--xl">Right now, this school is a building site.</h1>
+      <p class="hero__sub">It opens as DPS Millennium International School in April 2027.
+        Until then, we&rsquo;ll show you exactly how it&rsquo;s coming along.</p>
+      <div class="hero__cta">
+        <a class="btn btn--gold" href="#register">Register your interest</a>
+        <a class="btn btn--ghost" href="#campus">See the campus</a>
+      </div>
+    </div>
+
+    <div class="seal" role="img" aria-label="DPS Millennium International School crest">
+      <img class="l-ring"      src="./assets/seal-l1-ring.svg" alt="">
+      <img class="l-body"      src="./assets/seal-l2-body.svg" alt="">
+      <img class="l-q l-gold"  src="./assets/seal-l3-gold.svg" alt="">
+      <img class="l-q l-sail"  src="./assets/seal-l4-sail.svg" alt="">
+      <img class="l-q l-globe" src="./assets/seal-l5-globe.svg" alt="">
+      <img class="l-q l-waves" src="./assets/seal-l6-waves.svg" alt="">
+      <img class="l-q l-stars" src="./assets/seal-l7-stars.svg" alt="">
+      <img class="l-type"      src="./assets/seal-l8-lettering.svg" alt="">
+    </div>
+  </div>
+</header>
+
+<!-- ======================= COUNTDOWN ======================= -->
+<section class="count" aria-labelledby="cd-h">
+  <h2 id="cd-h" class="visually-hidden" style="position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%)">Time until opening</h2>
+  <div class="wrap count__in">
+    <div class="count__cell">
+      <p class="count__n"><span id="cd-days">241</span><span class="count__k">Days</span></p>
+      <p class="count__d">Until the tentative opening on 4&nbsp;April&nbsp;2027.</p>
+    </div>
+    <div class="count__cell">
+      <p class="count__n">25<span class="count__k">Years</span></p>
+      <p class="count__d">DPS Modern Indian School has taught in Doha for twenty-five years.</p>
+    </div>
+    <div class="count__cell">
+      <p class="count__n">2<span class="count__k">Schools</span></p>
+      <p class="count__d">Already operating in Qatar under the DPS Group.</p>
+    </div>
+    <div class="count__cell">
+      <p class="count__n">1<span class="count__k">Board</span></p>
+      <p class="count__d">CBSE, the same board taught at both sister schools.</p>
+    </div>
+  </div>
+</section>
+
+<main>
+  <!-- ======================= QUICK LINKS / CARDS ======================= -->
+  <section class="wrap band on-paper" id="links" aria-labelledby="l-h">
+    <p class="eyebrow">Quick links</p>
+    <h2 id="l-h" class="h h--lg">Everything a parent asks first.</h2>
+    <ul class="slash" style="margin-block-start:1.5rem">
+      <li class="is-on">/Prospective</li><li>/Current</li><li>/Ministry</li>
+    </ul>
+
+    <div class="cards">
+      <a class="card" href="#">
+        <span class="pill">/Admissions</span>
+        <h3 class="h h--md">Fees structure</h3>
+        <p>What a place costs, per year group.</p>
+        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="pill">/About</span>
+        <h3 class="h h--md">About us</h3>
+        <p>Mission, vision, and who is building this.</p>
+        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="card" href="#">
+        <span class="pill">/Contact</span>
+        <h3 class="h h--md">Contact us</h3>
+        <p>P.O. Box, phone, email, and an enquiry form.</p>
+        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="card" href="#" aria-disabled="true">
+        <span class="pill">/Soon</span>
+        <h3 class="h h--md">Apply online</h3>
+        <p>Opens once admissions dates are confirmed.</p>
+        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ NOTICE BOARD — three tabloids, green band ============ -->
+  <section class="band band--green" id="notices" aria-labelledby="nb-h">
+    <div class="wrap band__in">
+      <!-- "Notice board" is now the section's real heading, not a label above one —
+           so it carries display scale, matching every other band. -->
+      <h2 class="h h--lg reveal" id="nb-h" data-reveal>Notice board</h2>
+
+      <div class="tabloids" data-rise>
+        <!-- 1 — Information corner -->
+        <a class="tabloid" href="#">
+          <span class="pill">/Information</span>
+          <h3 class="h h--md">Information corner</h3>
+          <ul class="tl">
+            <li><time datetime="2026-08-01">1 Aug 2026</time><b>Registration of interest is open</b></li>
+            <li><time datetime="2026-07-14">14 Jul 2026</time><b>Construction underway in Al Wukair</b></li>
+            <li><time datetime="2026-06-02">2 Jun 2026</time><b>Curriculum confirmed as CBSE</b></li>
+          </ul>
+          <span class="tl__foot"><span>All information</span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <!-- 2 — Events corner -->
+        <a class="tabloid" href="#">
+          <span class="pill">/Events</span>
+          <h3 class="h h--md">Events corner</h3>
+          <p class="tl__note">No events yet. Campus open days and admissions sessions will be listed
+            here as soon as dates are set &mdash; register and we&rsquo;ll email you first.</p>
+          <span class="tl__foot"><span>Register for updates</span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <!-- 3 — Academic circulars -->
+        <a class="tabloid" href="#">
+          <span class="pill">/Circulars</span>
+          <h3 class="h h--md">Academic circulars</h3>
+          <p class="tl__note">Circulars are issued to enrolled families once the school year starts in
+            April 2027. Anything families need before then is posted under Information.</p>
+          <span class="tl__foot"><span>From April 2027</span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCHOOL CALENDAR ==================== -->
+  <section class="band on-paper" id="calendar" aria-labelledby="cs-h">
+    <div class="wrap calsec">
+      <div>
+        <p class="eyebrow">Key dates</p>
+        <h2 id="cs-h" class="h h--lg">The things that are already decided.</h2>
+        <p class="lede" style="margin-block-start:1.25rem">A CBSE curriculum, a campus in Al Wukair, and
+          a target opening of April 2027. Everything else we add as it becomes true &mdash; not before.</p>
+        <ul class="keydates">
+          <li><b>School opens</b><time datetime="2027-04-04">4 April 2027</time></li>
+          <li><b>Admissions dates</b><span class="tbc">To be confirmed</span></li>
+          <li><b>Fee structure published</b><span class="tbc">To be confirmed</span></li>
+          <li><b>Academic year 2027&ndash;28</b><span class="tbc">To be published</span></li>
+        </ul>
+      </div>
+
+      <aside class="cal cal--lg" aria-labelledby="cal-h">
+        <div class="cal__head">
+          <h3 class="cal__title" id="cal-h">School calendar</h3>
+          <div class="cal__nav">
+            <button type="button" id="cal-prev" aria-label="Previous month">&lsaquo;</button>
+            <button type="button" id="cal-next" aria-label="Next month">&rsaquo;</button>
+          </div>
+        </div>
+        <div id="cal-grid">
+          <!-- Real content, present without JavaScript. JS upgrades this to a month grid. -->
+          <ul class="cal__fallback">
+            <li><span>School opens</span><time datetime="2027-04-04">4 Apr 2027</time></li>
+            <li><span>Admissions dates</span><time>To be confirmed</time></li>
+            <li><span>Academic year 2027&ndash;28</span><time>To be published</time></li>
+          </ul>
+        </div>
+        <button class="cal__key" type="button" id="cal-jump"><i></i> Confirmed key date &mdash; 4 April 2027</button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ======================= CAMPUS / INK BAND ======================= -->
+  <section class="band band--ink" id="campus" aria-labelledby="c-h">
+    <div class="wrap band__in">
+      <p class="eyebrow">The campus</p>
+      <h2 id="c-h" class="h h--lg reveal" data-reveal>Watch it go up before your child walks into it.</h2>
+
+      <p class="miles__warn">Placeholder schedule &mdash; these milestones and statuses are invented to show
+        the layout. Nothing here ships until the school supplies the real construction programme.</p>
+      <ol class="miles">
+        <li><time datetime="2026-01">Jan 2026</time><span>Site handover and enabling works</span><span class="st done">Complete</span></li>
+        <li><time datetime="2026-06">Jun 2026</time><span>Foundations and substructure</span><span class="st done">Complete</span></li>
+        <li><time datetime="2026-11">Nov 2026</time><span>Superstructure and envelope</span><span class="st">In progress</span></li>
+        <li><time datetime="2027-02">Feb 2027</time><span>Fit-out, furniture and testing</span><span class="st">Scheduled</span></li>
+        <li><time datetime="2027-04-04">4 Apr 2027</time><span>Doors open</span><span class="st">Tentative</span></li>
+      </ol>
+
+      <div class="shot">
+        <p>Construction photographs will appear here as the site is shot. We&rsquo;d rather show you
+          nothing than show you someone else&rsquo;s school.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= NEWSLETTER ======================= -->
+  <section class="news" id="register" aria-labelledby="n-h">
+    <div class="wrap news__in">
+      <div>
+        <p class="eyebrow" style="color:var(--green)">Register interest</p>
+        <h2 id="n-h" class="h h--lg">Hear it first.</h2>
+        <p class="lede" style="margin-block-start:1rem">Construction updates, admissions dates, and the fee
+          structure when it&rsquo;s confirmed. Roughly once a month, and nothing else.</p>
+      </div>
+      <div>
+        <form class="form" onsubmit="return false">
+          <label>
+            <span>Email address</span>
+            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <button class="btn" type="submit">Register</button>
+        </form>
+        <p class="note">Placeholder only &mdash; this form has no destination until hosting is decided.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <img class="foot__seal" src="./assets/seal.svg" alt="">
+        <p class="foot__ar">&#1605;&#1583;&#1585;&#1587;&#1577; &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</p>
+        <div class="foot__pills">
+          <a class="btn btn--ghost" href="#register">Register</a>
+          <a class="btn btn--ghost" href="#">Fees</a>
+          <a class="btn btn--ghost" href="#">Contact</a>
+        </div>
+      </div>
+      <div class="foot__cols">
+        <div><h4>About</h4><ul>
+          <li><a href="#">Mission &amp; Vision</a></li><li><a href="#">Objectives</a></li>
+          <li><a href="#">Key Visionaries</a></li><li><a href="#">Our Story</a></li></ul></div>
+        <div><h4>Admissions</h4><ul>
+          <li><a href="#">Register Interest</a></li><li><a href="#">Fees Structure</a></li>
+          <li><a href="#">Year Groups</a></li></ul></div>
+        <div><h4>Campus</h4><ul>
+          <li><a href="#campus">Progress</a></li><li><a href="#">Al Wukair, Qatar</a></li></ul></div>
+        <div><h4>DPS Group</h4><ul>
+          <li><a href="#">DPS Modern Indian School</a></li>
+          <li><a href="#">DPS Monarch International School</a></li></ul></div>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p>DPS Millennium International School &middot; part of the DPS Group of Institutions</p>
+      <p>Tentative opening <time datetime="2027-04-04">4 April 2027</time> &middot; Arabic site to follow</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- mobile menu ---- */
+(function(){
+  var b=document.getElementById('burger'),m=document.getElementById('menu');
+  if(!b||!m)return;
+  b.addEventListener('click',function(){
+    var open=m.classList.toggle('is-open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+  });
+})();
+
+/* ---- circle-fill origin follows the pointer ---- */
+(function(){
+  document.querySelectorAll('.card, .tabloid').forEach(function(c){
+    function at(e){
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    }
+    c.addEventListener('pointerenter',at);
+    c.addEventListener('pointerleave',at);
+  });
+})();
+
+/* ---- word-by-word reveal. Text is fully readable without this. ---- */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!window.IntersectionObserver)return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var spans=e.target.querySelectorAll('span');
+      spans.forEach(function(s,i){setTimeout(function(){s.classList.add('on');},i*55);});
+      io.unobserve(e.target);
+    });
+  },{threshold:.4});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){
+    el.innerHTML=el.textContent.trim().split(/\s+/)
+      .map(function(w){return '<span>'+w+'</span>';}).join(' ');
+    el.classList.add('is-armed');
+    io.observe(el);
+  });
+})();
+
+/* ---- tabloids rise in, once, staggered ---- */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!window.IntersectionObserver) return;
+  document.querySelectorAll('[data-rise]').forEach(function(group){
+    group.classList.add('is-armed');
+    new IntersectionObserver(function(es,ob){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        [].slice.call(e.target.children).forEach(function(el,i){
+          setTimeout(function(){el.classList.add('on');},i*110);
+        });
+        ob.unobserve(e.target);
+      });
+    },{threshold:.2}).observe(group);
+  });
+})();
+
+/* ---- school calendar. The fallback list above is the no-JS content. ---- */
+(function(){
+  var grid=document.getElementById('cal-grid'); if(!grid) return;
+  var OPEN={y:2027,m:3,d:4};                       // 4 April 2027 (month is 0-based)
+  var MON=['January','February','March','April','May','June','July','August',
+           'September','October','November','December'];
+  var DAY=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  var now=new Date(), cur={y:now.getFullYear(),m:now.getMonth()};
+
+  function render(){
+    var first=new Date(cur.y,cur.m,1), start=first.getDay();
+    var days=new Date(cur.y,cur.m+1,0).getDate();
+    var prev=new Date(cur.y,cur.m,0).getDate();
+    var html='<table><caption>'+MON[cur.m]+' '+cur.y+'</caption><thead><tr>'+
+      DAY.map(function(d){return '<th scope="col"><abbr title="'+d+'">'+d+'</abbr></th>';}).join('')+
+      '</tr></thead><tbody><tr>';
+    var cell=0,i;
+    for(i=0;i<start;i++){html+='<td class="out"><span>'+(prev-start+1+i)+'</span></td>';cell++;}
+    for(i=1;i<=days;i++){
+      if(cell&&cell%7===0) html+='</tr><tr>';
+      var isOpen=cur.y===OPEN.y&&cur.m===OPEN.m&&i===OPEN.d;
+      var isToday=cur.y===now.getFullYear()&&cur.m===now.getMonth()&&i===now.getDate();
+      var cls=isOpen?'mark':isToday?'today':'';
+      var lbl=isOpen?' aria-label="'+i+' '+MON[cur.m]+' — school opens"':'';
+      html+='<td class="'+cls+'"'+lbl+'><span>'+i+'</span></td>';
+      cell++;
+    }
+    var tail=1;
+    while(cell%7){html+='<td class="out"><span>'+(tail++)+'</span></td>';cell++;}
+    grid.innerHTML=html+'</tr></tbody></table>';
+  }
+  function step(n){cur.m+=n; if(cur.m>11){cur.m=0;cur.y++;} if(cur.m<0){cur.m=11;cur.y--;} render();}
+  document.getElementById('cal-prev').addEventListener('click',function(){step(-1);});
+  document.getElementById('cal-next').addEventListener('click',function(){step(1);});
+  document.getElementById('cal-jump').addEventListener('click',function(){
+    cur={y:OPEN.y,m:OPEN.m}; render();
+  });
+  render();
+})();
+
+/* ---- live countdown; the static number in the markup is the fallback ---- */
+(function(){
+  var el=document.getElementById('cd-days');
+  if(!el)return;
+  var d=Math.max(0,Math.ceil((new Date('2027-04-04T00:00:00+03:00')-new Date())/864e5));
+  el.textContent=d.toLocaleString('en');
+})();
+</script>
+</body>
+</html>

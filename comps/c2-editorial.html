@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C2 — Editorial · DPS Millennium comp</title>
+<link rel="icon" href="./assets/shield.svg">
+<link rel="stylesheet" href="./tokens.css">
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+    padding-block: clamp(3rem, 9vh, 7rem) clamp(4rem, 11vh, 8rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 1.1rem + 5.2vw, 4.6rem);
+    line-height: 0.98;
+    max-inline-size: 13ch;
+  }
+  .hero__eyebrow { margin-block-end: 1.75rem; }
+  .hero__sub {
+    font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.28rem);
+    color: var(--muted);
+    max-inline-size: 42ch;
+    margin-block-start: 1.6rem;
+    padding-inline-start: 1.25rem;
+    border-inline-start: 3px solid var(--gold);
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin-block-start: 2.5rem; }
+  .hero__seal { inline-size: 100%; max-inline-size: 400px; margin-inline-start: auto; }
+
+  /* Sections read as an editorial two-column: label rail, then copy. */
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(1rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  .row .key { margin-block-end: 0; }
+  .row .lede { max-inline-size: 44ch; }
+  .row__no {
+    font-family: var(--display);
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-block-end: 0.9rem;
+  }
+  @media (max-width: 52rem) {
+    .hero { grid-template-columns: 1fr; }
+    .hero__seal { max-inline-size: 260px; margin-inline: 0; order: -1; }
+    .row { grid-template-columns: 1fr; gap: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="compbar">
+  <strong>C2 — Editorial</strong>
+  <span>asymmetric · type-led · magazine</span>
+  <a href="./index.html">all comps</a>
+</div>
+
+<header class="wrap">
+  <nav class="nav">
+    <a class="nav__brand" href="#">
+      <img src="./assets/shield.svg" alt="">
+      <span class="nav__name">DPS Millennium</span>
+    </a>
+    <div class="nav__links">
+      <a href="#now">What we know</a>
+      <a href="#campus">The campus</a>
+      <a href="#group">DPS group</a>
+      <a class="btn" href="#register">Register interest</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <p class="util hero__eyebrow">Al Wukair, Qatar &middot; CBSE &middot; Opening 4 April 2027</p>
+      <h1>Right now, this school is a building site.</h1>
+      <p class="hero__sub">On 4 April 2027 it opens as DPS Millennium International School.
+        Until then, we&rsquo;ll show you exactly how it&rsquo;s coming along.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#register">Register your interest</a>
+        <a class="textlink" href="#now">What we can tell you now</a>
+      </div>
+    </div>
+    <img class="hero__seal" src="./assets/seal-900.png"
+         alt="DPS Millennium International School crest">
+  </section>
+
+  <div class="wrap">
+    <section class="section row" id="now" style="--k: var(--green)">
+      <div>
+        <p class="row__no">01</p>
+        <div class="key"><h2>What we can tell you now</h2></div>
+      </div>
+      <p class="lede">The things that are already decided: a CBSE curriculum, a campus in
+        Al Wukair, and doors opening on 4 April 2027. Everything else on this page, we add
+        as it becomes true.</p>
+    </section>
+
+    <section class="section row" id="campus" style="--k: var(--gold)">
+      <div>
+        <p class="row__no">02</p>
+        <div class="key"><h2>The campus</h2></div>
+      </div>
+      <p class="lede">Construction is underway. We&rsquo;ll post progress here as it happens
+        &mdash; foundations, structure, classrooms &mdash; so you can watch the school take
+        shape before your child ever walks into it.</p>
+    </section>
+
+    <section class="section row" style="--k: var(--indigo)">
+      <div>
+        <p class="row__no">03</p>
+        <div class="key"><h2>Curriculum</h2></div>
+      </div>
+      <p class="lede">We teach the CBSE curriculum, the same board followed at our two sister
+        schools in Doha.</p>
+    </section>
+
+    <section class="section row" id="group" style="--k: var(--purple)">
+      <div>
+        <p class="row__no">04</p>
+        <div class="key"><h2>The DPS group</h2></div>
+      </div>
+      <p class="lede">We are not starting from nothing. DPS Modern Indian School and DPS
+        Monarch International School already run in Doha. The people opening this school have
+        opened schools before.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="foot" id="register">
+  <div class="wrap foot__grid">
+    <div>
+      <img class="foot__seal" src="./assets/seal-900.png" alt="">
+      <p class="foot__tag">Empowering Educational Excellence</p>
+      <p class="foot__ar">&#1605;&#1583;&#1585;&#1587;&#1577; &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</p>
+    </div>
+    <div class="foot__cols">
+      <div>
+        <p class="util">Campus</p>
+        <p>Al Wukair<br>Qatar</p>
+      </div>
+      <div>
+        <p class="util">Sister schools</p>
+        <ul>
+          <li><a href="#">DPS Modern Indian School</a></li>
+          <li><a href="#">DPS Monarch International School</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="util">Opening</p>
+        <p>4 April 2027</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap foot__base">
+    <p>DPS Millennium International School &middot; part of the DPS Group of Institutions</p>
+    <p>Arabic site to follow</p>
+  </div>
+</footer>
+
+</body>
+</html>

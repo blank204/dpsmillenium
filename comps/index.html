@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPS Millennium — homepage comps</title>
+<link rel="icon" href="./assets/shield.svg">
+<link rel="stylesheet" href="./tokens.css">
+<style>
+  .head { padding-block: clamp(3rem, 8vh, 5rem) 2.5rem; }
+  .head h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); max-inline-size: 20ch; }
+  .head p { color: var(--muted); max-inline-size: 52ch; margin-block-start: 1.25rem; }
+  .list { display: grid; gap: 1px; background: var(--rule); border-block: 1px solid var(--rule);
+          margin-block: 3rem 5rem; }
+  .item {
+    background: var(--paper);
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(1rem, 3vw, 2.5rem); align-items: center;
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+    text-decoration: none;
+    transition: background 0.18s ease;
+  }
+  .item:hover { background: var(--paper-2); }
+  .item__no { font-family: var(--display); font-size: 1.5rem; color: var(--k); inline-size: 2.5rem; }
+  .item h2 { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.65rem); }
+  .item p { color: var(--muted); font-size: 0.9375rem; margin-block-start: 0.35rem; }
+  .item__go { color: var(--green); font-size: 0.875rem; font-weight: 600;
+              letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  @media (max-width: 40rem) { .item__go { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap head">
+  <p class="util">Direction C &mdash; The Seal &middot; round one</p>
+  <h1>Four ways to build the same idea.</h1>
+  <p>Same palette, same type, same copy, same content. Only the composition changes, so the
+    comparison is about layout and weight &mdash; nothing else. Open each, then tell me which
+    one to push.</p>
+</div>
+
+<div class="wrap">
+  <div class="list">
+    <a class="item" href="./c1-ceremony.html" style="--k: var(--green)">
+      <span class="item__no">01</span>
+      <span>
+        <h2>Ceremony</h2>
+        <p>Symmetric and seal-led. The crest is large and centred, everything hangs beneath
+          it. Most formal, easiest sell to a board.</p>
+      </span>
+      <span class="item__go">View</span>
+    </a>
+    <a class="item" href="./c2-editorial.html" style="--k: var(--gold)">
+      <span class="item__no">02</span>
+      <span>
+        <h2>Editorial</h2>
+        <p>Asymmetric and type-led. Headline carries the page, crest sits beside it.
+          Reads like a magazine rather than a prospectus.</p>
+      </span>
+      <span class="item__go">View</span>
+    </a>
+    <a class="item" href="./c3-frame.html" style="--k: var(--indigo)">
+      <span class="item__no">03</span>
+      <span>
+        <h2>Frame</h2>
+        <p>The shield&rsquo;s 2&times;2 becomes literal page structure. Biggest type, smallest
+          crest. Most graphic, furthest from a default school site.</p>
+      </span>
+      <span class="item__go">View</span>
+    </a>
+    <a class="item" href="./c4-ink.html" style="--k: var(--purple)">
+      <span class="item__no">04</span>
+      <span>
+        <h2>Ink</h2>
+        <p>Inverted hero &mdash; gold on deep purple-black, then paper below. Tests whether
+          the crest wants a dark ground.</p>
+      </span>
+      <span class="item__go">View</span>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
