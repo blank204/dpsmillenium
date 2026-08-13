@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Arabic";src:url("assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--t:2.4s;--gutter:clamp(1.25rem,5vw,4.5rem);--cardpad:clamp(1.5rem,2.2vw,2.25rem);--dirpad:calc(clamp(1.25rem,5vw,4.5rem) - clamp(1.5rem,2.2vw,2.25rem));caret-color:#400068;accent-color:#400068}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scrollbar-color:rgba(23,6,31,.3) #F3EEE4}
+body{margin:0;background:#F3EEE4;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;height:auto;display:block}
+p,h1,h2,h3,h4{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{color:#D8A800}
+::selection{background:#D8A800;color:#17061F}
+::-webkit-scrollbar{inline-size:12px}
+::-webkit-scrollbar-track{background:#F3EEE4}
+::-webkit-scrollbar-thumb{background:rgba(23,6,31,.3);border:3px solid #F3EEE4;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:#400068}
+:where(a,button,input,summary):focus-visible{outline:3px solid #D8A800;outline-offset:3px}
+@property --sweep{syntax:"<angle>";initial-value:360deg;inherits:false}
+@keyframes sweep{from{--sweep:0deg}to{--sweep:360deg}}
+@keyframes wipe{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes setq{from{opacity:0;transform:scale(.58)}to{opacity:1;transform:none}}
+@keyframes engrave{from{opacity:0;filter:blur(7px);transform:scale(1.035)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes crestPulse{0%{transform:scale(1)}45%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes crestOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.9)}}
+@keyframes loadLine{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes loadLineOut{from{opacity:1}to{opacity:0}}
+@keyframes meterGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes curtain{0%{transform:translateY(0);visibility:visible}99%{visibility:visible}100%{transform:translateY(-101%);visibility:hidden}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes drawX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes drawY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes photoIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
+@keyframes sketchIn{from{opacity:0;transform:scale(1.015)}to{opacity:1;transform:none}}
+@keyframes sweepIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes edgeRide{0%{inset-inline-start:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{inset-inline-start:100%;opacity:0}}
+@keyframes dissolveIn{from{opacity:0}to{opacity:1}}
+@keyframes blobPop{
+0%{transform:translate(-50%,-50%) rotate(0deg) scale(.008);opacity:0}
+7%{opacity:.88}
+45%{transform:translate(-50%,-50%) rotate(calc(var(--rot,24deg) * .22)) scale(calc(var(--s,2.5) * .052),calc(var(--s,2.5) * .072));opacity:.88}
+75%{transform:translate(-50%,-50%) rotate(calc(var(--rot,24deg) * .58)) scale(calc(var(--s,2.5) * .36),calc(var(--s,2.5) * .29));opacity:.6}
+100%{transform:translate(-50%,-50%) rotate(var(--rot,24deg)) scale(var(--s,2.5));opacity:0}}
+@keyframes circleChase{from{clip-path:circle(0% at 50% 70%)}to{clip-path:circle(148% at 50% 70%)}}
+@property --br{syntax:"<length>";initial-value:0px;inherits:false}
+@property --bf{syntax:"<length>";initial-value:0px;inherits:false}
+@property --b2{syntax:"<length>";initial-value:0px;inherits:false}
+@property --b3{syntax:"<length>";initial-value:0px;inherits:false}
+@property --b4{syntax:"<length>";initial-value:0px;inherits:false}
+@property --b5{syntax:"<length>";initial-value:0px;inherits:false}
+@keyframes lineOut{from{opacity:1}to{opacity:0}}
+@keyframes splitL{from{transform:translateX(0)}to{transform:translateX(-101%)}}
+@keyframes splitR{from{transform:translateX(0)}to{transform:translateX(101%)}}
+@keyframes scanUp{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+@keyframes scanRule{from{top:0;opacity:1}90%{opacity:1}to{top:100%;opacity:0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+
+<sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:999;background:#400068;display:grid;place-items:center;overflow:hidden;animation:curtain 620ms calc(var(--t) - 100ms) cubic-bezier(.76,0,.24,1) forwards">
+  <div style="position:absolute;inset:0;background:url('assets/seal-l7-stars.svg') no-repeat 50% 46%/150%;opacity:.07;pointer-events:none"></div>
+  <div style="position:relative;display:grid;justify-items:center;gap:2.2rem">
+    <div style="position:relative;inline-size:min(52vw,300px);aspect-ratio:1296/1299;animation:crestPulse 640ms 1520ms cubic-bezier(.4,0,.2,1) both,crestOut 420ms 2150ms cubic-bezier(.7,0,.84,0) forwards">
+      <img src="assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;mask-image:conic-gradient(from -90deg,#000 var(--sweep),#0000 0);animation:sweep 640ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;animation:wipe 480ms 400ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;transform-origin:50% 47%;animation:setq 380ms 620ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;transform-origin:50% 47%;animation:setq 380ms 680ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;transform-origin:50% 47%;animation:setq 380ms 740ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;transform-origin:50% 47%;animation:setq 380ms 800ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;transform-origin:50% 47%;animation:setq 380ms 860ms cubic-bezier(.16,1,.3,1) backwards" />
+      <img src="assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;animation:engrave 520ms 980ms cubic-bezier(.16,1,.3,1) backwards" />
+    </div>
+    <div style="display:grid;justify-items:center;gap:1rem;animation:loadLine 460ms 1180ms cubic-bezier(.16,1,.3,1) backwards,loadLineOut 300ms 2100ms ease forwards">
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#D8A800">DPS Millennium International School</p>
+      <div style="inline-size:min(46vw,240px);block-size:1px;background:rgba(243,238,228,.24);overflow:hidden">
+        <div style="inline-size:100%;block-size:100%;background:#D8A800;transform-origin:left;animation:meterGrow 1700ms 240ms cubic-bezier(.4,0,.2,1) backwards"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
+    <a href="#top" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
+      <img src="assets/shield.svg" alt="" style="inline-size:32px" />
+      <span>
+        <b style="display:block;font-weight:600;font-size:1rem;letter-spacing:-.01em">DPS Millennium</b>
+        <span style="display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;font-weight:500">International School</span>
+      </span>
+    </a>
+
+    <button type="button" onClick="{{ toggleBurger }}" style="{{ burgerStyle }}">Menu</button>
+
+    <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
+      <li style="position:relative"><a href="#top" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
+      <li data-menu="about" style="position:relative">
+        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.about }}">
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Objectives</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Key Visionaries</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Our Story</a></li>
+        </ul>
+      </li>
+      <li data-menu="campus" style="position:relative">
+        <a href="#campus" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.campus }}">
+          <li><a href="#render" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
+          <li><a href="#campus" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="admissions" style="position:relative">
+        <a href="#register" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.admissions }}">
+          <li><a href="#register" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">How to Apply — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Age &amp; Year Groups — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="notices" style="position:relative">
+        <a href="#notices" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Notice Board<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.notices }}">
+          <li><a href="#notices" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Information Corner</a></li>
+          <li><a href="#notices" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Events Corner</a></li>
+          <li><a href="#notices" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Academic Circulars</a></li>
+          <li><a href="#calendar" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">School Calendar</a></li>
+        </ul>
+      </li>
+      <li data-menu="curriculum" style="position:relative">
+        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Curriculum<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.curriculum }}">
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">CBSE at Millennium</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Subjects Offered — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Assessment — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="contact" style="position:relative">
+        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Contact<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.contact }}">
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Enquiry Form</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">P.O. Box &amp; Address</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Phone &amp; Email</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <a href="#register" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register</a>
+    </div>
+  </div>
+</div>
+
+<header data-screen-label="Hero" id="top" style="background:#400068;color:#F3EEE4;position:relative;overflow:hidden">
+  <div style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:48%;block-size:100%;background:url('assets/seal-l7-stars.svg') no-repeat 61% 62%/340%;opacity:.1;pointer-events:none"></div>
+
+  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(3rem,8vh,5.5rem) 0">
+    <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:1.5rem;opacity:0;animation:rise 620ms calc(var(--t) + 50ms) cubic-bezier(.16,1,.3,1) forwards">Al Wukair · Qatar · CBSE</p>
+    <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(2.1rem,1rem + 5.2vw,4.6rem);text-wrap:balance;max-inline-size:18ch;opacity:0;animation:rise 700ms calc(var(--t) + 140ms) cubic-bezier(.16,1,.3,1) forwards">This is what April 2027 looks like.</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));gap:clamp(1.5rem,4vw,3.5rem);align-items:end;margin-block-start:clamp(1.75rem,3vw,2.5rem)">
+      <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:46ch;opacity:0;animation:rise 620ms calc(var(--t) + 260ms) cubic-bezier(.16,1,.3,1) forwards">Right now it is a building site in Al Wukair. Between here and the first day of term, we will show you exactly how it comes together.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;opacity:0;animation:rise 620ms calc(var(--t) + 360ms) cubic-bezier(.16,1,.3,1) forwards">
+        <a href="#register" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register your interest</a>
+        <a href="#campus" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="render" style="position:relative;margin-block-start:clamp(3.5rem,7vw,6rem);inline-size:100%;aspect-ratio:1594/766;background:#400068;overflow:hidden;contain:paint">
+
+    <sc-if value="{{ vBloom }}" hint-placeholder-val="{{ true }}">
+    <img src="assets/campus-sketch.jpeg" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover" />
+    <div aria-hidden="true" style="--s:2.7;--rot:26deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#D8A800 0 42%,transparent 42%),radial-gradient(circle at 33% 37%,#D8A800 0 31%,transparent 31%),radial-gradient(circle at 67% 63%,#D8A800 0 34%,transparent 34%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 900ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <div aria-hidden="true" style="--s:2.6;--rot:-22deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#D82818 0 41%,transparent 41%),radial-gradient(circle at 64% 34%,#D82818 0 32%,transparent 32%),radial-gradient(circle at 36% 66%,#D82818 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 980ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <div aria-hidden="true" style="--s:2.55;--rot:31deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#382898 0 42%,transparent 42%),radial-gradient(circle at 30% 62%,#382898 0 30%,transparent 30%),radial-gradient(circle at 70% 40%,#382898 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1060ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <div aria-hidden="true" style="--s:2.5;--rot:-27deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#206838 0 41%,transparent 41%),radial-gradient(circle at 62% 68%,#206838 0 31%,transparent 31%),radial-gradient(circle at 37% 34%,#206838 0 32%,transparent 32%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1140ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <div aria-hidden="true" style="--s:2.45;--rot:19deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#400068 0 42%,transparent 42%),radial-gradient(circle at 40% 32%,#400068 0 30%,transparent 30%),radial-gradient(circle at 60% 68%,#400068 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1220ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <img src="assets/campus-concept.jpeg" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;clip-path:circle(0% at 50% 70%);animation:circleChase 1350ms calc(var(--t) + 1000ms) cubic-bezier(.66,0,.86,.12) forwards" />
+    </sc-if>
+
+    <sc-if value="{{ vSweep }}" hint-placeholder-val="{{ false }}">
+    <img src="assets/campus-sketch.jpeg" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;opacity:0;animation:sketchIn 700ms calc(var(--t) + 100ms) cubic-bezier(.16,1,.3,1) forwards" />
+    <img src="assets/campus-concept.jpeg" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;clip-path:inset(0 100% 0 0);animation:sweepIn 1300ms calc(var(--t) + 1000ms) cubic-bezier(.65,0,.35,1) forwards" />
+    <div aria-hidden="true" style="position:absolute;inset-block:0;inline-size:2px;background:#D8A800;opacity:0;box-shadow:0 0 22px 3px rgba(216,168,0,.5);animation:edgeRide 1300ms calc(var(--t) + 1000ms) cubic-bezier(.65,0,.35,1) forwards"></div>
+    </sc-if>
+
+    <sc-if value="{{ vDissolve }}" hint-placeholder-val="{{ false }}">
+    <img src="assets/campus-sketch.jpeg" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;opacity:0;animation:sketchIn 700ms calc(var(--t) + 100ms) cubic-bezier(.16,1,.3,1) forwards" />
+    <img src="assets/campus-concept.jpeg" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;opacity:0;animation:dissolveIn 1400ms calc(var(--t) + 1000ms) ease forwards" />
+    </sc-if>
+
+    <sc-if value="{{ vBays }}" hint-placeholder-val="{{ false }}">
+    <img src="assets/campus-concept.jpeg" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;opacity:0;animation:photoIn 950ms calc(var(--t) + 850ms) cubic-bezier(.16,1,.3,1) forwards" />
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;animation:lineOut 600ms calc(var(--t) + 1500ms) ease forwards">
+      <div style="position:absolute;inset-block-start:30%;inset-inline:5%;block-size:1px;background:#D8A800;opacity:.85;transform:scaleX(0);animation:drawX 640ms calc(var(--t) + 300ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-block-end:12%;inset-inline:5%;block-size:1px;background:#D8A800;opacity:.85;transform:scaleX(0);animation:drawX 640ms calc(var(--t) + 380ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:4%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 750ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:10.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 712ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:17%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 674ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:23.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 636ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:30%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 598ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:36.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 560ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:43%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 522ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:50%;inset-block:24% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 420ms calc(var(--t) + 480ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:57%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 522ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:63.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 560ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:70%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 598ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:76.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 636ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:83%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 674ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:89.5%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 712ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+      <div style="position:absolute;inset-inline-start:96%;inset-block:30% 12%;inline-size:1px;background:#D8A800;transform:scaleY(0);transform-origin:bottom;animation:drawY 380ms calc(var(--t) + 750ms) cubic-bezier(.16,1,.3,1) forwards"></div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:1.1rem 0;display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between;align-items:baseline;opacity:0;animation:rise 600ms calc(var(--t) + 620ms) cubic-bezier(.16,1,.3,1) forwards">
+    <p style="font-size:.8125rem;color:#C3B2CE;max-inline-size:62ch">Architect's study, then the concept design for the Al&nbsp;Wukair campus, both supplied by the school. The finished building may differ.</p>
+    <p style="font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D8A800">Tentative opening 4 April 2027</p>
+  </div>
+
+  <sc-if value="{{ showCountdown }}" hint-placeholder-val="{{ true }}">
+  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);opacity:0;animation:rise 600ms calc(var(--t) + 760ms) cubic-bezier(.16,1,.3,1) forwards">
+    <div style="margin-block-start:clamp(2.5rem,5vw,3.5rem);padding-block-start:clamp(2rem,4vw,2.75rem);padding-block-end:clamp(3rem,6vh,4.5rem);border-block-start:1px solid rgba(243,238,228,.2);display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:2rem clamp(1.5rem,4vw,3.5rem)">
+      <div>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1;color:#D8A800;font-variant-numeric:tabular-nums"><span ref="{{ daysRef }}">234</span><span style="font-family:'Plex Serif',Georgia,serif;font-size:1rem;color:#F3EEE4;margin-inline-start:.4rem">Days</span></p>
+        <p style="font-size:.8125rem;color:#C3B2CE;margin-block-start:.5rem;max-inline-size:26ch">Until the tentative opening on 4&nbsp;April&nbsp;2027.</p>
+      </div>
+      <div>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1;color:#D8A800;font-variant-numeric:tabular-nums">25<span style="font-family:'Plex Serif',Georgia,serif;font-size:1rem;color:#F3EEE4;margin-inline-start:.4rem">Years</span></p>
+        <p style="font-size:.8125rem;color:#C3B2CE;margin-block-start:.5rem;max-inline-size:26ch">DPS Modern Indian School has taught in Doha for twenty-five years.</p>
+      </div>
+      <div>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1;color:#D8A800;font-variant-numeric:tabular-nums">2<span style="font-family:'Plex Serif',Georgia,serif;font-size:1rem;color:#F3EEE4;margin-inline-start:.4rem">Schools</span></p>
+        <p style="font-size:.8125rem;color:#C3B2CE;margin-block-start:.5rem;max-inline-size:26ch">Already operating in Qatar under the DPS Group.</p>
+      </div>
+      <div>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1;color:#D8A800;font-variant-numeric:tabular-nums">1<span style="font-family:'Plex Serif',Georgia,serif;font-size:1rem;color:#F3EEE4;margin-inline-start:.4rem">Board</span></p>
+        <p style="font-size:.8125rem;color:#C3B2CE;margin-block-start:.5rem;max-inline-size:26ch">CBSE, the same board taught at both sister schools.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</header>
+
+<main>
+  <section data-screen-label="Quick links" id="links" style="background:#17061F;color:#F3EEE4;padding-inline:var(--dirpad)">
+    <div style="display:grid;grid-template-columns:{{ dirCols }};gap:1px;background:rgba(243,238,228,.2)">
+      <a href="#" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(2rem,3.2vw,3rem) clamp(1.5rem,2.2vw,2.25rem);min-block-size:clamp(15rem,20vw,18rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
+        <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Fees structure</h3>
+        <p style="font-size:.925rem;opacity:.72">What a place costs, per year group.</p>
+        <span style="margin-block-start:auto;inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span>
+      </a>
+      <a href="#" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(2rem,3.2vw,3rem) clamp(1.5rem,2.2vw,2.25rem);min-block-size:clamp(15rem,20vw,18rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
+        <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05">About us</h3>
+        <p style="font-size:.925rem;opacity:.72">Mission, vision, and who is building this.</p>
+        <span style="margin-block-start:auto;inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span>
+      </a>
+      <a href="#" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(2rem,3.2vw,3rem) clamp(1.5rem,2.2vw,2.25rem);min-block-size:clamp(15rem,20vw,18rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
+        <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Contact us</h3>
+        <p style="font-size:.925rem;opacity:.72">P.O. Box, phone, email, and an enquiry form.</p>
+        <span style="margin-block-start:auto;inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span>
+      </a>
+      <a href="#" aria-disabled="true" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(2rem,3.2vw,3rem) clamp(1.5rem,2.2vw,2.25rem);min-block-size:clamp(15rem,20vw,18rem);background:#17061F;pointer-events:none">
+        <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05;opacity:.6">Apply online</h3>
+        <span style="font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#D8A800">Opens later</span>
+        <p style="font-size:.925rem;opacity:.6">Opens once admissions dates are confirmed.</p>
+      </a>
+    </div>
+  </section>
+
+  <section data-screen-label="Notice board" id="notices" style="background:#1E5A33;color:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Notice board</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(17.5rem,1fr));gap:clamp(1rem,1.6vw,1.4rem);margin-block-start:clamp(2rem,4vw,2.75rem)">
+        <a href="#" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Information</span>
+          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Information corner</h3>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:1.05rem">
+            <li style="display:grid;gap:.15rem"><time datetime="2026-08-01" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">1 Aug 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Registration of interest is open</b></li>
+            <li style="display:grid;gap:.15rem"><time datetime="2026-07-14" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">14 Jul 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Construction underway in Al Wukair</b></li>
+            <li style="display:grid;gap:.15rem"><time datetime="2026-06-02" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">2 Jun 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Curriculum confirmed as CBSE</b></li>
+          </ul>
+          <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>All information</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
+        </a>
+        <a href="#register" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Events</span>
+          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Events corner</h3>
+          <p style="font-size:.975rem;opacity:.78;line-height:1.6">No events yet. Campus open days and admissions sessions will be listed here as soon as dates are set — register and we'll email you first.</p>
+          <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>Register for updates</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
+        </a>
+        <a href="#" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Circulars</span>
+          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Academic circulars</h3>
+          <p style="font-size:.975rem;opacity:.78;line-height:1.6">Circulars are issued to enrolled families once the school year starts in April 2027. Anything families need before then is posted under Information.</p>
+          <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>From April 2027</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Key dates" id="calendar" style="padding-block:clamp(4rem,10vh,7.5rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:clamp(1.75rem,5vw,4.5rem);align-items:center">
+      <div>
+        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem">Key dates</p>
+        <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">The things that are already decided.</h2>
+        <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#5E4C6B;max-inline-size:60ch;margin-block-start:1.25rem">A CBSE curriculum, a campus in Al Wukair, and a target opening of April 2027. Everything else we add as it becomes true — not before.</p>
+        <ul style="list-style:none;margin:2rem 0 0;padding:0;border-block-start:1px solid rgba(23,6,31,.16)">
+          <li style="display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:baseline;padding-block:.95rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:500;font-size:.95rem">School opens</b><time datetime="2027-04-04" style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">4 April 2027</time></li>
+          <li style="display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:baseline;padding-block:.95rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:500;font-size:.95rem">Admissions dates</b><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">To be confirmed</span></li>
+          <li style="display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:baseline;padding-block:.95rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:500;font-size:.95rem">Fee structure published</b><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">To be confirmed</span></li>
+          <li style="display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:baseline;padding-block:.95rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:500;font-size:.95rem">Academic year 2027–28</b><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">To be published</span></li>
+        </ul>
+      </div>
+
+      <aside style="border:1px solid rgba(23,6,31,.16);border-radius:14px;padding:clamp(1.5rem,3vw,2.25rem);background:#F3EEE4">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-block-end:1.1rem">
+          <h3 style="text-transform:uppercase;font-weight:600;font-size:1.05rem;letter-spacing:-.01em">School calendar</h3>
+          <div style="display:flex;gap:.4rem">
+            <button type="button" aria-label="Previous month" onClick="{{ prevMonth }}" style="inline-size:1.9rem;block-size:1.9rem;border-radius:50%;border:1px solid rgba(23,6,31,.16);background:none;color:inherit;font:inherit;line-height:1;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease" style-hover="background:#400068;color:#F3EEE4;border-color:#400068">‹</button>
+            <button type="button" aria-label="Next month" onClick="{{ nextMonth }}" style="inline-size:1.9rem;block-size:1.9rem;border-radius:50%;border:1px solid rgba(23,6,31,.16);background:none;color:inherit;font:inherit;line-height:1;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease" style-hover="background:#400068;color:#F3EEE4;border-color:#400068">›</button>
+          </div>
+        </div>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:1.15rem;padding-block-end:.6rem;color:#17061F">{{ calCaption }}</p>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:.1rem;text-align:center">
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Su</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Mo</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Tu</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">We</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Th</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Fr</span>
+          <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Sa</span>
+          <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+            <span style="{{ c.st }}">{{ c.n }}</span>
+          </sc-for>
+        </div>
+        <button type="button" onClick="{{ jumpOpening }}" style="margin-block-start:1.1rem;padding-block-start:.9rem;border-block-start:1px solid rgba(23,6,31,.16);border-inline:0;border-block-end:0;display:flex;gap:.55rem;align-items:center;font-size:.8125rem;color:#5E4C6B;background:none;font-family:inherit;cursor:pointer;inline-size:100%;text-align:start;transition:color .2s ease" style-hover="color:#400068"><i style="inline-size:.7rem;block-size:.7rem;border-radius:50%;background:#D8A800;flex:none"></i> Confirmed key date — 4 April 2027</button>
+      </aside>
+    </div>
+  </section>
+
+  <section data-screen-label="Campus progress" id="campus" style="background:#17061F;color:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden">
+    <div style="position:absolute;inset-block-end:0;inset-inline-start:0;inline-size:44%;block-size:70%;background:url('assets/seal-l6-waves.svg') no-repeat 39% 62%/320%;opacity:.1;pointer-events:none"></div>
+    <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:1.5rem">The campus</p>
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Watch it go up before your child walks into it.</h2>
+      <p style="margin-block-start:2rem;font-size:.8125rem;color:#D8A800;max-inline-size:60ch;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">Placeholder schedule — these milestones and statuses are invented to show the layout. Nothing here ships until the school supplies the real construction programme.</p>
+      <ol style="list-style:none;margin:1.5rem 0 0;padding:0;border-block-start:1px solid rgba(243,238,228,.2)">
+        <li style="display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(243,238,228,.2)"><time datetime="2026-01" style="font-family:'Plex Serif',Georgia,serif;color:#D8A800;font-variant-numeric:tabular-nums">Jan 2026</time><span>Site handover and enabling works</span><span style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#D8A800">Complete</span></li>
+        <li style="display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(243,238,228,.2)"><time datetime="2026-06" style="font-family:'Plex Serif',Georgia,serif;color:#D8A800;font-variant-numeric:tabular-nums">Jun 2026</time><span>Foundations and substructure</span><span style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#D8A800">Complete</span></li>
+        <li style="display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(243,238,228,.2)"><time datetime="2026-11" style="font-family:'Plex Serif',Georgia,serif;color:#D8A800;font-variant-numeric:tabular-nums">Nov 2026</time><span>Superstructure and envelope</span><span style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE">In progress</span></li>
+        <li style="display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(243,238,228,.2)"><time datetime="2027-02" style="font-family:'Plex Serif',Georgia,serif;color:#D8A800;font-variant-numeric:tabular-nums">Feb 2027</time><span>Fit-out, furniture and testing</span><span style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE">Scheduled</span></li>
+        <li style="display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:1rem 2rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(243,238,228,.2)"><time datetime="2027-04-04" style="font-family:'Plex Serif',Georgia,serif;color:#D8A800;font-variant-numeric:tabular-nums">4 Apr 2027</time><span>Doors open</span><span style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE">Tentative</span></li>
+      </ol>
+
+      <div style="margin-block-start:2.5rem;border:1px dashed rgba(243,238,228,.2);border-radius:14px;padding:clamp(2rem,6vw,3.5rem);text-align:center;color:#C3B2CE">
+        <p style="font-size:.9375rem;max-inline-size:52ch;margin-inline:auto">The concept design at the top of this page is the architect's intent. Photographs of the real site go here as it is shot — we'd rather show you nothing than show you someone else's school.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Register" id="register" style="background:#E9E1D2;padding-block:clamp(4rem,10vh,7.5rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));gap:clamp(1.5rem,5vw,4rem);align-items:center">
+      <div>
+        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem">Register interest</p>
+        <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Hear it first.</h2>
+        <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#5E4C6B;max-inline-size:60ch;margin-block-start:1rem">Construction updates, admissions dates, and the fee structure when it's confirmed. Roughly once a month, and nothing else.</p>
+      </div>
+      <div>
+        <form onSubmit="{{ noSubmit }}" style="display:flex;flex-wrap:wrap;gap:.75rem;align-items:end">
+          <label style="flex:1 1 15rem;display:grid;gap:.4rem">
+            <span style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#1E5A33">Email address</span>
+            <input type="email" name="email" autoComplete="email" placeholder="you@example.com" required="required" style="font:inherit;font-size:.9375rem;padding:.85rem 1rem;border:1px solid rgba(23,6,31,.16);border-radius:99px;background:#F3EEE4;color:#17061F" />
+          </label>
+          <button type="submit" style="display:inline-flex;align-items:center;gap:.7rem;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border:0;border-radius:99px;font-family:inherit;cursor:pointer;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;transform:translateY(-2px)">Register</button>
+        </form>
+        <p style="font-size:.8125rem;color:#5E4C6B;margin-block-start:.9rem">Placeholder only — this form has no destination until hosting is decided.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-screen-label="Footer" style="background:#17061F;color:#F3EEE4;padding-block:4rem 2.5rem">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+    <div style="display:flex;flex-wrap:wrap;gap:2.5rem clamp(2rem,6vw,5rem);align-items:start">
+      <div style="flex:0 1 16rem">
+        <img src="assets/seal.svg" alt="" style="inline-size:clamp(110px,15vw,150px)" />
+        <p style="font-family:'Plex Arabic','Plex Sans',sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem">مدرسة ميلينيوم الدولية</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem">
+          <a href="#register" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
+          <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Fees</a>
+          <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Contact</a>
+        </div>
+      </div>
+      <div style="flex:1 1 24rem;display:grid;gap:2rem clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))">
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">About</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Mission &amp; Vision</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Objectives</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Key Visionaries</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Our Story</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Admissions</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#register" style="font-size:.9rem;color:#C3B2CE">Register Interest</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Fees Structure</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Year Groups</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#render" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
+            <li><a href="#campus" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">DPS Group</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">DPS Modern Indian School</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">DPS Monarch International School</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="margin-block-start:3rem;padding-block-start:1.5rem;border-block-start:1px solid rgba(243,238,228,.2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;font-size:.8125rem;color:#9C86AB">
+      <p>DPS Millennium International School · part of the DPS Group of Institutions</p>
+      <p>Tentative opening <time datetime="2027-04-04">4 April 2027</time> · Arabic site to follow</p>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;revealStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Concentric bloom&quot;,&quot;Sketch sweep&quot;,&quot;Sketch dissolve&quot;,&quot;Line work&quot;],&quot;default&quot;:&quot;Concentric bloom&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Campus render&quot;},&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Load sequence&quot;},&quot;showCountdown&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const n = new Date();
+    this.daysRef = React.createRef();
+    this.state = { open: null, burger: false, narrow: false, w: 1440, y: n.getFullYear(), m: n.getMonth() };
+  }
+
+  componentDidMount() {
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, w: window.innerWidth });
+    this.sync();
+    window.addEventListener('resize', this.sync);
+
+    const t = (this.props.showLoader ?? true) ? '2.4s' : '0s';
+    document.documentElement.style.setProperty('--t', t);
+
+    const d = Math.max(0, Math.ceil((new Date('2027-04-04T00:00:00+03:00') - new Date()) / 864e5));
+    if (this.daysRef.current) this.daysRef.current.textContent = d.toLocaleString('en');
+
+    // The bloom is held back until the whole picture is on screen, then replays
+    // each time the band leaves and comes fully back.
+    this.armReplay = setTimeout(() => {
+      const band = document.getElementById('render');
+      if (!band) return;
+      // Held paused at frame zero rather than cancelled — a cancelled CSS
+      // animation drops out of getAnimations() and can never be replayed.
+      const anims = () => band.getAnimations({ subtree: true });
+      const hold = () => anims().forEach((a) => { a.pause(); a.currentTime = 0; });
+      const start = () => {
+        document.documentElement.style.setProperty('--t', '0s');
+        anims().forEach((a) => { a.currentTime = 0; a.play(); });
+      };
+      hold();
+
+      if (!window.IntersectionObserver) { start(); return; }
+      let armed = true;
+      // If the band is taller than the viewport it can never reach ratio 1, so
+      // "fully seen" is measured against how much of it can fit at once.
+      const needed = () => Math.min(0.98, (window.innerHeight / Math.max(1, band.offsetHeight)) * 0.92);
+      this.io = new IntersectionObserver((es) => {
+        es.forEach((e) => {
+          if (armed && e.intersectionRatio >= needed()) { armed = false; start(); }
+          else if (!armed && e.intersectionRatio === 0) { armed = true; hold(); }
+        });
+      }, { threshold: [0, .2, .4, .6, .75, .85, .92, .97, 1] });
+      this.io.observe(band);
+    }, 400);
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.showLoader !== this.props.showLoader) {
+      document.documentElement.style.setProperty('--t', (this.props.showLoader ?? true) ? '2.4s' : '0s');
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.sync);
+    clearTimeout(this.armReplay);
+    if (this.io) this.io.disconnect();
+  }
+
+  step(n) {
+    let { y, m } = this.state;
+    m += n;
+    if (m > 11) { m = 0; y++; }
+    if (m < 0) { m = 11; y--; }
+    this.setState({ y, m });
+  }
+
+  buildCells() {
+    const { y, m } = this.state;
+    const now = new Date();
+    const start = new Date(y, m, 1).getDay();
+    const days = new Date(y, m + 1, 0).getDate();
+    const prev = new Date(y, m, 0).getDate();
+    const base = 'display:grid;place-items:center;inline-size:2.65rem;block-size:2.65rem;margin-inline:auto;border-radius:50%;font-size:.95rem;font-variant-numeric:tabular-nums';
+    const out = [];
+    for (let i = 0; i < start; i++) out.push({ n: prev - start + 1 + i, st: base + ';color:rgba(23,6,31,.26)' });
+    for (let i = 1; i <= days; i++) {
+      const isOpen = y === 2027 && m === 3 && i === 4;
+      const isToday = y === now.getFullYear() && m === now.getMonth() && i === now.getDate();
+      let st = base;
+      if (isOpen) st += ';background:#D8A800;color:#17061F;font-weight:600';
+      else if (isToday) st += ';box-shadow:inset 0 0 0 1px rgba(23,6,31,.16)';
+      out.push({ n: i, st });
+    }
+    let tail = 1;
+    while (out.length % 7) out.push({ n: tail++, st: base + ';color:rgba(23,6,31,.26)' });
+    return out;
+  }
+
+  renderVals() {
+    const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const style = (this.props.revealStyle ?? 'Concentric bloom');
+    const narrow = this.state.narrow;
+
+    // Narrow mode mirrors c6's `@media (max-width:64rem)` block: submenus go static,
+    // always visible, transparent on the ink drawer, indented one step past the gutter.
+    const subNarrow = {
+      position: 'static', listStyle: 'none', margin: 0, padding: '0 0 .5rem',
+      background: 'transparent', color: '#C3B2CE', boxShadow: 'none', borderRadius: 0,
+      opacity: 1, visibility: 'visible', transform: 'none', paddingInlineStart: '1rem'
+    };
+    const subBase = {
+      position: 'absolute', insetBlockStart: '100%', insetInlineStart: 0, minInlineSize: '15rem',
+      background: '#F3EEE4', color: '#17061F', listStyle: 'none', margin: 0, padding: '.5rem 0',
+      borderRadius: '0 0 14px 14px', boxShadow: '0 18px 40px -12px rgba(23,6,31,.45)',
+      transition: 'opacity .18s ease, transform .18s ease, visibility .18s', zIndex: 70
+    };
+    const mk = (k) => narrow
+      ? subNarrow
+      : (this.state.open === k
+          ? { ...subBase, opacity: 1, visibility: 'visible', transform: 'none' }
+          : { ...subBase, opacity: 0, visibility: 'hidden', transform: 'translateY(-6px)' });
+
+    return {
+      showLoader: this.props.showLoader ?? true,
+      showCountdown: this.props.showCountdown ?? true,
+      vBloom: style === 'Concentric bloom',
+      vSweep: style === 'Sketch sweep',
+      vDissolve: style === 'Sketch dissolve',
+      vBays: style === 'Line work',
+
+      daysRef: this.daysRef,
+      calCaption: MON[this.state.m] + ' ' + this.state.y,
+      cells: this.buildCells(),
+      prevMonth: () => this.step(-1),
+      nextMonth: () => this.step(1),
+      jumpOpening: () => this.setState({ y: 2027, m: 3 }),
+      noSubmit: (e) => e.preventDefault(),
+
+      // c6's circle flood: the fill grows from wherever the pointer crossed the edge.
+      // Set straight on the node so tracking never costs a re-render.
+      // Three radii swelling out of sync from the pointer and two fixed offsets:
+      // the overlap reads as one fluid blob rather than a circle or a box.
+      flood: (e) => {
+        const el = e.currentTarget;
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        // Three lobes clustered on the pointer, not pinned to the card, so the
+        // union reads as one blob rather than separate circles popping in.
+        const c = { '--mx': x, '--my': y, '--mx2': x + 62, '--my2': y - 44, '--mx3': x - 54, '--my3': y + 50 };
+        Object.keys(c).forEach((k) => el.style.setProperty(k, c[k] + 'px'));
+
+        // Eased in JS: custom-property transitions don't survive the inline-style
+        // pipeline, so the swell is driven frame by frame instead.
+        const peak = { '--br': 1500, '--bf': 1596, '--b2': 1310, '--b3': 1400, '--b4': 1240, '--b5': 1330 };
+        const expo = { '--br': 3.0, '--bf': 2.7, '--b2': 3.7, '--b3': 3.3, '--b4': 2.3, '--b5': 2.1 };
+        const on = e.type === 'pointerenter';
+        const keys = Object.keys(peak);
+        const from = {}, to = {};
+        keys.forEach((k) => {
+          from[k] = parseFloat(el.style.getPropertyValue(k)) || 0;
+          to[k] = on ? peak[k] : 0;
+        });
+        const dur = on ? 1750 : 980, t0 = performance.now();
+        cancelAnimationFrame(el.__blob);
+        const step = (t) => {
+          const p = Math.min(1, (t - t0) / dur);
+          keys.forEach((k) => {
+            const e2 = 1 - Math.pow(1 - p, expo[k]);
+            el.style.setProperty(k, (from[k] + (to[k] - from[k]) * e2) + 'px');
+          });
+          if (p < 1) el.__blob = requestAnimationFrame(step);
+        };
+        el.__blob = requestAnimationFrame(step);
+      },
+
+      // Hover-driven dropdowns are a desktop affordance only. In the drawer every
+      // submenu is already expanded, so hovering must not touch state.
+      navOver: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li) this.setState({ open: li.dataset.menu });
+      },
+      navOut: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li && (!e.relatedTarget || !li.contains(e.relatedTarget))) this.setState({ open: null });
+      },
+      toggleBurger: () => this.setState({ burger: !this.state.burger }),
+
+      // 4 / 2 / 1, as c6's .dir__grid steps — auto-fit lands on an orphan third column.
+      dirCols: this.state.w >= 1024 ? 'repeat(4,minmax(0,1fr))'
+             : this.state.w >= 640 ? 'repeat(2,minmax(0,1fr))'
+             : '1fr',
+
+      sub: {
+        about: mk('about'), campus: mk('campus'), admissions: mk('admissions'),
+        notices: mk('notices'), curriculum: mk('curriculum'), contact: mk('contact')
+      },
+
+      burgerStyle: narrow
+        ? { display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.5rem .9rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer', marginInlineStart: 'auto' }
+        : { display: 'none' },
+
+      menuStyle: narrow
+        ? (this.state.burger
+            ? { display: 'block', position: 'absolute', insetBlockStart: '100%', insetInline: 0, background: '#17061F', padding: '.5rem 0', paddingInline: 'calc(clamp(1.25rem,5vw,4.5rem) - .85rem)', borderBlockStart: '1px solid rgba(243,238,228,.2)', listStyle: 'none', margin: 0, zIndex: 65, maxBlockSize: '70vh', overflowY: 'auto' }
+            : { display: 'none' })
+        : { display: 'flex', listStyle: 'none', margin: 0, padding: 0 }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

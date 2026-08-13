@@ -58,6 +58,8 @@ a{color:inherit}
 :where(a,button,input,summary):focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 
 .wrap{max-inline-size:82rem;margin-inline:auto;padding-inline:var(--gutter)}
+.sr-only{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;
+         clip-path:inset(50%);white-space:nowrap}
 
 /* Display voice: grotesque, all caps, tight. */
 .h{font-family:var(--display);font-weight:600;text-transform:uppercase;
@@ -159,6 +161,11 @@ a{color:inherit}
 .hero__sub{font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:46ch;
            margin-block-start:1.5rem}
 .hero__cta{display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem}
+/* stated as a fact line under the CTA, not as a kicker above the headline */
+.hero__meta{margin-block-start:2rem;padding-block-start:1.25rem;
+            border-block-start:1px solid rgba(216,168,0,.28);
+            font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+            color:var(--gold)}
 
 /* ---------- The Strike (carried over) ---------- */
 @property --sweep{syntax:"<angle>";initial-value:360deg;inherits:false}
@@ -194,27 +201,53 @@ a{color:inherit}
 .count__d{font-size:.8125rem;color:var(--muted);margin-block-start:.5rem;max-inline-size:26ch}
 
 /* =====================================================================
-   PROGRAMME CARDS — the signature circle-fill hover
+   DIRECTORY BAND — full-bleed, edge to edge, on ink.
+   Deliberately NOT cards: no gaps, no radii, no boxes, and a vertical
+   wipe rather than a radial flood, so it cannot echo the notice-board
+   tabloids that follow it.
    ===================================================================== */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin-block-start:2rem}
-.card{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--rule);
-      border-radius:var(--r);padding:1.5rem;min-block-size:11rem;
-      display:flex;flex-direction:column;gap:.75rem;text-decoration:none;background:transparent}
-/* the circle grows from the pointer and floods the card */
-.card::before{content:"";position:absolute;inline-size:230%;aspect-ratio:1;border-radius:50%;
-              background:var(--ink);z-index:-1;
-              inset-block-start:var(--my,50%);inset-inline-start:var(--mx,50%);
-              transform:translate(-50%,-50%) scale(0);
-              transition:transform .55s cubic-bezier(.16,1,.3,1)}
-.card:hover::before,.card:focus-visible::before{transform:translate(-50%,-50%) scale(1)}
-.card h3,.card p,.card .pill,.card .arrow{transition:color .3s ease,border-color .3s ease}
-.card:hover h3,.card:focus-visible h3{color:var(--paper)}
-.card:hover p,.card:focus-visible p{color:var(--muted-ink)}
-.card:hover .pill,.card:focus-visible .pill{color:var(--paper);border-color:var(--rule-ink)}
-.card:hover .arrow,.card:focus-visible .arrow{color:var(--ink);background:var(--gold);border-color:var(--gold);transform:translateX(3px)}
-.card__foot{margin-block-start:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.card p{color:var(--muted);font-size:.9375rem}
-.card[aria-disabled="true"]{opacity:.55;pointer-events:none}
+/* No heading now — the band IS the four columns, edge to edge and top to
+   bottom, so it reads as a directory strip rather than a titled section. */
+.dir{background:var(--ink);color:var(--paper)}
+.dir__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.dir__col{position:relative;isolation:isolate;overflow:hidden;text-decoration:none;color:inherit;
+          display:flex;flex-direction:column;gap:.8rem;
+          padding:clamp(2rem,3.2vw,3rem) clamp(1.5rem,2.2vw,2.25rem);
+          min-block-size:clamp(15rem,20vw,18rem);
+          border-inline-end:1px solid var(--rule-ink)}
+.dir__col:first-child{padding-inline-start:var(--gutter)}
+.dir__col:last-child{padding-inline-end:var(--gutter);border-inline-end:0}
+.dir__col::before{content:"";position:absolute;inset:0;background:var(--paper);z-index:-1;
+                  transform:scaleY(0);transform-origin:bottom;
+                  transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.dir__col:hover::before,.dir__col:focus-visible::before{transform:scaleY(1)}
+.dir__col h3{font-family:var(--display);text-transform:uppercase;font-weight:600;
+             font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;
+             line-height:1.05;margin:0}
+.dir__col p{font-size:.925rem;color:var(--muted-ink)}
+.dir__col .arrow{margin-block-start:auto;border-color:currentColor}
+.dir__col,.dir__col p,.dir__col .arrow,.dir__col .soon{
+  transition:color .3s ease,background .3s ease,border-color .3s ease,transform .3s ease}
+.dir__col:hover,.dir__col:focus-visible{color:var(--ink)}
+.dir__col:hover p,.dir__col:focus-visible p{color:var(--muted)}
+.dir__col:hover .arrow,.dir__col:focus-visible .arrow{background:var(--gold);border-color:var(--gold);
+  color:var(--ink);transform:translateX(3px)}
+.dir__col .soon{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.dir__col[aria-disabled="true"]{pointer-events:none}
+.dir__col[aria-disabled="true"] h3,.dir__col[aria-disabled="true"] p{opacity:.6}
+
+@media (max-width:64rem){
+  .dir__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dir__col:nth-child(2n){border-inline-end:0;padding-inline-end:var(--gutter)}
+  .dir__col:nth-child(odd){padding-inline-start:var(--gutter)}
+  .dir__col:nth-child(-n+2){border-block-end:1px solid var(--rule-ink)}
+}
+@media (max-width:40rem){
+  .dir__grid{grid-template-columns:1fr}
+  .dir__col{border-inline-end:0;border-block-end:1px solid var(--rule-ink);
+            padding-inline:var(--gutter);min-block-size:0}
+  .dir__col:last-child{border-block-end:0}
+}
 
 /* =====================================================================
    BANDS
@@ -378,7 +411,43 @@ a{color:inherit}
   .count__cell + .count__cell{border-inline-start:0;padding-inline-start:0}
   .miles li{grid-template-columns:1fr auto}
 }
-.compbar{position:sticky;top:0;z-index:80;background:#000;color:#fff;font-size:.7rem;
+/* =====================================================================
+   MOTION LAYER
+   Every entrance below is component-specific — the directory slides up as
+   columns, the milestones step in from the left, the figures count. One
+   shared observer arms them; each component supplies its own movement, so
+   the page never repeats a single identical fade on every section.
+   Default state is always the finished state: no JS, nothing is hidden.
+   ===================================================================== */
+@media (prefers-reduced-motion:no-preference){
+  /* hero copy joins the Strike's timeline rather than competing with it */
+  .hero__copy > *{opacity:0;animation:heroRise 620ms cubic-bezier(.16,1,.3,1) forwards}
+  .hero__copy > :nth-child(1){animation-delay:180ms}
+  .hero__copy > :nth-child(2){animation-delay:300ms}
+  .hero__copy > :nth-child(3){animation-delay:420ms}
+  .hero__copy > :nth-child(4){animation-delay:540ms}
+  @keyframes heroRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* directory: columns rise as a board being set */
+  .dir__grid.is-armed .dir__col{opacity:0;transform:translateY(20px)}
+  .dir__grid.is-armed .dir__col.on{opacity:1;transform:none;
+    transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+
+  /* milestones: step in from the left, like a programme advancing */
+  .miles.is-armed li{opacity:0;transform:translateX(-14px)}
+  .miles.is-armed li.on{opacity:1;transform:none;
+    transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+}
+
+/* Sticky nav. It gains depth once you leave the hero and drops the
+   secondary brand line — no padding transition, because animating padding
+   thrashes layout. Only opacity and shadow move. */
+.bar{position:sticky;top:0;transition:box-shadow .3s ease}
+.brand span span{transition:opacity .25s ease}
+.bar.is-stuck{box-shadow:0 12px 32px -14px rgba(0,0,0,.6)}
+.bar.is-stuck .brand span span{opacity:0}
+
+.compbar{position:static;z-index:80;background:#000;color:#fff;font-size:.7rem;
          letter-spacing:.1em;text-transform:uppercase;padding:.45rem var(--gutter);display:flex;gap:1.25rem}
 .compbar a{color:var(--gold);text-decoration:none}
 .compbar span{color:#999}
@@ -468,8 +537,7 @@ a{color:inherit}
 <!-- ============================ HERO ============================ -->
 <header class="hero" id="top">
   <div class="wrap hero__in">
-    <div>
-      <p class="eyebrow">Al Wukair, Qatar &middot; CBSE</p>
+    <div class="hero__copy">
       <h1 class="h h--xl">Right now, this school is a building site.</h1>
       <p class="hero__sub">It opens as DPS Millennium International School in April 2027.
         Until then, we&rsquo;ll show you exactly how it&rsquo;s coming along.</p>
@@ -477,6 +545,7 @@ a{color:inherit}
         <a class="btn btn--gold" href="#register">Register your interest</a>
         <a class="btn btn--ghost" href="#campus">See the campus</a>
       </div>
+      <p class="hero__meta">Al Wukair, Qatar &middot; CBSE &middot; Tentative opening 4 April 2027</p>
     </div>
 
     <div class="seal" role="img" aria-label="DPS Millennium International School crest">
@@ -495,21 +564,21 @@ a{color:inherit}
 <!-- ======================= COUNTDOWN ======================= -->
 <section class="count" aria-labelledby="cd-h">
   <h2 id="cd-h" class="visually-hidden" style="position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%)">Time until opening</h2>
-  <div class="wrap count__in">
+  <div class="wrap count__in" data-counters>
     <div class="count__cell">
-      <p class="count__n"><span id="cd-days">241</span><span class="count__k">Days</span></p>
+      <p class="count__n"><span class="num" id="cd-days" data-to="241">241</span><span class="count__k">Days</span></p>
       <p class="count__d">Until the tentative opening on 4&nbsp;April&nbsp;2027.</p>
     </div>
     <div class="count__cell">
-      <p class="count__n">25<span class="count__k">Years</span></p>
+      <p class="count__n"><span class="num" data-to="25">25</span><span class="count__k">Years</span></p>
       <p class="count__d">DPS Modern Indian School has taught in Doha for twenty-five years.</p>
     </div>
     <div class="count__cell">
-      <p class="count__n">2<span class="count__k">Schools</span></p>
+      <p class="count__n"><span class="num" data-to="2">2</span><span class="count__k">Schools</span></p>
       <p class="count__d">Already operating in Qatar under the DPS Group.</p>
     </div>
     <div class="count__cell">
-      <p class="count__n">1<span class="count__k">Board</span></p>
+      <p class="count__n"><span class="num" data-to="1">1</span><span class="count__k">Board</span></p>
       <p class="count__d">CBSE, the same board taught at both sister schools.</p>
     </div>
   </div>
@@ -517,37 +586,30 @@ a{color:inherit}
 
 <main>
   <!-- ======================= QUICK LINKS / CARDS ======================= -->
-  <section class="wrap band on-paper" id="links" aria-labelledby="l-h">
-    <p class="eyebrow">Quick links</p>
-    <h2 id="l-h" class="h h--lg">Everything a parent asks first.</h2>
-    <ul class="slash" style="margin-block-start:1.5rem">
-      <li class="is-on">/Prospective</li><li>/Current</li><li>/Ministry</li>
-    </ul>
-
-    <div class="cards">
-      <a class="card" href="#">
-        <span class="pill">/Admissions</span>
-        <h3 class="h h--md">Fees structure</h3>
+  <section class="dir" id="links" aria-labelledby="l-h">
+    <!-- Kept for screen readers only: without it the document outline jumps
+         from the countdown straight to "Notice board", skipping this band. -->
+    <h2 id="l-h" class="sr-only">Quick links</h2>
+    <div class="dir__grid" data-rise>
+      <a class="dir__col" href="#">
+        <h3>Fees structure</h3>
         <p>What a place costs, per year group.</p>
-        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
       </a>
-      <a class="card" href="#">
-        <span class="pill">/About</span>
-        <h3 class="h h--md">About us</h3>
+      <a class="dir__col" href="#">
+        <h3>About us</h3>
         <p>Mission, vision, and who is building this.</p>
-        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
       </a>
-      <a class="card" href="#">
-        <span class="pill">/Contact</span>
-        <h3 class="h h--md">Contact us</h3>
+      <a class="dir__col" href="#">
+        <h3>Contact us</h3>
         <p>P.O. Box, phone, email, and an enquiry form.</p>
-        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
       </a>
-      <a class="card" href="#" aria-disabled="true">
-        <span class="pill">/Soon</span>
-        <h3 class="h h--md">Apply online</h3>
+      <a class="dir__col" href="#" aria-disabled="true">
+        <h3>Apply online</h3>
+        <span class="soon">Opens later</span>
         <p>Opens once admissions dates are confirmed.</p>
-        <span class="card__foot"><span></span><span class="arrow" aria-hidden="true">&rarr;</span></span>
       </a>
     </div>
   </section>
@@ -598,7 +660,7 @@ a{color:inherit}
     <div class="wrap calsec">
       <div>
         <p class="eyebrow">Key dates</p>
-        <h2 id="cs-h" class="h h--lg">The things that are already decided.</h2>
+        <h2 id="cs-h" class="h h--lg reveal" data-reveal>The things that are already decided.</h2>
         <p class="lede" style="margin-block-start:1.25rem">A CBSE curriculum, a campus in Al Wukair, and
           a target opening of April 2027. Everything else we add as it becomes true &mdash; not before.</p>
         <ul class="keydates">
@@ -638,7 +700,7 @@ a{color:inherit}
 
       <p class="miles__warn">Placeholder schedule &mdash; these milestones and statuses are invented to show
         the layout. Nothing here ships until the school supplies the real construction programme.</p>
-      <ol class="miles">
+      <ol class="miles" data-rise>
         <li><time datetime="2026-01">Jan 2026</time><span>Site handover and enabling works</span><span class="st done">Complete</span></li>
         <li><time datetime="2026-06">Jun 2026</time><span>Foundations and substructure</span><span class="st done">Complete</span></li>
         <li><time datetime="2026-11">Nov 2026</time><span>Superstructure and envelope</span><span class="st">In progress</span></li>
@@ -658,7 +720,7 @@ a{color:inherit}
     <div class="wrap news__in">
       <div>
         <p class="eyebrow" style="color:var(--green)">Register interest</p>
-        <h2 id="n-h" class="h h--lg">Hear it first.</h2>
+        <h2 id="n-h" class="h h--lg reveal" data-reveal>Hear it first.</h2>
         <p class="lede" style="margin-block-start:1rem">Construction updates, admissions dates, and the fee
           structure when it&rsquo;s confirmed. Roughly once a month, and nothing else.</p>
       </div>
@@ -734,41 +796,60 @@ a{color:inherit}
   });
 })();
 
-/* ---- word-by-word reveal. Text is fully readable without this. ---- */
+/* ---- scroll-triggered entrances ------------------------------------
+   Fail-safe by construction. CSS never hides anything on its own: JS
+   arms a group, and reveals it on ANY of three signals — an observer,
+   a scroll, or a timer. If one mechanism stalls (a throttled background
+   tab, low-power mode) the others still fire, so content can never be
+   left permanently invisible. Anything already on screen plays at once.
+   -------------------------------------------------------------------- */
 (function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  if(!window.IntersectionObserver)return;
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting)return;
-      var spans=e.target.querySelectorAll('span');
-      spans.forEach(function(s,i){setTimeout(function(){s.classList.add('on');},i*55);});
-      io.unobserve(e.target);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var groups=[];
+
+  function nearView(el){
+    var r=el.getBoundingClientRect();
+    return r.top < innerHeight*0.92 && r.bottom > 0;
+  }
+  function play(g){
+    if(g.done) return;
+    g.done=true;
+    g.kids.forEach(function(k,i){ setTimeout(function(){ k.classList.add('on'); }, i*g.step); });
+  }
+  function tick(){
+    var pending=false;
+    groups.forEach(function(g){
+      if(g.done) return;
+      if(nearView(g.el)) play(g); else pending=true;
     });
-  },{threshold:.4});
+    if(!pending){
+      removeEventListener('scroll',tick);
+      removeEventListener('resize',tick);
+    }
+  }
+
   document.querySelectorAll('[data-reveal]').forEach(function(el){
     el.innerHTML=el.textContent.trim().split(/\s+/)
-      .map(function(w){return '<span>'+w+'</span>';}).join(' ');
+      .map(function(w){ return '<span>'+w+'</span>'; }).join(' ');
     el.classList.add('is-armed');
-    io.observe(el);
+    groups.push({el:el,kids:[].slice.call(el.querySelectorAll('span')),step:55});
   });
-})();
+  document.querySelectorAll('[data-rise]').forEach(function(el){
+    el.classList.add('is-armed');
+    groups.push({el:el,kids:[].slice.call(el.children),step:110});
+  });
+  if(!groups.length) return;
 
-/* ---- tabloids rise in, once, staggered ---- */
-(function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!window.IntersectionObserver) return;
-  document.querySelectorAll('[data-rise]').forEach(function(group){
-    group.classList.add('is-armed');
-    new IntersectionObserver(function(es,ob){
-      es.forEach(function(e){
-        if(!e.isIntersecting) return;
-        [].slice.call(e.target.children).forEach(function(el,i){
-          setTimeout(function(){el.classList.add('on');},i*110);
-        });
-        ob.unobserve(e.target);
-      });
-    },{threshold:.2}).observe(group);
-  });
+  tick();
+  addEventListener('scroll',tick,{passive:true});
+  addEventListener('resize',tick,{passive:true});
+  if(window.IntersectionObserver){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) tick(); });
+    },{threshold:0,rootMargin:'0px 0px -8% 0px'});
+    groups.forEach(function(g){ io.observe(g.el); });
+  }
+  setTimeout(function(){ groups.forEach(play); },5000);
 })();
 
 /* ---- school calendar. The fallback list above is the no-JS content. ---- */
@@ -816,7 +897,45 @@ a{color:inherit}
   var el=document.getElementById('cd-days');
   if(!el)return;
   var d=Math.max(0,Math.ceil((new Date('2027-04-04T00:00:00+03:00')-new Date())/864e5));
+  el.dataset.to=d;                      // counter below animates up to this
   el.textContent=d.toLocaleString('en');
+})();
+
+/* ---- figures count up on entry (the reference's stat counters) ---- */
+(function(){
+  var host=document.querySelector('[data-counters]');
+  if(!host||!window.IntersectionObserver) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var nums=[].slice.call(host.querySelectorAll('.num'));
+  new IntersectionObserver(function(es,ob){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      ob.unobserve(e.target);
+      nums.forEach(function(n,i){
+        var to=parseInt(n.dataset.to,10);
+        if(isNaN(to)) return;
+        var dur=900+i*90, t0=null;
+        function frame(t){
+          if(t0===null) t0=t;
+          var p=Math.min(1,(t-t0)/dur);
+          var eased=1-Math.pow(1-p,3);           // ease-out cubic
+          n.textContent=Math.round(to*eased).toLocaleString('en');
+          if(p<1) requestAnimationFrame(frame);
+        }
+        n.textContent='0';
+        requestAnimationFrame(frame);
+      });
+    });
+  },{threshold:.45}).observe(host);
+})();
+
+/* ---- nav condenses once you leave the hero ---- */
+(function(){
+  var bar=document.querySelector('.bar'), hero=document.getElementById('top');
+  if(!bar||!hero||!window.IntersectionObserver) return;
+  new IntersectionObserver(function(es){
+    bar.classList.toggle('is-stuck',!es[0].isIntersecting);
+  },{rootMargin:'-90px 0px 0px 0px'}).observe(hero);
 })();
 </script>
 </body>
