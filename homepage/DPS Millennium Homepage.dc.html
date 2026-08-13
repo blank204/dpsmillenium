@@ -49,12 +49,8 @@ a:hover{color:#D8A800}
 @keyframes sweepIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 @keyframes edgeRide{0%{inset-inline-start:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{inset-inline-start:100%;opacity:0}}
 @keyframes dissolveIn{from{opacity:0}to{opacity:1}}
-@keyframes blobPop{
-0%{transform:translate(-50%,-50%) rotate(0deg) scale(.008);opacity:0}
-7%{opacity:.88}
-45%{transform:translate(-50%,-50%) rotate(calc(var(--rot,24deg) * .22)) scale(calc(var(--s,2.5) * .052),calc(var(--s,2.5) * .072));opacity:.88}
-75%{transform:translate(-50%,-50%) rotate(calc(var(--rot,24deg) * .58)) scale(calc(var(--s,2.5) * .36),calc(var(--s,2.5) * .29));opacity:.6}
-100%{transform:translate(-50%,-50%) rotate(var(--rot,24deg)) scale(var(--s,2.5));opacity:0}}
+@keyframes lobeGrow{from{transform:translate(-50%,-50%) scale(.004)}to{transform:translate(-50%,-50%) scale(var(--s,4))}}
+@keyframes blobFade{0%{opacity:0}7%{opacity:.88}42%{opacity:.88}100%{opacity:0}}
 @keyframes circleChase{from{clip-path:circle(0% at 50% 70%)}to{clip-path:circle(148% at 50% 70%)}}
 @property --br{syntax:"<length>";initial-value:0px;inherits:false}
 @property --bf{syntax:"<length>";initial-value:0px;inherits:false}
@@ -189,11 +185,31 @@ a:hover{color:#D8A800}
 
     <sc-if value="{{ vBloom }}" hint-placeholder-val="{{ true }}">
     <img src="assets/campus-sketch.jpeg" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover" />
-    <div aria-hidden="true" style="--s:2.7;--rot:26deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#D8A800 0 42%,transparent 42%),radial-gradient(circle at 33% 37%,#D8A800 0 31%,transparent 31%),radial-gradient(circle at 67% 63%,#D8A800 0 34%,transparent 34%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 900ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
-    <div aria-hidden="true" style="--s:2.6;--rot:-22deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#D82818 0 41%,transparent 41%),radial-gradient(circle at 64% 34%,#D82818 0 32%,transparent 32%),radial-gradient(circle at 36% 66%,#D82818 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 980ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
-    <div aria-hidden="true" style="--s:2.55;--rot:31deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#382898 0 42%,transparent 42%),radial-gradient(circle at 30% 62%,#382898 0 30%,transparent 30%),radial-gradient(circle at 70% 40%,#382898 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1060ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
-    <div aria-hidden="true" style="--s:2.5;--rot:-27deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#206838 0 41%,transparent 41%),radial-gradient(circle at 62% 68%,#206838 0 31%,transparent 31%),radial-gradient(circle at 37% 34%,#206838 0 32%,transparent 32%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1140ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
-    <div aria-hidden="true" style="--s:2.45;--rot:19deg;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:1600px;block-size:1600px;pointer-events:none;background:radial-gradient(circle at 50% 50%,#400068 0 42%,transparent 42%),radial-gradient(circle at 40% 32%,#400068 0 30%,transparent 30%),radial-gradient(circle at 60% 68%,#400068 0 33%,transparent 33%);transform:translate(-50%,-50%) scale(.01);opacity:0;animation:blobPop 1400ms calc(var(--t) + 1220ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;animation:blobFade 1400ms calc(var(--t) + 900ms) linear forwards">
+      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 900ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:4.625;position:absolute;inset-inline-start:39%;inset-block-start:57%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 900ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:5.2;position:absolute;inset-inline-start:63%;inset-block-start:82%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 900ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;animation:blobFade 1400ms calc(var(--t) + 980ms) linear forwards">
+      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 980ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:4.625;position:absolute;inset-inline-start:61%;inset-block-start:55%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 980ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:5.2;position:absolute;inset-inline-start:40%;inset-block-start:84%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 980ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;animation:blobFade 1400ms calc(var(--t) + 1060ms) linear forwards">
+      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1060ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:4.625;position:absolute;inset-inline-start:36%;inset-block-start:78%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1060ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:5.2;position:absolute;inset-inline-start:66%;inset-block-start:60%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1060ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;animation:blobFade 1400ms calc(var(--t) + 1140ms) linear forwards">
+      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1140ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:4.625;position:absolute;inset-inline-start:58%;inset-block-start:83%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1140ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:5.2;position:absolute;inset-inline-start:43%;inset-block-start:58%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1140ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;animation:blobFade 1400ms calc(var(--t) + 1220ms) linear forwards">
+      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1220ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:4.625;position:absolute;inset-inline-start:44%;inset-block-start:62%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1220ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+      <div style="--s:5.2;position:absolute;inset-inline-start:57%;inset-block-start:79%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004);animation:lobeGrow 1400ms calc(var(--t) + 1220ms) cubic-bezier(.72,0,.88,.1) forwards"></div>
+    </div>
     <img src="assets/campus-concept.jpeg" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;clip-path:circle(0% at 50% 70%);animation:circleChase 1350ms calc(var(--t) + 1000ms) cubic-bezier(.66,0,.86,.12) forwards" />
     </sc-if>
 
