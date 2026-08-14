@@ -185,31 +185,7 @@ a:hover{color:#D8A800}
 
     <sc-if value="{{ vBloom }}" hint-placeholder-val="{{ true }}">
     <img src="assets/campus-sketch.jpeg" fetchpriority="high" decoding="async" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover" />
-    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0" data-blob="0">
-      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:4.625;position:absolute;inset-inline-start:39%;inset-block-start:57%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:5.2;position:absolute;inset-inline-start:63%;inset-block-start:82%;inline-size:800px;block-size:800px;border-radius:50%;background:#D8A800;transform:translate(-50%,-50%) scale(.004)"></div>
-    </div>
-    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0" data-blob="1">
-      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:4.625;position:absolute;inset-inline-start:61%;inset-block-start:55%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:5.2;position:absolute;inset-inline-start:40%;inset-block-start:84%;inline-size:800px;block-size:800px;border-radius:50%;background:#D82818;transform:translate(-50%,-50%) scale(.004)"></div>
-    </div>
-    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0" data-blob="2">
-      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:4.625;position:absolute;inset-inline-start:36%;inset-block-start:78%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:5.2;position:absolute;inset-inline-start:66%;inset-block-start:60%;inline-size:800px;block-size:800px;border-radius:50%;background:#382898;transform:translate(-50%,-50%) scale(.004)"></div>
-    </div>
-    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0" data-blob="3">
-      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:4.625;position:absolute;inset-inline-start:58%;inset-block-start:83%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:5.2;position:absolute;inset-inline-start:43%;inset-block-start:58%;inline-size:800px;block-size:800px;border-radius:50%;background:#206838;transform:translate(-50%,-50%) scale(.004)"></div>
-    </div>
-    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0" data-blob="4">
-      <div style="--s:6;position:absolute;inset-inline-start:50%;inset-block-start:70%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:4.625;position:absolute;inset-inline-start:44%;inset-block-start:62%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004)"></div>
-      <div style="--s:5.2;position:absolute;inset-inline-start:57%;inset-block-start:79%;inline-size:800px;block-size:800px;border-radius:50%;background:#400068;transform:translate(-50%,-50%) scale(.004)"></div>
-    </div>
+    <canvas data-bloom="1" width="1594" height="766" aria-hidden="true" style="position:absolute;inset:0;inline-size:100%;block-size:100%;pointer-events:none"></canvas>
     <img src="assets/campus-concept.jpeg" fetchpriority="high" decoding="async" alt="Concept design for the DPS Millennium International School campus in Al Wukair, Qatar" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;clip-path:circle(0% at 50% 70%)" data-chase="1" />
     </sc-if>
 
@@ -504,42 +480,107 @@ class Component extends DCLogic {
   armBloom() {
     const band = document.getElementById('render');
     if (!band) return;
-    const groups = Array.from(band.querySelectorAll('[data-blob]')).map((g) => ({
-      el: g,
-      lobes: Array.from(g.children).map((l) => ({
-        el: l,
-        s: parseFloat(getComputedStyle(l).getPropertyValue('--s')) || 5,
+    // One canvas, not fifteen scaled divs. Growing a small box to several
+    // thousand pixels made the compositor re-rasterise huge upscaled layers
+    // mid-scroll, which tore into rectangular tiles and starved the photo behind
+    // it of paint. A single 2D surface redraws the whole bloom per frame at a
+    // fraction of that cost — and lets each lobe be a genuinely irregular,
+    // morphing path instead of a rounded rectangle pretending to be one.
+    const cv = band.querySelector('[data-bloom]');
+    const ctx = cv && cv.getContext('2d');
+    const W = 1594, H = 766;
+
+    let seed = 20260814;
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+    const COL = ['#D8A800', '#D82818', '#382898', '#206838', '#400068'];
+    const POS = [
+      [[50, 70, 6], [39, 57, 4.625], [63, 82, 5.2]],
+      [[50, 70, 6], [61, 55, 4.625], [40, 84, 5.2]],
+      [[50, 70, 6], [36, 78, 4.625], [66, 60, 5.2]],
+      [[50, 70, 6], [58, 83, 4.625], [43, 58, 5.2]],
+      [[50, 70, 6], [44, 62, 4.625], [57, 79, 5.2]],
+    ];
+    // Each lobe carries a set of harmonic amplitudes/phases; the radius at any
+    // angle is the sum of them, so the outline is lumpy and asymmetric and it
+    // kneads slowly as the scrub advances.
+    const groups = POS.map((lobes, gi) => ({
+      color: COL[gi],
+      lobes: lobes.map(([x, y, s]) => ({
+        cx: (x / 100) * W, cy: (y / 100) * H, r: 400 * s,
+        h: [2, 3, 5].map((n) => ({ n, a: 0.05 + rnd() * 0.07, ph: rnd() * 6.283, sp: 0.9 + rnd() * 1.6 })),
+        dx: (rnd() - 0.5) * 70, dy: (rnd() - 0.5) * 60, dph: rnd() * 6.283,
       })),
     }));
+
     const chaseEl = band.querySelector('[data-chase]');
-    if (!groups.length && !chaseEl) return;
+    if (!ctx && !chaseEl) return;
+
+    const blob = (l, R, p) => {
+      const STEP = 24, TAU = Math.PI * 2;
+      const cx = l.cx + l.dx * Math.sin(l.dph + p * 2.2);
+      const cy = l.cy + l.dy * Math.cos(l.dph + p * 2.6);
+      const pts = [];
+      for (let i = 0; i < STEP; i++) {
+        const a = (i / STEP) * TAU;
+        let m = 1;
+        for (let j = 0; j < l.h.length; j++) {
+          const hh = l.h[j];
+          m += hh.a * Math.sin(hh.n * a + hh.ph + p * hh.sp);
+        }
+        pts.push([cx + Math.cos(a) * R * m, cy + Math.sin(a) * R * m]);
+      }
+      // Closed Catmull-ish path via midpoint quadratics: smooth, no cusps.
+      ctx.beginPath();
+      let px = (pts[STEP - 1][0] + pts[0][0]) / 2, py = (pts[STEP - 1][1] + pts[0][1]) / 2;
+      ctx.moveTo(px, py);
+      for (let i = 0; i < STEP; i++) {
+        const c = pts[i], n = pts[(i + 1) % STEP];
+        ctx.quadraticCurveTo(c[0], c[1], (c[0] + n[0]) / 2, (c[1] + n[1]) / 2);
+      }
+      ctx.closePath();
+      ctx.fill();
+    };
 
     const eLobe = this.bez(.72, 0, .88, .1);
     const eChase = this.bez(.66, 0, .86, .12);
     const cl = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
-    const draw = () => {
-      this.bloomRaf = 0;
+    // Where the scrub WANTS to be for the current scroll position.
+    const target = () => {
       const r = band.getBoundingClientRect(), vh = window.innerHeight;
       // 0 as the band's top edge clears the bottom of the viewport; 1 just as
       // the whole band has risen into view. Roughly a viewport of scroll, so the
       // reveal has room to read rather than snapping through.
       const from = vh;
       const to = Math.max(-r.height * 0.3, (vh - r.height) / 2 - vh * 0.2);
-      const p = cl((from - r.top) / Math.max(1, from - to));
+      const q = cl((from - r.top) / Math.max(1, from - to));
+      // Hold at zero until the band is properly in frame, then run through in
+      // roughly half the scroll it used to take: later trigger, quicker reveal.
+      return cl((q - 0.38) / 0.40);
+    };
 
-      groups.forEach((g, i) => {
-        // Later colours start later AND travel slower, so each one peaks in turn
-        // instead of the last one overtaking the stack.
-        const lp = cl((p - i * 0.05) / (0.62 + i * 0.03));
-        const k = eLobe(lp);
-        g.lobes.forEach((l) => {
-          l.el.style.transform = 'translate(-50%,-50%) scale(' + (0.004 + (l.s - 0.004) * k).toFixed(4) + ')';
+    // Drawn from a damped value rather than straight from scroll: on a fast
+    // flick the compositor hands us a rect a frame late, and reading it raw made
+    // the bloom snap to a state that didn't match what was on screen. Chasing
+    // the target instead absorbs that, and still settles exactly where scroll
+    // says it should — so reversing remains truthful.
+    const draw = (p) => {
+      if (ctx) {
+        ctx.clearRect(0, 0, W, H);
+        groups.forEach((g, i) => {
+          // Later colours start later AND travel slower, so each one peaks in
+          // turn instead of the last one overtaking the stack.
+          const lp = cl((p - i * 0.035) / (0.50 + i * 0.02));
+          if (lp <= 0) return;
+          const k = eLobe(lp);
+          // Swells in fast, holds, then drains as the colour photo overtakes it.
+          const o = lp < 0.09 ? lp / 0.09 : lp < 0.46 ? 1 : 1 - (lp - 0.46) / 0.54;
+          ctx.globalAlpha = 0.88 * cl(o);
+          ctx.fillStyle = g.color;
+          g.lobes.forEach((l) => { blob(l, l.r * k, p); });
         });
-        // Swells in fast, holds, then drains as the colour photo overtakes it.
-        const o = lp <= 0 ? 0 : lp < 0.09 ? lp / 0.09 : lp < 0.46 ? 1 : 1 - (lp - 0.46) / 0.54;
-        g.el.style.opacity = (0.88 * cl(o)).toFixed(3);
-      });
+        ctx.globalAlpha = 1;
+      }
 
       if (chaseEl) {
         const cp = eChase(cl((p - 0.2) / 0.8));
@@ -547,10 +588,22 @@ class Component extends DCLogic {
       }
     };
 
-    this.onBloom = () => { if (!this.bloomRaf) this.bloomRaf = requestAnimationFrame(draw); };
+    this.bloomP = target();
+    draw(this.bloomP);
+
+    const tick = () => {
+      const t = target();
+      const d = t - this.bloomP;
+      // Snap when we are within a hair, otherwise ease a fifth of the way there.
+      this.bloomP = Math.abs(d) < 0.0015 ? t : this.bloomP + d * 0.2;
+      draw(this.bloomP);
+      if (Math.abs(t - this.bloomP) > 0.0005) this.bloomRaf = requestAnimationFrame(tick);
+      else this.bloomRaf = 0;
+    };
+
+    this.onBloom = () => { if (!this.bloomRaf) this.bloomRaf = requestAnimationFrame(tick); };
     window.addEventListener('scroll', this.onBloom, { passive: true });
     window.addEventListener('resize', this.onBloom);
-    draw();
   }
 
   // Rapid roll into each headline figure. Two-digit-plus counts sweep up from
