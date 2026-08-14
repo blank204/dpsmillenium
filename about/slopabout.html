@@ -116,6 +116,7 @@
       -webkit-text-size-adjust: 100%;
       scroll-behavior: smooth;
       scrollbar-color: rgba(64, 0, 104, 0.3) var(--paper);
+      font-size: clamp(16px, 4px + .625vw, 20px);
     }
 
     ::selection {
@@ -433,139 +434,222 @@
       }
     }
 
-    /* Sticky Navigation */
+    /* Sticky Navigation — matches DPS Millennium Homepage exactly */
     .bar {
+      background: #17061F;
+      color: var(--paper);
       position: sticky;
       top: 0;
-      z-index: 90;
-      background: rgba(23, 6, 31, 0.94);
-      color: var(--paper);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-block-end: 1px solid var(--rule-ink);
-      transition: box-shadow 0.3s ease, background 0.3s ease;
+      z-index: 60;
+      transition: box-shadow 0.3s ease;
     }
 
     .bar.is-stuck {
-      background: rgba(23, 6, 31, 0.98);
       box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.7);
     }
 
     .bar__in {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
       padding-block: 0.85rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.7rem;
       text-decoration: none;
       margin-inline-end: auto;
+      color: var(--paper);
     }
 
     .brand img {
-      inline-size: 34px;
-      block-size: 34px;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
-      transition: transform 0.3s ease;
-    }
-
-    .brand:hover img {
-      transform: scale(1.06) rotate(3deg);
+      inline-size: 2rem;
     }
 
     .brand b {
       font-family: var(--display);
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1rem;
       letter-spacing: -0.01em;
-      line-height: 1.1;
       display: block;
     }
 
     .brand span {
       display: block;
       font-size: 0.65rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted-ink);
       font-weight: 500;
     }
 
-    .nav-links {
+    /* Top-level nav list */
+    .menu {
       display: flex;
       list-style: none;
       margin: 0;
       padding: 0;
-      gap: 0.3rem;
     }
 
-    .nav-links>li {
+    .menu > li {
       position: relative;
     }
 
-    .nav-links a {
-      display: inline-flex;
+    .menu > li > a {
+      display: flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.65rem 0.9rem;
+      gap: 0.4rem;
+      padding: 0.9rem 0.85rem;
       font-size: 0.8125rem;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      white-space: nowrap;
+      text-decoration: none;
       color: var(--paper);
-      border-radius: var(--r-sm);
-      transition: color 0.2s ease, background 0.2s ease;
+      transition: color 0.2s ease;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
+    .menu > li:hover > a,
+    .menu > li:focus-within > a {
       color: var(--gold);
-      background: rgba(255, 255, 255, 0.06);
     }
 
-    .nav-links a.active {
-      font-weight: 600;
+    /* Chevron arrow built into an <i> inside each dropdown trigger */
+    .menu > li > a .chevron {
+      display: inline-block;
+      inline-size: 0.4em;
+      block-size: 0.4em;
+      border-inline-end: 1.5px solid currentColor;
+      border-block-end: 1.5px solid currentColor;
+      transform: rotate(45deg) translateY(-0.1em);
+      transition: transform 0.2s ease;
     }
 
+    .menu > li:hover > a .chevron,
+    .menu > li:focus-within > a .chevron {
+      transform: rotate(225deg) translateY(-0.25em);
+    }
+
+    /* Dropdown submenus */
+    .sub {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 0;
+      min-inline-size: 15rem;
+      background: var(--paper);
+      color: var(--ink);
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 0;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 18px 40px -12px rgba(23, 6, 31, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      z-index: 70;
+    }
+
+    .menu > li:hover .sub,
+    .menu > li:focus-within .sub {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .sub a {
+      display: block;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.875rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .sub a:hover {
+      background: #E9E1D2;
+      color: var(--purple);
+    }
+
+    .sub li.off a {
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 0.8125rem;
+    }
+
+    .sub li.off a::after {
+      content: " — soon";
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .bar__cta {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    /* Burger (mobile only) */
     .burger {
       display: none;
-      background: transparent;
-      border: 1px solid var(--rule-ink);
-      color: var(--paper);
+      background: none;
+      border: 1px solid rgba(243, 238, 228, 0.2);
+      color: inherit;
+      border-radius: 99px;
       padding: 0.5rem 0.9rem;
-      border-radius: var(--r-pill);
       font: inherit;
       font-size: 0.8125rem;
-      font-weight: 600;
       cursor: pointer;
+      margin-inline-start: auto;
     }
 
-    @media (max-width: 66rem) {
-      .nav-links {
+    @media (max-width: 64rem) {
+      .menu {
         display: none;
-        position: absolute;
-        inset-block-start: 100%;
-        inset-inline: 0;
-        background: var(--ink);
-        border-block-start: 1px solid var(--rule-ink);
-        padding: 1rem var(--gutter);
-        flex-direction: column;
-        gap: 0.5rem;
-        box-shadow: var(--shadow-ink);
-      }
-
-      .nav-links.is-open {
-        display: flex;
       }
 
       .burger {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
+        display: block;
+      }
+
+      .menu.is-open {
+        display: block;
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline: 0;
+        background: #17061F;
+        padding: 0.5rem 0;
+        padding-inline: calc(var(--gutter) - 0.85rem);
+        border-block-start: 1px solid rgba(243, 238, 228, 0.2);
+        z-index: 65;
+        max-block-size: 70vh;
+        overflow-y: auto;
+      }
+
+      .menu.is-open .sub {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: transparent;
+        color: var(--muted-ink);
+        border-radius: 0;
+        padding: 0 0 0.5rem;
+      }
+
+      .menu.is-open .sub a {
+        padding-inline: calc(var(--gutter) + 0.15rem);
+        color: var(--muted-ink);
+      }
+
+      .menu.is-open .sub a:hover {
+        background: transparent;
+        color: var(--gold);
       }
     }
 
@@ -1735,53 +1819,79 @@
 
 <body>
 
-  <!-- ============================ TOP BAR ============================ -->
-  <aside class="topbar">
-    <div class="wrap topbar__in">
-      <div style="display:flex;align-items:center;gap:.75rem">
-        <span class="topbar__badge"><span class="topbar__pulse"></span>Tentative Opening: 4 April 2027</span>
-        <span>Al Wukair, State of Qatar</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:1.25rem">
-        <span style="font-family:var(--arabic);direction:rtl">&#1605;&#1583;&#1585;&#1587;&#1577;
-          &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605;
-          &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</span>
-        <a href="#register">Register Interest &rarr;</a>
-      </div>
-    </div>
-  </aside>
 
   <!-- ============================ STICKY NAV ============================ -->
   <nav class="bar" id="navbar">
     <div class="wrap bar__in">
       <a class="brand" href="../homepage/DPS Millennium Homepage.dc.html" title="DPS Millennium Home">
-        <img src="../homepage/assets/shield.svg" alt="DPS Millennium Shield">
-        <span>
-          <b>DPS Millennium</b>
+        <img src="../homepage/assets/shield.svg" alt="">
+        <span style="display:block">
+          <b style="display:block">DPS Millennium</b>
           <span>International School</span>
         </span>
       </a>
 
-      <button class="burger" id="burgerBtn" aria-expanded="false" aria-controls="navMenu">
-        <span>Menu</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      <button class="burger" id="burgerBtn" aria-expanded="false" aria-controls="navMenu">Menu</button>
 
-      <ul class="nav-links" id="navMenu">
-        <li><a href="../homepage/DPS Millennium Homepage.dc.html">Home</a></li>
-        <li><a href="#mission" class="active">Mission &amp; Vision</a></li>
-        <li><a href="#symbolism">Heraldry</a></li>
-        <li><a href="#objectives">Objectives</a></li>
-        <li><a href="#campus">Campus</a></li>
-        <li><a href="#legacy">Legacy</a></li>
-        <li><a href="#visionaries">Leadership</a></li>
-        <li><a href="#faq">FAQ</a></li>
+      <ul class="menu" id="navMenu">
+        <li class="plain"><a href="../homepage/DPS Millennium Homepage.dc.html">Home</a></li>
+        <li>
+          <a href="#mission" aria-haspopup="true">About Us<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#mission">Mission &amp; Vision</a></li>
+            <li><a href="#objectives">Objectives</a></li>
+            <li><a href="#visionaries">Key Visionaries</a></li>
+            <li><a href="#">The DPS Group</a></li>
+            <li><a href="#">Our Story</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#campus" aria-haspopup="true">The Campus<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#">Concept Design</a></li>
+            <li><a href="#campus">Construction Progress</a></li>
+            <li><a href="#">Location &amp; Access</a></li>
+            <li class="off"><a href="#">Facilities</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#register" aria-haspopup="true">Admissions<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#register">Register Interest</a></li>
+            <li><a href="#">Fees Structure</a></li>
+            <li class="off"><a href="#">How to Apply</a></li>
+            <li class="off"><a href="#">Age &amp; Year Groups</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true">Notice Board<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#">Information Corner</a></li>
+            <li><a href="#">Events Corner</a></li>
+            <li><a href="#">Academic Circulars</a></li>
+            <li><a href="#">School Calendar</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true">Curriculum<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#">CBSE at Millennium</a></li>
+            <li class="off"><a href="#">Subjects Offered</a></li>
+            <li class="off"><a href="#">Assessment</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true">Contact<i class="chevron"></i></a>
+          <ul class="sub">
+            <li><a href="#">Enquiry Form</a></li>
+            <li><a href="#">P.O. Box &amp; Address</a></li>
+            <li><a href="#">Phone &amp; Email</a></li>
+          </ul>
+        </li>
       </ul>
 
-      <div style="display:flex;gap:.75rem;align-items:center">
-        <a class="btn btn--gold" href="#register">Register Interest</a>
+      <div class="bar__cta">
+        <a class="btn btn--gold" href="#register">Register</a>
       </div>
     </div>
   </nav>
