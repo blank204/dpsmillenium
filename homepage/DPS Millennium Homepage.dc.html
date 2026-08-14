@@ -763,9 +763,28 @@ class Component extends DCLogic {
     this.sync();
     window.addEventListener('resize', this.sync);
 
-    const t = (this.props.showLoader ?? true) ? '2.4s' : '0s';
+    // Suppress the intro animation on return visits within the same session.
+    // sessionStorage is cleared when the tab closes, so a fresh open still gets
+    // the full sequence; navigating back from the about page (or any other page)
+    // within the same tab skips it entirely.
+    const VISITED_KEY = 'dpsm_visited';
+    const returning = sessionStorage.getItem(VISITED_KEY) === '1';
+    if (!returning) sessionStorage.setItem(VISITED_KEY, '1');
+
+    const wantLoader = !returning && (this.props.showLoader ?? true);
+    const t = wantLoader ? '2.4s' : '0s';
     document.documentElement.style.setProperty('--t', t);
-    this.flyCrest();
+
+    if (wantLoader) {
+      this.flyCrest();
+    } else {
+      // Instantly reveal the hero crest and clean up any loader layers so they
+      // don't flash or block interaction on return visits.
+      const target = document.querySelector('[data-crest-target]');
+      if (target) target.style.opacity = '1';
+      document.querySelectorAll('[data-flyer-layer]').forEach(el => el.remove());
+    }
+
     this.syncDirPad();
 
     const d = Math.max(0, Math.ceil((new Date('2027-04-04T00:00:00+03:00') - new Date()) / 864e5));
