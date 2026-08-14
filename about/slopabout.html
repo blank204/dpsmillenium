@@ -1,23 +1,60 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About DPS Millennium — Legacy, Vision & Community</title>
-  <meta name="description" content="Discover DPS Millennium International School in Al Wukair, Qatar. A proud member of the DPS Group, launching tentatively on 4 April 2027 with CBSE excellence, world-class campus facilities, and holistic education.">
-  <link rel="icon" href="./assets/shield.svg">
+  <meta name="description"
+    content="Discover DPS Millennium International School in Al Wukair, Qatar. A proud member of the DPS Group, launching tentatively on 4 April 2027 with CBSE excellence, world-class campus facilities, and holistic education.">
+  <link rel="icon" href="../homepage/assets/shield.svg">
   <style>
     /* =====================================================================
        DPS Millennium International School — About Page (about.html)
        Approved Design Direction C ("The Seal") & C6 Architectural Aesthetic
        ===================================================================== */
 
-    @font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
-    @font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-500.woff2") format("woff2"); font-weight:500; font-display:swap; }
-    @font-face { font-family:"Plex Sans"; src:url("./assets/fonts/plex-sans-600.woff2") format("woff2"); font-weight:600; font-display:swap; }
-    @font-face { font-family:"Plex Serif"; src:url("./assets/fonts/plex-serif-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
-    @font-face { font-family:"Plex Serif"; src:url("./assets/fonts/plex-serif-600.woff2") format("woff2"); font-weight:600; font-display:swap; }
-    @font-face { font-family:"Plex Arabic"; src:url("./assets/fonts/plex-arabic-400.woff2") format("woff2"); font-weight:400; font-display:swap; }
+    @font-face {
+      font-family: "Plex Sans";
+      src: url("../homepage/assets/fonts/plex-sans-400.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Plex Sans";
+      src: url("../homepage/assets/fonts/plex-sans-500.woff2") format("woff2");
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Plex Sans";
+      src: url("../homepage/assets/fonts/plex-sans-600.woff2") format("woff2");
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Plex Serif";
+      src: url("../homepage/assets/fonts/plex-serif-400.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Plex Serif";
+      src: url("../homepage/assets/fonts/plex-serif-600.woff2") format("woff2");
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Plex Arabic";
+      src: url("../homepage/assets/fonts/plex-arabic-400.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
 
     :root {
       /* Brand Color Tokens */
@@ -63,27 +100,46 @@
       --r: 16px;
       --r-sm: 10px;
       --r-pill: 9999px;
-      --shadow-sm: 0 4px 16px rgba(23,6,31,0.06);
-      --shadow-md: 0 16px 36px -10px rgba(23,6,31,0.14);
-      --shadow-ink: 0 20px 45px -12px rgba(0,0,0,0.55);
+      --shadow-sm: 0 4px 16px rgba(23, 6, 31, 0.06);
+      --shadow-md: 0 16px 36px -10px rgba(23, 6, 31, 0.14);
+      --shadow-ink: 0 20px 45px -12px rgba(0, 0, 0, 0.55);
       --shadow-gold: 0 0 30px rgba(216, 168, 0, 0.22);
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     html {
       -webkit-text-size-adjust: 100%;
       scroll-behavior: smooth;
-      scrollbar-color: rgba(64,0,104,0.3) var(--paper);
+      scrollbar-color: rgba(64, 0, 104, 0.3) var(--paper);
     }
-    ::selection { background: var(--gold); color: var(--ink); }
-    ::-webkit-scrollbar { inline-size: 12px; }
-    ::-webkit-scrollbar-track { background: var(--paper); }
+
+    ::selection {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    ::-webkit-scrollbar {
+      inline-size: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--paper);
+    }
+
     ::-webkit-scrollbar-thumb {
-      background: rgba(64,0,104,0.35);
+      background: rgba(64, 0, 104, 0.35);
       border: 3px solid var(--paper);
       border-radius: var(--r-pill);
     }
-    ::-webkit-scrollbar-thumb:hover { background: var(--purple); }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--purple);
+    }
 
     body {
       margin: 0;
@@ -98,13 +154,47 @@
       accent-color: var(--purple);
     }
 
-    img, svg { max-width: 100%; height: auto; display: block; }
-    p, h1, h2, h3, h4, h5, h6 { margin: 0; }
-    a { color: inherit; text-decoration: none; }
-    :where(a, button, input, summary):focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    img,
+    svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
-    .wrap { max-inline-size: 82rem; margin-inline: auto; padding-inline: var(--gutter); }
-    .sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :where(a, button, input, summary):focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .wrap {
+      max-inline-size: 82rem;
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .sr-only {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
 
     /* Typography Utilities */
     .h {
@@ -115,13 +205,36 @@
       line-height: 1.04;
       text-wrap: balance;
     }
-    .h--xl { font-size: clamp(2.3rem, 1.2rem + 4.8vw, 4.75rem); }
-    .h--lg { font-size: clamp(1.85rem, 1.2rem + 2.8vw, 3.25rem); }
-    .h--md { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem); letter-spacing: -0.015em; line-height: 1.15; }
-    .h--sm { font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem); letter-spacing: -0.01em; }
 
-    .serif-display { font-family: var(--figure); font-style: italic; font-weight: 400; }
-    .tnum { font-family: var(--figure); font-variant-numeric: tabular-nums; }
+    .h--xl {
+      font-size: clamp(2.3rem, 1.2rem + 4.8vw, 4.75rem);
+    }
+
+    .h--lg {
+      font-size: clamp(1.85rem, 1.2rem + 2.8vw, 3.25rem);
+    }
+
+    .h--md {
+      font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+    }
+
+    .h--sm {
+      font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+      letter-spacing: -0.01em;
+    }
+
+    .serif-display {
+      font-family: var(--figure);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .tnum {
+      font-family: var(--figure);
+      font-variant-numeric: tabular-nums;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -134,13 +247,17 @@
       color: var(--gold);
       margin-block-end: 1rem;
     }
+
     .eyebrow::before {
       content: "";
       inline-size: 1.25rem;
       block-size: 2px;
       background: currentColor;
     }
-    .on-paper .eyebrow { color: var(--green); }
+
+    .on-paper .eyebrow {
+      color: var(--green);
+    }
 
     .lede {
       font-size: clamp(1.1rem, 1rem + 0.45vw, 1.3rem);
@@ -148,7 +265,10 @@
       max-inline-size: 58ch;
       line-height: 1.55;
     }
-    .band--ink .lede { color: var(--muted-ink); }
+
+    .band--ink .lede {
+      color: var(--muted-ink);
+    }
 
     /* Buttons & Interactive Elements */
     .btn {
@@ -170,38 +290,45 @@
       overflow: hidden;
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .btn:hover {
       background: var(--purple-lift);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px var(--purple-glow);
     }
+
     .btn--gold {
       background: var(--gold);
       color: var(--ink);
       font-weight: 600;
     }
+
     .btn--gold:hover {
       background: var(--gold-lift);
       box-shadow: 0 8px 25px var(--gold-glow);
     }
+
     .btn--ghost {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       color: inherit;
-      border-color: rgba(243,238,228,0.3);
+      border-color: rgba(243, 238, 228, 0.3);
       backdrop-filter: blur(8px);
     }
+
     .btn--ghost:hover {
-      background: rgba(243,238,228,0.15);
+      background: rgba(243, 238, 228, 0.15);
       border-color: var(--paper);
     }
+
     .btn--paper {
       background: var(--paper);
       color: var(--purple);
       font-weight: 600;
     }
+
     .btn--paper:hover {
       background: #FFFFFF;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     .badge {
@@ -216,17 +343,19 @@
       border-radius: var(--r-pill);
       border: 1px solid var(--rule);
       color: var(--muted);
-      background: rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.4);
     }
+
     .band--ink .badge {
       border-color: var(--rule-ink);
       color: var(--muted-ink);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
     }
+
     .badge--gold {
       border-color: var(--gold-glow);
       color: var(--gold);
-      background: rgba(216,168,0,0.1);
+      background: rgba(216, 168, 0, 0.1);
     }
 
     .arrow-icon {
@@ -247,8 +376,9 @@
       color: #DCCBE8;
       font-size: 0.75rem;
       padding: 0.45rem 0;
-      border-block-end: 1px solid rgba(255,255,255,0.08);
+      border-block-end: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .topbar__in {
       display: flex;
       justify-content: space-between;
@@ -256,20 +386,30 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
-    .topbar a { color: var(--gold); transition: opacity 0.2s ease; }
-    .topbar a:hover { opacity: 0.85; text-decoration: underline; }
+
+    .topbar a {
+      color: var(--gold);
+      transition: opacity 0.2s ease;
+    }
+
+    .topbar a:hover {
+      opacity: 0.85;
+      text-decoration: underline;
+    }
+
     .topbar__badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(216,168,0,0.15);
-      border: 1px solid rgba(216,168,0,0.3);
+      background: rgba(216, 168, 0, 0.15);
+      border: 1px solid rgba(216, 168, 0, 0.3);
       padding: 0.15rem 0.55rem;
       border-radius: 99px;
       color: var(--gold);
       font-weight: 600;
       letter-spacing: 0.05em;
     }
+
     .topbar__pulse {
       inline-size: 6px;
       block-size: 6px;
@@ -278,9 +418,19 @@
       box-shadow: 0 0 8px var(--gold);
       animation: blink 1.6s infinite ease-in-out;
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+      }
     }
 
     /* Sticky Navigation */
@@ -295,16 +445,19 @@
       border-block-end: 1px solid var(--rule-ink);
       transition: box-shadow 0.3s ease, background 0.3s ease;
     }
+
     .bar.is-stuck {
       background: rgba(23, 6, 31, 0.98);
-      box-shadow: 0 14px 34px -10px rgba(0,0,0,0.7);
+      box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.7);
     }
+
     .bar__in {
       display: flex;
       align-items: center;
       gap: 1.5rem;
       padding-block: 0.85rem;
     }
+
     .brand {
       display: flex;
       align-items: center;
@@ -312,13 +465,18 @@
       text-decoration: none;
       margin-inline-end: auto;
     }
+
     .brand img {
       inline-size: 34px;
       block-size: 34px;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
       transition: transform 0.3s ease;
     }
-    .brand:hover img { transform: scale(1.06) rotate(3deg); }
+
+    .brand:hover img {
+      transform: scale(1.06) rotate(3deg);
+    }
+
     .brand b {
       font-family: var(--display);
       font-weight: 600;
@@ -327,6 +485,7 @@
       line-height: 1.1;
       display: block;
     }
+
     .brand span {
       display: block;
       font-size: 0.65rem;
@@ -343,7 +502,11 @@
       padding: 0;
       gap: 0.3rem;
     }
-    .nav-links > li { position: relative; }
+
+    .nav-links>li {
+      position: relative;
+    }
+
     .nav-links a {
       display: inline-flex;
       align-items: center;
@@ -357,11 +520,16 @@
       border-radius: var(--r-sm);
       transition: color 0.2s ease, background 0.2s ease;
     }
-    .nav-links a:hover, .nav-links a.active {
+
+    .nav-links a:hover,
+    .nav-links a.active {
       color: var(--gold);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
     }
-    .nav-links a.active { font-weight: 600; }
+
+    .nav-links a.active {
+      font-weight: 600;
+    }
 
     .burger {
       display: none;
@@ -389,28 +557,37 @@
         gap: 0.5rem;
         box-shadow: var(--shadow-ink);
       }
-      .nav-links.is-open { display: flex; }
-      .burger { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .burger {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
     }
 
     /* =====================================================================
        HERO SECTION — Atmospheric Deep Purple Ground & 8-Layer Seal Assembly
        ===================================================================== */
     .hero {
-      background: radial-gradient(circle at 85% 30%, #580888 0%, #350055 45%, #190525 100%);
+      background: #0C0413;
       color: var(--paper);
       position: relative;
       overflow: hidden;
       border-block-end: 1px solid var(--rule-gold);
     }
+
     .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: url("./assets/seal-l7-stars.svg") no-repeat 90% 45%/180%;
       opacity: 0.08;
       pointer-events: none;
     }
+
     .hero::after {
       content: "";
       position: absolute;
@@ -418,24 +595,28 @@
       inset-block-end: -20%;
       inline-size: 600px;
       block-size: 600px;
-      background: radial-gradient(circle, rgba(216,168,0,0.12) 0%, rgba(216,168,0,0) 70%);
       pointer-events: none;
     }
+
     .hero__in {
       position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: clamp(2.5rem, 6vw, 5.5rem);
+      display: flex;
+      justify-content: center;
       align-items: center;
       padding-block: clamp(3.5rem, 9vh, 6.5rem) clamp(4rem, 10vh, 7rem);
     }
-    .hero__copy { position: relative; z-index: 2; }
+
+    .hero__copy {
+      position: relative;
+      z-index: 2;
+    }
+
     .hero__status {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      background: rgba(216,168,0,0.12);
-      border: 1px solid rgba(216,168,0,0.3);
+      background: rgba(216, 168, 0, 0.12);
+      border: 1px solid rgba(216, 168, 0, 0.3);
       padding: 0.35rem 0.95rem;
       border-radius: var(--r-pill);
       font-size: 0.75rem;
@@ -445,6 +626,7 @@
       color: var(--gold);
       margin-block-end: 1.5rem;
     }
+
     .hero__sub {
       font-size: clamp(1.1rem, 1rem + 0.5vw, 1.28rem);
       color: #E2D4EE;
@@ -452,6 +634,7 @@
       margin-block-start: 1.5rem;
       line-height: 1.55;
     }
+
     .hero__cta {
       display: flex;
       flex-wrap: wrap;
@@ -463,12 +646,17 @@
     .hero__ticker {
       margin-block-start: 2.5rem;
       padding-block-start: 1.5rem;
-      border-block-start: 1px solid rgba(216,168,0,0.25);
+      border-block-start: 1px solid rgba(216, 168, 0, 0.25);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
       gap: 1.25rem;
     }
-    .hero__ticker-cell { display: grid; gap: 0.2rem; }
+
+    .hero__ticker-cell {
+      display: grid;
+      gap: 0.2rem;
+    }
+
     .hero__ticker-num {
       font-family: var(--figure);
       font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem);
@@ -477,6 +665,7 @@
       line-height: 1;
       font-variant-numeric: tabular-nums;
     }
+
     .hero__ticker-lbl {
       font-size: 0.68rem;
       letter-spacing: 0.14em;
@@ -486,83 +675,191 @@
     }
 
     /* 8-Layer Seal Assembly Animation */
-    @property --sweep { syntax: "<angle>"; initial-value: 360deg; inherits: false; }
-    @keyframes sweep { from { --sweep: 0deg; } to { --sweep: 360deg; } }
-    @keyframes wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
-    @keyframes setq { from { opacity: 0; transform: scale(0.58); } to { opacity: 1; transform: none; } }
-    @keyframes engrave { from { opacity: 0; filter: blur(8px); transform: scale(1.04); } to { opacity: 1; filter: blur(0); transform: none; } }
-    @keyframes sealFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(0.4deg); }
+    @property --sweep {
+      syntax: "<angle>";
+      initial-value: 360deg;
+      inherits: false;
     }
+
+    @keyframes sweep {
+      from {
+        --sweep: 0deg;
+      }
+
+      to {
+        --sweep: 360deg;
+      }
+    }
+
+    @keyframes wipe {
+      from {
+        clip-path: inset(0 0 100% 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes setq {
+      from {
+        opacity: 0;
+        transform: scale(0.58);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes engrave {
+      from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(1.04);
+      }
+
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: none;
+      }
+    }
+
+    @keyframes sealFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(0.4deg);
+      }
+    }
+
     @keyframes haloGlow {
-      0%, 100% { opacity: 0.35; transform: scale(0.96); }
-      50% { opacity: 0.65; transform: scale(1.04); }
+
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: scale(0.96);
+      }
+
+      50% {
+        opacity: 0.65;
+        transform: scale(1.04);
+      }
     }
 
     .seal-stage {
       position: relative;
       display: grid;
       place-items: center;
+      inline-size: 100%;
+      max-inline-size: 410px;
+      margin-inline: auto;
     }
+
     .seal-halo {
       position: absolute;
       inline-size: 115%;
       aspect-ratio: 1;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(216,168,0,0.24) 0%, rgba(84,0,138,0.3) 45%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(216, 168, 0, 0.24) 0%, rgba(84, 0, 138, 0.3) 45%, rgba(0, 0, 0, 0) 70%);
       pointer-events: none;
       animation: haloGlow 6s ease-in-out infinite;
     }
+
     .seal {
       position: relative;
       aspect-ratio: 1296/1299;
       inline-size: 100%;
       max-inline-size: 410px;
+      margin-inline: auto;
       animation: sealFloat 7s ease-in-out infinite;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.55));
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55));
     }
-    .seal img { position: absolute; inset: 0; inline-size: 100%; }
+
+    .seal img {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+    }
 
     @media (prefers-reduced-motion: no-preference) {
       .seal .l-ring {
         mask-image: conic-gradient(from -90deg, #000 var(--sweep), #0000 0);
         animation: sweep 950ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
       }
+
       .seal .l-body {
         animation: wipe 720ms 650ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
       }
+
       .seal .l-q {
         transform-origin: 50% 47%;
         animation: setq 550ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
       }
-      .seal .l-gold { animation-delay: 900ms; }
-      .seal .l-sail { animation-delay: 980ms; }
-      .seal .l-globe { animation-delay: 1060ms; }
-      .seal .l-waves { animation-delay: 1140ms; }
-      .seal .l-stars { animation-delay: 1220ms; }
+
+      .seal .l-gold {
+        animation-delay: 900ms;
+      }
+
+      .seal .l-sail {
+        animation-delay: 980ms;
+      }
+
+      .seal .l-globe {
+        animation-delay: 1060ms;
+      }
+
+      .seal .l-waves {
+        animation-delay: 1140ms;
+      }
+
+      .seal .l-stars {
+        animation-delay: 1220ms;
+      }
+
       .seal .l-type {
         animation: engrave 800ms 1400ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
       }
     }
 
     @media (max-width: 58rem) {
-      .hero__in { grid-template-columns: 1fr; text-align: start; }
-      .seal { max-inline-size: 260px; margin-inline: auto; margin-block-start: 1.5rem; }
+      .seal {
+        max-inline-size: 260px;
+      }
     }
 
     /* =====================================================================
        SECTION BANDS
        ===================================================================== */
-    .band { padding-block: var(--sec); position: relative; }
-    .band--paper { background: var(--paper); color: var(--ink); }
-    .band--paper-alt { background: var(--paper-2); color: var(--ink); border-block: 1px solid var(--rule); }
+    .band {
+      padding-block: var(--sec);
+      position: relative;
+    }
+
+    .band--paper {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .band--paper-alt {
+      background: var(--paper-2);
+      color: var(--ink);
+      border-block: 1px solid var(--rule);
+    }
+
     .band--ink {
       background: var(--ink);
       color: var(--paper);
       position: relative;
       overflow: hidden;
     }
+
     .band--ink::before {
       content: "";
       position: absolute;
@@ -570,10 +867,11 @@
       inset-inline-start: 0;
       inline-size: 45%;
       block-size: 65%;
-      background: url("./assets/seal-l6-waves.svg") no-repeat 30% 70%/320%;
+      background: url("../homepage/assets/seal-l6-waves.svg") no-repeat 30% 70%/320%;
       opacity: 0.08;
       pointer-events: none;
     }
+
     .band--ink-pattern::after {
       content: "";
       position: absolute;
@@ -581,7 +879,7 @@
       inset-inline-end: 0;
       inline-size: 35%;
       block-size: 50%;
-      background: url("./assets/seal-l7-stars.svg") no-repeat 80% 20%/240%;
+      background: url("../homepage/assets/seal-l7-stars.svg") no-repeat 80% 20%/240%;
       opacity: 0.07;
       pointer-events: none;
     }
@@ -595,6 +893,7 @@
       gap: clamp(1.5rem, 3vw, 2.5rem);
       margin-block-start: clamp(2.5rem, 5vw, 3.5rem);
     }
+
     .mv-card {
       position: relative;
       background: var(--paper-card);
@@ -607,11 +906,13 @@
       gap: 1.25rem;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
     }
+
     .mv-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-md);
       border-color: rgba(64, 0, 104, 0.35);
     }
+
     .mv-card__tag {
       display: inline-flex;
       align-items: center;
@@ -622,6 +923,7 @@
       text-transform: uppercase;
       color: var(--purple);
     }
+
     .mv-card__tag::before {
       content: "";
       inline-size: 8px;
@@ -629,6 +931,7 @@
       border-radius: 50%;
       background: var(--gold);
     }
+
     .mv-card h3 {
       font-family: var(--display);
       font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
@@ -636,11 +939,13 @@
       line-height: 1.12;
       color: var(--purple);
     }
+
     .mv-card p {
       font-size: 1.05rem;
       line-height: 1.65;
       color: var(--ink);
     }
+
     .mv-card__foot {
       margin-block-start: auto;
       padding-block-start: 1rem;
@@ -660,6 +965,7 @@
       gap: clamp(2rem, 5vw, 4.5rem);
       align-items: center;
     }
+
     .quad-showcase {
       position: relative;
       aspect-ratio: 1;
@@ -668,16 +974,19 @@
       display: grid;
       place-items: center;
     }
+
     .quad-shield-bg {
       inline-size: 90%;
-      filter: drop-shadow(0 20px 35px rgba(0,0,0,0.6));
-      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.6));
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .quad-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: clamp(1rem, 2vw, 1.5rem);
     }
+
     .quad-card {
       background: var(--ink-card);
       border: 1px solid var(--rule-ink);
@@ -686,42 +995,52 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       display: grid;
       gap: 0.6rem;
     }
+
     .quad-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top left, var(--card-accent, rgba(216,168,0,0.2)) 0%, transparent 70%);
+      background: radial-gradient(circle at top left, var(--card-accent, rgba(216, 168, 0, 0.2)) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
-    .quad-card:hover, .quad-card.is-active {
+
+    .quad-card:hover,
+    .quad-card.is-active {
       transform: translateY(-4px);
       border-color: var(--card-color, var(--gold));
-      box-shadow: 0 10px 28px -6px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.5);
     }
-    .quad-card:hover::before, .quad-card.is-active::before { opacity: 1; }
+
+    .quad-card:hover::before,
+    .quad-card.is-active::before {
+      opacity: 1;
+    }
+
     .quad-card__icon {
       inline-size: 2.2rem;
       block-size: 2.2rem;
       border-radius: 8px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       display: grid;
       place-items: center;
       font-size: 1.1rem;
       color: var(--card-color, var(--gold));
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .quad-card h4 {
       font-family: var(--display);
       font-size: 1.05rem;
       font-weight: 600;
       color: var(--paper);
     }
+
     .quad-card p {
       font-size: 0.875rem;
       color: var(--muted-ink);
@@ -729,9 +1048,17 @@
     }
 
     @media (max-width: 54rem) {
-      .quad-wrap { grid-template-columns: 1fr; }
-      .quad-grid { grid-template-columns: 1fr; }
-      .quad-showcase { max-inline-size: 280px; }
+      .quad-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .quad-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quad-showcase {
+        max-inline-size: 280px;
+      }
     }
 
     /* =====================================================================
@@ -743,6 +1070,7 @@
       gap: 1.5rem;
       margin-block-start: 3rem;
     }
+
     .obj-card {
       background: var(--paper-card);
       border: 1px solid var(--rule);
@@ -755,6 +1083,7 @@
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .obj-card::after {
       content: "";
       position: absolute;
@@ -766,18 +1095,24 @@
       transform-origin: left;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .obj-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-md);
-      border-color: rgba(64,0,104,0.3);
+      border-color: rgba(64, 0, 104, 0.3);
     }
-    .obj-card:hover::after { transform: scaleX(1); }
+
+    .obj-card:hover::after {
+      transform: scaleX(1);
+    }
+
     .obj-card__num {
       font-family: var(--figure);
       font-size: 1.25rem;
       font-weight: 600;
       color: var(--gold);
     }
+
     .obj-card h3 {
       font-family: var(--display);
       font-size: 1.2rem;
@@ -785,6 +1120,7 @@
       color: var(--purple);
       line-height: 1.2;
     }
+
     .obj-card p {
       font-size: 0.95rem;
       color: var(--ink);
@@ -802,23 +1138,26 @@
       overflow: hidden;
       box-shadow: var(--shadow-ink);
     }
+
     .campus-viewer__nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       padding: 1rem 1.75rem;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.3);
       border-block-end: 1px solid var(--rule-ink);
       flex-wrap: wrap;
     }
+
     .campus-tabs {
       display: inline-flex;
       gap: 0.4rem;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       padding: 0.3rem;
       border-radius: var(--r-pill);
     }
+
     .campus-tab {
       background: transparent;
       border: 0;
@@ -831,10 +1170,12 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
+
     .campus-tab.is-active {
       background: var(--gold);
       color: var(--ink);
     }
+
     .campus-screen {
       position: relative;
       aspect-ratio: 16/9;
@@ -842,36 +1183,42 @@
       overflow: hidden;
       background: #0A020E;
     }
+
     .campus-screen img {
       position: absolute;
       inset: 0;
       inline-size: 100%;
       block-size: 100%;
       object-fit: cover;
-      transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+      transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .campus-screen img.is-hidden {
       opacity: 0;
       pointer-events: none;
       transform: scale(1.04);
     }
+
     .campus-caption {
       padding: 1.5rem 1.75rem;
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       gap: 1.5rem;
       align-items: center;
-      background: rgba(10,2,14,0.7);
+      background: rgba(10, 2, 14, 0.7);
     }
+
     .campus-specs {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
+
     .campus-spec-item {
       padding-inline-start: 0.75rem;
       border-inline-start: 2px solid var(--gold);
     }
+
     .campus-spec-item b {
       display: block;
       font-size: 0.75rem;
@@ -879,14 +1226,20 @@
       text-transform: uppercase;
       color: var(--gold);
     }
+
     .campus-spec-item span {
       font-size: 0.875rem;
       color: var(--paper);
     }
 
     @media (max-width: 50rem) {
-      .campus-caption { grid-template-columns: 1fr; }
-      .campus-screen { aspect-ratio: 4/3; }
+      .campus-caption {
+        grid-template-columns: 1fr;
+      }
+
+      .campus-screen {
+        aspect-ratio: 4/3;
+      }
     }
 
     /* =====================================================================
@@ -899,14 +1252,16 @@
       padding: 0;
       margin-inline: 0;
     }
+
     .timeline::before {
       content: "";
       position: absolute;
       inset-block: 0;
       inset-inline-start: clamp(1.2rem, 3vw, 2.5rem);
       inline-size: 2px;
-      background: linear-gradient(180deg, var(--gold) 0%, var(--purple) 80%, rgba(64,0,104,0.1) 100%);
+      background: linear-gradient(180deg, var(--gold) 0%, var(--purple) 80%, rgba(64, 0, 104, 0.1) 100%);
     }
+
     .t-item {
       position: relative;
       padding-inline-start: clamp(3.2rem, 6vw, 5.5rem);
@@ -914,6 +1269,7 @@
       display: grid;
       gap: 0.4rem;
     }
+
     .t-node {
       position: absolute;
       inset-inline-start: clamp(1.2rem, 3vw, 2.5rem);
@@ -927,34 +1283,50 @@
       box-shadow: 0 0 0 4px var(--paper);
       transition: all 0.3s ease;
     }
+
     .t-item.done .t-node {
       background: var(--gold);
       border-color: var(--ink);
       box-shadow: 0 0 10px var(--gold-glow);
     }
+
     .t-item.target .t-node {
       background: var(--purple);
       border-color: var(--gold);
       box-shadow: 0 0 14px var(--gold);
       animation: pulseNode 2s infinite ease-in-out;
     }
+
     @keyframes pulseNode {
-      0%, 100% { transform: translate(-50%, 0) scale(1); }
-      50% { transform: translate(-50%, 0) scale(1.35); }
+
+      0%,
+      100% {
+        transform: translate(-50%, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, 0) scale(1.35);
+      }
     }
+
     .t-meta {
       display: flex;
       align-items: baseline;
       gap: 1rem;
       flex-wrap: wrap;
     }
+
     .t-year {
       font-family: var(--figure);
       font-size: 1.35rem;
       font-weight: 600;
       color: var(--purple);
     }
-    .t-item.target .t-year { color: var(--gold); }
+
+    .t-item.target .t-year {
+      color: var(--gold);
+    }
+
     .t-badge {
       font-size: 0.7rem;
       font-weight: 600;
@@ -962,20 +1334,23 @@
       text-transform: uppercase;
       padding: 0.2rem 0.6rem;
       border-radius: 99px;
-      background: rgba(64,0,104,0.08);
+      background: rgba(64, 0, 104, 0.08);
       color: var(--purple);
     }
+
     .t-item.target .t-badge {
-      background: rgba(216,168,0,0.2);
+      background: rgba(216, 168, 0, 0.2);
       color: var(--ink);
       border: 1px solid var(--gold);
     }
+
     .t-title {
       font-family: var(--display);
       font-size: 1.15rem;
       font-weight: 600;
       color: var(--ink);
     }
+
     .t-desc {
       font-size: 0.98rem;
       color: var(--muted);
@@ -992,6 +1367,7 @@
       gap: clamp(1.5rem, 3vw, 2.5rem);
       margin-block-start: 3rem;
     }
+
     .vis-card {
       background: var(--ink-card);
       border: 1px solid var(--rule-ink);
@@ -1004,15 +1380,18 @@
       box-shadow: var(--shadow-ink);
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
     }
+
     .vis-card:hover {
       transform: translateY(-6px);
       border-color: var(--gold);
     }
+
     .vis-header {
       display: flex;
       align-items: center;
       gap: 1.25rem;
     }
+
     .vis-avatar {
       inline-size: 3.8rem;
       block-size: 3.8rem;
@@ -1025,9 +1404,10 @@
       font-size: 1.3rem;
       font-weight: 600;
       color: var(--gold);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       flex: none;
     }
+
     .vis-name {
       font-family: var(--display);
       font-size: 1.35rem;
@@ -1035,6 +1415,7 @@
       color: var(--paper);
       line-height: 1.15;
     }
+
     .vis-role {
       font-size: 0.8125rem;
       font-weight: 600;
@@ -1043,6 +1424,7 @@
       color: var(--gold);
       margin-block-start: 0.2rem;
     }
+
     .vis-quote {
       font-family: var(--figure);
       font-style: italic;
@@ -1053,6 +1435,7 @@
       padding-inline-start: 1rem;
       margin-block: 0.5rem;
     }
+
     .vis-bio {
       font-size: 0.925rem;
       color: var(--muted-ink);
@@ -1069,6 +1452,7 @@
       display: grid;
       gap: 1rem;
     }
+
     .faq-item {
       background: var(--paper-card);
       border: 1px solid var(--rule);
@@ -1076,11 +1460,16 @@
       overflow: hidden;
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
-    .faq-item:hover { border-color: rgba(64,0,104,0.3); }
+
+    .faq-item:hover {
+      border-color: rgba(64, 0, 104, 0.3);
+    }
+
     .faq-item[open] {
       border-color: var(--purple);
       box-shadow: var(--shadow-sm);
     }
+
     .faq-summary {
       padding: 1.25rem 1.5rem;
       font-family: var(--display);
@@ -1095,23 +1484,29 @@
       color: var(--purple);
       user-select: none;
     }
-    .faq-summary::-webkit-details-marker { display: none; }
+
+    .faq-summary::-webkit-details-marker {
+      display: none;
+    }
+
     .faq-icon {
       inline-size: 1.5rem;
       block-size: 1.5rem;
       border-radius: 50%;
-      background: rgba(64,0,104,0.08);
+      background: rgba(64, 0, 104, 0.08);
       display: grid;
       place-items: center;
       font-size: 0.9rem;
       transition: transform 0.3s ease, background 0.3s ease;
       flex: none;
     }
+
     .faq-item[open] .faq-icon {
       transform: rotate(180deg);
       background: var(--gold);
       color: var(--ink);
     }
+
     .faq-content {
       padding: 0 1.5rem 1.35rem 1.5rem;
       font-size: 0.975rem;
@@ -1127,21 +1522,29 @@
       color: var(--paper);
       border-block-start: 1px solid var(--rule-gold);
     }
+
     .news__in {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       gap: clamp(2rem, 5vw, 4.5rem);
       align-items: center;
     }
+
     .form-card {
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--rule-ink);
       border-radius: var(--r);
       padding: clamp(1.75rem, 3.5vw, 2.5rem);
       backdrop-filter: blur(12px);
       box-shadow: var(--shadow-ink);
     }
-    .form-group { display: grid; gap: 0.5rem; margin-block-end: 1.25rem; }
+
+    .form-group {
+      display: grid;
+      gap: 0.5rem;
+      margin-block-end: 1.25rem;
+    }
+
     .form-group label {
       font-size: 0.72rem;
       font-weight: 600;
@@ -1149,23 +1552,29 @@
       text-transform: uppercase;
       color: var(--gold);
     }
+
     .form-input {
       font: inherit;
       font-size: 0.95rem;
       padding: 0.85rem 1.25rem;
       border: 1px solid var(--rule-ink);
       border-radius: var(--r-pill);
-      background: rgba(23,6,31,0.6);
+      background: rgba(23, 6, 31, 0.6);
       color: var(--paper);
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
       inline-size: 100%;
     }
+
     .form-input:focus {
       border-color: var(--gold);
       box-shadow: 0 0 0 3px var(--gold-glow);
     }
-    .form-input::placeholder { color: #8C7B96; }
+
+    .form-input::placeholder {
+      color: #8C7B96;
+    }
+
     .form-toast {
       display: none;
       background: rgba(30, 90, 51, 0.25);
@@ -1178,9 +1587,16 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .form-toast.is-shown { display: flex; }
 
-    @media (max-width: 54rem) { .news__in { grid-template-columns: 1fr; } }
+    .form-toast.is-shown {
+      display: flex;
+    }
+
+    @media (max-width: 54rem) {
+      .news__in {
+        grid-template-columns: 1fr;
+      }
+    }
 
     /* =====================================================================
        FOOTER
@@ -1189,16 +1605,24 @@
       background: #0E0213;
       color: var(--paper);
       padding-block: 4.5rem 2.5rem;
-      border-block-start: 1px solid rgba(255,255,255,0.06);
+      border-block-start: 1px solid rgba(255, 255, 255, 0.06);
     }
+
     .foot__top {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
       gap: 3rem clamp(2rem, 6vw, 5rem);
       align-items: start;
     }
-    .foot__brand-col { max-inline-size: 22rem; }
-    .foot__seal { inline-size: clamp(120px, 16vw, 155px); }
+
+    .foot__brand-col {
+      max-inline-size: 22rem;
+    }
+
+    .foot__seal {
+      inline-size: clamp(120px, 16vw, 155px);
+    }
+
     .foot__ar {
       font-family: var(--arabic);
       direction: rtl;
@@ -1207,17 +1631,20 @@
       margin-block-start: 0.85rem;
       letter-spacing: 0;
     }
+
     .foot__desc {
       font-size: 0.875rem;
       color: var(--muted-ink);
       margin-block-start: 0.75rem;
       line-height: 1.55;
     }
+
     .foot__cols {
       display: grid;
       gap: 2rem clamp(1.5rem, 4vw, 3rem);
       grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
     }
+
     .foot h4 {
       font-size: 0.72rem;
       letter-spacing: 0.18em;
@@ -1226,11 +1653,35 @@
       margin-block-end: 1rem;
       font-weight: 600;
     }
-    .foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-    .foot a { font-size: 0.9rem; color: var(--muted-ink); transition: color 0.2s ease; }
-    .foot a:hover { color: var(--gold); }
-    .foot .off a { color: rgba(197, 181, 208, 0.4); pointer-events: none; }
-    .foot .off a::after { content: " (soon)"; font-size: 0.7rem; }
+
+    .foot ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .foot a {
+      font-size: 0.9rem;
+      color: var(--muted-ink);
+      transition: color 0.2s ease;
+    }
+
+    .foot a:hover {
+      color: var(--gold);
+    }
+
+    .foot .off a {
+      color: rgba(197, 181, 208, 0.4);
+      pointer-events: none;
+    }
+
+    .foot .off a::after {
+      content: " (soon)";
+      font-size: 0.7rem;
+    }
+
     .foot__base {
       margin-block-start: 3.5rem;
       padding-block-start: 1.75rem;
@@ -1245,7 +1696,9 @@
     }
 
     @media (max-width: 50rem) {
-      .foot__top { grid-template-columns: 1fr; }
+      .foot__top {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* =====================================================================
@@ -1256,20 +1709,30 @@
       transform: translateY(22px);
       transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .reveal-on-scroll.is-visible {
       opacity: 1;
       transform: none;
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.01ms !important;
         animation-delay: 0ms !important;
         transition-duration: 0.01ms !important;
       }
-      .reveal-on-scroll { opacity: 1 !important; transform: none !important; }
+
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ============================ TOP BAR ============================ -->
@@ -1280,7 +1743,9 @@
         <span>Al Wukair, State of Qatar</span>
       </div>
       <div style="display:flex;align-items:center;gap:1.25rem">
-        <span style="font-family:var(--arabic);direction:rtl">&#1605;&#1583;&#1585;&#1587;&#1577; &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</span>
+        <span style="font-family:var(--arabic);direction:rtl">&#1605;&#1583;&#1585;&#1587;&#1577;
+          &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605;
+          &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</span>
         <a href="#register">Register Interest &rarr;</a>
       </div>
     </div>
@@ -1290,7 +1755,7 @@
   <nav class="bar" id="navbar">
     <div class="wrap bar__in">
       <a class="brand" href="../homepage/DPS Millennium Homepage.dc.html" title="DPS Millennium Home">
-        <img src="./assets/shield.svg" alt="DPS Millennium Shield">
+        <img src="../homepage/assets/shield.svg" alt="DPS Millennium Shield">
         <span>
           <b>DPS Millennium</b>
           <span>International School</span>
@@ -1299,7 +1764,9 @@
 
       <button class="burger" id="burgerBtn" aria-expanded="false" aria-controls="navMenu">
         <span>Menu</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </button>
 
       <ul class="nav-links" id="navMenu">
@@ -1322,53 +1789,16 @@
   <!-- ============================ HERO SECTION ============================ -->
   <header class="hero" id="top">
     <div class="wrap hero__in">
-      <div class="hero__copy">
-        <div class="hero__status">
-          <span>CBSE Curriculum &middot; Al Wukair Campus</span>
-        </div>
-        <h1 class="h h--xl">This is DPS Millennium.</h1>
-        <p class="hero__sub">
-          A new chapter in the 55+ year educational heritage of the DPS Group in Qatar.
-          Launching tentatively in <strong>April 2027</strong> — cultivating intellectual rigour,
-          ethical strength, and global vision in every student.
-        </p>
-
-        <div class="hero__cta">
-          <a class="btn btn--gold" href="#mission">Explore Our Mission</a>
-          <a class="btn btn--ghost" href="#campus">Campus Architecture &rarr;</a>
-        </div>
-
-        <div class="hero__ticker" aria-label="Countdown to Target Opening">
-          <div class="hero__ticker-cell">
-            <span class="hero__ticker-num" id="cdDays">---</span>
-            <span class="hero__ticker-lbl">Days to Target</span>
-          </div>
-          <div class="hero__ticker-cell">
-            <span class="hero__ticker-num" id="cdHours">--</span>
-            <span class="hero__ticker-lbl">Hours</span>
-          </div>
-          <div class="hero__ticker-cell">
-            <span class="hero__ticker-num" id="cdMins">--</span>
-            <span class="hero__ticker-lbl">Minutes</span>
-          </div>
-          <div class="hero__ticker-cell">
-            <span class="hero__ticker-num" style="color:var(--paper)">4 Apr '27</span>
-            <span class="hero__ticker-lbl">Target Opening</span>
-          </div>
-        </div>
-      </div>
-
       <div class="seal-stage">
-        <div class="seal-halo"></div>
         <div class="seal" role="img" aria-label="Official DPS Millennium Seal Assembling">
-          <img class="l-ring" src="./assets/seal-l1-ring.svg" alt="Outer Ring">
-          <img class="l-body" src="./assets/seal-l2-body.svg" alt="Shield Base">
-          <img class="l-q l-gold" src="./assets/seal-l3-gold.svg" alt="Gold Accent">
-          <img class="l-q l-sail" src="./assets/seal-l4-sail.svg" alt="Sail Quadrant">
-          <img class="l-q l-globe" src="./assets/seal-l5-globe.svg" alt="Globe Quadrant">
-          <img class="l-q l-waves" src="./assets/seal-l6-waves.svg" alt="Waves Quadrant">
-          <img class="l-q l-stars" src="./assets/seal-l7-stars.svg" alt="Stars Quadrant">
-          <img class="l-type" src="./assets/seal-l8-lettering.svg" alt="Lettering">
+          <img class="l-ring" src="../homepage/assets/seal-l1-ring.svg" alt="Outer Ring">
+          <img class="l-body" src="../homepage/assets/seal-l2-body.svg" alt="Shield Base">
+          <img class="l-q l-gold" src="../homepage/assets/seal-l3-gold.svg" alt="Gold Accent">
+          <img class="l-q l-sail" src="../homepage/assets/seal-l4-sail.svg" alt="Sail Quadrant">
+          <img class="l-q l-globe" src="../homepage/assets/seal-l5-globe.svg" alt="Globe Quadrant">
+          <img class="l-q l-waves" src="../homepage/assets/seal-l6-waves.svg" alt="Waves Quadrant">
+          <img class="l-q l-stars" src="../homepage/assets/seal-l7-stars.svg" alt="Stars Quadrant">
+          <img class="l-type" src="../homepage/assets/seal-l8-lettering.svg" alt="Lettering">
         </div>
       </div>
     </div>
@@ -1430,32 +1860,37 @@
 
       <div class="quad-wrap">
         <div class="quad-showcase">
-          <img class="quad-shield-bg" id="quadShieldImg" src="./assets/shield.svg" alt="DPS Millennium Shield Mark">
+          <img class="quad-shield-bg" id="quadShieldImg" src="../homepage/assets/shield.svg" alt="DPS Millennium Shield Mark">
         </div>
 
         <div class="quad-grid" id="quadGrid">
-          <div class="quad-card is-active" data-quad="sail" style="--card-color:var(--gold);--card-accent:rgba(216,168,0,0.22)">
+          <div class="quad-card is-active" data-quad="sail"
+            style="--card-color:var(--gold);--card-accent:rgba(216,168,0,0.22)">
             <div class="quad-card__icon">&#9973;</div>
             <h4>The Gold Sail</h4>
-            <p>Top-Left Quadrant &middot; Honoring Qatar's maritime soul and soaring modern architectural vision — charting bold courses into tomorrow.</p>
+            <p>Top-Left Quadrant &middot; Honoring Qatar's maritime soul and soaring modern architectural vision —
+              charting bold courses into tomorrow.</p>
           </div>
 
           <div class="quad-card" data-quad="globe" style="--card-color:#FF5544;--card-accent:rgba(216,40,24,0.22)">
             <div class="quad-card__icon">&#127758;</div>
             <h4>The Globe &amp; Orbit</h4>
-            <p>Top-Right Quadrant &middot; Ruby field symbolizing scientific discovery, atomic curiosity, STEM innovation, and global citizenship.</p>
+            <p>Top-Right Quadrant &middot; Ruby field symbolizing scientific discovery, atomic curiosity, STEM
+              innovation, and global citizenship.</p>
           </div>
 
           <div class="quad-card" data-quad="waves" style="--card-color:#7B68EE;--card-accent:rgba(56,40,152,0.25)">
             <div class="quad-card__icon">&#127754;</div>
             <h4>The Indigo Waves</h4>
-            <p>Bottom-Left Quadrant &middot; Deep knowledge, emotional resilience, adaptability, and the continuous flow of lifelong learning.</p>
+            <p>Bottom-Left Quadrant &middot; Deep knowledge, emotional resilience, adaptability, and the continuous flow
+              of lifelong learning.</p>
           </div>
 
           <div class="quad-card" data-quad="stars" style="--card-color:#C380FF;--card-accent:rgba(64,0,104,0.35)">
             <div class="quad-card__icon">&#10024;</div>
             <h4>The Royal Stars</h4>
-            <p>Bottom-Right Quadrant &middot; High moral aspirations, guiding ethical light, and the boundless potential of every student.</p>
+            <p>Bottom-Right Quadrant &middot; High moral aspirations, guiding ethical light, and the boundless potential
+              of every student.</p>
           </div>
         </div>
       </div>
@@ -1475,37 +1910,43 @@
         <div class="obj-card reveal-on-scroll">
           <span class="obj-card__num">01</span>
           <h3>Academic Rigour &amp; Inquiry</h3>
-          <p>CBSE curriculum enriched by experiential STEM laboratories, humanities discourse, and investigative projects that develop deep conceptual clarity over rote memory.</p>
+          <p>CBSE curriculum enriched by experiential STEM laboratories, humanities discourse, and investigative
+            projects that develop deep conceptual clarity over rote memory.</p>
         </div>
 
         <div class="obj-card reveal-on-scroll" style="transition-delay:0.1s">
           <span class="obj-card__num">02</span>
           <h3>Character &amp; Moral Leadership</h3>
-          <p>Instilling timeless ethical frameworks, integrity, and active community service to nurture compassionate leaders who stand up for justice and equity.</p>
+          <p>Instilling timeless ethical frameworks, integrity, and active community service to nurture compassionate
+            leaders who stand up for justice and equity.</p>
         </div>
 
         <div class="obj-card reveal-on-scroll" style="transition-delay:0.2s">
           <span class="obj-card__num">03</span>
           <h3>Holistic Arts &amp; Athletics</h3>
-          <p>Full-scale sports facilities, performing arts auditoriums, visual art studios, and debate societies that cultivate balanced, well-rounded young minds.</p>
+          <p>Full-scale sports facilities, performing arts auditoriums, visual art studios, and debate societies that
+            cultivate balanced, well-rounded young minds.</p>
         </div>
 
         <div class="obj-card reveal-on-scroll" style="transition-delay:0.3s">
           <span class="obj-card__num">04</span>
           <h3>Bilingual &amp; Cultural Grounding</h3>
-          <p>Deep appreciation for Indian traditions and Qatari cultural heritage alongside comprehensive Arabic and international language programmes.</p>
+          <p>Deep appreciation for Indian traditions and Qatari cultural heritage alongside comprehensive Arabic and
+            international language programmes.</p>
         </div>
 
         <div class="obj-card reveal-on-scroll" style="transition-delay:0.4s">
           <span class="obj-card__num">05</span>
           <h3>Exemplary Educator Faculty</h3>
-          <p>Recruiting seasoned master educators, providing continuous pedagogical training, and sustaining exceptional student-to-teacher mentorship ratios.</p>
+          <p>Recruiting seasoned master educators, providing continuous pedagogical training, and sustaining exceptional
+            student-to-teacher mentorship ratios.</p>
         </div>
 
         <div class="obj-card reveal-on-scroll" style="transition-delay:0.5s">
           <span class="obj-card__num">06</span>
           <h3>Future-Ready Campus Infrastructure</h3>
-          <p>A purposefully designed 25-acre green, energy-efficient campus in Al Wukair featuring smart classrooms, robotics spaces, and immersive libraries.</p>
+          <p>A purposefully designed 25-acre green, energy-efficient campus in Al Wukair featuring smart classrooms,
+            robotics spaces, and immersive libraries.</p>
         </div>
       </div>
     </div>
@@ -1520,7 +1961,8 @@
           <h2 class="h h--lg">Architectural Vision in Progress</h2>
         </div>
         <p class="lede" style="max-inline-size:40ch">
-          Witness the evolution from conceptual masterplan sketch to the state-of-the-art learning environment taking shape.
+          Witness the evolution from conceptual masterplan sketch to the state-of-the-art learning environment taking
+          shape.
         </p>
       </div>
 
@@ -1534,15 +1976,18 @@
         </div>
 
         <div class="campus-screen">
-          <img id="imgConcept" src="./assets/campus-concept.jpeg" alt="DPS Millennium 3D Concept Masterplan Render">
-          <img id="imgSketch" class="is-hidden" src="./assets/campus-sketch.jpeg" alt="DPS Millennium Architectural Hand Sketch">
+          <img id="imgConcept" src="../homepage/assets/campus-concept.jpeg" alt="DPS Millennium 3D Concept Masterplan Render">
+          <img id="imgSketch" class="is-hidden" src="../homepage/assets/campus-sketch.jpeg"
+            alt="DPS Millennium Architectural Hand Sketch">
         </div>
 
         <div class="campus-caption">
           <div>
-            <h3 class="h h--md" id="campusTitle" style="color:var(--paper)">Modern Academic Wings &amp; Central Court</h3>
+            <h3 class="h h--md" id="campusTitle" style="color:var(--paper)">Modern Academic Wings &amp; Central Court
+            </h3>
             <p id="campusDesc" style="font-size:.925rem;color:var(--muted-ink);margin-block-start:.4rem">
-              Designed with abundant natural daylight, shaded micro-courtyards for the Qatar climate, and dedicated zones for primary, middle, and senior scholars.
+              Designed with abundant natural daylight, shaded micro-courtyards for the Qatar climate, and dedicated
+              zones for primary, middle, and senior scholars.
             </p>
           </div>
           <div class="campus-specs">
@@ -1574,7 +2019,8 @@
       <p class="eyebrow">Institutional Heritage</p>
       <h2 class="h h--lg">The DPS Legacy in Qatar</h2>
       <p class="lede" style="margin-block-start:1rem">
-        DPS Millennium stands upon more than half a century of academic prestige and community trust across the Arabian Gulf.
+        DPS Millennium stands upon more than half a century of academic prestige and community trust across the Arabian
+        Gulf.
       </p>
 
       <ul class="timeline">
@@ -1586,7 +2032,8 @@
           </div>
           <h3 class="t-title">Establishment of DPS Modern Indian School, Doha</h3>
           <p class="t-desc">
-            The pioneering Indian educational institution in Qatar is founded, setting an unmatched precedent for scholastic excellence, values, and community impact.
+            The pioneering Indian educational institution in Qatar is founded, setting an unmatched precedent for
+            scholastic excellence, values, and community impact.
           </p>
         </li>
 
@@ -1598,7 +2045,8 @@
           </div>
           <h3 class="t-title">Launch of DPS Monarch International School</h3>
           <p class="t-desc">
-            Expanding the group’s footprint with modern pedagogical frameworks, international standards, and distinguished board results.
+            Expanding the group’s footprint with modern pedagogical frameworks, international standards, and
+            distinguished board results.
           </p>
         </li>
 
@@ -1610,7 +2058,8 @@
           </div>
           <h3 class="t-title">Celebrating 50 Years of Educational Leadership</h3>
           <p class="t-desc">
-            Honoring five decades of alumni who now hold prominent positions in engineering, medicine, diplomacy, and enterprise worldwide.
+            Honoring five decades of alumni who now hold prominent positions in engineering, medicine, diplomacy, and
+            enterprise worldwide.
           </p>
         </li>
 
@@ -1622,7 +2071,8 @@
           </div>
           <h3 class="t-title">Construction Begins for DPS Millennium in Al Wukair</h3>
           <p class="t-desc">
-            Mobilization and structural works commence for our flagship 21st-century campus, embodying the next generation of institutional learning.
+            Mobilization and structural works commence for our flagship 21st-century campus, embodying the next
+            generation of institutional learning.
           </p>
         </li>
 
@@ -1634,7 +2084,8 @@
           </div>
           <h3 class="t-title">Doors Open to the First Student Cohort</h3>
           <p class="t-desc">
-            Welcoming our foundational students into purpose-built facilities with comprehensive CBSE curriculum and vibrant student life.
+            Welcoming our foundational students into purpose-built facilities with comprehensive CBSE curriculum and
+            vibrant student life.
           </p>
         </li>
 
@@ -1646,7 +2097,8 @@
           </div>
           <h3 class="t-title">Recognized Regional Center for Innovation &amp; Ethics</h3>
           <p class="t-desc">
-            DPS Millennium achieves full K-12 maturation, establishing global university partnerships and pioneering regional STEM research programs.
+            DPS Millennium achieves full K-12 maturation, establishing global university partnerships and pioneering
+            regional STEM research programs.
           </p>
         </li>
       </ul>
@@ -1659,7 +2111,8 @@
       <p class="eyebrow" style="color:var(--gold)">Guiding Leadership</p>
       <h2 class="h h--lg">Key Visionaries</h2>
       <p class="lede" style="margin-block-start:1rem">
-        Experienced academic leaders, educational strategists, and community liaisons uniting to create a world-class institution.
+        Experienced academic leaders, educational strategists, and community liaisons uniting to create a world-class
+        institution.
       </p>
 
       <div class="vis-grid">
@@ -1672,10 +2125,12 @@
             </div>
           </div>
           <blockquote class="vis-quote">
-            "A true school does not merely train minds; it illuminates character and teaches children how to think with empathy."
+            "A true school does not merely train minds; it illuminates character and teaches children how to think with
+            empathy."
           </blockquote>
           <p class="vis-bio">
-            Former senior leader at DPS Modern Indian School, Dr. Menon brings over 25 years of proven pedagogical distinction, curriculum architecture, and student mentorship in Qatar.
+            Former senior leader at DPS Modern Indian School, Dr. Menon brings over 25 years of proven pedagogical
+            distinction, curriculum architecture, and student mentorship in Qatar.
           </p>
         </article>
 
@@ -1688,10 +2143,12 @@
             </div>
           </div>
           <blockquote class="vis-quote">
-            "We are constructing physical and intellectual spaces where young leaders can thrive in harmony with global standards."
+            "We are constructing physical and intellectual spaces where young leaders can thrive in harmony with global
+            standards."
           </blockquote>
           <p class="vis-bio">
-            With decades of experience overseeing state-of-the-art educational infrastructure across the GCC, Mr. Joshi ensures DPS Millennium reflects sustainability, safety, and modern design.
+            With decades of experience overseeing state-of-the-art educational infrastructure across the GCC, Mr. Joshi
+            ensures DPS Millennium reflects sustainability, safety, and modern design.
           </p>
         </article>
 
@@ -1704,10 +2161,12 @@
             </div>
           </div>
           <blockquote class="vis-quote">
-            "Fostering genuine cross-cultural respect between Qatari society and our vibrant expatriate families is at the core of our community."
+            "Fostering genuine cross-cultural respect between Qatari society and our vibrant expatriate families is at
+            the core of our community."
           </blockquote>
           <p class="vis-bio">
-            A champion of inclusive dialogue, Ms. Al-Mansouri establishes community partnerships, ensuring DPS Millennium remains deeply interwoven with Qatar’s educational vision.
+            A champion of inclusive dialogue, Ms. Al-Mansouri establishes community partnerships, ensuring DPS
+            Millennium remains deeply interwoven with Qatar’s educational vision.
           </p>
         </article>
       </div>
@@ -1732,7 +2191,8 @@
             <span class="faq-icon">&#9662;</span>
           </summary>
           <div class="faq-content">
-            Our target opening date is <strong>4 April 2027</strong> for the 2027–2028 academic year, subject to the final completion of campus infrastructure and Ministry approvals.
+            Our target opening date is <strong>4 April 2027</strong> for the 2027–2028 academic year, subject to the
+            final completion of campus infrastructure and Ministry approvals.
           </div>
         </details>
 
@@ -1742,7 +2202,9 @@
             <span class="faq-icon">&#9662;</span>
           </summary>
           <div class="faq-content">
-            DPS Millennium will deliver the <strong>Central Board of Secondary Education (CBSE)</strong> curriculum, enhanced by innovative STEM, robotics, holistic arts, and Ministry-approved Arabic and Qatar History programmes.
+            DPS Millennium will deliver the <strong>Central Board of Secondary Education (CBSE)</strong> curriculum,
+            enhanced by innovative STEM, robotics, holistic arts, and Ministry-approved Arabic and Qatar History
+            programmes.
           </div>
         </details>
 
@@ -1752,7 +2214,9 @@
             <span class="faq-icon">&#9662;</span>
           </summary>
           <div class="faq-content">
-            The school is situated in <strong>Al Wukair, State of Qatar</strong>, with direct expressway connectivity to Al Wakrah, Doha, Mesaieed, and surrounding residential communities. Dedicated student bus transit networks will be provided.
+            The school is situated in <strong>Al Wukair, State of Qatar</strong>, with direct expressway connectivity to
+            Al Wakrah, Doha, Mesaieed, and surrounding residential communities. Dedicated student bus transit networks
+            will be provided.
           </div>
         </details>
 
@@ -1762,7 +2226,9 @@
             <span class="faq-icon">&#9662;</span>
           </summary>
           <div class="faq-content">
-            Admissions expressions of interest are currently open. Detailed fee schedules, grade group allocations (Kindergarten through Senior School), and assessment criteria will be shared directly with registered families in late 2026.
+            Admissions expressions of interest are currently open. Detailed fee schedules, grade group allocations
+            (Kindergarten through Senior School), and assessment criteria will be shared directly with registered
+            families in late 2026.
           </div>
         </details>
 
@@ -1772,7 +2238,9 @@
             <span class="faq-icon">&#9662;</span>
           </summary>
           <div class="faq-content">
-            DPS Millennium is an integral institution within the renowned <strong>DPS Group of Institutions in Qatar</strong>, sharing our core governance philosophy, educational standards, and proven pedagogical heritage while offering a brand-new 21st-century campus.
+            DPS Millennium is an integral institution within the renowned <strong>DPS Group of Institutions in
+              Qatar</strong>, sharing our core governance philosophy, educational standards, and proven pedagogical
+            heritage while offering a brand-new 21st-century campus.
           </div>
         </details>
       </div>
@@ -1830,10 +2298,13 @@
     <div class="wrap">
       <div class="foot__top">
         <div class="foot__brand-col">
-          <img class="foot__seal" src="./assets/seal.svg" alt="DPS Millennium Official Crest">
-          <p class="foot__ar">&#1605;&#1583;&#1585;&#1587;&#1577; &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;</p>
+          <img class="foot__seal" src="../homepage/assets/seal.svg" alt="DPS Millennium Official Crest">
+          <p class="foot__ar">&#1605;&#1583;&#1585;&#1587;&#1577;
+            &#1605;&#1610;&#1604;&#1610;&#1606;&#1610;&#1608;&#1605; &#1575;&#1604;&#1583;&#1608;&#1604;&#1610;&#1577;
+          </p>
           <p class="foot__desc">
-            A premium CBSE institution under the DPS Group of Institutions. Building tomorrow's scholars in Al Wukair, Qatar.
+            A premium CBSE institution under the DPS Group of Institutions. Building tomorrow's scholars in Al Wukair,
+            Qatar.
           </p>
           <div style="display:flex;gap:.5rem;margin-block-start:1.25rem;flex-wrap:wrap">
             <a class="btn btn--ghost" style="padding:.4rem 1rem;font-size:.78rem" href="#mission">Mission</a>
@@ -1919,7 +2390,7 @@
     setInterval(updateCountdown, 60000);
 
     /* 2. Sticky Navbar condenses on scroll */
-    (function() {
+    (function () {
       const bar = document.getElementById('navbar');
       const hero = document.getElementById('top');
       if (!bar || !hero || !window.IntersectionObserver) return;
@@ -1932,7 +2403,7 @@
     })();
 
     /* 3. Mobile Navigation Drawer Toggle */
-    (function() {
+    (function () {
       const btn = document.getElementById('burgerBtn');
       const menu = document.getElementById('navMenu');
       if (!btn || !menu) return;
@@ -1951,7 +2422,7 @@
     })();
 
     /* 4. Interactive 4-Quadrant Seal Explorer */
-    (function() {
+    (function () {
       const cards = document.querySelectorAll('.quad-card');
       const shieldImg = document.getElementById('quadShieldImg');
       if (!cards.length) return;
@@ -1971,7 +2442,7 @@
     })();
 
     /* 5. Campus Architecture Visualiser (3D Concept vs Hand Sketch) */
-    (function() {
+    (function () {
       const tabConcept = document.getElementById('tabConcept');
       const tabSketch = document.getElementById('tabSketch');
       const imgConcept = document.getElementById('imgConcept');
@@ -2001,7 +2472,7 @@
     })();
 
     /* 6. Scroll-Triggered Reveal Animations */
-    (function() {
+    (function () {
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
         return;
@@ -2045,4 +2516,5 @@
     }
   </script>
 </body>
+
 </html>

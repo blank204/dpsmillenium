@@ -46,10 +46,10 @@ a:hover{color:#D8A800}
 @keyframes drawY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes photoIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
 @keyframes sketchIn{from{opacity:0;transform:scale(1.015)}to{opacity:1;transform:none}}
-@keyframes sweepIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes sweepIn{from{clip-path:inset(0 100% 0 0)}{clip-path:inset(0 0 0 0)}}
 @keyframes edgeRide{0%{inset-inline-start:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{inset-inline-start:100%;opacity:0}}
 @keyframes dissolveIn{from{opacity:0}to{opacity:1}}
-@keyframes lobeGrow{from{transform:translate(-50%,-50%) scale(.004)}to{transform:translate(-50%,-50%) scale(var(--s,4))}}
+@keyframes lobeGrow{from{transform:translate(-50%,-50%) stocale(.004)}to{transform:translate(-50%,-50%) scale(var(--s,4))}}
 @keyframes blobFade{0%{opacity:0}7%{opacity:.88}42%{opacity:.88}100%{opacity:0}}
 @keyframes circleChase{from{clip-path:circle(0% at 50% 70%)}to{clip-path:circle(148% at 50% 70%)}}
 @property --br{syntax:"<length>";initial-value:0px;inherits:false}
@@ -106,7 +106,7 @@ a:hover{color:#D8A800}
     <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
       <li style="position:relative"><a href="#top" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
       <li data-menu="about" style="position:relative">
-        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../about/slopabout.html" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.about }}">
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Objectives</a></li>
