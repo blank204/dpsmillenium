@@ -18,7 +18,12 @@
 @font-face{font-family:"Plex Arabic";src:url("assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
 :root{--t:2.4s;--gutter:clamp(1.25rem,5vw,4.5rem);--cardpad:clamp(1.5rem,2.2vw,2.25rem);--dirpad:calc(clamp(1.25rem,5vw,4.5rem) - clamp(1.5rem,2.2vw,2.25rem));caret-color:#400068;accent-color:#400068}
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scrollbar-color:rgba(23,6,31,.3) #F3EEE4}
+/* Everything is sized in rem, so column width, type, gutters and card heights
+   scale together off the root. Held at 16px up to 1920px so 1080p renders
+   exactly as designed, then grown to 20px by 2560px and capped — that is what
+   stops 1440p and 4K showing a 1080p-proportioned design marooned in the middle
+   of the screen. */
+html{-webkit-text-size-adjust:100%;scrollbar-color:rgba(23,6,31,.3) #F3EEE4;font-size:clamp(16px,4px + .625vw,20px)}
 body{margin:0;background:#F3EEE4;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
 img,svg{max-width:100%;height:auto;display:block}
 p,h1,h2,h3,h4{margin:0}
@@ -74,10 +79,10 @@ a:hover{color:#D8A800}
 <div aria-hidden="true" style="position:fixed;inset:0;z-index:999;background:#400068;display:grid;place-items:center;overflow:hidden;animation:curtain 620ms calc(var(--t) - 100ms) cubic-bezier(.76,0,.24,1) forwards">
   <div style="position:absolute;inset:0;background:url('assets/seal-l7-stars.svg') no-repeat 50% 46%/150%;opacity:.07;pointer-events:none"></div>
   <div style="position:relative;display:grid;justify-items:center;gap:2.2rem">
-    <div aria-hidden="true" style="inline-size:min(52vw,300px);aspect-ratio:1296/1299"></div>
+    <div aria-hidden="true" style="inline-size:min(52vw,18.75rem);aspect-ratio:1296/1299"></div>
     <div style="display:grid;justify-items:center;gap:1rem;animation:loadLine 460ms 1180ms cubic-bezier(.16,1,.3,1) backwards,loadLineOut 300ms 2100ms ease forwards">
       <p style="font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#D8A800">DPS Millennium International School</p>
-      <div style="inline-size:min(46vw,240px);block-size:1px;background:rgba(243,238,228,.24);overflow:hidden">
+      <div style="inline-size:min(46vw,15rem);block-size:1px;background:rgba(243,238,228,.24);overflow:hidden">
         <div style="inline-size:100%;block-size:100%;background:#D8A800;transform-origin:left;animation:meterGrow 1700ms 240ms cubic-bezier(.4,0,.2,1) backwards"></div>
       </div>
     </div>
@@ -87,7 +92,7 @@ a:hover{color:#D8A800}
 
 <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
 <div data-flyer-layer="1" aria-hidden="true" style="position:fixed;inset:0;z-index:1000;display:grid;place-items:center;pointer-events:none;transition:opacity 220ms ease">
-  <div data-crest-flyer="1" style="position:relative;inline-size:min(52vw,300px);aspect-ratio:1296/1299;margin-block-end:calc(2.2rem + 34px)">
+  <div data-crest-flyer="1" style="position:relative;inline-size:min(52vw,18.75rem);aspect-ratio:1296/1299;margin-block-end:calc(2.2rem + 2.125rem)">
     <div style="position:absolute;inset:0;animation:crestPulse 640ms 1520ms cubic-bezier(.4,0,.2,1) both">
       <img src="assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;mask-image:conic-gradient(from -90deg,#000 var(--sweep),#0000 0);animation:sweep 640ms cubic-bezier(.16,1,.3,1) backwards" />
       <img src="assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;animation:wipe 480ms 400ms cubic-bezier(.16,1,.3,1) backwards" />
@@ -116,7 +121,7 @@ a:hover{color:#D8A800}
 <div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
   <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
     <a href="#top" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
-      <img src="assets/shield.svg" alt="" style="inline-size:32px" />
+      <img src="assets/shield.svg" alt="" style="inline-size:2rem" />
       <span>
         <b style="display:block;font-weight:600;font-size:1rem;letter-spacing:-.01em">DPS Millennium</b>
         <span style="display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;font-weight:500">International School</span>
@@ -202,7 +207,7 @@ a:hover{color:#D8A800}
           <a href="#campus" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
         </div>
       </div>
-      <div data-crest-target="1" role="img" aria-label="DPS Millennium International School crest" style="position:relative;inline-size:100%;max-inline-size:370px;margin-inline-start:auto;aspect-ratio:1296/1299;opacity:0">
+      <div data-crest-target="1" role="img" aria-label="DPS Millennium International School crest" style="position:relative;inline-size:100%;max-inline-size:23.125rem;margin-inline-start:auto;aspect-ratio:1296/1299;opacity:0">
         <img src="assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%" />
         <img src="assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%" />
         <img src="assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%" />
@@ -215,7 +220,7 @@ a:hover{color:#D8A800}
     </div>
   </div>
 
-  <div id="render" style="position:relative;margin-block-start:clamp(2rem,4vw,3.25rem);inline-size:100%;aspect-ratio:1594/620;background:#400068;overflow:hidden">
+  <div id="render" style="position:relative;margin-block-start:clamp(2rem,4vw,3.25rem);inline-size:100%;aspect-ratio:1594/620;max-block-size:80vh;background:#400068;overflow:hidden">
 
     <sc-if value="{{ vBloom }}" hint-placeholder-val="{{ true }}">
     <img src="assets/campus-sketch.jpeg" fetchpriority="high" decoding="async" alt="Architect's pencil study of the DPS Millennium campus" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 84%" />
