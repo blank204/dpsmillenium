@@ -3,24 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<style>
+html{background:#400068}
+body{background:#400068}
+[data-cover]{position:fixed;inset:0;z-index:2000;background:#400068;pointer-events:none;transform:translateY(0)}
+[data-cover]::after{content:"";position:absolute;inset:0;background:url('../homepage/assets/seal-l7-stars.svg') no-repeat 50% 46%/150%;opacity:.08}
+html[data-ready] [data-cover]{transform:translateY(-101%) !important;transition:transform 700ms cubic-bezier(.76,0,.24,1) !important}
+html[data-gone] [data-cover]{display:none !important}
+@view-transition{navigation:auto}
+::view-transition-group(root),::view-transition-image-pair(root){animation-duration:0s}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal;opacity:1}
+</style>
+<script>
+(function(){
+  var root = document.documentElement;
+  function afHold(){
+    var h = window.innerHeight * 1.2, imgs = document.images, i, r;
+    for (i = 0; i < imgs.length; i++) {
+      if (imgs[i].complete) continue;
+      r = imgs[i].getBoundingClientRect();
+      if (r.top < h && r.width > 24) return true;
+    }
+    return false;
+  }
+  function reveal(){
+    if (root.hasAttribute('data-ready')) return;
+    root.setAttribute('data-ready', '');
+    setTimeout(function(){ root.setAttribute('data-gone', ''); }, 900);
+  }
+  var poll = setInterval(function(){
+    var fontsOk = !document.fonts || document.fonts.status === 'loaded';
+    if (root.dataset.mounted === '1' && fontsOk && !afHold()) { clearInterval(poll); reveal(); }
+  }, 50);
+  setTimeout(function(){ clearInterval(poll); reveal(); }, 5000);
+})();
+</script>
+<script src="../homepage/support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Plex Arabic";src:url("assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("../homepage/assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("../homepage/assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("../homepage/assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("../homepage/assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("../homepage/assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Arabic";src:url("../homepage/assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
 :root{--gutter:clamp(1.25rem,5vw,4.5rem);caret-color:#400068;accent-color:#400068}
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;font-size:clamp(16px,4px + .625vw,20px);scrollbar-width:none}
+html{background:#400068;-webkit-text-size-adjust:100%;font-size:clamp(16px,4px + .625vw,20px);scrollbar-width:none}
 ::-webkit-scrollbar{inline-size:0;block-size:0}
-body{margin:0;background:#F3EEE4;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#400068;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
 img,svg{max-width:100%;height:auto;display:block}
 p,h1,h2,h3,h4{margin:0}
 a{color:inherit;text-decoration:none}
@@ -35,14 +70,13 @@ summary::-webkit-details-marker{display:none}
 </style>
 </helmet>
 
-<div data-curtain="1" aria-hidden="true" style="position:fixed;inset:0;z-index:999;background:#400068;pointer-events:none;animation:curtainUp 760ms 240ms cubic-bezier(.76,0,.24,1) forwards">
-  <div style="position:absolute;inset:0;background:url('assets/seal-l7-stars.svg') no-repeat 50% 46%/150%;opacity:.08"></div>
-</div>
+<div data-cover="1" aria-hidden="true"></div>
+
 
 <div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
   <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
-    <a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
-      <img src="assets/shield.svg" alt="" style="inline-size:2rem" />
+    <a href="../homepage/DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
+      <img src="../homepage/assets/shield.svg" alt="" style="inline-size:2rem" />
       <span>
         <b style="display:block;font-weight:600;font-size:1rem;letter-spacing:-.01em">DPS Millennium</b>
         <span style="display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;font-weight:500">International School</span>
@@ -52,48 +86,48 @@ summary::-webkit-details-marker{display:none}
     <button type="button" onClick="{{ toggleBurger }}" style="{{ burgerStyle }}">Menu</button>
 
     <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
-      <li style="position:relative"><a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
+      <li style="position:relative"><a href="../homepage/DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
       <li data-menu="about" style="position:relative">
-        <a href="#top" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="#top" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.about }}">
-          <li><a href="#purpose" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
-          <li><a href="#crest" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The crest</a></li>
-          <li><a href="#commitments" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Commitments</a></li>
-          <li><a href="#group" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
-          <li><a href="#leadership" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Leadership</a></li>
+          <li><a href="#purpose" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
+          <li><a href="#crest" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The crest</a></li>
+          <li><a href="#commitments" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Commitments</a></li>
+          <li><a href="#group" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
+          <li><a href="#leadership" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Leadership</a></li>
         </ul>
       </li>
       <li data-menu="campus" style="position:relative">
-        <a href="DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.campus }}">
-          <li><a href="DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
-          <li><a href="DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
         </ul>
       </li>
       <li data-menu="admissions" style="position:relative">
-        <a href="#register" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="#register" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.admissions }}">
-          <li><a href="#register" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
-          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
+          <li><a href="#register" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
+          <li><a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">How to Apply — soon</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Age &amp; Year Groups — soon</a></li>
         </ul>
       </li>
       <li data-menu="notices" style="position:relative">
-        <a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Notice Board<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../homepage/DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Notice Board<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.notices }}">
-          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Information Corner</a></li>
-          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Events Corner</a></li>
-          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Academic Circulars</a></li>
-          <li><a href="DPS Millennium Homepage.dc.html#calendar" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">School Calendar</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Information Corner</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Events Corner</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Academic Circulars</a></li>
+          <li><a href="../homepage/DPS Millennium Homepage.dc.html#calendar" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">School Calendar</a></li>
         </ul>
       </li>
       <li data-menu="curriculum" style="position:relative">
-        <a href="#commitments" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Curriculum<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="#commitments" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Curriculum<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.curriculum }}">
-          <li><a href="#commitments" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">CBSE at Millennium</a></li>
+          <li><a href="#commitments" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">CBSE at Millennium</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Subjects Offered — soon</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Assessment — soon</a></li>
         </ul>
@@ -109,7 +143,7 @@ summary::-webkit-details-marker{display:none}
     </ul>
 
     <div style="display:flex;gap:.6rem;align-items:center">
-      <a href="#register" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register</a>
+      <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register</a>
     </div>
   </div>
 </div>
@@ -121,21 +155,21 @@ summary::-webkit-details-marker{display:none}
       <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(2.1rem,1rem + 4.4vw,4.3rem);text-wrap:balance;max-inline-size:15ch;opacity:0;animation:rise 700ms 1000ms cubic-bezier(.16,1,.3,1) forwards">A school with no students yet.</h1>
       <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#5E4C6B;max-inline-size:46ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms 1120ms cubic-bezier(.16,1,.3,1) forwards">DPS Millennium is a CBSE school being built in Al Wukair by the DPS Group of Institutions, Qatar. This page holds what is decided, what is not, and what the crest on the gate is going to mean.</p>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem;opacity:0;animation:rise 620ms 1220ms cubic-bezier(.16,1,.3,1) forwards">
-        <a href="#crest" style="display:inline-flex;align-items:center;gap:.7rem;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;color:#F3EEE4;transform:translateY(-2px)">Read the crest</a>
-        <a href="#settled" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#17061F;border:1px solid rgba(23,6,31,.28);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(23,6,31,.06);color:#17061F;transform:translateY(-2px)">What's decided</a>
+        <a href="#crest" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;color:#F3EEE4;transform:translateY(-2px)">Read the crest</a>
+        <a href="#settled" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#17061F;border:1px solid rgba(23,6,31,.28);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(23,6,31,.06);color:#17061F;transform:translateY(-2px)">What's decided</a>
       </div>
     </div>
 
     <div style="display:grid;justify-items:center;gap:1.1rem;opacity:0;animation:rise 900ms 1000ms cubic-bezier(.16,1,.3,1) forwards">
       <div data-crest="1" data-explode="1" role="img" aria-label="DPS Millennium crest, its eight layers separated in depth" style="position:relative;inline-size:100%;max-inline-size:24rem;aspect-ratio:1296/1299;perspective:1100px;transform-style:preserve-3d">
-        <img data-depth="0" src="assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="1" src="assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="1.9" src="assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="2.1" src="assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="2.6" src="assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="3.1" src="assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="3.6" src="assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="4.4" src="assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="0" src="../homepage/assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="1" src="../homepage/assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="1.9" src="../homepage/assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="2.1" src="../homepage/assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="2.6" src="../homepage/assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="3.1" src="../homepage/assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="3.6" src="../homepage/assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+        <img data-depth="4.4" src="../homepage/assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
       </div>
       <p style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B;text-align:center">Eight layers · scroll to pull them apart</p>
     </div>
@@ -147,7 +181,7 @@ summary::-webkit-details-marker{display:none}
   <section data-screen-label="Settled and open" id="settled" style="background:#E9E1D2;padding-block:clamp(4rem,10vh,7.5rem)">
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('assets/seal-l3-gold.svg') no-repeat 34% 36%/260%;flex:none"></span>
+        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('../homepage/assets/seal-l3-gold.svg') no-repeat 34% 36%/260%;flex:none"></span>
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Where things stand</p>
       </div>
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:20ch">Two lists, kept honest.</h2>
@@ -177,10 +211,10 @@ summary::-webkit-details-marker{display:none}
   </sc-if>
 
   <section data-screen-label="Purpose" id="purpose" style="background:#17061F;color:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden">
-    <div style="position:absolute;inset-block-end:0;inset-inline-start:0;inline-size:44%;block-size:70%;background:url('assets/seal-l6-waves.svg') no-repeat 39% 62%/320%;opacity:.1;pointer-events:none"></div>
+    <div style="position:absolute;inset-block-end:0;inset-inline-start:0;inline-size:44%;block-size:70%;background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 39% 62%/320%;opacity:.1;pointer-events:none"></div>
     <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:url('assets/seal-l6-waves.svg') no-repeat 34% 64%/260%;flex:none"></span>
+        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 34% 64%/260%;flex:none"></span>
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Mission &amp; vision</p>
       </div>
       <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.6rem,1.1rem + 2.4vw,2.9rem);line-height:1.2;max-inline-size:24ch;text-wrap:pretty">Service before self — the line the group has taught by for a quarter of a century.</p>
@@ -205,14 +239,14 @@ summary::-webkit-details-marker{display:none}
 
       <div style="display:grid;grid-template-columns:{{ twoCols }};gap:clamp(2rem,5vw,4rem);margin-block-start:clamp(2.25rem,4vw,3rem);align-items:center">
         <div data-crest="1" data-assemble="1" style="position:relative;inline-size:100%;max-inline-size:26rem;margin-inline:auto;aspect-ratio:1296/1299;perspective:1100px;transform-style:preserve-3d">
-          <img data-depth="0" src="assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-          <img data-depth="1" src="assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-          <img data-depth="1.9" data-q="sail" src="assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oSail }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
-          <img data-depth="2.1" data-q="sail" src="assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oSail }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
-          <img data-depth="2.6" data-q="globe" src="assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oGlobe }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
-          <img data-depth="3.1" data-q="waves" src="assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oWaves }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
-          <img data-depth="3.6" data-q="stars" src="assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oStars }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
-          <img data-depth="4.4" src="assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+          <img data-depth="0" src="../homepage/assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+          <img data-depth="1" src="../homepage/assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+          <img data-depth="1.9" data-q="sail" src="../homepage/assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oSail }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
+          <img data-depth="2.1" data-q="sail" src="../homepage/assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oSail }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
+          <img data-depth="2.6" data-q="globe" src="../homepage/assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oGlobe }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
+          <img data-depth="3.1" data-q="waves" src="../homepage/assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oWaves }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
+          <img data-depth="3.6" data-q="stars" src="../homepage/assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;opacity:{{ oStars }};transition:opacity .35s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;will-change:transform" />
+          <img data-depth="4.4" src="../homepage/assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
         </div>
 
         <ul style="list-style:none;margin:0;padding:0;border-block-start:1px solid rgba(243,238,228,.24)">
@@ -249,7 +283,7 @@ summary::-webkit-details-marker{display:none}
   <section data-screen-label="Commitments" id="commitments" style="background:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem)">
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('assets/seal-l5-globe.svg') no-repeat 66% 36%/260%;flex:none"></span>
+        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('../homepage/assets/seal-l5-globe.svg') no-repeat 66% 36%/260%;flex:none"></span>
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Commitments</p>
       </div>
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:22ch">Six things worth holding us to.</h2>
@@ -291,54 +325,71 @@ summary::-webkit-details-marker{display:none}
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:{{ twoCols }};gap:clamp(1.75rem,5vw,4.5rem) clamp(2rem,6vw,5rem);align-items:start">
       <div>
         <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-          <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:url('assets/seal-l7-stars.svg') no-repeat 66% 64%/260%;flex:none"></span>
+          <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:url('../homepage/assets/seal-l7-stars.svg') no-repeat 66% 64%/260%;flex:none"></span>
           <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Leadership</p>
         </div>
         <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:18ch">No names yet.</h2>
         <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#C3B2CE;max-inline-size:52ch;margin-block-start:1.25rem">A principal has not been announced. Rather than fill this page with portraits and invented biographies, the space stays empty until there are people in the roles — then their names go here, with where they taught before.</p>
       </div>
-      <div style="display:grid;gap:clamp(1.5rem,3vw,2.25rem)">
-        <div style="position:relative;block-size:clamp(24.5rem,40vw,25.5rem)">
+      <div onMouseEnter="{{ holdRole }}" onMouseLeave="{{ releaseRole }}" onFocusCapture="{{ holdRole }}" onBlurCapture="{{ releaseRole }}" style="grid-column:1/-1;display:grid;gap:clamp(1.25rem,3vw,2rem)">
+        <div style="position:relative;block-size:clamp(19rem,30vw,23rem);overflow:hidden">
           <button type="button" data-card="0" onClick="{{ pickRole }}" style="{{ card0 }}">
-            <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">01</span>
-            <b style="font-weight:600;text-transform:uppercase;font-size:1.05rem;letter-spacing:-.01em;line-height:1.1">Principal</b>
-            <span style="font-size:.78rem;color:#C3B2CE;margin-block-start:auto">Not appointed</span>
+            <span style="inline-size:clamp(4.5rem,8vw,6rem);aspect-ratio:3/4;flex:none;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait to follow</span>
+            <span style="display:grid;gap:.5rem;min-inline-size:0;text-align:start">
+              <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">01 · Not appointed</span>
+              <b style="font-weight:600;text-transform:uppercase;font-size:clamp(1.05rem,1rem + .5vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Principal</b>
+              <span style="{{ det0 }}">
+                <span style="display:block;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;line-height:1.45;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">The first thing they say to this school will be printed here.</span>
+                <span style="display:block;font-size:.85rem;color:#C3B2CE;max-inline-size:46ch;margin-block-start:.75rem">Runs the school day to day and answers for both the results and the way children are treated.</span>
+              </span>
+            </span>
           </button>
           <button type="button" data-card="1" onClick="{{ pickRole }}" style="{{ card1 }}">
-            <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">02</span>
-            <b style="font-weight:600;text-transform:uppercase;font-size:1.05rem;letter-spacing:-.01em;line-height:1.1">Vice principal</b>
-            <span style="font-size:.78rem;color:#C3B2CE;margin-block-start:auto">Not appointed</span>
+            <span style="inline-size:clamp(4.5rem,8vw,6rem);aspect-ratio:3/4;flex:none;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait to follow</span>
+            <span style="display:grid;gap:.5rem;min-inline-size:0;text-align:start">
+              <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">02 · Not appointed</span>
+              <b style="font-weight:600;text-transform:uppercase;font-size:clamp(1.05rem,1rem + .5vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Vice principal</b>
+              <span style="{{ det1 }}">
+                <span style="display:block;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;line-height:1.45;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">Their words go here once there is someone to quote.</span>
+                <span style="display:block;font-size:.85rem;color:#C3B2CE;max-inline-size:46ch;margin-block-start:.75rem">Deputises for the principal, usually split between academics and pastoral care.</span>
+              </span>
+            </span>
           </button>
           <button type="button" data-card="2" onClick="{{ pickRole }}" style="{{ card2 }}">
-            <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">03</span>
-            <b style="font-weight:600;text-transform:uppercase;font-size:1.05rem;letter-spacing:-.01em;line-height:1.1">Heads of section</b>
-            <span style="font-size:.78rem;color:#C3B2CE;margin-block-start:auto">Not appointed</span>
+            <span style="inline-size:clamp(4.5rem,8vw,6rem);aspect-ratio:3/4;flex:none;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait to follow</span>
+            <span style="display:grid;gap:.5rem;min-inline-size:0;text-align:start">
+              <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">03 · Not appointed</span>
+              <b style="font-weight:600;text-transform:uppercase;font-size:clamp(1.05rem,1rem + .5vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Heads of section</b>
+              <span style="{{ det2 }}">
+                <span style="display:block;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;line-height:1.45;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">Their words go here once there is someone to quote.</span>
+                <span style="display:block;font-size:.85rem;color:#C3B2CE;max-inline-size:46ch;margin-block-start:.75rem">Kindergarten, primary, middle and senior — in practice the person a parent actually deals with.</span>
+              </span>
+            </span>
           </button>
           <button type="button" data-card="3" onClick="{{ pickRole }}" style="{{ card3 }}">
-            <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">04</span>
-            <b style="font-weight:600;text-transform:uppercase;font-size:1.05rem;letter-spacing:-.01em;line-height:1.1">Group management</b>
-            <span style="font-size:.78rem;color:#C3B2CE;margin-block-start:auto">In place</span>
+            <span style="inline-size:clamp(4.5rem,8vw,6rem);aspect-ratio:3/4;flex:none;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait to follow</span>
+            <span style="display:grid;gap:.5rem;min-inline-size:0;text-align:start">
+              <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">04 · In place</span>
+              <b style="font-weight:600;text-transform:uppercase;font-size:clamp(1.05rem,1rem + .5vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Group management</b>
+              <span style="{{ det3 }}">
+                <span style="display:block;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;line-height:1.45;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">Named on confirmation, alongside the two sister schools.</span>
+                <span style="display:block;font-size:.85rem;color:#C3B2CE;max-inline-size:46ch;margin-block-start:.75rem">The DPS Group of Institutions, Qatar — governance, finance and the campus itself.</span>
+              </span>
+            </span>
           </button>
         </div>
-
+        <div style="display:flex;align-items:center;gap:1rem;justify-content:center">
+          <button type="button" onClick="{{ prevRole }}" aria-label="Previous role" style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:transparent;color:#F3EEE4;font:inherit;cursor:pointer" style-hover="background:#400068;border-color:#D8A800">‹</button>
+          <span style="display:flex;gap:.5rem">
+            <button type="button" data-card="0" onClick="{{ pickRole }}" aria-label="Principal" style="{{ dot0 }}"></button>
+            <button type="button" data-card="1" onClick="{{ pickRole }}" aria-label="Vice principal" style="{{ dot1 }}"></button>
+            <button type="button" data-card="2" onClick="{{ pickRole }}" aria-label="Heads of section" style="{{ dot2 }}"></button>
+            <button type="button" data-card="3" onClick="{{ pickRole }}" aria-label="Group management" style="{{ dot3 }}"></button>
+          </span>
+          <button type="button" onClick="{{ nextRole }}" aria-label="Next role" style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:transparent;color:#F3EEE4;font:inherit;cursor:pointer" style-hover="background:#400068;border-color:#D8A800">›</button>
+        </div>
       </div>
 
-      <sc-if value="{{ showRole }}" hint-placeholder-val="{{ false }}">
-        <div style="grid-column:1/-1;border:1px solid rgba(243,238,228,.24);border-radius:14px;padding:clamp(1.25rem,2.5vw,1.9rem);display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(1.25rem,3vw,2.5rem);align-items:start">
-          <div style="inline-size:clamp(5.5rem,11vw,7.5rem);aspect-ratio:3/4;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.5rem">
-            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait<br />to follow</span>
-          </div>
-          <div style="display:grid;gap:.75rem">
-            <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">{{ roleLabel }}</span>
-            <b style="font-weight:600;text-transform:uppercase;font-size:clamp(1.1rem,1rem + .6vw,1.5rem);letter-spacing:-.015em;line-height:1.05">{{ roleName }}</b>
-            <p style="font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;line-height:1.45;color:#F3EEE4;border-inline-start:2px solid #D8A800;padding-inline-start:.9rem">{{ roleQuote }}</p>
-            <p style="font-size:.875rem;color:#C3B2CE;max-inline-size:70ch">{{ roleBrief }}</p>
-          </div>
-        </div>
-      </sc-if>
-      <sc-if value="{{ noRole }}" hint-placeholder-val="{{ true }}">
-        <p style="grid-column:1/-1;font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE">Pick a card to see what the role covers</p>
-      </sc-if>
     </div>
   </section>
 
@@ -348,26 +399,46 @@ summary::-webkit-details-marker{display:none}
       <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem">Questions</p>
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:22ch">What families ask first.</h2>
       <div style="margin-block-start:clamp(2rem,4vw,2.75rem);border-block-start:1px solid rgba(23,6,31,.16);max-inline-size:60rem">
-        <details style="border-block-end:1px solid rgba(23,6,31,.16)">
-          <summary style="display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;list-style:none;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>When does the school open?</span><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">+</span></summary>
-          <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">4 April 2027 is the target, for the 2027–28 academic year. It depends on construction and on Ministry approvals, so treat it as tentative until the school confirms it.</p>
-        </details>
-        <details style="border-block-end:1px solid rgba(23,6,31,.16)">
-          <summary style="display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;list-style:none;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>Which curriculum will it follow?</span><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">+</span></summary>
-          <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">CBSE, plus the Arabic and Qatar History requirements set by the Ministry of Education. Subject lists and assessment detail follow once staffing is set.</p>
-        </details>
-        <details style="border-block-end:1px solid rgba(23,6,31,.16)">
-          <summary style="display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;list-style:none;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>Where exactly is the campus?</span><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">+</span></summary>
-          <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Al Wukair, south of Doha and near Al Wakrah. A precise address, catchment and bus routes will be published closer to opening.</p>
-        </details>
-        <details style="border-block-end:1px solid rgba(23,6,31,.16)">
-          <summary style="display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;list-style:none;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>What will fees be, and when can I apply?</span><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">+</span></summary>
-          <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Neither is set. Registering your interest below puts you on the list that gets fee structures and admissions dates first — there is nothing else to apply for yet.</p>
-        </details>
-        <details style="border-block-end:1px solid rgba(23,6,31,.16)">
-          <summary style="display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;list-style:none;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>How does this relate to DPS Modern Indian School?</span><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">+</span></summary>
-          <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Same group, separate school. DPS Millennium is the group's third institution in Qatar, with its own campus, staff and admissions — a place at one is not a place at another.</p>
-        </details>
+        <div style="border-block-end:1px solid rgba(23,6,31,.16)">
+          <button type="button" data-faq="0" onClick="{{ pickFaq }}" style="inline-size:100%;display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;background:none;border:none;font:inherit;text-align:start;color:inherit;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>When does the school open?</span><span data-faq-mark="0" style="font-family:'Plex Serif',Georgia,serif;color:#400068;display:inline-block;transform:rotate(0deg);transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+          <div data-faq-panel="0" style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1), opacity .3s ease">
+            <div style="min-block-size:0;overflow:hidden">
+              <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">4 April 2027 is the target, for the 2027–28 academic year. It depends on construction and on Ministry approvals, so treat it as tentative until the school confirms it.</p>
+            </div>
+          </div>
+        </div>
+        <div style="border-block-end:1px solid rgba(23,6,31,.16)">
+          <button type="button" data-faq="1" onClick="{{ pickFaq }}" style="inline-size:100%;display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;background:none;border:none;font:inherit;text-align:start;color:inherit;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>Which curriculum will it follow?</span><span data-faq-mark="1" style="font-family:'Plex Serif',Georgia,serif;color:#400068;display:inline-block;transform:rotate(0deg);transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+          <div data-faq-panel="1" style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1), opacity .3s ease">
+            <div style="min-block-size:0;overflow:hidden">
+              <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">CBSE, plus the Arabic and Qatar History requirements set by the Ministry of Education. Subject lists and assessment detail follow once staffing is set.</p>
+            </div>
+          </div>
+        </div>
+        <div style="border-block-end:1px solid rgba(23,6,31,.16)">
+          <button type="button" data-faq="2" onClick="{{ pickFaq }}" style="inline-size:100%;display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;background:none;border:none;font:inherit;text-align:start;color:inherit;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>Where exactly is the campus?</span><span data-faq-mark="2" style="font-family:'Plex Serif',Georgia,serif;color:#400068;display:inline-block;transform:rotate(0deg);transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+          <div data-faq-panel="2" style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1), opacity .3s ease">
+            <div style="min-block-size:0;overflow:hidden">
+              <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Al Wukair, south of Doha and near Al Wakrah. A precise address, catchment and bus routes will be published closer to opening.</p>
+            </div>
+          </div>
+        </div>
+        <div style="border-block-end:1px solid rgba(23,6,31,.16)">
+          <button type="button" data-faq="3" onClick="{{ pickFaq }}" style="inline-size:100%;display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;background:none;border:none;font:inherit;text-align:start;color:inherit;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>What will fees be, and when can I apply?</span><span data-faq-mark="3" style="font-family:'Plex Serif',Georgia,serif;color:#400068;display:inline-block;transform:rotate(0deg);transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+          <div data-faq-panel="3" style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1), opacity .3s ease">
+            <div style="min-block-size:0;overflow:hidden">
+              <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Neither is set. Registering your interest below puts you on the list that gets fee structures and admissions dates first — there is nothing else to apply for yet.</p>
+            </div>
+          </div>
+        </div>
+        <div style="border-block-end:1px solid rgba(23,6,31,.16)">
+          <button type="button" data-faq="4" onClick="{{ pickFaq }}" style="inline-size:100%;display:flex;gap:1.5rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;cursor:pointer;background:none;border:none;font:inherit;text-align:start;color:inherit;font-size:clamp(1.05rem,1rem + .3vw,1.2rem);font-weight:500"><span>How does this relate to DPS Modern Indian School?</span><span data-faq-mark="4" style="font-family:'Plex Serif',Georgia,serif;color:#400068;display:inline-block;transform:rotate(0deg);transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+          <div data-faq-panel="4" style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1), opacity .3s ease">
+            <div style="min-block-size:0;overflow:hidden">
+              <p style="padding-block:0 1.35rem;color:#5E4C6B;max-inline-size:62ch">Same group, separate school. DPS Millennium is the group's third institution in Qatar, with its own campus, staff and admissions — a place at one is not a place at another.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -398,11 +469,11 @@ summary::-webkit-details-marker{display:none}
   <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
     <div style="display:flex;flex-wrap:wrap;gap:2.5rem clamp(2rem,6vw,5rem);align-items:start">
       <div style="flex:0 1 16rem">
-        <img src="assets/seal.svg" alt="" style="inline-size:clamp(110px,15vw,150px)" />
+        <img src="../homepage/assets/seal.svg" alt="" style="inline-size:clamp(110px,15vw,150px)" />
         <p style="font-family:'Plex Arabic','Plex Sans',sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem">مدرسة ميلينيوم الدولية</p>
         <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem">
-          <a href="#register" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
-          <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Fees</a>
+          <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
+          <a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Fees</a>
           <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Contact</a>
         </div>
       </div>
@@ -410,33 +481,33 @@ summary::-webkit-details-marker{display:none}
         <div>
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">About</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
-            <li><a href="#purpose" style="font-size:.9rem;color:#C3B2CE">Mission &amp; Vision</a></li>
-            <li><a href="#crest" style="font-size:.9rem;color:#C3B2CE">The crest</a></li>
-            <li><a href="#commitments" style="font-size:.9rem;color:#C3B2CE">Commitments</a></li>
-            <li><a href="#leadership" style="font-size:.9rem;color:#C3B2CE">Leadership</a></li>
+            <li><a href="#purpose" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Mission &amp; Vision</a></li>
+            <li><a href="#crest" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">The crest</a></li>
+            <li><a href="#commitments" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Commitments</a></li>
+            <li><a href="#leadership" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Leadership</a></li>
           </ul>
         </div>
         <div>
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Admissions</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
-            <li><a href="#register" style="font-size:.9rem;color:#C3B2CE">Register Interest</a></li>
-            <li><a href="#faq" style="font-size:.9rem;color:#C3B2CE">Questions</a></li>
-            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Fees Structure</a></li>
+            <li><a href="#register" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Register Interest</a></li>
+            <li><a href="#faq" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Questions</a></li>
+            <li><a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Fees Structure</a></li>
           </ul>
         </div>
         <div>
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
-            <li><a href="DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
-            <li><a href="DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
+            <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
           </ul>
         </div>
         <div>
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">DPS Group</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
-            <li><a href="#group" style="font-size:.9rem;color:#C3B2CE">DPS Modern Indian School</a></li>
-            <li><a href="#group" style="font-size:.9rem;color:#C3B2CE">DPS Monarch International School</a></li>
+            <li><a href="#group" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">DPS Modern Indian School</a></li>
+            <li><a href="#group" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">DPS Monarch International School</a></li>
           </ul>
         </div>
       </div>
@@ -448,12 +519,14 @@ summary::-webkit-details-marker{display:none}
   </div>
 </footer>
 
+<div data-sbar="1" aria-hidden="true" style="position:fixed;inset-block:0;inset-inline-end:0;inline-size:.9rem;z-index:90;transition:opacity .4s ease;pointer-events:none">
+  <div data-sbar-thumb="1" style="position:absolute;inset-inline-end:.25rem;inline-size:.25rem;min-block-size:2.5rem;border-radius:99px;background:rgba(216,168,0,.55);pointer-events:auto;transition:inline-size .18s ease,background .18s ease" style-hover="inline-size:.4rem;background:#D8A800"></div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;quadrantDim&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.62,&quot;min&quot;:0.3,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Crest&quot;},&quot;showLedger&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showFaq&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    this.state = { open: null, burger: false, narrow: false, q: null, role: null };
+    this.state = { open: null, burger: false, narrow: false, q: null, role: null, faq: null, hoverRole: false, held: 0 };
     this.ROLES = [
       { label: 'Role 01', name: 'Principal', quote: 'The first thing they say to this school will be printed here.', brief: 'Runs the school day to day and answers for both the results and the way children are treated. Recruitment is under way; the appointment is expected well before the first term.' },
       { label: 'Role 02', name: 'Vice principal', quote: 'Their words go here once there is someone to quote.', brief: 'Deputises for the principal, usually split between academics and pastoral care as the roll grows.' },
@@ -462,18 +535,119 @@ class Component extends DCLogic {
     ];
   }
 
+  // Replaces the native bar with one drawn in the page's own vocabulary: thumb
+  // length reports how long the page is, so the sense of scale a progress line
+  // loses is kept. Idles hidden, fades in while scrolling or on hover, and
+  // drags like the real thing.
+  armProgress() {
+    const rail = document.querySelector('[data-sbar]');
+    const thumb = rail && rail.querySelector('[data-sbar-thumb]');
+    if (!thumb) return;
+
+    // The hidden state is set here rather than in the template: any property
+    // declared in a template style attribute is owned by the runtime and gets
+    // rewritten on every re-render, which would clobber show()/fade().
+    rail.style.opacity = '0';
+    thumb.style.cursor = 'grab';
+
+    let dragging = false, grabOffset = 0;
+    const metrics = () => {
+      const doc = document.documentElement;
+      const vh = window.innerHeight;
+      const max = doc.scrollHeight - vh;
+      const track = rail.clientHeight;
+      const len = Math.max(40, Math.round(track * (vh / doc.scrollHeight)));
+      return { max, track, len, travel: track - len };
+    };
+
+    const draw = () => {
+      this.progRaf = 0;
+      const m = metrics();
+      if (m.max <= 1) { rail.style.display = 'none'; return; }
+      rail.style.display = '';
+      thumb.style.blockSize = m.len + 'px';
+      const p = Math.min(1, Math.max(0, window.scrollY / m.max));
+      thumb.style.transform = 'translateY(' + (p * m.travel).toFixed(1) + 'px)';
+    };
+
+    const show = () => { rail.style.opacity = '1'; };
+    const fade = () => {
+      clearTimeout(this.sbarHide);
+      show();
+      this.sbarHide = setTimeout(() => { if (!dragging && !this.sbarHover) rail.style.opacity = '0'; }, 1100);
+    };
+
+    this.onProg = () => { if (!this.progRaf) this.progRaf = requestAnimationFrame(draw); fade(); };
+    window.addEventListener('scroll', this.onProg, { passive: true });
+    window.addEventListener('resize', this.onProg);
+
+    // A wide invisible strip along the edge arms the bar before the pointer has
+    // to hit a 4px target.
+    this.onEdge = (e) => {
+      const near = e.clientX > window.innerWidth - 44;
+      this.sbarHover = near;
+      if (near) { clearTimeout(this.sbarHide); show(); } else if (!dragging) fade();
+    };
+    window.addEventListener('pointermove', this.onEdge, { passive: true });
+
+    this.onDown = (e) => {
+      dragging = true;
+      grabOffset = e.clientY - thumb.getBoundingClientRect().top;
+      thumb.style.cursor = 'grabbing';
+      thumb.setPointerCapture(e.pointerId);
+      show();
+      e.preventDefault();
+    };
+    this.onMove = (e) => {
+      if (!dragging) return;
+      const m = metrics();
+      if (m.travel <= 0) return;
+      const y = e.clientY - rail.getBoundingClientRect().top - grabOffset;
+      window.scrollTo(0, Math.min(1, Math.max(0, y / m.travel)) * m.max);
+    };
+    this.onUp = () => { if (!dragging) return; dragging = false; thumb.style.cursor = 'grab'; fade(); };
+    thumb.addEventListener('pointerdown', this.onDown);
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+    this.sbarEls = { thumb };
+
+    draw();
+  }
+
   componentDidMount() {
+    document.documentElement.dataset.mounted = '1';
+    this.armProgress();
     this.sync = () => this.setState({ narrow: window.innerWidth < 1024 });
     this.sync();
     window.addEventListener('resize', this.sync);
     this.armCrest();
     this.armReveal();
-    const c = document.querySelector('[data-curtain]');
-    if (c) this.curtainT = setTimeout(() => { c.style.display = 'none'; }, 1100);
+
+    // The carousel walks on by itself, but only while nobody is touching it and
+    // only while the section is actually on screen.
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.roleTick = setInterval(() => {
+      if (calm.matches || this.state.hoverRole) return;
+      if (Date.now() - (this.state.held || 0) < 9000) return;
+      const box = document.getElementById('leadership');
+      if (box) {
+        const r = box.getBoundingClientRect();
+        if (r.bottom < 80 || r.top > window.innerHeight - 80) return;
+      }
+      this.setState({ role: ((this.state.role === null ? 0 : this.state.role) + 1) % 4 });
+    }, 6000);
   }
 
   componentWillUnmount() {
+    window.removeEventListener('scroll', this.onProg);
+    window.removeEventListener('resize', this.onProg);
+    window.removeEventListener('pointermove', this.onEdge);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    clearTimeout(this.sbarHide);
+    clearInterval(this.glideTick);
     window.removeEventListener('resize', this.sync);
+    clearInterval(this.roleTick);
     if (this.onMove) {
       document.removeEventListener('scroll', this.onMove, { capture: true });
       window.removeEventListener('scroll', this.onMove);
@@ -485,7 +659,7 @@ class Component extends DCLogic {
     this.crestRaf = 0;
     this.crestArmed = false;
     if (this.revealIo) this.revealIo.disconnect();
-    clearTimeout(this.curtainT);
+    
   }
 
   // A stray unmount (dev double-invoke, hot reload) can strip the listeners out
@@ -597,6 +771,36 @@ class Component extends DCLogic {
 
   // Section rows arrive a beat after their heading, once — cheap, and it stops
   // the long rule-and-row lists reading as a wall on first sight.
+// The page-to-page cover is created OUTSIDE the React tree and owned by hand.
+  // Anything inside the template is React's to re-render, which is what kept
+  // resetting the curtain mid-load; a detached node cannot be touched.
+
+  // In-page nav jumps ease instead of teleporting: slow off the mark, quick
+  // through the middle, settling on the target under the sticky bar.
+  glideTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const nav = document.querySelector('[data-screen-label="Nav"]');
+    const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+    const from = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const to = Math.min(max, Math.max(0, el.getBoundingClientRect().top + from - pad));
+    const dist = Math.abs(to - from);
+    if (dist < 2) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo(0, to); return; }
+    const dur = Math.min(1500, Math.max(650, dist * 0.55));
+    const t0 = performance.now();
+    clearInterval(this.glideTick);
+    // Timer-driven rather than rAF: a backgrounded or occluded frame never
+    // services requestAnimationFrame, and the jump then does nothing at all.
+    this.glideTick = setInterval(() => {
+      const p = Math.min(1, (performance.now() - t0) / dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      window.scrollTo(0, from + (to - from) * e);
+      if (p >= 1) { clearInterval(this.glideTick); if (this.afterGlide) this.afterGlide(); }
+    }, 16);
+  }
+
   armReveal() {
     const rows = Array.from(document.querySelectorAll('[data-row]'));
     if (!rows.length || !window.IntersectionObserver) return;
@@ -637,32 +841,43 @@ class Component extends DCLogic {
     // and the panel below stays closed.
     const sel = this.state.role;
     const role = this.ROLES[sel] || { label: '', name: '', quote: '', brief: '' };
-    const FAN = [-3.5, -1.2, 1.2, 3.5];
+    // Carousel: the chosen role sits centred and open, the two either side peek
+    // in at 60% with portrait and title only, the fourth waits out of frame.
+    const cur = sel === null ? 0 : sel;
+    // Offsets are a share of the peek card's OWN width so the geometry holds at
+    // any container size: peek is 36% wide × .62 scale, so 108% of itself lands
+    // it just clear of the centre card's edge.
+    const PEEK = narrow ? 108 : 118;
     const cardStyle = (i) => {
-      const on = i === sel;
+      const d = ((i - cur) % 4 + 4) % 4;      // 0 centre, 1 right, 3 left, 2 far
+      const pos = d === 0 ? 0 : d === 1 ? 1 : d === 3 ? -1 : 2;
+      const on = pos === 0;
+      const peek = Math.abs(pos) === 1;
       return {
-        // Dealt down the stack rather than across it: each card is offset far
-        // enough vertically that its own title strip clears the card in front,
-        // so every role stays readable while the deck still overlaps.
-        // Right edges align on the column edge and the left edges step in, so
-        // the deck fills its half instead of leaving a dead margin beside it.
-        position: 'absolute', insetBlockStart: (i * 4) + 'rem',
-        insetInlineStart: (i * 5) + '%', insetInlineEnd: 0,
-        blockSize: narrow ? '8rem' : '8.5rem',
-        display: 'flex', flexDirection: 'column', gap: '.35rem', textAlign: 'start',
-        padding: '1rem 1.1rem', borderRadius: '12px', font: 'inherit', cursor: 'pointer',
-        color: '#F3EEE4',
-        background: on ? '#400068' : '#20082B',
-        border: '1px solid ' + (on ? '#D8A800' : 'rgba(243,238,228,.24)'),
-        boxShadow: on ? '0 26px 44px -14px rgba(0,0,0,.7)' : '0 10px 24px -12px rgba(0,0,0,.6)',
-        transformOrigin: '50% 0%',
-        // Cards below the chosen one step down a little, so the lifted card
-        // never sits on top of the next title.
-        transform: 'rotate(' + (on ? 0 : FAN[i]) + 'deg) translate(' + (on ? '-12px,0' : (sel !== null && i > sel ? '0,74px' : '0,0')) + ') scale(' + (on ? 1.03 : 1) + ')',
-        transition: 'transform .5s cubic-bezier(.16,1,.3,1), background .35s ease, border-color .35s ease, box-shadow .35s ease',
-        zIndex: on ? 20 : 10 + i
+        position: 'absolute', insetInlineStart: '50%', insetBlockStart: '50%',
+        inlineSize: on ? 'min(64%, 36rem)' : 'min(36%, 22rem)',
+        display: 'flex', gap: on ? '1.4rem' : '1rem', alignItems: 'center',
+        textAlign: 'start', padding: on ? '1.6rem 1.75rem' : '1.25rem',
+        borderRadius: '14px', font: 'inherit', cursor: 'pointer', color: '#F3EEE4',
+        background: on ? '#400068' : '#2B0F3B',
+        border: '1px solid ' + (on ? '#D8A800' : 'rgba(243,238,228,.36)'),
+        boxShadow: on ? '0 30px 50px -16px rgba(0,0,0,.72)' : '0 12px 28px -14px rgba(0,0,0,.6)',
+        opacity: peek ? .85 : on ? 1 : 0,
+        pointerEvents: on || peek ? 'auto' : 'none',
+        transform: 'translate(-50%,-50%) translateX(' + (pos * PEEK) + '%) scale(' + (on ? 1 : .62) + ')',
+        transition: 'transform .55s cubic-bezier(.16,1,.3,1), opacity .45s ease, background .35s ease, border-color .35s ease, box-shadow .35s ease',
+        zIndex: on ? 20 : peek ? 12 : 5
       };
     };
+    const detStyle = (i) => (i === cur
+      ? { display: 'block', opacity: 1, transition: 'opacity .4s ease .1s' }
+      : { display: 'none', opacity: 0 });
+    const dotStyle = (i) => ({
+      inlineSize: i === cur ? '1.6rem' : '.55rem', blockSize: '.55rem', padding: 0,
+      borderRadius: '999px', border: 'none', cursor: 'pointer',
+      background: i === cur ? '#D8A800' : 'rgba(243,238,228,.35)',
+      transition: 'inline-size .35s ease, background .35s ease'
+    });
 
     const mk = (k) => narrow
       ? subNarrow
@@ -700,18 +915,37 @@ class Component extends DCLogic {
       // front, the rest stay splayed behind it.
       pickRole: (e) => {
         const i = parseInt(e.currentTarget.dataset.card, 10);
-        if (!isNaN(i) && i !== this.state.role) this.setState({ role: i });
+        if (!isNaN(i) && i !== cur) this.setState({ role: i, held: Date.now() });
+      },
+      holdRole: () => this.setState({ hoverRole: true }),
+      releaseRole: () => this.setState({ hoverRole: false, held: Date.now() }),
+      prevRole: () => this.setState({ role: (cur + 3) % 4, held: Date.now() }),
+      nextRole: () => this.setState({ role: (cur + 1) % 4, held: Date.now() }),
+
+      // FAQ opens on a grid-rows transition rather than the browser's instant
+      // <details> jump; one panel at a time, clicking the open one closes it.
+      // Driven straight on the DOM: the panels live inside an sc-if, and style
+      // values routed through it arrived a render late.
+      pickFaq: (e) => {
+        const i = e.currentTarget.dataset.faq;
+        const wasOpen = this.faqOpenKey === i;
+        this.faqOpenKey = wasOpen ? null : i;
+        document.querySelectorAll('[data-faq-panel]').forEach((p) => {
+          const on = !wasOpen && p.dataset.faqPanel === i;
+          p.style.gridTemplateRows = on ? '1fr' : '0fr';
+          p.style.opacity = on ? '1' : '0';
+        });
+        document.querySelectorAll('[data-faq-mark]').forEach((m) => {
+          const on = !wasOpen && m.dataset.faqMark === i;
+          m.style.transform = on ? 'rotate(135deg)' : 'rotate(0deg)';
+        });
       },
       // auto-fit was opening a third, empty track on wide screens and squeezing
       // the real two columns into the left two thirds.
       twoCols: narrow ? '1fr' : 'repeat(2,minmax(0,1fr))',
-      showRole: sel !== null,
-      noRole: sel === null,
-      roleLabel: role.label,
-      roleName: role.name,
-      roleQuote: role.quote,
-      roleBrief: role.brief,
       card0: cardStyle(0), card1: cardStyle(1), card2: cardStyle(2), card3: cardStyle(3),
+      det0: detStyle(0), det1: detStyle(1), det2: detStyle(2), det3: detStyle(3),
+      dot0: dotStyle(0), dot1: dotStyle(1), dot2: dotStyle(2), dot3: dotStyle(3),
 
       noSubmit: (e) => e.preventDefault(),
 
@@ -726,6 +960,17 @@ class Component extends DCLogic {
         if (li && (!e.relatedTarget || !li.contains(e.relatedTarget))) this.setState({ open: null });
       },
       toggleBurger: () => this.setState({ burger: !this.state.burger }),
+
+      glide: (e) => {
+        const href = e.currentTarget.getAttribute('href') || '';
+        if (href.length < 2 || href.charAt(0) !== '#' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        const id = href.slice(1);
+        if (!document.getElementById(id)) return;
+        e.preventDefault();
+        if (this.state.burger) this.setState({ burger: false });
+        this.setState({ open: null });
+        this.glideTo(id);
+      },
 
       sub: {
         about: mk('about'), campus: mk('campus'), admissions: mk('admissions'),
