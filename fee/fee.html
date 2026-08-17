@@ -933,6 +933,10 @@
       margin-block-end: 1.25rem;
     }
 
+    .mv-card--gold-border {
+      border-color: var(--gold);
+    }
+
     .mv-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-md);
@@ -1277,177 +1281,84 @@
   <!-- ============================ PRIMARY SECTION ============================ -->
   <section class="band band--paper" id="primary" aria-labelledby="primary-heading">
     <div class="wrap">
-      <p class="eyebrow reveal-on-scroll">Primary Section</p>
+      <p class="eyebrow reveal-on-scroll" style="margin-block-end:.75rem">Primary Section</p>
       <h2 class="h h--lg reveal-on-scroll" style="animation-delay:.05s">Primary School (Classes 1–5)</h2>
 
-      <!-- Card 1: Class 1 -->
-      <div class="mv-card stagger-reveal stagger-reveal-1">
-        <span class="mv-card__tag">Foundation Learning</span>
-        <h3>Class 1</h3>
-        <p>Building literacy, numeracy, and social skills through play-based and inquiry learning.</p>
-        <div class="mv-card__foot">
+      <!-- Combined Card for Primary -->
+      <div class="mv-card stagger-reveal stagger-reveal-1" style="margin-block-start:2.5rem">
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem">
+          <!-- Fee Table -->
+          <div style="flex:1;min-inline-size:22rem">
+            <span class="eyebrow" style="margin-block-end:.25rem">Fee Breakdown</span>
+            <table style="width:100%;border-collapse:collapse;border:1px solid var(--rule);font-size:.85rem">
+              <thead style="background:rgba(64,0,104,0.06)">
+                <tr>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:left">Expense Category</th>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:right">Amount (QAR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Tuition Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">18,500</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Textbooks & Materials</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">2,200</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Transportation</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">1,800</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Activity Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">1,500</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Flowchart for Installments -->
+          <div style="flex:1;min-inline-size:22rem;padding:.5rem;background:rgba(243,238,228,0.3);border-radius:var(--r);border:1px solid var(--rule)">
+            <span class="eyebrow" style="margin-block-end:.25rem">Payment Flow</span>
+            <svg width="100%" height="140" viewBox="0 0 300 140" style="display:block">
+              <!-- Title -->
+              <text x="150" y="25" text-anchor="middle" font-family="sans-serif" font-size="14" fill="var(--ink)" font-weight="600">Installment Flow</text>
+
+              <!-- Box 1: Tuition -->
+              <rect x="50" y="45" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Tuition Fee</text>
+
+              <!-- Arrow 1 -->
+              <line x1="170" y1="65" x2="200" y2="65" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 2: Materials -->
+              <rect x="220" y="45" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Materials</text>
+
+              <!-- Box 3: Transport -->
+              <rect x="50" y="95" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Transport</text>
+
+              <!-- Arrow 2 -->
+              <line x1="170" y1="115" x2="200" y2="115" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 4: Activities -->
+              <rect x="220" y="95" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Activities</text>
+
+              <!-- Legend -->
+              <rect x="150" y="130" width="10" height="10" rx="3" fill="var(--purple)" />
+              <text x="163" y="142" font-family="sans-serif" font-size="9" fill="var(--ink)">Quarterly</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mv-card__foot" style="margin-block-start:1rem;border-block-start:1px solid var(--rule)">
           <span class="badge">CBSE-aligned</span>
           <span class="badge">Small classes</span>
+          <span class="badge">Annual Total: QAR 24,000</span>
         </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 18,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 16,050</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 15,900</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 2: Class 2 -->
-      <div class="mv-card stagger-reveal stagger-reveal-2">
-        <span class="mv-card__tag">Core Subjects</span>
-        <h3>Class 2</h3>
-        <p>Developing confidence in reading, writing, and basic mathematics with hands-on projects.</p>
-        <div class="mv-card__foot">
-          <span class="badge">STEM intro</span>
-          <span class="badge">Arts &amp; Music</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 19,000</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 16,650</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 16,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 3: Class 3 -->
-      <div class="mv-card stagger-reveal stagger-reveal-3">
-        <span class="mv-card__tag">Building Knowledge</span>
-        <h3>Class 3</h3>
-        <p>Deepening understanding of science, history, and geography through exploration and experiments.</p>
-        <div class="mv-card__foot">
-          <span class="badge">Science labs</span>
-          <span class="badge">Library access</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 19,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 17,100</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 16,950</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 4: Class 4 -->
-      <div class="mv-card stagger-reveal stagger-reveal-4">
-        <span class="mv-card__tag">Critical Thinking</span>
-        <h3>Class 4</h3>
-        <p>Strengthening problem-solving abilities, research skills, and collaborative projects.</p>
-        <div class="mv-card__foot">
-          <span class="badge">Coding basics</span>
-          <span class="badge">Debating</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 20,000</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 17,600</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 17,450</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 5: Class 5 -->
-      <div class="mv-card stagger-reveal stagger-reveal-5">
-        <span class="mv-card__tag">Preparation</span>
-        <h3>Class 5</h3>
-        <p>Preparing for middle school transition with advanced subjects and leadership roles.</p>
-        <div class="mv-card__foot">
-          <span class="badge">Advanced math</span>
-          <span class="badge">Science projects</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 20,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 18,050</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 17,900</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
       </div>
     </div>
   </section>
@@ -1455,109 +1366,84 @@
   <!-- ============================ MIDDLE SECTION ============================ -->
   <section class="band band--ink band--ink-pattern" id="middle" aria-labelledby="middle-heading">
     <div class="wrap">
-      <p class="eyebrow reveal-on-scroll" style="color:var(--gold)">Middle Section</p>
-      <h2 class="h h--lg reveal-on-scroll" style="color:var(--paper);animation-delay:.05s">Middle School (Classes 6–8)</h2>
+      <p class="eyebrow reveal-on-scroll">Middle Section</p>
+      <h2 class="h h--lg reveal-on-scroll" style="animation-delay:.05s">Middle School (Classes 6–8)</h2>
 
-      <!-- Card 1: Class 6 -->
-      <div class="mv-card stagger-reveal stagger-reveal-1">
-        <span class="mv-card__tag">Foundation & Transition</span>
-        <h3>Class 6</h3>
-        <p>Bridging primary and middle school with enhanced critical thinking, scientific inquiry, and global awareness.</p>
-        <div class="mv-card__foot">
+      <!-- Combined Card for Middle -->
+      <div class="mv-card stagger-reveal stagger-reveal-1 mv-card--gold-border" style="margin-block-start:2.5rem">
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem">
+          <!-- Fee Table -->
+          <div style="flex:1;min-inline-size:22rem">
+            <span class="eyebrow" style="margin-block-end:.25rem">Fee Breakdown</span>
+            <table style="width:100%;border-collapse:collapse;border:1px solid var(--rule);font-size:.85rem;color:var(--ink)">
+              <thead style="background:rgba(23,6,31,0.06)">
+                <tr>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:left;color:var(--ink)">Expense Category</th>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:right;color:var(--ink)">Amount (QAR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule);color:var(--ink)">Tuition Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600;color:var(--ink)">22,500</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule);color:var(--ink)">Textbooks & Materials</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600;color:var(--ink)">2,650</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule);color:var(--ink)">Transportation</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600;color:var(--ink)">2,100</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule);color:var(--ink)">Activity Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600;color:var(--ink)">1,800</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Flowchart for Installments -->
+          <div style="flex:1;min-inline-size:22rem;padding:.5rem;background:rgba(243,238,228,0.3);border-radius:var(--r);border:1px solid var(--rule)">
+            <span class="eyebrow" style="margin-block-end:.25rem">Payment Flow</span>
+            <svg width="100%" height="140" viewBox="0 0 300 140" style="display:block">
+              <!-- Title -->
+              <text x="150" y="25" text-anchor="middle" font-family="sans-serif" font-size="14" fill="var(--ink)" font-weight="600">Installment Flow</text>
+
+              <!-- Box 1: Tuition -->
+              <rect x="50" y="45" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Tuition Fee</text>
+
+              <!-- Arrow 1 -->
+              <line x1="170" y1="65" x2="200" y2="65" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 2: Materials -->
+              <rect x="220" y="45" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Materials</text>
+
+              <!-- Box 3: Transport -->
+              <rect x="50" y="95" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Transport</text>
+
+              <!-- Arrow 2 -->
+              <line x1="170" y1="115" x2="200" y2="115" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 4: Activities -->
+              <rect x="220" y="95" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Activities</text>
+
+              <!-- Legend -->
+              <rect x="150" y="130" width="10" height="10" rx="3" fill="var(--purple)" />
+              <text x="163" y="142" font-family="sans-serif" font-size="9" fill="var(--ink)">Quarterly</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mv-card__foot" style="margin-block-start:1rem;border-block-start:1px solid var(--rule)">
           <span class="badge">IGCSE foundation</span>
           <span class="badge">Inter-house sports</span>
+          <span class="badge">Annual Total: QAR 29,050</span>
         </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 22,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 19,950</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 19,800</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 2: Class 7 -->
-      <div class="mv-card stagger-reveal stagger-reveal-2">
-        <span class="mv-card__tag">Subject Specialisation</span>
-        <h3>Class 7</h3>
-        <p>Students choose elective subjects including advanced mathematics, languages, and creative arts.</p>
-        <div class="mv-card__foot">
-          <span class="badge">Electives intro</span>
-          <span class="badge">Robotics club</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 23,000</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 20,350</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 20,200</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 3: Class 8 -->
-      <div class="mv-card stagger-reveal stagger-reveal-3">
-        <span class="mv-card__tag">Advanced Learning</span>
-        <h3>Class 8</h3>
-        <p>Preparing for high school with rigorous coursework, competitive exam preparation, and leadership opportunities.</p>
-        <div class="mv-card__foot">
-          <span class="badge">IGCSE prep</span>
-          <span class="badge">Leadership roles</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 23,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 20,750</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 20,600</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
       </div>
     </div>
   </section>
@@ -1568,111 +1454,81 @@
       <p class="eyebrow reveal-on-scroll" style="color:var(--gold)">High Section</p>
       <h2 class="h h--lg reveal-on-scroll" style="animation-delay:.05s">High School (Classes 9–12)</h2>
 
-      <!-- Card 1: Class 9 -->
-      <div class="mv-card stagger-reveal stagger-reveal-1">
-        <span class="mv-card__tag">Foundation</span>
-        <h3>Class 9</h3>
-        <p>Strengthening core competencies across languages, sciences, and mathematics with a focus on critical thinking.</p>
-        <div class="mv-card__foot">
+      <!-- Combined Card for High -->
+      <div class="mv-card stagger-reveal stagger-reveal-1" style="margin-block-start:2.5rem">
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem">
+          <!-- Fee Table -->
+          <div style="flex:1;min-inline-size:22rem">
+            <span class="eyebrow" style="margin-block-end:.25rem">Fee Breakdown</span>
+            <table style="width:100%;border-collapse:collapse;border:1px solid var(--rule);font-size:.85rem">
+              <thead style="background:rgba(64,0,104,0.06)">
+                <tr>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:left">Expense Category</th>
+                  <th style="padding:.75rem;border:1px solid var(--rule);text-align:right">Amount (QAR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Tuition Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">25,000</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Textbooks & Materials</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">2,900</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Transportation</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">2,300</td>
+                </tr>
+                <tr>
+                  <td style="padding:.75rem;border:1px solid var(--rule)">Activity Fees</td>
+                  <td style="padding:.75rem;border:1px solid var(--rule);text-align:right;font-weight:600">2,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Flowchart for Installments -->
+          <div style="flex:1;min-inline-size:22rem;padding:.5rem;background:rgba(243,238,228,0.3);border-radius:var(--r);border:1px solid var(--rule)">
+            <span class="eyebrow" style="margin-block-end:.25rem">Payment Flow</span>
+            <svg width="100%" height="140" viewBox="0 0 300 140" style="display:block">
+              <!-- Title -->
+              <text x="150" y="25" text-anchor="middle" font-family="sans-serif" font-size="14" fill="var(--ink)" font-weight="600">Installment Flow</text>
+
+              <!-- Box 1: Tuition -->
+              <rect x="50" y="45" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Tuition Fee</text>
+
+              <!-- Arrow 1 -->
+              <line x1="170" y1="65" x2="200" y2="65" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 2: Materials -->
+              <rect x="220" y="45" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Materials</text>
+
+              <!-- Box 3: Transport -->
+              <rect x="50" y="95" width="140" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="120" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Transport</text>
+
+              <!-- Arrow 2 -->
+              <line x1="170" y1="115" x2="200" y2="115" stroke="var(--purple)" stroke-width="1.5" />
+
+              <!-- Box 4: Activities -->
+              <rect x="220" y="95" width="100" height="40" rx="6" fill="white" stroke="var(--purple)" stroke-width="1.5" />
+              <text x="270" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--ink)" font-weight="500">Activities</text>
+
+              <!-- Legend -->
+              <rect x="150" y="130" width="10" height="10" rx="3" fill="var(--purple)" />
+              <text x="163" y="142" font-family="sans-serif" font-size="9" fill="var(--ink)">Quarterly</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mv-card__foot" style="margin-block-start:1rem;border-block-start:1px solid var(--rule)">
           <span class="badge">IGCSE prep</span>
           <span class="badge">Research projects</span>
+          <span class="badge">Annual Total: QAR 32,200</span>
         </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 25,000</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 22,250</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 22,100</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 2: Class 10 -->
-      <div class="mv-card stagger-reveal stagger-reveal-2">
-        <span class="mv-card__tag">Subject Specialisation</span>
-        <h3>Class 10</h3>
-        <p>Subject-specific deep dives with IGCSE assessments, preparing for high school transition.</p>
-        <div class="mv-card__foot">
-          <span class="badge">IGCSE exams</span>
-          <span class="badge">Career guidance</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 25,500</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 22,700</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 22,550</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Card 3: Class 11 & 12 -->
-      <div class="mv-card stagger-reveal stagger-reveal-3">
-        <span class="mv-card__tag">Pre-University</span>
-        <h3>Class 11 & 12</h3>
-        <p>Advanced placement in selected subjects with rigorous internal assessments and external board examinations.</p>
-        <div class="mv-card__foot">
-          <span class="badge">AP/IB options</span>
-          <span class="badge">Electives</span>
-        </div>
-        <!-- Fee Dropdown -->
-        <details class="fee-dropdown">
-          <summary class="fee-dropdown-toggle">
-            <span class="fee-dropdown-title">Fee Options</span>
-          </summary>
-          <div class="fee-dropdown__items">
-            <div class="fee-dropdown-item is-selected">
-              <span class="fee-dropdown__label">Standard Fee</span>
-              <span class="fee-dropdown__amount">QAR 27,000</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird (1st payment)</span>
-              <span class="fee-dropdown__amount">QAR 24,150</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Siblings Discount</span>
-              <span class="fee-dropdown__amount">QAR 23,950</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-            <div class="fee-dropdown-item">
-              <span class="fee-dropdown__label">Early Bird + Siblings</span>
-              <span class="fee-dropdown__amount">QAR 22,800</span>
-              <span class="fee-dropdown__chevron"></span>
-            </div>
-          </div>
-        </details>
       </div>
     </div>
   </section>
