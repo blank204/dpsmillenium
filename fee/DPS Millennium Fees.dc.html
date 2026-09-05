@@ -65,6 +65,36 @@ table{border-collapse:collapse;inline-size:100%}
 :where(a,button,input,summary):focus-visible{outline:3px solid #D8A800;outline-offset:3px}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes curtainUp{0%{transform:translateY(0)}100%{transform:translateY(-101%)}}
+@media (max-width:63.99em){
+[data-screen-label="Nav"] ul ul a{padding-block:.7rem}
+#fees th[scope="row"],#fees thead th:first-child{position:sticky;inset-inline-start:0;background:#F3EEE4;z-index:2;box-shadow:1px 0 0 rgba(23,6,31,.14);padding-inline-end:1rem}
+#fees th[scope="row"],#fees thead th:first-child,#fees th[scope="colgroup"]{min-inline-size:12rem}
+#fees thead th:first-child{background:#F3EEE4}
+#fees > div > div,#transport > div > div{scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+#fees > div > div::-webkit-scrollbar,#transport > div > div::-webkit-scrollbar{block-size:6px}
+#fees > div > div::-webkit-scrollbar-thumb,#transport > div > div::-webkit-scrollbar-thumb{background:rgba(23,6,31,.32);border-radius:99px}
+}
+@media (max-width:47.99em){
+[data-screen-label="Nav"] > div{gap:.6rem}
+[data-screen-label="Nav"] > div > a > span > span{display:none}
+[data-screen-label="Nav"] > div > div > a{padding:.6rem 1rem;font-size:.85rem}
+footer ul a{display:inline-block;padding-block:.4rem}
+#transport table{min-inline-size:0 !important}
+[data-steps]{display:grid !important;grid-template-columns:minmax(0,1fr) !important}
+[data-arrow]{transform:rotate(90deg);flex-basis:auto !important;justify-self:center}
+[data-jump] button{padding-block:.8rem !important;padding-inline:.95rem !important}
+}
+[data-table="Framed"] #fees > div > div,[data-table="Framed + banded header"] #fees > div > div,[data-table=""] #fees > div > div,[data-table="Framed"] #transport > div > div,[data-table="Framed + banded header"] #transport > div > div,[data-table=""] #transport > div > div{border:1px solid rgba(23,6,31,.22);border-radius:12px}
+[data-table="Framed"] #fees table,[data-table="Framed + banded header"] #fees table,[data-table=""] #fees table,[data-table="Framed"] #transport table,[data-table="Framed + banded header"] #transport table,[data-table=""] #transport table{padding-inline:.35rem}
+[data-table="Banded header"] #fees thead tr,[data-table="Framed + banded header"] #fees thead tr,[data-table="Banded header"] #transport thead tr,[data-table="Framed + banded header"] #transport thead tr{background:#17061F;border-block-end:0}
+[data-table="Banded header"] #fees thead th,[data-table="Framed + banded header"] #fees thead th,[data-table="Banded header"] #transport thead th,[data-table="Framed + banded header"] #transport thead th{color:#F3EEE4 !important}
+[data-table="Banded header"] #fees thead th:first-child,[data-table="Framed + banded header"] #fees thead th:first-child{background:#17061F}
+#fees tbody tr[data-z]{background:rgba(23,6,31,.032)}
+#fees tbody th[scope="row"]{border-inline-end:1px solid rgba(23,6,31,.12)}
+#fees tbody td{padding-inline:1.35rem}
+[data-fee-opt][data-on="1"]{background:#D8A800 !important;border-color:#D8A800 !important;color:#17061F !important;box-shadow:0 0 0 3px rgba(216,168,0,.22)}
+[data-fee-opt][data-on="1"]:hover{background:#E8B600 !important;border-color:#E8B600 !important;color:#17061F !important}
+@media (hover:none){[data-sbar]{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
 </style>
 </helmet>
@@ -97,10 +127,10 @@ table{border-collapse:collapse;inline-size:100%}
         </ul>
       </li>
       <li data-menu="campus" style="position:relative">
-        <a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.campus }}">
           <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
-          <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
         </ul>
@@ -146,449 +176,232 @@ table{border-collapse:collapse;inline-size:100%}
   </div>
 </div>
 
-<header data-screen-label="Fees hero" id="top" style="background:#F3EEE4;color:#17061F;position:relative;overflow:hidden">
-  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(3.5rem,9vh,6.5rem) clamp(2.5rem,6vh,4rem)">
+<header data-screen-label="Fees hero" id="top" style="background:#17061F;color:#F3EEE4;position:relative;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:40%;block-size:100%;background:url('../homepage/assets/seal-l3-gold.svg') no-repeat 62% 40%/280%;opacity:.06;pointer-events:none"></div>
+  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(3.5rem,9vh,6rem) clamp(3rem,7vh,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(22rem,100%),1fr));gap:clamp(2rem,6vw,4.5rem);align-items:start">
     <div>
-      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem;opacity:0;animation:rise 620ms 900ms cubic-bezier(.16,1,.3,1) forwards">Fees structure</p>
-      <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.024em;line-height:.98;font-size:clamp(2.3rem,1.2rem + 4.6vw,4.6rem);text-wrap:balance;opacity:0;animation:rise 720ms 1000ms cubic-bezier(.16,1,.3,1) forwards";max-inline-size:26ch">Annual fees by year group.</h1>
-      <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.25rem);color:#5E4C6B;max-inline-size:78ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms 1140ms cubic-bezier(.16,1,.3,1) forwards">Three rates per year group: the standard annual fee, the early-bird rate for payment in full with the first instalment, and the sibling rate. All figures in Qatari Riyals, for the 2027–28 academic year.</p>
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 1.25rem;opacity:0;animation:rise 620ms 900ms cubic-bezier(.16,1,.3,1) forwards">Fees structure</p>
+      <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.024em;line-height:1;font-size:clamp(2.1rem,1rem + 4.6vw,4.4rem);text-wrap:balance;max-inline-size:18ch;margin:0;opacity:0;animation:rise 700ms 1000ms cubic-bezier(.16,1,.3,1) forwards">What a place actually costs.</h1>
+      <p style="font-size:clamp(1.0625rem,1rem + .45vw,1.22rem);color:#DCCBE8;max-inline-size:52ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms 1120ms cubic-bezier(.16,1,.3,1) forwards">Pick a year group and see the first-year total: the one-time fees paid at admission, the annual tuition split across three installments, and transport if you need it.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem;opacity:0;animation:rise 620ms 1220ms cubic-bezier(.16,1,.3,1) forwards">
+        <a href="#fees" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">See the full table</a>
+        <a href="#notes" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid rgba(243,238,228,.4);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">What's not settled</a>
+      </div>
+    </div>
+
+    <div style="background:rgba(243,238,228,.06);border:1px solid rgba(243,238,228,.22);border-radius:14px;padding:clamp(1.4rem,3vw,2rem);opacity:0;animation:rise 700ms 1160ms cubic-bezier(.16,1,.3,1) forwards">
+      <p style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 .8rem">Year group</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+          <button type="button" data-fee-opt="1" data-i="0" data-on="{{ g0 }}" onClick="{{ pickGroup }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Nursery &amp; Prep</button>
+          <button type="button" data-fee-opt="1" data-i="1" data-on="{{ g1 }}" onClick="{{ pickGroup }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Classes I–IV</button>
+          <button type="button" data-fee-opt="1" data-i="2" data-on="{{ g2 }}" onClick="{{ pickGroup }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Classes V–VIII</button>
+          <button type="button" data-fee-opt="1" data-i="3" data-on="{{ g3 }}" onClick="{{ pickGroup }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Classes IX &amp; X</button>
+          <button type="button" data-fee-opt="1" data-i="4" data-on="{{ g4 }}" onClick="{{ pickGroup }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Classes XI &amp; XII</button>
+      </div>
+      <p style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:1.5rem 0 .8rem">School transport</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+          <button type="button" data-fee-opt="1" data-t="none" data-on="{{ t_none }}" onClick="{{ pickTransport }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">No transport</button>
+          <button type="button" data-fee-opt="1" data-t="in" data-on="{{ t_in }}" onClick="{{ pickTransport }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Inside city</button>
+          <button type="button" data-fee-opt="1" data-t="out" data-on="{{ t_out }}" onClick="{{ pickTransport }}" style="font:inherit;font-size:.85rem;font-weight:500;cursor:pointer;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(243,238,228,.3);background:transparent;color:#F3EEE4;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s cubic-bezier(.16,1,.3,1),box-shadow .18s ease;white-space:nowrap" style-hover="background:rgba(243,238,228,.14);border-color:rgba(243,238,228,.55);color:#F3EEE4" style-active="transform:scale(.94)">Outside city</button>
+      </div>
+
+      <div style="margin-block-start:1.75rem;padding-block-start:1.4rem;border-block-start:1px solid rgba(243,238,228,.22)">
+        <p style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#C3B2CE;margin:0 0 .5rem">First year, all in</p>
+        <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(2.2rem,1.4rem + 3vw,3.4rem);line-height:1;margin:0;font-variant-numeric:tabular-nums"><span data-fee-num="1" data-target="{{ feeTotalN }}"></span><span style="font-family:'Plex Sans',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;margin-inline-start:.6rem">QR</span></p>
+        <ul style="list-style:none;margin:1.25rem 0 0;padding:0;display:grid;gap:.55rem">
+          <li style="display:flex;justify-content:space-between;gap:1rem;font-size:.9rem;color:#DCCBE8;border-block-end:1px solid rgba(243,238,228,.14);padding-block-end:.55rem">One-time, at admission<b style="font-family:'Plex Serif',Georgia,serif;font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums"><span data-fee-num="1" data-target="{{ feeOneTimeN }}"></span></b></li>
+          <li style="display:flex;justify-content:space-between;gap:1rem;font-size:.9rem;color:#DCCBE8;border-block-end:1px solid rgba(243,238,228,.14);padding-block-end:.55rem">Annual tuition<b style="font-family:'Plex Serif',Georgia,serif;font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums"><span data-fee-num="1" data-target="{{ feeTuitionN }}"></span></b></li>
+          <li style="display:flex;justify-content:space-between;gap:1rem;font-size:.9rem;color:#DCCBE8;border-block-end:1px solid rgba(243,238,228,.14);padding-block-end:.55rem">Transport<b style="font-family:'Plex Serif',Georgia,serif;font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums"><span data-fee-num="1" data-target="{{ feeTransportN }}"></span></b></li>
+          <li style="display:flex;justify-content:space-between;gap:1rem;font-size:.9rem;color:#DCCBE8">Each tuition installment<b style="font-family:'Plex Serif',Georgia,serif;font-weight:600;color:#D8A800;font-variant-numeric:tabular-nums"><span data-fee-num="1" data-target="{{ feePerInstN }}"></span></b></li>
+        </ul>
+        <p style="font-size:.78rem;color:#8A7796;margin-block-start:1.1rem">Indicative. These are DPS Modern Indian School's current rates, standing in until Millennium's own structure is approved.</p>
+      </div>
     </div>
   </div>
 </header>
 
-<main>
-  <section data-screen-label="Primary section" id="primary" style="background:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem);position:relative;overflow:hidden">
+<main data-table="{{ tableTreatment }}">
+  <section data-screen-label="Fee table" id="fees" style="background:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1rem">Nature of fee</p>
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.2rem + 2.4vw,2.9rem)">The whole structure, one table.</h2>
+      <p style="font-size:1.0625rem;color:#5E4C6B;max-inline-size:74ch;margin-block-start:1rem">One-time fees are paid at admission; the seat reservation fee is deducted from the first installment. Annual tuition is split into three equal installments. All figures in Qatari Riyals.</p>
+      <div style="overflow-x:auto;margin-block-start:clamp(2rem,4vw,3rem)">
+        <table style="inline-size:100%;border-collapse:collapse;min-inline-size:48rem">
+          <thead>
+            <tr style="border-block-end:2px solid #400068">
+              <th scope="col" style="text-align:start;padding:.95rem 1.5rem .95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068">Nature of fee</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap">Nursery &amp; Prep</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap">Classes I–IV</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap">Classes V–VIII</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap">Classes IX &amp; X</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap">Classes XI &amp; XII</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th colspan="6" scope="colgroup" style="text-align:start;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#F3EEE4;background:#1E5A33">One-time, at admission</th></tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Registration fee<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Non-refundable</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">100</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">100</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">100</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">100</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">100</td>
+            </tr>
+            <tr data-z="1" style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Admission test fee<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Non-refundable</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">—</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">108</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">108</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">108</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">108</td>
+            </tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Seat reservation fee<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Credited against Installment 1</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">425</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">425</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">425</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">425</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">425</td>
+            </tr>
+            <tr data-z="1">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:600;font-size:.95rem;color:#17061F;border-block-start:1px solid rgba(23,6,31,.28)">Total one-time fee</th>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">525</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">633</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">633</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">633</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">633</td>
+            </tr>
+            <tr><th colspan="6" scope="colgroup" style="text-align:start;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#F3EEE4;background:#1E5A33">Annual tuition · three installments</th></tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Installment 1<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable April · on or before 15 May</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,000</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,891</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,118</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,800</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">4,254</td>
+            </tr>
+            <tr data-z="1" style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Installment 2<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable August · on or before 15 September</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,000</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,891</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,118</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,800</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">4,254</td>
+            </tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F;">Installment 3<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable December · on or before 15 January</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,000</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">2,891</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,118</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">3,800</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">4,254</td>
+            </tr>
+            <tr data-z="1">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:600;font-size:.95rem;color:#17061F;border-block-start:1px solid rgba(23,6,31,.28)">Total tuition fee<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Academic year</span></th>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">6,000</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">8,673</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">9,354</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">11,400</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap;border-block-start:1px solid rgba(23,6,31,.28)">12,762</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.85rem;color:#8A7796;margin-block-start:1rem">On a narrow screen the table scrolls sideways — the fee names stay pinned to the left edge.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Installments" id="installments" style="background:#17061F;color:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem);position:relative;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:35%;block-size:50%;background:url('../homepage/assets/seal-l7-stars.svg') no-repeat 80% 20%/240%;opacity:.07;pointer-events:none"></div>
     <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
-      <p style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1rem">Primary section</p>
-      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.85rem,1.2rem + 2.8vw,3.25rem)">Classes 1–5</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,23rem),1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-block-start:clamp(2.5rem,5vw,3.5rem)">
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Foundation Learning</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 1</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Building literacy, numeracy, and social skills through play-based and inquiry learning.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">CBSE-aligned</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Small classes</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="0" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="0" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="0" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 18,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 16,050</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 15,900</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:1rem">Payment schedule</p>
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.2rem + 2.4vw,2.9rem)">Three payments, one year.</h2>
+      <p style="font-size:1.0625rem;color:#C3B2CE;max-inline-size:70ch;margin-block-start:1rem">Pick a year group to see what each installment comes to. Tuition for a term is payable even if a child is absent for it.</p>
+      <label style="display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;margin-block-start:clamp(1.75rem,3vw,2.5rem)">
+        <span style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Year group</span>
+        <select onChange="{{ pickBand }}" style="font:inherit;font-size:.95rem;font-weight:500;padding:.7rem 2.4rem .7rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.32);background:rgba(243,238,228,.06);color:#F3EEE4;cursor:pointer;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#D8A800 50%),linear-gradient(135deg,#D8A800 50%,transparent 50%);background-position:calc(100% - 1.25rem) 55%,calc(100% - .95rem) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat">
+          <option value="0" style="color:#17061F">Nursery &amp; Prep</option>
+          <option value="1" selected="selected" style="color:#17061F">Classes I–IV</option>
+          <option value="2" style="color:#17061F">Classes V–VIII</option>
+          <option value="3" style="color:#17061F">Classes IX &amp; X</option>
+          <option value="4" style="color:#17061F">Classes XI &amp; XII</option>
+        </select>
+      </label>
+      <div data-steps="1" style="display:flex;flex-wrap:wrap;align-items:stretch;gap:.75rem;margin-block-start:clamp(1.5rem,3vw,2.25rem)">
+        <div style="position:relative;flex:1 1 14rem;display:grid;gap:.55rem;padding:1.4rem 1.3rem;border:1px solid rgba(243,238,228,.22);border-radius:14px;background:rgba(243,238,228,.05);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease;animation:rise 620ms 0ms cubic-bezier(.16,1,.3,1) both" style-hover="transform:translateY(-6px);border-color:#D8A800;background:rgba(243,238,228,.09)">
+          <span style="inline-size:2.2rem;block-size:2.2rem;border-radius:50%;background:#D8A800;color:#17061F;display:grid;place-items:center;font-size:.9rem;font-weight:600">1</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:1.05rem">Installment 1</b>
+          <span style="font-size:.8rem;color:#C3B2CE">Payable April · on or before 15 May</span>
+          <span data-step-amt="0" style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums;margin-block-start:.3rem">QAR 2,891</span>
         </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Core Subjects</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 2</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Developing confidence in reading, writing, and basic mathematics with hands-on projects.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">STEM intro</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Arts &amp; Music</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="1" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="1" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="1" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 19,000</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 16,650</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 16,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div data-arrow="1" aria-hidden="true" style="flex:0 0 2.5rem;align-self:center;display:grid;place-items:center;color:#D8A800;font-size:1.1rem">→</div>
+        <div style="position:relative;flex:1 1 14rem;display:grid;gap:.55rem;padding:1.4rem 1.3rem;border:1px solid rgba(243,238,228,.22);border-radius:14px;background:rgba(243,238,228,.05);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease;animation:rise 620ms 110ms cubic-bezier(.16,1,.3,1) both" style-hover="transform:translateY(-6px);border-color:#D8A800;background:rgba(243,238,228,.09)">
+          <span style="inline-size:2.2rem;block-size:2.2rem;border-radius:50%;background:#D8A800;color:#17061F;display:grid;place-items:center;font-size:.9rem;font-weight:600">2</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:1.05rem">Installment 2</b>
+          <span style="font-size:.8rem;color:#C3B2CE">Payable August · on or before 15 September</span>
+          <span data-step-amt="1" style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums;margin-block-start:.3rem">QAR 2,891</span>
         </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Building Knowledge</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 3</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Deepening understanding of science, history, and geography through exploration and experiments.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Science labs</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Library access</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="2" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="2" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="2" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 19,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 17,100</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 16,950</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div data-arrow="1" aria-hidden="true" style="flex:0 0 2.5rem;align-self:center;display:grid;place-items:center;color:#D8A800;font-size:1.1rem">→</div>
+        <div style="position:relative;flex:1 1 14rem;display:grid;gap:.55rem;padding:1.4rem 1.3rem;border:1px solid rgba(243,238,228,.22);border-radius:14px;background:rgba(243,238,228,.05);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease;animation:rise 620ms 220ms cubic-bezier(.16,1,.3,1) both" style-hover="transform:translateY(-6px);border-color:#D8A800;background:rgba(243,238,228,.09)">
+          <span style="inline-size:2.2rem;block-size:2.2rem;border-radius:50%;background:#D8A800;color:#17061F;display:grid;place-items:center;font-size:.9rem;font-weight:600">3</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:1.05rem">Installment 3</b>
+          <span style="font-size:.8rem;color:#C3B2CE">Payable December · on or before 15 January</span>
+          <span data-step-amt="2" style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);font-weight:600;color:#F3EEE4;font-variant-numeric:tabular-nums;margin-block-start:.3rem">QAR 2,891</span>
         </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Critical Thinking</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 4</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Strengthening problem-solving abilities, research skills, and collaborative projects.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Coding basics</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Debating</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="3" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="3" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="3" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,000</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 17,600</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 17,450</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Preparation</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 5</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Preparing for middle school transition with advanced subjects and leadership roles.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Advanced math</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Science projects</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="4" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="4" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="4" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 18,050</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 17,900</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:baseline;justify-content:space-between;margin-block-start:clamp(1.75rem,3vw,2.5rem);padding-block-start:1.25rem;border-block-start:1px solid rgba(243,238,228,.22)">
+        <span style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Total tuition · <span data-band-name="1">Classes I–IV</span></span>
+        <span data-step-total="1" style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);font-weight:600;font-variant-numeric:tabular-nums">QAR 8,673</span>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="Middle section" id="middle" style="background:#17061F;color:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem);position:relative;overflow:hidden">
-      <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:35%;block-size:50%;background:url('../homepage/assets/seal-l7-stars.svg') no-repeat 80% 20%/240%;opacity:.07;pointer-events:none"></div>
-    <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
-      <p style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:1rem">Middle section</p>
-      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.85rem,1.2rem + 2.8vw,3.25rem)">Classes 6–8</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,23rem),1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-block-start:clamp(2.5rem,5vw,3.5rem)">
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Foundation &amp; Transition</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 6</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Bridging primary and middle school with enhanced critical thinking, scientific inquiry, and global awareness.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">IGCSE foundation</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Inter-house sports</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="5" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="5" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="5" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 19,950</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 19,800</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Subject Specialisation</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 7</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Students choose elective subjects including advanced mathematics, languages, and creative arts.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Electives intro</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Robotics club</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="6" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="6" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="6" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 23,000</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,350</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,200</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Advanced Learning</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 8</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Preparing for high school with rigorous coursework, competitive exam preparation, and leadership opportunities.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">IGCSE prep</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Leadership roles</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="7" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="7" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="7" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 23,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,750</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 20,600</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <section data-screen-label="Transport" id="transport" style="background:#E9E1D2;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1rem">Bus service</p>
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.2rem + 2.4vw,2.9rem)">Transport, by zone.</h2>
+      <p style="font-size:1.0625rem;color:#5E4C6B;max-inline-size:70ch;margin-block-start:1rem">Charged by term. Fees are not adjusted mid-term if a family changes zone, and a term already begun is not refunded.</p>
+      <div style="overflow-x:auto;margin-block-start:clamp(2rem,4vw,2.75rem);max-inline-size:44rem">
+        <table style="inline-size:100%;border-collapse:collapse;min-inline-size:28rem">
+          <thead>
+            <tr style="border-block-end:2px solid #400068">
+              <th scope="col" style="text-align:start;padding:.95rem 1.5rem .95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068">Nature of fee</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068">Inside city</th>
+              <th scope="col" style="text-align:end;padding:.95rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068">Outside city</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F">Installment 1<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable April · on or before 15 May</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,400</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,500</td>
+            </tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F">Installment 2<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable August · on or before 15 September</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,300</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,500</td>
+            </tr>
+            <tr style="border-block-end:1px solid rgba(23,6,31,.16);transition:background .2s ease" style-hover="background:rgba(64,0,104,.05)">
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:500;font-size:.95rem;color:#17061F">Installment 3<span style="display:block;font-size:.72rem;font-weight:400;color:#8A7796;margin-block-start:.15rem">Payable December · on or before 15 January</span></th>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,300</td>
+<td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:#17061F">1,500</td>
+            </tr>
+            <tr>
+              <th scope="row" style="text-align:start;padding:.85rem 1.5rem .85rem 1.1rem;font-weight:600;font-size:.95rem;color:#17061F;border-block-start:1px solid rgba(23,6,31,.28)">Total transport fee</th>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;border-block-start:1px solid rgba(23,6,31,.28)">4,000</td>
+              <td style="padding:.85rem 1.1rem;text-align:end;font-family:'Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;border-block-start:1px solid rgba(23,6,31,.28)">4,500</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-  </section>
-
-  <section data-screen-label="High school" id="high" style="background:#E9E1D2;padding-block:clamp(3.5rem,9vh,6rem);position:relative;overflow:hidden">
-    <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
-      <p style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1rem">High school</p>
-      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.85rem,1.2rem + 2.8vw,3.25rem)">Classes 9–12</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,23rem),1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-block-start:clamp(2.5rem,5vw,3.5rem)">
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Foundation</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 9</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Strengthening core competencies across languages, sciences, and mathematics with a focus on critical thinking.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">IGCSE prep</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Research projects</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="8" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="8" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="8" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 25,000</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,250</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,100</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Subject Specialisation</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Class 10</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Subject-specific deep dives with IGCSE assessments, preparing for high school transition.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">IGCSE exams</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Career guidance</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="9" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="9" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="9" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 25,500</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,700</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,550</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:#FAF6EF;border:1px solid rgba(23,6,31,.14);border-radius:16px;padding:clamp(1.75rem,3.4vw,2.6rem);box-shadow:0 4px 16px rgba(23,6,31,.06);display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px -10px rgba(23,6,31,.14);border-color:rgba(64,0,104,.35)">
-          <span style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068"><span style="inline-size:8px;block-size:8px;border-radius:50%;background:#D8A800;flex:none"></span>Pre-University</span>
-          <h3 style="font-size:clamp(1.4rem,1.1rem + 1vw,2rem);font-weight:600;line-height:1.12;color:#400068">Classes 11 &amp; 12</h3>
-          <p style="font-size:1.02rem;line-height:1.6;color:#17061F">Advanced placement in selected subjects with rigorous internal assessments and external board examinations.</p>
-          <div style="margin-block-start:auto;padding-block-start:1rem;border-block-start:1px solid rgba(23,6,31,.14);display:flex;flex-wrap:wrap;gap:.5rem">
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">AP/IB options</span>
-            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;border:1px solid rgba(23,6,31,.14);color:#5E4C6B;background:rgba(255,255,255,.4);white-space:nowrap">Electives</span>
-          </div>
-          <div style="border:1px solid rgba(23,6,31,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.45)">
-            <button type="button" data-fee="10" onClick="{{ pickFee }}" style="inline-size:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem;background:transparent;border:none;cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;color:#17061F;text-align:start" style-hover="background:rgba(64,0,104,.05)">
-              <span>Fee options</span>
-              <span data-fee-mark="10" style="inline-size:12px;block-size:12px;border:2px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex:none"></span>
-            </button>
-            <div data-fee-panel="10" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)">
-              <div style="min-block-size:0;overflow:hidden">
-                <div style="padding:.3rem;border-block-start:1px solid rgba(64,0,104,.15);display:grid;gap:.15rem">
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;background:rgba(64,0,104,.12);color:#400068;font-weight:600" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Standard Fee</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 27,000</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird (1st payment)</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 24,150</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Siblings Discount</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 23,950</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-              <div style="padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:6px;font-size:.9rem;color:#17061F" style-hover="background:rgba(64,0,104,.08);color:#400068">
-                <span style="flex:1">Early Bird + Siblings</span>
-                <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.12rem;font-weight:600;color:#400068;font-variant-numeric:tabular-nums;white-space:nowrap">QAR 22,800</span>
-                <span style="inline-size:14px;block-size:14px;border:1.5px solid currentColor;border-top-color:transparent;border-right-color:transparent;transform:rotate(-45deg);flex:none"></span>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p style="font-size:.85rem;color:#5E4C6B;margin-block-start:1.25rem">Families in the Mesaieed area should contact the accounts department directly.</p>
     </div>
   </section>
 
   <section data-screen-label="Fee notes" id="notes" style="background:#F3EEE4;padding-block:clamp(3rem,7vh,4.5rem)">
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:{{ twoCols }};gap:clamp(1.5rem,4vw,3.5rem);align-items:start">
-      <p style="font-size:.9rem;color:#5E4C6B;max-inline-size:62ch">All figures are annual, in Qatari Riyals, and indicative until the Ministry approves the school's fee structure. Payment schedule, registration deposit, and what the fee does and does not include are still to be published.</p>
+      <p style="font-size:.9rem;color:#5E4C6B;max-inline-size:62ch">Figures shown are DPS Modern Indian School's current rates, standing in until DPS Millennium's own structure is approved by the Ministry. Payment methods, late-fee terms and withdrawal rules will be published alongside the confirmed fees.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.6rem">
         <a href="../about/DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.8rem 1.4rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;color:#F3EEE4;transform:translateY(-2px)">Get the confirmed fees first</a>
       </div>
@@ -598,9 +411,9 @@ table{border-collapse:collapse;inline-size:100%}
 
 <div data-jump="1" aria-label="Jump to fee section" style="position:fixed;inset-inline:0;inset-block-end:clamp(1rem,3vh,1.75rem);z-index:80;display:flex;justify-content:center;pointer-events:none">
   <div style="display:flex;gap:.3rem;padding:.3rem;border-radius:99px;background:rgba(23,6,31,.82);backdrop-filter:blur(10px);box-shadow:0 16px 36px -12px rgba(0,0,0,.55);pointer-events:auto">
-    <button type="button" data-goto="primary" onClick="{{ goPrimary }}" style="{{ jump0 }}">Primary</button>
-    <button type="button" data-goto="middle" onClick="{{ goMiddle }}" style="{{ jump1 }}">Middle</button>
-    <button type="button" data-goto="high" onClick="{{ goHigh }}" style="{{ jump2 }}">High</button>
+    <button type="button" data-goto="fees" onClick="{{ goFees }}" style="{{ jump0 }}">Fees</button>
+    <button type="button" data-goto="installments" onClick="{{ goInstallments }}" style="{{ jump1 }}">Installments</button>
+    <button type="button" data-goto="transport" onClick="{{ goTransport }}" style="{{ jump2 }}">Transport</button>
   </div>
 </div>
 
@@ -620,9 +433,9 @@ table{border-collapse:collapse;inline-size:100%}
         <div>
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Fees</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
-            <li><a href="#primary" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Primary (1–5)</a></li>
-            <li><a href="#middle" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Middle (6–8)</a></li>
-            <li><a href="#high" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">High (9–12)</a></li>
+            <li><a href="#fees" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Fee table</a></li>
+            <li><a href="#installments" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Installments</a></li>
+            <li><a href="#transport" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Transport</a></li>
             <li><a href="#notes" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">What's not settled</a></li>
           </ul>
         </div>
@@ -638,7 +451,7 @@ table{border-collapse:collapse;inline-size:100%}
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
             <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
-            <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
           </ul>
         </div>
@@ -661,11 +474,12 @@ table{border-collapse:collapse;inline-size:100%}
 <div data-sbar="1" aria-hidden="true" style="position:fixed;inset-block:0;inset-inline-end:0;inline-size:.9rem;z-index:90;transition:opacity .4s ease;pointer-events:none">
   <div data-sbar-thumb="1" style="position:absolute;inset-inline-end:.25rem;inline-size:.25rem;min-block-size:2.5rem;border-radius:99px;background:rgba(216,168,0,.55);pointer-events:auto;transition:inline-size .18s ease,background .18s ease" style-hover="inline-size:.4rem;background:#D8A800"></div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showDescriptors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fees table&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;showDescriptors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fees table&quot;},&quot;tableTreatment&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Editorial&quot;,&quot;Framed&quot;,&quot;Banded header&quot;,&quot;Framed + banded header&quot;],&quot;default&quot;:&quot;Framed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Fee tables&quot;}}">
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    this.state = { open: null, burger: false, narrow: false, here: 'primary' };
+    const W = window.innerWidth || 1440;
+    this.state = { open: null, burger: false, narrow: W < 1024, phone: W < 768, here: 'fees' };
   }
 
   // Replaces the native bar with one drawn in the page's own vocabulary: thumb
@@ -676,6 +490,9 @@ class Component extends DCLogic {
     const rail = document.querySelector('[data-sbar]');
     const thumb = rail && rail.querySelector('[data-sbar-thumb]');
     if (!thumb) return;
+    // Touch devices have their own momentum scrolling and no pointer to park at
+    // the screen edge; the custom rail would only steal a strip of a small one.
+    if (matchMedia('(hover:none)').matches) { rail.style.display = 'none'; return; }
 
     // The hidden state is set here rather than in the template: any property
     // declared in a template style attribute is owned by the runtime and gets
@@ -749,8 +566,10 @@ class Component extends DCLogic {
 
   componentDidMount() {
     document.documentElement.dataset.mounted = '1';
+    this.landHash();
+    this.armFeeCounts();
     this.armProgress();
-    this.sync = () => this.setState({ narrow: window.innerWidth < 1024 });
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, phone: window.innerWidth < 768 });
     this.sync();
     window.addEventListener('resize', this.sync);
 
@@ -763,8 +582,8 @@ class Component extends DCLogic {
       if (this.scrolling || performance.now() < (this.lockUntil || 0)) return;
       const nav = document.querySelector('[data-screen-label="Nav"]');
       const line = (nav ? nav.getBoundingClientRect().height : 0) + 24;
-      let here = 'primary';
-      ['primary', 'middle', 'high'].forEach((id) => {
+      let here = 'fees';
+      ['fees', 'installments', 'transport'].forEach((id) => {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= line) here = id;
       });
@@ -832,6 +651,8 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    clearInterval(this.feeTimer);
     window.removeEventListener('scroll', this.onProg);
     window.removeEventListener('resize', this.onProg);
     window.removeEventListener('pointermove', this.onEdge);
@@ -866,9 +687,91 @@ class Component extends DCLogic {
     rows.forEach((r) => this.revealIo.observe(r));
   }
 
+  // Arriving with a hash: the browser tries its native anchor jump before this
+  // component has mounted, so the target does not exist yet and the page opens at
+  // the top. Poll briefly for the element and land on it under the sticky nav.
+  // Solves a cubic-bezier for y at x, so JS-driven motion matches the CSS
+  // easings used everywhere else in the page. Same solver as the homepage counters.
+  bez(p1x, p1y, p2x, p2y) {
+    return (t) => {
+      const cx = 3 * p1x, bx = 3 * (p2x - p1x) - cx, ax = 1 - cx - bx;
+      let x = t;
+      for (let i = 0; i < 6; i++) {
+        const fx = ((ax * x + bx) * x + cx) * x - t;
+        if (Math.abs(fx) < 1e-5) break;
+        const dv = (3 * ax * x + 2 * bx) * x + cx;
+        x -= fx / (dv || 1e-6);
+      }
+      const cy = 3 * p1y, by = 3 * (p2y - p1y) - cy, ay = 1 - cy - by;
+      return ((ay * x + by) * x + cy) * x;
+    };
+  }
+
+  // Fee figures count to their new value whenever a selection changes. Timer-driven
+  // rather than rAF for the same reason glideTo is: a frame callback may never come.
+  // First paint writes the value straight in, so nothing is ever blank.
+  armFeeCounts() {
+    const ease = this.bez(.33, 1, .68, 1);
+    const state = new Map();
+    const fmt = (v) => Math.round(v).toLocaleString('en-US');
+
+    this.feeTimer = setInterval(() => {
+      document.querySelectorAll('[data-fee-num]').forEach((el) => {
+        const raw = el.dataset.target || '';
+        let s = state.get(el);
+        if (!s) { s = { seen: null, from: null, t0: 0 }; state.set(el, s); }
+        if (raw !== s.seen) {
+          const to = parseFloat(raw.replace(/,/g, ''));
+          const first = s.seen === null;
+          s.seen = raw;
+          if (!isFinite(to)) { el.textContent = raw; s.from = null; s.t0 = 0; return; }
+          if (first || s.from === null) { el.textContent = fmt(to); s.from = to; s.t0 = 0; return; }
+          s.t0 = performance.now();
+          s.start = s.from;
+          s.to = to;
+        }
+        if (s.t0) {
+          const p = Math.min(1, (performance.now() - s.t0) / 900);
+          const v = s.start + (s.to - s.start) * ease(p);
+          el.textContent = fmt(v);
+          s.from = v;
+          if (p >= 1) { s.t0 = 0; s.from = s.to; el.textContent = fmt(s.to); }
+        }
+      });
+    }, 16);
+  }
+
+  landHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    let tries = 0;
+    this.hashTimer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(this.hashTimer);
+    clearInterval(this.feeTimer);
+        const nav = document.querySelector('[data-screen-label="Nav"]');
+        const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - pad));
+      } else if (++tries > 50) clearInterval(this.hashTimer);
+    }, 100);
+  }
+
   renderVals() {
     const narrow = this.state.narrow;
     const showDesc = this.props.showDescriptors ?? true;
+    const FEE = [
+      { one: 525, inst: 2000, year: 6000 },
+      { one: 633, inst: 2891, year: 8673 },
+      { one: 633, inst: 3118, year: 9354 },
+      { one: 633, inst: 3800, year: 11400 },
+      { one: 633, inst: 4254, year: 12762 }
+    ];
+    const TRANSPORT = { none: 0, in: 4000, out: 4500 };
+    const fg = this.state.fg ?? 0;
+    const tr = this.state.tr || 'none';
+    const row = FEE[fg];
+    const qr = (v) => v.toLocaleString('en-US');
 
     const subNarrow = {
       position: 'static', listStyle: 'none', margin: 0, padding: '0 0 .5rem',
@@ -904,21 +807,41 @@ class Component extends DCLogic {
     };
 
     return {
+      feeTotalN: String(row.one + row.year + TRANSPORT[tr]),
+      feeOneTimeN: String(row.one),
+      feeTuitionN: String(row.year),
+      feeTransportN: tr === 'none' ? '—' : String(TRANSPORT[tr]),
+      feePerInstN: String(row.inst),
+      feeTotal: qr(row.one + row.year + TRANSPORT[tr]),
+      feeOneTime: qr(row.one),
+      feeTuition: qr(row.year),
+      feeTransport: tr === 'none' ? '—' : qr(TRANSPORT[tr]),
+      feePerInst: qr(row.inst),
+      g0: fg === 0 ? '1' : '0', g1: fg === 1 ? '1' : '0', g2: fg === 2 ? '1' : '0',
+      g3: fg === 3 ? '1' : '0', g4: fg === 4 ? '1' : '0',
+      t_none: tr === 'none' ? '1' : '0', t_in: tr === 'in' ? '1' : '0', t_out: tr === 'out' ? '1' : '0',
+      pickGroup: (e) => this.setState({ fg: Number(e.currentTarget.dataset.i) }),
+      pickTransport: (e) => this.setState({ tr: e.currentTarget.dataset.t }),
       twoCols: narrow ? '1fr' : 'repeat(2,minmax(0,1fr))',
 
       // The pill you pressed lights immediately and the tracker is locked for
       // the trip, so passing over Middle on the way to High never flickers.
-      // Each card's fee list opens on its own, several at a time, driven straight
-      // on the DOM so the panels never wait on a re-render.
-      pickFee: (e) => {
-        const i = e.currentTarget.dataset.fee;
-        const panel = document.querySelector('[data-fee-panel="' + i + '"]');
-        const mark = document.querySelector('[data-fee-mark="' + i + '"]');
-        if (!panel) return;
-        const open = panel.dataset.open !== '1';
-        panel.dataset.open = open ? '1' : '0';
-        panel.style.gridTemplateRows = open ? '1fr' : '0fr';
-        if (mark) mark.style.transform = open ? 'rotate(135deg)' : 'rotate(-45deg)';
+      // The schedule reads per year group: picking a band rewrites the three
+      // installment amounts and the total in place, straight on the DOM.
+      pickBand: (e) => {
+        const i = parseInt(e.currentTarget.value, 10);
+        if (isNaN(i)) return;
+        const AMT = ['2,000', '2,891', '3,118', '3,800', '4,254'];
+        const TOT = ['6,000', '8,673', '9,354', '11,400', '12,762'];
+        const NAME = ['Nursery & Prep', 'Classes I–IV', 'Classes V–VIII', 'Classes IX & X', 'Classes XI & XII'];
+        document.querySelectorAll('[data-step-amt]').forEach((el) => { el.textContent = 'QAR ' + AMT[i]; });
+        const tot = document.querySelector('[data-step-total]');
+        if (tot) tot.textContent = 'QAR ' + TOT[i];
+        const nm = document.querySelector('[data-band-name]');
+        if (nm) nm.textContent = NAME[i];
+        // Selected state lives on the native <select>, so nothing the runtime
+        // re-renders can lose it — only the figures need writing, and text
+        // content is not runtime-owned.
       },
 
       glide: (e) => {
@@ -929,13 +852,13 @@ class Component extends DCLogic {
         e.preventDefault();
         if (this.state.burger) this.setState({ burger: false });
         this.setState({ open: null });
-        if (id === 'primary' || id === 'middle' || id === 'high') this.jumpTo(id);
+        if (id === 'fees' || id === 'installments' || id === 'transport') this.jumpTo(id);
         else this.glideTo(id);
       },
-      goPrimary: () => this.jumpTo('primary'),
-      goMiddle: () => this.jumpTo('middle'),
-      goHigh: () => this.jumpTo('high'),
-      jump0: jump('primary'), jump1: jump('middle'), jump2: jump('high'),
+      goFees: () => this.jumpTo('fees'),
+      goInstallments: () => this.jumpTo('installments'),
+      goTransport: () => this.jumpTo('transport'),
+      jump0: jump('fees'), jump1: jump('installments'), jump2: jump('transport'),
       desc: { ...descBase, color: '#5E4C6B' },
       descInk: { ...descBase, color: '#C3B2CE' },
 
@@ -969,7 +892,7 @@ class Component extends DCLogic {
       },
 
       burgerStyle: narrow
-        ? { display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.5rem .9rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer', marginInlineStart: 'auto' }
+        ? { order: 3, display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.65rem 1rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer' }
         : { display: 'none' },
 
       menuStyle: narrow

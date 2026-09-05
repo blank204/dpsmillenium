@@ -66,6 +66,20 @@ summary::-webkit-details-marker{display:none}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes curtainUp{0%{transform:translateY(0)}100%{transform:translateY(-101%)}}
 @keyframes markLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (max-width:63.99em){[data-screen-label="Nav"] ul ul a{padding-block:.7rem}}
+@media (max-width:47.99em){
+[data-screen-label="Nav"] > div{gap:.6rem}
+[data-screen-label="Nav"] > div > a > span > span{display:none}
+[data-screen-label="Nav"] > div > div > a{padding:.6rem 1rem;font-size:.85rem}
+footer ul a{display:inline-block;padding-block:.4rem}
+#commitments ol li{grid-template-columns:2rem minmax(0,1fr) !important;gap:.3rem .9rem !important}
+#commitments ol li > span:last-child{grid-column:2}
+#group > div > div > div{padding-inline:0 !important}
+#top [data-crest]{max-inline-size:min(20rem,82%) !important}
+[data-deck]{block-size:24.5rem !important}
+#leadership button[aria-label="Previous role"],#leadership button[aria-label="Next role"]{inline-size:2.9rem !important;block-size:2.9rem !important}
+}
+@media (hover:none){[data-sbar]{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
 </style>
 </helmet>
@@ -98,10 +112,10 @@ summary::-webkit-details-marker{display:none}
         </ul>
       </li>
       <li data-menu="campus" style="position:relative">
-        <a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.campus }}">
           <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
-          <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
         </ul>
@@ -148,96 +162,79 @@ summary::-webkit-details-marker{display:none}
   </div>
 </div>
 
-<header data-screen-label="About hero" id="top" style="background:#F3EEE4;color:#17061F;position:relative;overflow:hidden">
-  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(3.5rem,9vh,6.5rem) clamp(3rem,7vh,5rem);display:grid;grid-template-columns:{{ twoCols }};gap:clamp(2rem,6vw,4.5rem);align-items:center">
+<header data-screen-label="About hero" id="top" style="background:#17061F;color:#F3EEE4;position:relative;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:52%;block-size:100%;background:url('../homepage/assets/seal-l8-lettering.svg') no-repeat 64% 44%/300%;opacity:.06;pointer-events:none"></div>
+  <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(3.5rem,9vh,6rem) clamp(3rem,8vh,5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(21rem,100%),1fr));gap:clamp(2rem,6vw,5rem);align-items:end">
     <div>
-      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem;opacity:0;animation:rise 620ms 900ms cubic-bezier(.16,1,.3,1) forwards">About the school</p>
-      <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(2.1rem,1rem + 4.4vw,4.3rem);text-wrap:balance;max-inline-size:15ch;opacity:0;animation:rise 700ms 1000ms cubic-bezier(.16,1,.3,1) forwards">A school with no students yet.</h1>
-      <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#5E4C6B;max-inline-size:46ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms 1120ms cubic-bezier(.16,1,.3,1) forwards">DPS Millennium is a CBSE school being built in Al Wukair by the DPS Group of Institutions, Qatar. This page holds what is decided, what is not, and what the crest on the gate is going to mean.</p>
+      <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 1.25rem;opacity:0;animation:rise 620ms 900ms cubic-bezier(.16,1,.3,1) forwards">About the school</p>
+      <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.024em;line-height:1;font-size:clamp(2.1rem,1rem + 4.6vw,4.4rem);text-wrap:balance;max-inline-size:20ch;margin:0;opacity:0;animation:rise 700ms 1000ms cubic-bezier(.16,1,.3,1) forwards">Built on twenty-five years in Doha.</h1>
+      <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:52ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms 1120ms cubic-bezier(.16,1,.3,1) forwards">A CBSE school being built in Al Wukair by the DPS Group of Institutions — the group's third in Qatar. This page holds what is decided, what is not, and what the crest on the gate is going to mean.</p>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem;opacity:0;animation:rise 620ms 1220ms cubic-bezier(.16,1,.3,1) forwards">
-        <a href="#crest" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;color:#F3EEE4;transform:translateY(-2px)">Read the crest</a>
-        <a href="#settled" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#17061F;border:1px solid rgba(23,6,31,.28);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(23,6,31,.06);color:#17061F;transform:translateY(-2px)">What's decided</a>
+        <a href="#crest" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Read the crest</a>
+        <a href="#leadership" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid rgba(243,238,228,.4);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">Who runs it</a>
       </div>
     </div>
 
-    <div style="display:grid;justify-items:center;gap:1.1rem;opacity:0;animation:rise 900ms 1000ms cubic-bezier(.16,1,.3,1) forwards">
-      <div data-crest="1" data-explode="1" role="img" aria-label="DPS Millennium crest, its eight layers separated in depth" style="position:relative;inline-size:100%;max-inline-size:24rem;aspect-ratio:1296/1299;perspective:1100px;transform-style:preserve-3d">
-        <img data-depth="0" src="../homepage/assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="1" src="../homepage/assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="1.9" src="../homepage/assets/seal-l3-gold.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="2.1" src="../homepage/assets/seal-l4-sail.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="2.6" src="../homepage/assets/seal-l5-globe.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="3.1" src="../homepage/assets/seal-l6-waves.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="3.6" src="../homepage/assets/seal-l7-stars.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
-        <img data-depth="4.4" src="../homepage/assets/seal-l8-lettering.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
+    <div style="opacity:0;animation:rise 700ms 1160ms cubic-bezier(.16,1,.3,1) forwards">
+      <p style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#C3B2CE;margin:0 0 .4rem">What is settled</p>
+      <div style="border-block-start:2px solid #D8A800">
+        <div style="display:grid;gap:.3rem;padding-block:1.05rem;border-block-end:1px solid rgba(243,238,228,.18)">
+          <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Board</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.15">CBSE</b>
+          <span style="font-size:.85rem;color:#C3B2CE">The same board taught at both sister schools.</span>
+        </div>
+        <div style="display:grid;gap:.3rem;padding-block:1.05rem;border-block-end:1px solid rgba(243,238,228,.18)">
+          <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Campus</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.15">Al Wukair, Qatar</b>
+          <span style="font-size:.85rem;color:#C3B2CE">Under construction now.</span>
+        </div>
+        <div style="display:grid;gap:.3rem;padding-block:1.05rem;border-block-end:1px solid rgba(243,238,228,.18)">
+          <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Opening</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.15">April 2027</b>
+          <span style="font-size:.85rem;color:#C3B2CE">For the 2027–28 academic year.</span>
+        </div>
+        <div style="display:grid;gap:.3rem;padding-block:1.05rem;border-block-end:1px solid rgba(243,238,228,.18)">
+          <span style="font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Group</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.15">DPS Group of Institutions</b>
+          <span style="font-size:.85rem;color:#C3B2CE">Its third school in Qatar.</span>
+        </div>
       </div>
-      <p style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B;text-align:center">Eight layers · scroll to pull them apart</p>
+      <p style="font-size:.8rem;color:#8A7796;margin-block-start:1rem">Fees, admissions dates, year groups and staff are not yet confirmed.</p>
     </div>
   </div>
 </header>
 
 <main>
-  <sc-if value="{{ showLedger }}" hint-placeholder-val="{{ true }}">
-  <section data-screen-label="Settled and open" id="settled" style="background:#E9E1D2;padding-block:clamp(4rem,10vh,7.5rem)">
-    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
-      <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('../homepage/assets/seal-l3-gold.svg') no-repeat 34% 36%/260%;flex:none"></span>
-        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Where things stand</p>
-      </div>
-      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:20ch">Two lists, kept honest.</h2>
-      <div style="display:grid;grid-template-columns:{{ twoCols }};gap:clamp(1.75rem,5vw,4.5rem) clamp(2rem,6vw,5rem);margin-block-start:clamp(2.25rem,4vw,3rem)">
-        <div>
-          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#400068">Decided</h3>
-          <ul style="list-style:none;margin:1rem 0 0;padding:0;border-block-start:1px solid rgba(23,6,31,.16)">
-            <li style="display:flex;gap:1rem;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">01</span><span>The curriculum is CBSE, the same board taught at both sister schools.</span></li>
-            <li style="display:flex;gap:1rem;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">02</span><span>The campus is in Al Wukair, and it is under construction now.</span></li>
-            <li style="display:flex;gap:1rem;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">03</span><span>The school sits under the DPS Group of Institutions in Qatar.</span></li>
-            <li style="display:flex;gap:1rem;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068">04</span><span>The target opening is 4 April 2027, for the 2027–28 academic year.</span></li>
-          </ul>
-        </div>
-        <div>
-          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5E4C6B">Not decided</h3>
-          <ul style="list-style:none;margin:1rem 0 0;padding:0;border-block-start:1px solid rgba(23,6,31,.16)">
-            <li style="display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16);color:#5E4C6B"><span>Fee structure</span><span style="font-family:'Plex Serif',Georgia,serif;white-space:nowrap">To be published</span></li>
-            <li style="display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16);color:#5E4C6B"><span>Admissions dates</span><span style="font-family:'Plex Serif',Georgia,serif;white-space:nowrap">To be confirmed</span></li>
-            <li style="display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16);color:#5E4C6B"><span>Year groups at opening</span><span style="font-family:'Plex Serif',Georgia,serif;white-space:nowrap">To be confirmed</span></li>
-            <li style="display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16);color:#5E4C6B"><span>Principal and senior staff</span><span style="font-family:'Plex Serif',Georgia,serif;white-space:nowrap">Not appointed</span></li>
-            <li style="display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding-block:.9rem;border-block-end:1px solid rgba(23,6,31,.16);color:#5E4C6B"><span>Facilities and transport</span><span style="font-family:'Plex Serif',Georgia,serif;white-space:nowrap">To be confirmed</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  </sc-if>
 
-  <section data-screen-label="Purpose" id="purpose" style="background:#17061F;color:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden">
-    <div style="position:absolute;inset-block-end:0;inset-inline-start:0;inline-size:44%;block-size:70%;background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 39% 62%/320%;opacity:.1;pointer-events:none"></div>
+  <section data-screen-label="Purpose" id="purpose" style="background:#F3EEE4;color:#17061F;padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden">
+    <div style="position:absolute;inset-block-end:0;inset-inline-start:0;inline-size:44%;block-size:70%;background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 39% 62%/320%;opacity:.06;pointer-events:none"></div>
     <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <div style="display:flex;align-items:center;gap:.9rem;margin-block-end:1.5rem">
-        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(243,238,228,.32);background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 34% 64%/260%;flex:none"></span>
-        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Mission &amp; vision</p>
+        <span style="inline-size:2.6rem;block-size:2.6rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:url('../homepage/assets/seal-l6-waves.svg') no-repeat 34% 64%/260%;flex:none"></span>
+        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Mission &amp; vision</p>
       </div>
-      <p style="font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.6rem,1.1rem + 2.4vw,2.9rem);line-height:1.2;max-inline-size:24ch;text-wrap:pretty">Service before self — the line the group has taught by for a quarter of a century.</p>
-      <div style="display:grid;grid-template-columns:{{ twoCols }};gap:clamp(1.75rem,5vw,4.5rem) clamp(2rem,6vw,5rem);margin-block-start:clamp(2.5rem,5vw,3.5rem);border-block-start:1px solid rgba(243,238,228,.2);padding-block-start:clamp(2rem,4vw,2.75rem)">
+      <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);max-inline-size:22ch;text-wrap:balance">Service before self.</h2>
+      <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#5E4C6B;max-inline-size:54ch;margin-block-start:1.25rem">The line the group has taught by for a quarter of a century, and the one this school is being built on.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(22rem,100%),1fr));gap:clamp(1.75rem,5vw,4.5rem) clamp(2rem,6vw,5rem);margin-block-start:clamp(2.5rem,5vw,3.5rem);border-block-start:1px solid rgba(23,6,31,.16);padding-block-start:clamp(2rem,4vw,2.75rem)">
         <div>
-          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Mission</h3>
+          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Mission</h3>
           <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);margin-block-start:1rem;max-inline-size:44ch">Teach the CBSE curriculum properly — laboratories that are used, reading that is finished, mathematics that is understood rather than memorised — and expect students to be decent to each other while they do it.</p>
         </div>
         <div>
-          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Vision</h3>
+          <h3 style="font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Vision</h3>
           <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);margin-block-start:1rem;max-inline-size:44ch">A school in Al Wukair that families choose on results and on how their children are treated, not on the brochure — and that a student can leave prepared for a university anywhere.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="Crest" id="crest" data-band="1" style="color:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden;transition:background 700ms cubic-bezier(.16,1,.3,1)">
+  <section data-screen-label="Crest" id="crest" data-band="1" style="background:#17061F;color:#F3EEE4;border-block-start:1px solid rgba(243,238,228,.16);padding-block:clamp(4rem,10vh,7.5rem);position:relative;overflow:hidden;transition:background 700ms cubic-bezier(.16,1,.3,1)">
     <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:1.5rem">The crest</p>
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:22ch">Four quarters, one shield.</h2>
       <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#DCCBE8;max-inline-size:52ch;margin-block-start:1.25rem">The layers you pulled apart at the top put themselves back together here. Take a quarter at a time.</p>
 
-      <div style="display:grid;grid-template-columns:{{ twoCols }};gap:clamp(2rem,5vw,4rem);margin-block-start:clamp(2.25rem,4vw,3rem);align-items:center">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(22rem,100%),1fr));gap:clamp(2rem,5vw,4rem);margin-block-start:clamp(2.25rem,4vw,3rem);align-items:center">
         <div data-crest="1" data-assemble="1" style="position:relative;inline-size:100%;max-inline-size:26rem;margin-inline:auto;aspect-ratio:1296/1299;perspective:1100px;transform-style:preserve-3d">
           <img data-depth="0" src="../homepage/assets/seal-l1-ring.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
           <img data-depth="1" src="../homepage/assets/seal-l2-body.svg" alt="" style="position:absolute;inset:0;inline-size:100%;will-change:transform" />
@@ -287,13 +284,37 @@ summary::-webkit-details-marker{display:none}
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33">Commitments</p>
       </div>
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance;max-inline-size:22ch">Six things worth holding us to.</h2>
-      <ol style="list-style:none;margin:clamp(2rem,4vw,2.75rem) 0 0;padding:0;border-block-start:1px solid rgba(23,6,31,.16)">
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">01</span><b style="font-weight:500;font-size:1.05rem">CBSE, taught in full</b><span style="color:#5E4C6B">No shortcuts around the board syllabus, and laboratory work that actually happens on the timetable.</span></li>
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">02</span><b style="font-weight:500;font-size:1.05rem">Class sizes we publish</b><span style="color:#5E4C6B">Whatever the number turns out to be, it goes on this site rather than into a prospectus footnote.</span></li>
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">03</span><b style="font-weight:500;font-size:1.05rem">Arabic and Qatar history</b><span style="color:#5E4C6B">Taught to the Ministry's requirement, by teachers hired for it rather than borrowed from another subject.</span></li>
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">04</span><b style="font-weight:500;font-size:1.05rem">Sport and the arts on the timetable</b><span style="color:#5E4C6B">Not an after-school extra for the families who can stay late.</span></li>
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">05</span><b style="font-weight:500;font-size:1.05rem">Teachers who stay</b><span style="color:#5E4C6B">Recruitment and retention are the whole game in a new school, and the first cohort feels it most.</span></li>
-        <li data-row="1" style="display:grid;grid-template-columns:minmax(0,3rem) minmax(0,22ch) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline;padding-block:1.35rem;border-block-end:1px solid rgba(23,6,31,.16);transition:padding-inline-start .35s cubic-bezier(.16,1,.3,1),background .35s ease" style-hover="padding-inline-start:.9rem;background:rgba(64,0,104,.05)"><span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums">06</span><b style="font-weight:500;font-size:1.05rem">Dates that mean something</b><span style="color:#5E4C6B">If the April 2027 opening moves, it moves on this page the week we know.</span></li>
+      <ol style="list-style:none;margin:clamp(2rem,4vw,2.75rem) 0 0;padding:0;display:grid;gap:clamp(1rem,2vw,1.25rem);grid-template-columns:repeat(auto-fit,minmax(min(17rem,100%),1fr))">
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">01</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">CBSE, taught in full</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">No shortcuts around the board syllabus, and laboratory work that actually happens on the timetable.</span>
+        </li>
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">02</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">Class sizes we publish</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">Whatever the number turns out to be, it goes on this site rather than into a prospectus footnote.</span>
+        </li>
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">03</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">Arabic and Qatar history</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">Taught to the Ministry's requirement, by teachers hired for it rather than borrowed from another subject.</span>
+        </li>
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">04</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">Sport and the arts on the timetable</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">Not an after-school extra for the families who can stay late.</span>
+        </li>
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">05</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">Teachers who stay</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">Recruitment and retention are the whole game in a new school, and the first cohort feels it most.</span>
+        </li>
+        <li data-row="1" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.28);border-radius:14px;box-shadow:0 8px 24px rgba(23,6,31,.05);padding:1.6rem 1.5rem;display:grid;align-content:start;gap:.7rem;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,6,31,.09)">
+          <span style="font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums;font-size:1.05rem">06</span>
+          <b style="font-weight:600;text-transform:uppercase;letter-spacing:-.008em;font-size:1.02rem;line-height:1.15;text-wrap:balance">Dates that mean something</b>
+          <span style="color:#5E4C6B;font-size:.9375rem">If the April 2027 opening moves, it moves on this page the week we know.</span>
+        </li>
       </ol>
     </div>
   </section>
@@ -332,7 +353,7 @@ summary::-webkit-details-marker{display:none}
         <p style="font-size:clamp(1.0625rem,1rem + .4vw,1.2rem);color:#C3B2CE;max-inline-size:52ch;margin-block-start:1.25rem">A principal has not been announced. Rather than fill this page with portraits and invented biographies, the space stays empty until there are people in the roles — then their names go here, with where they taught before.</p>
       </div>
       <div onMouseEnter="{{ holdRole }}" onMouseLeave="{{ releaseRole }}" onFocusCapture="{{ holdRole }}" onBlurCapture="{{ releaseRole }}" style="grid-column:1/-1;display:grid;gap:clamp(1.25rem,3vw,2rem)">
-        <div style="position:relative;block-size:clamp(19rem,30vw,23rem);overflow:hidden">
+        <div data-deck="1" style="position:relative;block-size:clamp(19rem,30vw,23rem);overflow:hidden">
           <button type="button" data-card="0" onClick="{{ pickRole }}" style="{{ card0 }}">
             <span style="inline-size:clamp(4.5rem,8vw,6rem);aspect-ratio:3/4;flex:none;border:1px solid rgba(243,238,228,.28);border-radius:8px;background:repeating-linear-gradient(135deg,rgba(243,238,228,.09) 0 6px,rgba(243,238,228,0) 6px 12px);display:grid;place-items:center;text-align:center;padding:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#C3B2CE">Portrait to follow</span>
             <span style="display:grid;gap:.5rem;min-inline-size:0;text-align:start">
@@ -444,8 +465,8 @@ summary::-webkit-details-marker{display:none}
   </section>
   </sc-if>
 
-  <section data-screen-label="Register" id="register" style="background:#E9E1D2;padding-block:clamp(4rem,10vh,7.5rem)">
-    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:{{ twoCols }};gap:clamp(1.5rem,5vw,4rem);align-items:center">
+  <section data-screen-label="Register" id="register" style="background:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem);border-block-start:1px solid rgba(23,6,31,.14)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(22rem,100%),1fr));gap:clamp(1.5rem,5vw,4rem);align-items:center">
       <div>
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem">Register interest</p>
         <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Hear it first.</h2>
@@ -499,7 +520,7 @@ summary::-webkit-details-marker{display:none}
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
             <li><a href="../homepage/DPS Millennium Homepage.dc.html#render" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
-            <li><a href="../homepage/DPS Millennium Homepage.dc.html#campus" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
           </ul>
         </div>
@@ -522,11 +543,12 @@ summary::-webkit-details-marker{display:none}
 <div data-sbar="1" aria-hidden="true" style="position:fixed;inset-block:0;inset-inline-end:0;inline-size:.9rem;z-index:90;transition:opacity .4s ease;pointer-events:none">
   <div data-sbar-thumb="1" style="position:absolute;inset-inline-end:.25rem;inline-size:.25rem;min-block-size:2.5rem;border-radius:99px;background:rgba(216,168,0,.55);pointer-events:auto;transition:inline-size .18s ease,background .18s ease" style-hover="inline-size:.4rem;background:#D8A800"></div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;quadrantDim&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.62,&quot;min&quot;:0.3,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Crest&quot;},&quot;showLedger&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showFaq&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;quadrantDim&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.62,&quot;min&quot;:0.3,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Crest&quot;},&quot;showFaq&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    this.state = { open: null, burger: false, narrow: false, q: null, role: null, faq: null, hoverRole: false, held: 0 };
+    const W = window.innerWidth || 1440;
+    this.state = { open: null, burger: false, narrow: W < 1024, phone: W < 768, q: null, role: null, faq: null, hoverRole: false, held: 0 };
     this.ROLES = [
       { label: 'Role 01', name: 'Principal', quote: 'The first thing they say to this school will be printed here.', brief: 'Runs the school day to day and answers for both the results and the way children are treated. Recruitment is under way; the appointment is expected well before the first term.' },
       { label: 'Role 02', name: 'Vice principal', quote: 'Their words go here once there is someone to quote.', brief: 'Deputises for the principal, usually split between academics and pastoral care as the roll grows.' },
@@ -543,6 +565,9 @@ class Component extends DCLogic {
     const rail = document.querySelector('[data-sbar]');
     const thumb = rail && rail.querySelector('[data-sbar-thumb]');
     if (!thumb) return;
+    // Touch devices have their own momentum scrolling and no pointer to park at
+    // the screen edge; the custom rail would only steal a strip of a small one.
+    if (matchMedia('(hover:none)').matches) { rail.style.display = 'none'; return; }
 
     // The hidden state is set here rather than in the template: any property
     // declared in a template style attribute is owned by the runtime and gets
@@ -616,8 +641,9 @@ class Component extends DCLogic {
 
   componentDidMount() {
     document.documentElement.dataset.mounted = '1';
+    this.landHash();
     this.armProgress();
-    this.sync = () => this.setState({ narrow: window.innerWidth < 1024 });
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, phone: window.innerWidth < 768 });
     this.sync();
     window.addEventListener('resize', this.sync);
     this.armCrest();
@@ -639,6 +665,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this.hashTimer);
     window.removeEventListener('scroll', this.onProg);
     window.removeEventListener('resize', this.onProg);
     window.removeEventListener('pointermove', this.onEdge);
@@ -658,7 +685,8 @@ class Component extends DCLogic {
     this.crestLoop = 0;
     this.crestRaf = 0;
     this.crestArmed = false;
-    if (this.revealIo) this.revealIo.disconnect();
+    clearInterval(this.rowTimer);
+    document.querySelectorAll('[data-row]').forEach((r) => { r.style.opacity = ''; });
     
   }
 
@@ -709,7 +737,9 @@ class Component extends DCLogic {
         // At rest the layers sit in exact register — any standing Z offset scales
         // the lettering ring off the outer ring and reads as a printing fault.
         // Depth only opens up once the pointer or the scroll asks for it.
-        const push = spread * 46;
+        // A phone gives the crest nearly the full column width, so the same Z
+        // push would throw the outer layers past the section's clipped edge.
+        const push = spread * (window.innerWidth < 768 ? 26 : 46);
         // On the reassembly crest a selected quarter lifts out of the shield
         // and the rest sink back a little: the depth is the highlight, so no
         // pointer tracking is needed to feel three-dimensional.
@@ -720,7 +750,7 @@ class Component extends DCLogic {
           // Owned here rather than in the template so the runtime's re-render
           // cannot reclaim the property.
           const band = document.querySelector('[data-band]');
-          if (band) band.style.background = ({ sail: '#3D2A00', globe: '#4A100A', waves: '#191355' }[sel]) || '#400068';
+          if (band) band.style.background = ({ sail: '#221607', globe: '#25100C', waves: '#141230' }[sel]) || '#17061F';
         }
         Array.from(stage.querySelectorAll('[data-depth]')).forEach((l) => {
           const d = parseFloat(l.dataset.depth) || 0;
@@ -801,20 +831,58 @@ class Component extends DCLogic {
     }, 16);
   }
 
+  // Row reveal. IntersectionObserver never delivers in this runtime, so position
+  // is polled on a timer instead. Nothing is parked until the first tick proves the
+  // timer runs, anything already on screen is left alone, and if the animation clock
+  // turns out to be frozen every row is un-parked rather than left invisible.
   armReveal() {
     const rows = Array.from(document.querySelectorAll('[data-row]'));
-    if (!rows.length || !window.IntersectionObserver) return;
+    if (!rows.length) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    rows.forEach((r) => { r.style.opacity = '0'; });
-    this.revealIo = new IntersectionObserver((es) => {
-      es.forEach((e) => {
-        if (!e.isIntersecting) return;
-        this.revealIo.unobserve(e.target);
-        const i = rows.indexOf(e.target);
-        e.target.style.animation = 'rise 620ms ' + (i % 6) * 70 + 'ms cubic-bezier(.16,1,.3,1) forwards';
+    let armed = false, shown = 0, checked = false;
+    const unpark = () => { rows.forEach((r) => { r.style.opacity = ''; r.style.animation = ''; }); clearInterval(this.rowTimer); };
+
+    this.rowTimer = setInterval(() => {
+      const vh = window.innerHeight || 800;
+      if (!armed) {
+        armed = true;
+        rows.forEach((r) => { if (r.getBoundingClientRect().top > vh * 1.05) r.style.opacity = '0'; });
+        return;
+      }
+      if (shown && !checked && performance.now() - shown > 700) {
+        checked = true;
+        const live = rows.find((r) => r.style.animation && r.getAnimations && r.getAnimations()[0]);
+        const a = live && live.getAnimations()[0];
+        if (!a || !a.currentTime || Number(a.currentTime) < 60) { unpark(); return; }
+      }
+      let pending = 0;
+      rows.forEach((r, i) => {
+        if (r.style.opacity !== '0') return;
+        if (r.getBoundingClientRect().top < vh * 0.88) {
+          r.style.animation = 'rise 620ms ' + (i % 6) * 70 + 'ms cubic-bezier(.16,1,.3,1) forwards';
+          if (!shown) shown = performance.now();
+        } else pending++;
       });
-    }, { threshold: 0.2 });
-    rows.forEach((r) => this.revealIo.observe(r));
+      if (!pending && checked) clearInterval(this.rowTimer);
+    }, 180);
+  }
+
+  // Arriving with a hash: the browser tries its native anchor jump before this
+  // component has mounted, so the target does not exist yet and the page opens at
+  // the top. Poll briefly for the element and land on it under the sticky nav.
+  landHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    let tries = 0;
+    this.hashTimer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(this.hashTimer);
+        const nav = document.querySelector('[data-screen-label="Nav"]');
+        const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - pad));
+      } else if (++tries > 50) clearInterval(this.hashTimer);
+    }, 100);
   }
 
   renderVals() {
@@ -848,11 +916,28 @@ class Component extends DCLogic {
     // any container size: peek is 36% wide × .62 scale, so 108% of itself lands
     // it just clear of the centre card's edge.
     const PEEK = narrow ? 108 : 118;
+    const phone = this.state.phone;
     const cardStyle = (i) => {
       const d = ((i - cur) % 4 + 4) % 4;      // 0 centre, 1 right, 3 left, 2 far
       const pos = d === 0 ? 0 : d === 1 ? 1 : d === 3 ? -1 : 2;
       const on = pos === 0;
       const peek = Math.abs(pos) === 1;
+      // A phone has no room for peeking neighbours: one card at full width,
+      // portrait stacked over the copy so the text gets the whole column. The
+      // arrows and dots below are the only way through, which is how a deck
+      // this size wants to be read anyway.
+      if (phone) return {
+        position: 'absolute', insetInlineStart: '50%', insetBlockStart: '50%',
+        inlineSize: '100%', display: 'flex', flexDirection: 'column',
+        gap: '1rem', alignItems: 'flex-start', textAlign: 'start',
+        padding: '1.4rem 1.25rem', borderRadius: '14px', font: 'inherit',
+        cursor: 'pointer', color: '#F3EEE4', background: '#400068',
+        border: '1px solid #D8A800', boxShadow: '0 24px 44px -18px rgba(0,0,0,.7)',
+        opacity: on ? 1 : 0, pointerEvents: on ? 'auto' : 'none',
+        transform: 'translate(-50%,-50%) translateX(' + (on ? 0 : pos * 112) + '%)',
+        transition: 'transform .5s cubic-bezier(.16,1,.3,1), opacity .35s ease',
+        zIndex: on ? 20 : 5
+      };
       return {
         position: 'absolute', insetInlineStart: '50%', insetBlockStart: '50%',
         inlineSize: on ? 'min(64%, 36rem)' : 'min(36%, 22rem)',
@@ -886,7 +971,6 @@ class Component extends DCLogic {
           : { ...subBase, opacity: 0, visibility: 'hidden', transform: 'translateY(-6px)' });
 
     return {
-      showLedger: this.props.showLedger ?? true,
       showFaq: this.props.showFaq ?? true,
 
       oSail: op('sail'), oGlobe: op('globe'), oWaves: op('waves'), oStars: op('stars'),
@@ -978,7 +1062,7 @@ class Component extends DCLogic {
       },
 
       burgerStyle: narrow
-        ? { display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.5rem .9rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer', marginInlineStart: 'auto' }
+        ? { order: 3, display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.65rem 1rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer' }
         : { display: 'none' },
 
       menuStyle: narrow

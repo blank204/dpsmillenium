@@ -82,6 +82,14 @@ html{scrollbar-width:none}
 @keyframes meterGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes curtain{0%{transform:translateY(0);visibility:visible}99%{visibility:visible}100%{transform:translateY(-101%);visibility:hidden}}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (max-height:40rem){[data-cue]{display:none !important}}
+@keyframes cardGrow{from{top:var(--ct);left:var(--cl);width:var(--cw);height:var(--ch)}to{top:6vh;left:var(--tl);width:var(--tw);height:88vh}}
+@keyframes cardShrink{0%{top:6vh;left:var(--tl);width:var(--tw);height:88vh;opacity:1}70%{opacity:1}100%{top:var(--ct);left:var(--cl);width:var(--cw);height:var(--ch);opacity:0}}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+@keyframes scrimOut{from{opacity:1}to{opacity:0}}
+@keyframes bodyIn{from{opacity:0}to{opacity:1}}
+@keyframes bodyOut{from{opacity:1}to{opacity:0}}
+@keyframes cardFade{from{opacity:1}to{opacity:0}}
 @keyframes drawX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes drawY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes photoIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
@@ -106,6 +114,18 @@ html{scrollbar-width:none}
 @keyframes splitR{from{transform:translateX(0)}to{transform:translateX(101%)}}
 @keyframes scanUp{from{transform:scaleY(1)}to{transform:scaleY(0)}}
 @keyframes scanRule{from{top:0;opacity:1}90%{opacity:1}to{top:100%;opacity:0}}
+@media (max-width:63.99em){[data-screen-label="Nav"] ul ul a{padding-block:.7rem}}
+@media (max-width:47.99em){
+[data-screen-label="Nav"] > div{gap:.6rem}
+[data-screen-label="Nav"] > div > a > span > span{display:none}
+[data-screen-label="Nav"] > div > div > a{padding:.6rem 1rem;font-size:.85rem}
+footer ul a{display:inline-block;padding-block:.4rem}
+#render{aspect-ratio:4/3 !important;max-block-size:none !important}
+#campus ol li{grid-template-columns:minmax(0,1fr) auto !important;gap:.3rem 1rem !important}
+#campus ol li time{grid-column:1/-1}
+}
+@media (min-width:48em) and (max-width:56.24em){#render{aspect-ratio:16/9 !important}}
+@media (hover:none){[data-sbar]{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
 </style>
 </helmet>
@@ -181,10 +201,10 @@ html{scrollbar-width:none}
         </ul>
       </li>
       <li data-menu="campus" style="position:relative">
-        <a href="../construction/construction.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.campus }}">
           <li><a href="#render" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
-          <li><a href="#campus" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
         </ul>
@@ -241,8 +261,8 @@ html{scrollbar-width:none}
         <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(2.1rem,1rem + 4.2vw,4.1rem);text-wrap:balance;max-inline-size:18ch;opacity:0;animation:rise 700ms calc(var(--t) + 140ms) cubic-bezier(.16,1,.3,1) forwards">This is what April 2027 looks like.</h1>
         <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:46ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms calc(var(--t) + 260ms) cubic-bezier(.16,1,.3,1) forwards">Right now it is a building site in Al Wukair. Scroll, and the architect's study below fills in with the building it becomes.</p>
         <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem;opacity:0;animation:rise 620ms calc(var(--t) + 360ms) cubic-bezier(.16,1,.3,1) forwards">
-          <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register your interest</a>
-          <a href="../construction/construction.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
+          <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register your interest</a>
+          <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
         </div>
       </div>
       <div data-crest-target="1" role="img" aria-label="DPS Millennium International School crest" style="position:relative;inline-size:100%;max-inline-size:23.125rem;margin-inline-start:auto;aspect-ratio:1296/1299;opacity:0">
@@ -362,34 +382,90 @@ html{scrollbar-width:none}
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Notice board</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(17.5rem,1fr));gap:clamp(1rem,1.6vw,1.4rem);margin-block-start:clamp(2rem,4vw,2.75rem)">
-        <a href="#" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+        <div role="button" tabindex="0" data-notice="0" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
           <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Information</span>
-          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Information corner</h3>
-          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:1.05rem">
+          <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Information corner</h3>
+          <ul onClick="{{ stopText }}" style="list-style:none;margin:0;padding:0;display:grid;gap:1.05rem">
             <li style="display:grid;gap:.15rem"><time datetime="2026-08-01" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">1 Aug 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Registration of interest is open</b></li>
             <li style="display:grid;gap:.15rem"><time datetime="2026-07-14" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">14 Jul 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Construction underway in Al Wukair</b></li>
             <li style="display:grid;gap:.15rem"><time datetime="2026-06-02" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">2 Jun 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Curriculum confirmed as CBSE</b></li>
           </ul>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>All information</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
-        </a>
-        <a href="#register" onClick="{{ glide }}" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+        </div>
+        <div role="button" tabindex="0" data-notice="1" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
           <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Events</span>
-          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Events corner</h3>
-          <p style="font-size:.975rem;opacity:.78;line-height:1.6">No events yet. Campus open days and admissions sessions will be listed here as soon as dates are set — register and we'll email you first.</p>
+          <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Events corner</h3>
+          <p onClick="{{ stopText }}" style="font-size:.975rem;opacity:.78;line-height:1.6">No events yet. Campus open days and admissions sessions will be listed here as soon as dates are set — register and we'll email you first.</p>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>Register for updates</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
-        </a>
-        <a href="#" style="display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+        </div>
+        <div role="button" tabindex="0" data-notice="2" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
           <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Circulars</span>
-          <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Academic circulars</h3>
-          <p style="font-size:.975rem;opacity:.78;line-height:1.6">Circulars are issued to enrolled families once the school year starts in April 2027. Anything families need before then is posted under Information.</p>
+          <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Academic circulars</h3>
+          <p onClick="{{ stopText }}" style="font-size:.975rem;opacity:.78;line-height:1.6">Circulars are issued to enrolled families once the school year starts in April 2027. Anything families need before then is posted under Information.</p>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>From April 2027</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
-        </a>
+        </div>
       </div>
+
+      <sc-if value="{{ cardOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeCard }}" style="{{ scrimStyle }}"></div>
+      <div role="dialog" aria-modal="true" aria-label="Notice board detail" style="{{ panelStyle }}">
+        <div style="position:sticky;top:0;display:flex;align-items:start;justify-content:space-between;gap:1rem;padding:clamp(1.5rem,3vw,2.1rem) clamp(1.5rem,3vw,2.1rem) 1rem;background:#F3EEE4;border-block-end:1px solid rgba(23,6,31,.16)">
+          <div>
+            <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 .5rem">{{ cardKicker }}</p>
+            <h3 style="margin:0;font-weight:600;text-transform:uppercase;letter-spacing:-.018em;line-height:1.05;font-size:clamp(1.5rem,1.2rem + 1.6vw,2.3rem);color:#17061F">{{ cardTitle }}</h3>
+          </div>
+          <button type="button" onClick="{{ closeCard }}" aria-label="Close" style="flex:none;inline-size:2.5rem;block-size:2.5rem;border-radius:50%;border:1px solid rgba(23,6,31,.28);background:transparent;color:#17061F;font:inherit;font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:background .2s ease,transform .12s ease" style-hover="background:rgba(23,6,31,.07)" style-active="transform:scale(.92)">✕</button>
+        </div>
+
+        <div style="{{ cardBodyStyle }}">
+          <sc-if value="{{ isCard0 }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:1.05rem;color:#5E4C6B;line-height:1.65;margin:0 0 1.5rem;max-inline-size:60ch">Everything published about the school so far, newest first. This is the only place notices are posted until the school opens.</p>
+          <ul style="list-style:none;margin:0;padding:0;border-block-start:2px solid #1E5A33">
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)">
+              <time datetime="2026-08-01" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#1E5A33;font-variant-numeric:tabular-nums">1 Aug 2026</time>
+              <b style="font-weight:600;font-size:1.08rem;line-height:1.3;text-transform:uppercase;letter-spacing:-.01em">Registration of interest is open</b>
+              <span style="font-size:.95rem;color:#5E4C6B;line-height:1.6">Families can register interest now. It is not an application — it puts you on the list to be contacted when admissions open, and nothing is charged.</span>
+            </li>
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)">
+              <time datetime="2026-07-14" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#1E5A33;font-variant-numeric:tabular-nums">14 Jul 2026</time>
+              <b style="font-weight:600;font-size:1.08rem;line-height:1.3;text-transform:uppercase;letter-spacing:-.01em">Construction underway in Al Wukair</b>
+              <span style="font-size:.95rem;color:#5E4C6B;line-height:1.6">Foundations are complete and ground-floor columns are cast. Site photographs are published on the campus page as each stage is verified.</span>
+            </li>
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)">
+              <time datetime="2026-06-02" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#1E5A33;font-variant-numeric:tabular-nums">2 Jun 2026</time>
+              <b style="font-weight:600;font-size:1.08rem;line-height:1.3;text-transform:uppercase;letter-spacing:-.01em">Curriculum confirmed as CBSE</b>
+              <span style="font-size:.95rem;color:#5E4C6B;line-height:1.6">The school will teach the CBSE curriculum, the same board taught at DPS Modern Indian School and DPS Monarch International.</span>
+            </li>
+          </ul>
+          <p style="font-size:.85rem;color:#8A7796;margin-block-start:1.5rem">Fee structure, admissions dates, year groups at opening and staff appointments are not yet confirmed.</p>
+          </sc-if>
+
+          <sc-if value="{{ isCard1 }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:1.05rem;color:#5E4C6B;line-height:1.65;margin:0 0 1.5rem;max-inline-size:60ch">There are no events scheduled yet. When dates are set, they will be listed here with times and how to attend.</p>
+          <ul style="list-style:none;margin:0;padding:0;border-block-start:2px solid #1E5A33">
+            <li style="display:flex;justify-content:space-between;gap:1rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-weight:500">Campus open days</span><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">Dates to be set</span></li>
+            <li style="display:flex;justify-content:space-between;gap:1rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-weight:500">Admissions information sessions</span><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">Dates to be set</span></li>
+            <li style="display:flex;justify-content:space-between;gap:1rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><span style="font-weight:500">Opening ceremony</span><span style="font-family:'Plex Serif',Georgia,serif;color:#5E4C6B;white-space:nowrap">April 2027</span></li>
+          </ul>
+          <a href="#register" onClick="{{ closeAndGlide }}" style="display:inline-flex;align-items:center;gap:.7rem;margin-block-start:1.75rem;background:#400068;color:#F3EEE4;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#52008A;color:#F3EEE4;transform:translateY(-2px)">Register for updates</a>
+          </sc-if>
+
+          <sc-if value="{{ isCard2 }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:1.05rem;color:#5E4C6B;line-height:1.65;margin:0 0 1.5rem;max-inline-size:60ch">Circulars are issued to enrolled families once teaching starts in April 2027. Until then, anything families need is posted under Information.</p>
+          <ul style="list-style:none;margin:0;padding:0;border-block-start:2px solid #1E5A33">
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em">Term dates and holidays</b><span style="font-size:.95rem;color:#5E4C6B">Published before each academic year begins.</span></li>
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em">Assessment and examination schedules</b><span style="font-size:.95rem;color:#5E4C6B">Issued per term, per year group.</span></li>
+            <li style="display:grid;gap:.3rem;padding-block:1.15rem;border-block-end:1px solid rgba(23,6,31,.16)"><b style="font-weight:600;text-transform:uppercase;letter-spacing:-.01em">Uniform, transport and timings</b><span style="font-size:.95rem;color:#5E4C6B">Confirmed in writing before the first term.</span></li>
+          </ul>
+          </sc-if>
+        </div>
+      </div>
+      </sc-if>
     </div>
   </section>
 
   <section data-screen-label="Key dates" id="calendar" style="background:#F3EEE4;padding-block:clamp(4rem,10vh,7.5rem)">
-    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:clamp(1.75rem,5vw,4.5rem);align-items:center">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:clamp(1.75rem,5vw,4.5rem);align-items:stretch">
       <div>
         <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin-block-end:1.5rem">Key dates</p>
         <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">The things that are already decided.</h2>
@@ -402,7 +478,7 @@ html{scrollbar-width:none}
         </ul>
       </div>
 
-      <aside style="border:1px solid rgba(23,6,31,.16);border-radius:14px;padding:clamp(1.5rem,3vw,2.25rem);background:#F3EEE4">
+      <aside style="border:1px solid rgba(23,6,31,.16);border-radius:14px;padding:clamp(1.5rem,3vw,2.25rem);background:#F3EEE4;align-self:stretch;display:flex;flex-direction:column">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-block-end:1.1rem">
           <h3 style="text-transform:uppercase;font-weight:600;font-size:1.05rem;letter-spacing:-.01em">School calendar</h3>
           <div style="display:flex;gap:.4rem">
@@ -411,7 +487,7 @@ html{scrollbar-width:none}
           </div>
         </div>
         <p style="font-family:'Plex Serif',Georgia,serif;font-size:1.15rem;padding-block-end:.6rem;color:#17061F">{{ calCaption }}</p>
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:.1rem;text-align:center">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:minmax(2.6rem,1fr);gap:.1rem;text-align:center;flex:1;align-content:stretch">
           <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Su</span>
           <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Mo</span>
           <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B;font-weight:600;padding-block:.35rem">Tu</span>
@@ -423,7 +499,7 @@ html{scrollbar-width:none}
             <span style="{{ c.st }}">{{ c.n }}</span>
           </sc-for>
         </div>
-        <button type="button" onClick="{{ jumpOpening }}" style="margin-block-start:1.1rem;padding-block-start:.9rem;border-block-start:1px solid rgba(23,6,31,.16);border-inline:0;border-block-end:0;display:flex;gap:.55rem;align-items:center;font-size:.8125rem;color:#5E4C6B;background:none;font-family:inherit;cursor:pointer;inline-size:100%;text-align:start;transition:color .2s ease" style-hover="color:#400068"><i style="inline-size:.7rem;block-size:.7rem;border-radius:50%;background:#D8A800;flex:none"></i> Confirmed key date — 4 April 2027</button>
+        <button type="button" onClick="{{ jumpOpening }}" style="margin-block-start:auto;padding-block-end:0;padding-block-start:.9rem;border-block-start:1px solid rgba(23,6,31,.16);border-inline:0;border-block-end:0;display:flex;gap:.55rem;align-items:center;font-size:.8125rem;color:#5E4C6B;background:none;font-family:inherit;cursor:pointer;inline-size:100%;text-align:start;transition:color .2s ease" style-hover="color:#400068"><i style="inline-size:.7rem;block-size:.7rem;border-radius:50%;background:#D8A800;flex:none"></i> Confirmed key date — 4 April 2027</button>
       </aside>
     </div>
   </section>
@@ -503,7 +579,7 @@ html{scrollbar-width:none}
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
             <li><a href="#render" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
-            <li><a href="#campus" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
           </ul>
         </div>
@@ -539,7 +615,10 @@ class Component extends DCLogic {
     // renders and the purple panel flashes back over a painted page.
     this.returning = (() => { try { return sessionStorage.getItem('dpsm_visited') === '1'; } catch (e) { return false; } })();
     try { sessionStorage.setItem('dpsm_visited', '1'); } catch (e) {}
-    this.state = { open: null, burger: false, narrow: false, w: 1440, y: n.getFullYear(), m: n.getMonth() };
+    // Read the real width before the first paint: starting at desktop and
+    // correcting after mount flashed a wide layout onto every phone.
+    const W = window.innerWidth || 1440;
+    this.state = { open: null, burger: false, narrow: W < 1024, phone: W < 768, w: W, y: n.getFullYear(), m: n.getMonth() };
   }
 
   // The page-to-page cover is created OUTSIDE the React tree and owned by hand.
@@ -604,6 +683,11 @@ class Component extends DCLogic {
     // fraction of that cost — and lets each lobe be a genuinely irregular,
     // morphing path instead of a rounded rectangle pretending to be one.
     const cv = band.querySelector('[data-bloom]');
+    // A phone paints the same bloom into a smaller bitmap with coarser paths.
+    // The lobes are soft organic shapes, so nothing reads as lost and the
+    // per-frame cost drops by roughly two thirds on a mid-range handset.
+    const small = window.innerWidth < 768;
+    if (cv && small) { cv.width = 800; cv.height = 800; }
     const ctx = cv && cv.getContext('2d');
     const W = (cv && cv.width) || 1594, H = (cv && cv.height) || 620;
 
@@ -635,7 +719,7 @@ class Component extends DCLogic {
     if (!ctx && !chaseEl) return;
 
     const blob = (l, R, p) => {
-      const STEP = 24, TAU = Math.PI * 2;
+      const STEP = small ? 16 : 24, TAU = Math.PI * 2;
       const cx = l.cx + l.dx * Math.sin(l.dph + p * 2.2);
       const cy = l.cy + l.dy * Math.cos(l.dph + p * 2.6);
       const pts = [];
@@ -843,6 +927,9 @@ class Component extends DCLogic {
     const rail = document.querySelector('[data-sbar]');
     const thumb = rail && rail.querySelector('[data-sbar-thumb]');
     if (!thumb) return;
+    // Touch devices have their own momentum scrolling and no pointer to park at
+    // the screen edge; the custom rail would only steal a strip of a small one.
+    if (matchMedia('(hover:none)').matches) { rail.style.display = 'none'; return; }
 
     // The hidden state is set here rather than in the template: any property
     // declared in a template style attribute is owned by the runtime and gets
@@ -916,7 +1003,8 @@ class Component extends DCLogic {
 
   componentDidMount() {
     document.documentElement.dataset.mounted = '1';
-    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, w: window.innerWidth });
+    this.landHash();
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, phone: window.innerWidth < 768, w: window.innerWidth });
     this.sync();
     window.addEventListener('resize', this.sync);
 
@@ -969,6 +1057,9 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    clearTimeout(this.cardT);
+    if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
     clearInterval(this.glideTick);
     [this.flyT, this.landT, this.gcT, this.teaseT, this.breathT].forEach((id) => id && clearTimeout(id));
     if (this.bloomRaf) cancelAnimationFrame(this.bloomRaf);
@@ -1002,6 +1093,9 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    clearTimeout(this.cardT);
+    if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
     clearInterval(this.glideTick);
     window.removeEventListener('resize', this.sync);
     cancelAnimationFrame(this.bloomRaf);
@@ -1038,7 +1132,9 @@ class Component extends DCLogic {
     const start = new Date(y, m, 1).getDay();
     const days = new Date(y, m + 1, 0).getDate();
     const prev = new Date(y, m, 0).getDate();
-    const base = 'display:grid;place-items:center;inline-size:2.65rem;block-size:2.65rem;margin-inline:auto;border-radius:50%;font-size:.95rem;font-variant-numeric:tabular-nums';
+    // Day cells fill their grid track instead of holding a fixed 2.65rem, so the
+    // seven columns always fit the card rather than overflowing a narrow one.
+    const base = 'display:grid;place-items:center;inline-size:100%;max-inline-size:2.65rem;aspect-ratio:1;margin-inline:auto;border-radius:50%;font-size:.95rem;font-variant-numeric:tabular-nums';
     const out = [];
     for (let i = 0; i < start; i++) out.push({ n: prev - start + 1 + i, st: base + ';color:rgba(23,6,31,.26)' });
     for (let i = 1; i <= days; i++) {
@@ -1054,7 +1150,68 @@ class Component extends DCLogic {
     return out;
   }
 
+  // Arriving with a hash: the browser tries its native anchor jump before this
+  // component has mounted, so the target does not exist yet and the page opens at
+  // the top. Poll briefly for the element and land on it under the sticky nav.
+  // Notice cards expand from where they sit: phase 0 paints the panel over the
+  // card's exact rect, phase 1 (one timer tick later) moves it to the reading
+  // size, and CSS interpolates between them. Timer-driven, not rAF.
+  openNotice(i, el) {
+    const r = el.getBoundingClientRect();
+    this.setState({ card: i, rect: { top: r.top, left: r.left, w: r.width, h: r.height }, closing: false, fadeOnly: false });
+    clearTimeout(this.cardT);
+    this.onCardKey = (e) => { if (e.key === 'Escape') this.closeNotice(); };
+    window.addEventListener('keydown', this.onCardKey);
+  }
+
+  closeNotice() {
+    clearTimeout(this.cardT);
+    // The panel is fixed over a page that may have scrolled since it opened, so the
+    // rect captured at open time is stale — re-read it now or the shrink lands on
+    // empty space.
+    const src = document.querySelector('[data-notice="' + this.state.card + '"]');
+    const r = src ? src.getBoundingClientRect() : null;
+    // Shrinking to a card that has scrolled out of view would fly the panel off
+    // screen — fade it out where it stands instead.
+    const reachable = !!r && r.top > -r.height && r.top < (window.innerHeight || 800);
+    this.setState((s) => ({
+      closing: true,
+      fadeOnly: !reachable,
+      rect: r && reachable ? { top: r.top, left: r.left, w: r.width, h: r.height } : s.rect
+    }));
+    if (this.onCardKey) { window.removeEventListener('keydown', this.onCardKey); this.onCardKey = null; }
+    this.cardT = setTimeout(() => this.setState({ card: null, closing: false, fadeOnly: false }), 520);
+  }
+
+  landHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    let tries = 0;
+    this.hashTimer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(this.hashTimer);
+    clearTimeout(this.cardT);
+    if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
+        const nav = document.querySelector('[data-screen-label="Nav"]');
+        const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - pad));
+      } else if (++tries > 50) clearInterval(this.hashTimer);
+    }, 100);
+  }
+
   renderVals() {
+    const card = this.state.card ?? null;
+    const cardOpen = card !== null;
+    const closing = !!this.state.closing;
+    const fadeOnly = !!this.state.fadeOnly;
+    const cr = this.state.rect || { top: 0, left: 0, w: 0, h: 0 };
+    const CARDS = [
+      { kicker: '/Information', title: 'Information corner' },
+      { kicker: '/Events', title: 'Events corner' },
+      { kicker: '/Circulars', title: 'Academic circulars' }
+    ];
+    const meta = CARDS[card] || CARDS[0];
     const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const style = (this.props.revealStyle ?? 'Concentric bloom');
     const narrow = this.state.narrow;
@@ -1079,6 +1236,46 @@ class Component extends DCLogic {
           : { ...subBase, opacity: 0, visibility: 'hidden', transform: 'translateY(-6px)' });
 
     return {
+      cardOpen,
+      isCard0: card === 0, isCard1: card === 1, isCard2: card === 2,
+      cardKicker: meta.kicker,
+      cardTitle: meta.title,
+      openCard: (e) => this.openNotice(Number(e.currentTarget.dataset.notice), e.currentTarget),
+      cardKey: (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        this.openNotice(Number(e.currentTarget.dataset.notice), e.currentTarget);
+      },
+      stopText: (e) => e.stopPropagation(),
+      closeCard: () => this.closeNotice(),
+      closeAndGlide: (e) => {
+        e.preventDefault();
+        const href = e.currentTarget.getAttribute('href') || '';
+        this.closeNotice();
+        setTimeout(() => this.glideTo(href.replace('#', '')), 480);
+      },
+      scrimStyle: {
+        position: 'fixed', inset: 0, zIndex: 110, background: 'rgba(15,4,20,.72)', cursor: 'pointer',
+        animation: (closing ? 'scrimOut .34s ease both' : 'scrimIn .42s ease both')
+      },
+      panelStyle: {
+        position: 'fixed', zIndex: 120, display: 'flex', flexDirection: 'column',
+        overflow: 'hidden', borderRadius: '14px', background: '#F3EEE4', color: '#17061F',
+        border: '1px solid rgba(23,6,31,.2)', boxShadow: '0 40px 90px -25px rgba(0,0,0,.55)',
+        // The card's rect and the reading size travel as custom properties so the
+        // keyframes can run the moment the panel is inserted — no second render,
+        // and no timer that a throttled runtime might never service.
+        '--ct': cr.top + 'px', '--cl': cr.left + 'px', '--cw': cr.w + 'px', '--ch': cr.h + 'px',
+        '--tl': 'max(4vw, calc(50vw - 26rem))', '--tw': 'min(52rem, 92vw)',
+        top: '6vh', left: 'max(4vw, calc(50vw - 26rem))', width: 'min(52rem, 92vw)', height: '88vh',
+        animation: (closing
+          ? (fadeOnly ? 'cardFade .28s ease both' : 'cardShrink .46s cubic-bezier(.16,1,.3,1) both')
+          : 'cardGrow .48s cubic-bezier(.16,1,.3,1) both')
+      },
+      cardBodyStyle: {
+        padding: 'clamp(1.5rem,3vw,2.1rem)', overflowY: 'auto', flex: 1,
+        animation: (closing ? 'bodyOut .12s ease both' : 'bodyIn .3s ease .2s both')
+      },
       // Never render the loader markup on a return visit: if React owns it, a
       // later render puts the purple panel back over a painted page.
       showLoader: !this.returning && (this.props.showLoader ?? true),
@@ -1183,7 +1380,7 @@ class Component extends DCLogic {
       },
 
       burgerStyle: narrow
-        ? { display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.5rem .9rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer', marginInlineStart: 'auto' }
+        ? { order: 3, display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.65rem 1rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer' }
         : { display: 'none' },
 
       menuStyle: narrow
