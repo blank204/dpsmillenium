@@ -1,0 +1,2043 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Campus development updates for DPS Millennium International School in Al Wukair, Qatar.">
+  <title>Campus Development | DPS Millennium International School</title>
+  <link rel="icon" href="../homepage/assets/shield.svg" type="image/svg+xml">
+  <style>
+  @font-face {
+    font-family:PlexSans;
+    src:url("../homepage/assets/fonts/plex-sans-400.woff2") format("woff2");
+    font-weight:400;
+    font-display:swap
+  }
+
+    @font-face {
+    font-family:PlexSans;
+    src:url("../homepage/assets/fonts/plex-sans-600.woff2") format("woff2");
+    font-weight:600;
+    font-display:swap
+  }
+
+    @font-face {
+    font-family:PlexSerif;
+    src:url("../homepage/assets/fonts/plex-serif-600.woff2") format("woff2");
+    font-weight:600;
+    font-display:swap
+  }
+    :root {
+    --ink:#17061f;
+    --purple:#400068;
+    --paper:#f3eee4;
+    --wash:#faf6ef;
+    --green:#1e5a33;
+    --gold:#d8a800;
+    --muted:#65536f;
+    --line:rgba(23,6,31,.16);
+    --max:76rem;
+    --gutter:clamp(1.25rem,5vw,4.5rem)
+  }
+
+    * {
+    box-sizing:border-box
+  }
+  html {
+    scroll-behavior:smooth;
+    background:var(--ink)
+  }
+  body {
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font:400 clamp(1rem,.96rem + .2vw,1.0625rem)/1.58 PlexSans,Arial,sans-serif
+  }
+  img {
+    display:block;
+    max-inline-size:100%
+  }
+  a {
+    color:inherit;
+    text-decoration:none
+  }
+  :focus-visible {
+    outline:3px solid var(--gold);
+    outline-offset:4px
+  }
+  .wrap {
+    inline-size:min(var(--max),calc(100% - var(--gutter)*2));
+    margin-inline:auto
+  }
+  .eyebrow {
+    margin:0 0 .8rem;
+    color:var(--green);
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase
+  }
+  .heading {
+    margin:0;
+    font:600 clamp(2rem,1.2rem + 3.2vw,3.8rem)/1.03 PlexSerif,Georgia,serif;
+    letter-spacing:-.035em
+  }
+  .copy {
+    max-inline-size:58ch;
+    color:var(--muted);
+    font-size:1.06rem
+  }
+  .button {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:99px;
+    padding:.85rem 1.25rem;
+    font-size:.93rem;
+    font-weight:600;
+    transition:transform .22s ease,box-shadow .22s ease,background .22s ease
+  }
+  .button:hover {
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(0,0,0,.18)
+  }
+  .button--gold {
+    background:var(--gold);
+    color:var(--ink)
+  }
+  .button--line {
+    border:1px solid rgba(243,238,228,.62);
+    color:var(--paper)
+  }
+    .skip {
+    position:absolute;
+    z-index:10;
+    inset-inline-start:1rem;
+    inset-block-start:-5rem;
+    background:var(--gold);
+    padding:.7rem 1rem;
+    font-weight:600
+  }
+  .skip:focus {
+    inset-block-start:1rem
+  }
+  .nav {
+    position:sticky;
+    inset-block-start:0;
+    z-index:20;
+    background:rgba(23,6,31,.94);
+    backdrop-filter:blur(12px);
+    color:var(--paper);
+    border-block-end:1px solid rgba(243,238,228,.14)
+  }
+  .nav__inner {
+    display:flex;
+    align-items:center;
+    gap:1.25rem;
+    min-block-size:4.7rem
+  }
+  .brand {
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    margin-inline-end:auto;
+    font-size:.87rem;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase
+  }
+  .brand img {
+    inline-size:2.25rem
+  }
+  .nav__links {
+    display:flex;
+    align-items:center;
+    gap:clamp(.8rem,2vw,1.5rem);
+    font-size:.86rem
+  }
+  .nav__links a:not(.nav__register) {
+    color:#ded2e5
+  }
+  .nav__register {
+    border:1px solid var(--gold);
+    border-radius:99px;
+    color:var(--gold);
+    padding:.5rem .9rem
+  }
+    .hero {
+    position:relative;
+    display:grid;
+    align-items:end;
+    min-block-size:clamp(31rem,70vh,46rem);
+    overflow:hidden;
+    background:var(--ink);
+    color:var(--paper)
+  }
+  .hero__media,.hero__veil {
+    position:absolute;
+    inset:0
+  }
+  .hero__media {
+    background:url("../homepage/assets/construction/site-07.jpeg") 50% 85%/cover no-repeat;
+    filter:saturate(.72) contrast(1.05) brightness(.7);
+    animation:drift 18s ease-in-out infinite alternate
+  }
+  .hero__veil {
+    background:linear-gradient(90deg,rgba(23,6,31,.96) 0%,rgba(23,6,31,.82) 44%,rgba(23,6,31,.35) 100%),linear-gradient(0deg,rgba(23,6,31,.55),transparent 55%)
+  }
+  .hero__content {
+    position:relative;
+    padding-block:clamp(4rem,11vh,8rem) clamp(2.5rem,6vh,4.5rem)
+  }
+  .hero .eyebrow {
+    color:var(--gold)
+  }
+  .hero h1 {
+    max-inline-size:12ch;
+    margin:0;
+    font:600 clamp(3rem,1.7rem + 5vw,6rem)/.91 PlexSerif,Georgia,serif;
+    letter-spacing:-.05em
+  }
+  .hero__copy {
+    max-inline-size:52ch;
+    margin:1.35rem 0 0;
+    color:#e2d9e8;
+    font-size:clamp(1.05rem,1rem + .45vw,1.22rem)
+  }
+  .hero__status {
+    display:inline-flex;
+    align-items:center;
+    gap:.6rem;
+    margin:1.6rem 0 0;
+    border:1px solid rgba(243,238,228,.45);
+    border-radius:99px;
+    padding:.55rem .9rem;
+    font-size:.86rem
+  }
+  .hero__status::before {
+    content:"";
+    inline-size:.58rem;
+    block-size:.58rem;
+    border-radius:50%;
+    background:var(--gold)
+  }
+  .hero__actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-block-start:1.3rem
+  }
+  .hero__record {
+    margin:1.6rem 0 0;
+    color:#d9cce1;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.11em;
+    text-transform:uppercase
+  }
+  .section-nav {
+    background:var(--wash);
+    border-block-end:1px solid var(--line)
+  }
+  .section-nav__inner {
+    display:flex;
+    flex-wrap:wrap
+  }
+  .section-nav a {
+    padding:1rem 1.1rem;
+    border-inline-start:1px solid var(--line);
+    font-size:.75rem;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--purple);
+    transition:background .2s,color .2s
+  }
+  .section-nav a:last-child {
+    border-inline-end:1px solid var(--line)
+  }
+  .section-nav a:hover {
+    background:var(--purple);
+    color:var(--paper)
+  }
+    section {
+    padding-block:clamp(4rem,9vw,7.5rem)
+  }
+  .snapshot {
+    background:var(--paper)
+  }
+  .snapshot__top {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(18rem,.7fr);
+    gap:2rem;
+    align-items:end
+  }
+  .snapshot__cards {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1rem;
+    margin-block-start:2.4rem
+  }
+  .snapshot-card {
+    padding:1.5rem;
+    border:1px solid var(--line);
+    border-radius:.85rem;
+    background:var(--wash);
+    transition:transform .25s ease,box-shadow .25s ease
+  }
+  .snapshot-card:hover {
+    transform:translateY(-.35rem);
+    box-shadow:0 14px 28px rgba(23,6,31,.1)
+  }
+  .snapshot-card__key {
+    margin:0;
+    color:var(--green);
+    font-size:.68rem;
+    font-weight:600;
+    letter-spacing:.13em;
+    text-transform:uppercase
+  }
+  .snapshot-card h3 {
+    margin:.65rem 0 0;
+    color:var(--purple);
+    font-size:1.25rem;
+    line-height:1.1
+  }
+  .snapshot-card p {
+    margin:.65rem 0 0;
+    color:var(--muted);
+    font-size:.94rem
+  }
+    .story {
+    background:var(--ink);
+    color:var(--paper)
+  }
+  .story .eyebrow {
+    color:var(--gold)
+  }
+  .story .copy {
+    color:#d5c6dd
+  }
+  .story__grid {
+    display:grid;
+    grid-template-columns:minmax(0,1.12fr) minmax(18rem,.88fr);
+    gap:clamp(1.5rem,5vw,4rem);
+    margin-block-start:2.6rem;
+    align-items:stretch
+  }
+  .story__image {
+    position:relative;
+    min-block-size:29rem;
+    overflow:hidden;
+    border-radius:1rem
+  }
+  .story__image img {
+    inline-size:100%;
+    block-size:100%;
+    object-fit:cover
+  }
+  .story__caption {
+    position:absolute;
+    inset-inline:1rem;
+    inset-block-end:1rem;
+    max-inline-size:25rem;
+    padding:1rem;
+    border-radius:.65rem;
+    background:rgba(23,6,31,.82);
+    backdrop-filter:blur(9px);
+    font-size:.87rem
+  }
+  .story__side {
+    display:grid;
+    gap:1rem
+  }
+  .story-step {
+    padding:1.35rem;
+    border-block-start:1px solid rgba(243,238,228,.26)
+  }
+  .story-step:first-child {
+    border-block-start:3px solid var(--gold)
+  }
+  .story-step__number {
+    color:var(--gold);
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.13em
+  }
+  .story-step h3 {
+    margin:.4rem 0 0;
+    font-size:1.35rem;
+    line-height:1.1
+  }
+  .story-step p {
+    margin:.55rem 0 0;
+    color:#d5c6dd;
+    font-size:.94rem
+  }
+    .journal {
+    background:var(--wash)
+  }
+  .journal__head {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(18rem,.75fr);
+    gap:2rem;
+    align-items:end
+  }
+  .journal-grid {
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:1rem;
+    margin-block-start:2.5rem
+  }
+  .journal-card {
+    position:relative;
+    overflow:hidden;
+    min-block-size:19rem;
+    border-radius:.85rem;
+    background:var(--purple)
+  }
+  .journal-card:nth-child(1) {
+    grid-column:span 7
+  }
+  .journal-card:nth-child(2) {
+    grid-column:span 5
+  }
+  .journal-card:nth-child(3),.journal-card:nth-child(4),.journal-card:nth-child(5) {
+    grid-column:span 4
+  }
+  .journal-card img {
+    inline-size:100%;
+    block-size:100%;
+    object-fit:cover;
+    transition:transform .5s ease
+  }
+  .journal-card:hover img {
+    transform:scale(1.045)
+  }
+  .journal-card__caption {
+    position:absolute;
+    inset-inline:0;
+    inset-block-end:0;
+    padding:3.5rem 1.25rem 1.2rem;
+    background:linear-gradient(transparent,rgba(23,6,31,.9));
+    color:var(--paper)
+  }
+  .journal-card__caption span {
+    display:block;
+    color:var(--gold);
+    font-size:.68rem;
+    font-weight:600;
+    letter-spacing:.13em;
+    text-transform:uppercase
+  }
+  .journal-card__caption strong {
+    display:block;
+    margin-top:.35rem;
+    font-size:1.1rem
+  }
+  .journal-card__caption small {
+    display:block;
+    margin-top:.35rem;
+    color:#ded2e5;
+    font-size:.82rem
+  }
+    .vision {
+    background:var(--paper)
+  }
+  .vision__head {
+    max-inline-size:46rem
+  }
+  .vision__grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(1rem,3vw,2rem);
+    margin-block-start:2.6rem
+  }
+  .vision-card {
+    padding:1rem;
+    border:1px solid var(--line);
+    border-radius:.85rem;
+    background:var(--wash)
+  }
+  .vision-card img {
+    inline-size:100%;
+    aspect-ratio:16/10;
+    object-fit:cover;
+    border-radius:.5rem
+  }
+  .vision-card h3 {
+    margin:1rem 0 0;
+    color:var(--purple);
+    font-size:1.35rem
+  }
+  .vision-card p {
+    margin:.5rem 0 0;
+    color:var(--muted);
+    font-size:.94rem
+  }
+  .vision-card small {
+    display:block;
+    margin-top:.8rem;
+    color:var(--green);
+    font-size:.78rem;
+    font-weight:600
+  }
+    .facilities {
+    background:#e9e1d2
+  }
+  .facilities__layout {
+    display:grid;
+    grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
+    gap:clamp(2rem,7vw,6rem);
+    align-items:start
+  }
+  .facilities__list {
+    display:grid;
+    gap:0
+  }
+  .facility {
+    display:grid;
+    grid-template-columns:3rem 1fr;
+    gap:1rem;
+    padding:1.25rem 0;
+    border-block-start:1px solid rgba(23,6,31,.2)
+  }
+  .facility:last-child {
+    border-block-end:1px solid rgba(23,6,31,.2)
+  }
+  .facility__number {
+    display:grid;
+    place-items:center;
+    inline-size:2.25rem;
+    block-size:2.25rem;
+    border-radius:50%;
+    background:var(--purple);
+    color:var(--gold);
+    font-size:.75rem;
+    font-weight:600
+  }
+  .facility h3 {
+    margin:0;
+    color:var(--purple);
+    font-size:1.14rem
+  }
+  .facility p {
+    margin:.35rem 0 0;
+    color:var(--muted);
+    font-size:.94rem
+  }
+    .oversight {
+    background:var(--purple);
+    color:var(--paper)
+  }
+  .oversight .eyebrow {
+    color:var(--gold)
+  }
+  .oversight .copy {
+    color:#ded2e5
+  }
+  .oversight__grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1rem;
+    margin-block-start:2.5rem
+  }
+  .oversight figure {
+    margin:0
+  }
+  .oversight img {
+    inline-size:100%;
+    aspect-ratio:16/10;
+    object-fit:cover;
+    border-radius:.75rem
+  }
+  .oversight figcaption {
+    padding:.8rem .1rem;
+    color:#dfd0e7;
+    font-size:.88rem
+  }
+  .oversight figcaption strong {
+    display:block;
+    color:var(--gold)
+  }
+
+  /* Call to action and footer */
+    .cta {
+    background:var(--ink);
+    color:var(--paper);
+    padding-block:clamp(4rem,9vw,7rem)
+  }
+  .cta__layout {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:end;
+    justify-content:space-between;
+    gap:2rem
+  }
+  .cta .eyebrow {
+    color:var(--gold)
+  }
+  .cta .heading {
+    max-inline-size:15ch
+  }
+  .cta p {
+    max-inline-size:52ch;
+    color:#d5c6dd
+  }
+  .footer {
+    padding-block:2.25rem;
+    background:#120419;
+    color:#c8b8d1;
+    font-size:.88rem
+  }
+  .footer__inner {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:1rem
+  }
+  .footer a {
+    color:var(--paper)
+  }
+
+  /* Scroll animations */
+    .reveal {
+    opacity:0;
+    transform:translateY(1.2rem);
+    transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)
+  }
+  .reveal.is-visible {
+    opacity:1;
+    transform:none
+  }
+  @keyframes drift {
+    from {
+      transform:scale(1) translate3d(0,0,0)
+    }
+    to {
+      transform:scale(1.06) translate3d(-1.2%,-1%,0)
+    }
+  }
+    .build-sequence {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    background:#16041f;
+    color:var(--paper)
+  }
+  .build-sequence::before {
+    content:"";
+    position:absolute;
+    z-index:-2;
+    inset:0;
+    background:url("../homepage/assets/construction/site-01.jpeg") center/cover no-repeat;
+    filter:saturate(.62) contrast(1.05) brightness(.34);
+    transform:scale(1.04)
+  }
+  .build-sequence::after {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(90deg,rgba(22,4,31,.96),rgba(22,4,31,.78) 52%,rgba(22,4,31,.34))
+  }
+  .build-sequence .eyebrow {
+    color:var(--gold)
+  }
+  .build-sequence .copy {
+    color:#ded2e5
+  }
+  .sequence__head {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(17rem,.62fr);
+    gap:2rem;
+    align-items:end
+  }
+  .sequence__rail {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    margin-block-start:3rem;
+    background:rgba(243,238,228,.3);
+    border:1px solid rgba(243,238,228,.3)
+  }
+  .sequence-card {
+    min-block-size:16rem;
+    padding:1.6rem;
+    background:rgba(22,4,31,.55);
+    backdrop-filter:blur(10px);
+    transition:background .3s ease,transform .35s cubic-bezier(.16,1,.3,1)
+  }
+  .sequence-card:hover {
+    background:rgba(64,0,104,.78);
+    transform:translateY(-.45rem)
+  }
+  .sequence-card__number {
+    display:block;
+    color:var(--gold);
+    font-size:.74rem;
+    font-weight:600;
+    letter-spacing:.13em
+  }
+  .sequence-card h3 {
+    margin:3.1rem 0 .5rem;
+    font:600 1.55rem/1.05 PlexSerif,Georgia,serif
+  }
+  .sequence-card p {
+    margin:0;
+    color:#dfd2e5;
+    font-size:.93rem
+  }
+  .sequence-card small {
+    display:block;
+    margin-block-start:1rem;
+    color:var(--gold);
+    font-size:.7rem;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase
+  }
+  .photo-feature {
+    background:var(--paper)
+  }
+  .photo-feature__layout {
+    display:grid;
+    grid-template-columns:minmax(0,.8fr) minmax(20rem,1.2fr);
+    gap:clamp(2rem,7vw,7rem);
+    align-items:center
+  }
+  .photo-feature__copy {
+    padding-block:2rem
+  }
+  .photo-feature__image {
+    position:relative;
+    min-block-size:33rem;
+    overflow:hidden
+  }
+  .photo-feature__image img {
+    inline-size:100%;
+    block-size:100%;
+    object-fit:cover;
+    filter:saturate(.78)
+  }
+  .photo-feature__image::after {
+    content:"Site view · Al Wukair";
+    position:absolute;
+    inset-inline-start:1.2rem;
+    inset-block-end:1.1rem;
+    padding:.48rem .7rem;
+    background:rgba(243,238,228,.92);
+    color:var(--purple);
+    font-size:.69rem;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase
+  }
+  .photo-feature__quote {
+    margin:2.4rem 0 0;
+    padding:1.25rem 0 1.25rem 1.2rem;
+    border-inline-start:3px solid var(--gold);
+    color:var(--purple);
+    font:600 clamp(1.25rem,1rem + 1vw,1.75rem)/1.23 PlexSerif,Georgia,serif
+  }
+  .photo-feature__note {
+    margin:1.2rem 0 0;
+    color:var(--muted);
+    font-size:.9rem
+  }
+  .floating-label {
+    display:inline-flex;
+    align-items:center;
+    gap:.6rem;
+    margin-block-start:1.5rem;
+    color:var(--green);
+    font-size:.73rem;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase
+  }
+  .floating-label::before {
+    content:"";
+    inline-size:2.7rem;
+    block-size:1px;
+    background:currentColor
+  }
+  .slide-left,.slide-right {
+    opacity:0;
+    transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)
+  }
+  .slide-left {
+    transform:translateX(-2.5rem)
+  }
+  .slide-right {
+    transform:translateX(2.5rem)
+  }
+  .slide-left.is-visible,.slide-right.is-visible {
+    opacity:1;
+    transform:none
+  }
+    @media(min-width:51rem) {
+    .hero {
+      display:grid;
+      grid-template-columns:minmax(23rem,.84fr) minmax(30rem,1.16fr);
+      align-items:stretch;
+      min-block-size:39rem;
+      background:var(--paper);
+      color:var(--ink)
+    }
+    .hero__media {
+      position:relative;
+      inset:auto;
+      grid-column:2;
+      grid-row:1;
+      background-position:52% 78%;
+      filter:saturate(.76) contrast(1.03) brightness(.9)
+    }
+    .hero__veil {
+      display:none
+    }
+    .hero__content {
+      grid-column:1;
+      grid-row:1;
+      align-self:center;
+      padding:clamp(4rem,8vw,7rem) clamp(2rem,5vw,5rem) clamp(4rem,8vw,7rem) max(var(--gutter),calc((100vw - var(--max))/2))
+    }
+    .hero .eyebrow {
+      color:var(--green)
+    }
+    .hero h1 {
+      max-inline-size:8ch;
+      color:var(--purple);
+      font-size:clamp(3.6rem,3vw + 1.7rem,5.8rem);
+      line-height:.92
+    }
+    .hero__copy {
+      color:var(--muted)
+    }
+    .hero__status {
+      border-color:var(--line);
+      color:var(--ink)
+    }
+    .hero__record {
+      color:var(--green)
+    }
+    .button--line {
+      border-color:var(--purple);
+      color:var(--purple)
+    }
+    .section-nav {
+      border-block:1px solid var(--line)
+    }
+    .section-nav__inner {
+      justify-content:space-between
+    }
+    .section-nav a {
+      border:0!important;
+      padding-inline:0;
+      background:transparent!important;
+      color:var(--muted)!important
+    }
+    .section-nav a:hover {
+      color:var(--purple)!important
+    }
+    .snapshot__top {
+      grid-template-columns:minmax(0,1.2fr) minmax(15rem,.55fr);
+      padding-block-end:2.4rem;
+      border-block-end:1px solid var(--line)
+    }
+    .snapshot__cards {
+      gap:0;
+      margin-block-start:0
+    }
+    .snapshot-card {
+      min-block-size:13rem;
+      padding:1.7rem 1.35rem;
+      border:0;
+      border-radius:0;
+      border-inline-start:1px solid var(--line);
+      background:transparent
+    }
+    .snapshot-card:first-child {
+      border-inline-start:0;
+      padding-inline-start:0
+    }
+    .snapshot-card:hover {
+      transform:none;
+      box-shadow:none;
+      background:rgba(216,168,0,.06)
+    }
+    .story {
+      background:var(--wash);
+      color:var(--ink)
+    }
+    .story .eyebrow {
+      color:var(--green)
+    }
+    .story .copy {
+      color:var(--muted)
+    }
+    .story__grid {
+      grid-template-columns:minmax(17rem,.62fr) minmax(26rem,1.38fr);
+      gap:clamp(2rem,5vw,5rem)
+    }
+    .story__image {
+      grid-column:2;
+      grid-row:1;
+      min-block-size:34rem;
+      border-radius:0
+    }
+    .story__side {
+      grid-column:1;
+      grid-row:1;
+      align-content:center
+    }
+    .story-step {
+      border-color:var(--line);
+      padding:1.35rem 0
+    }
+    .story-step p {
+      color:var(--muted)
+    }
+    .story__caption {
+      background:rgba(243,238,228,.92);
+      color:var(--ink);
+      border-radius:0
+    }
+    .journal {
+      background:var(--paper)
+    }
+    .journal__head {
+      grid-template-columns:minmax(0,1.3fr) minmax(15rem,.5fr);
+      padding-block-end:2.3rem;
+      border-block-end:1px solid var(--line)
+    }
+    .journal-grid {
+      gap:1.35rem;
+      margin-block-start:2.5rem
+    }
+    .journal-card {
+      border-radius:0;
+      min-block-size:25rem
+    }
+    .journal-card:nth-child(1) {
+      grid-column:span 8
+    }
+    .journal-card:nth-child(2) {
+      grid-column:span 4
+    }
+    .journal-card:nth-child(3) {
+      grid-column:span 4;
+      min-block-size:18rem
+    }
+    .journal-card:nth-child(4) {
+      grid-column:span 4;
+      min-block-size:18rem
+    }
+    .journal-card:nth-child(5) {
+      grid-column:span 4;
+      min-block-size:18rem
+    }
+    .vision {
+      background:#e9e1d2
+    }
+    .vision__grid {
+      gap:0
+    }
+    .vision-card {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:0;
+      padding:0;
+      border:0;
+      border-radius:0;
+      background:transparent
+    }
+    .vision-card:nth-child(2) {
+      direction:rtl
+    }
+    .vision-card:nth-child(2)>* {
+      direction:ltr
+    }
+    .vision-card img {
+      grid-row:span 3;
+      aspect-ratio:4/3;
+      border-radius:0
+    }
+    .vision-card h3,.vision-card p,.vision-card small {
+      margin-inline:clamp(1.4rem,4vw,4rem)
+    }
+    .vision-card h3 {
+      margin-block:0 0 .7rem
+    }
+    .vision-card p {
+      margin-block:0
+    }
+    .vision-card small {
+      margin-block:1rem 0
+    }
+    .facilities {
+      background:var(--purple);
+      color:var(--paper)
+    }
+    .facilities .eyebrow {
+      color:var(--gold)
+    }
+    .facilities .copy {
+      color:#ded2e5
+    }
+    .facility {
+      border-color:rgba(243,238,228,.26)
+    }
+    .facility:last-child {
+      border-color:rgba(243,238,228,.26)
+    }
+    .facility h3 {
+      color:var(--paper)
+    }
+    .facility p {
+      color:#ded2e5
+    }
+    .facility__number {
+      background:var(--gold);
+      color:var(--ink)
+    }
+    .oversight {
+      background:var(--wash);
+      color:var(--ink)
+    }
+    .oversight .eyebrow {
+      color:var(--green)
+    }
+    .oversight .copy {
+      color:var(--muted)
+    }
+    .oversight__grid {
+      grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);
+      gap:2rem
+    }
+    .oversight img {
+      border-radius:0
+    }
+    .oversight figcaption {
+      color:var(--muted);
+      padding-inline:0
+    }
+    .oversight figcaption strong {
+      color:var(--purple)
+    }
+    .cta {
+      background:var(--ink)
+    }
+  }
+
+  /* Mobile layout */
+    @media(max-width:50rem) {
+    .nav__links a:not(.nav__register) {
+      display:none
+    }
+    .hero {
+      display:block;
+      min-block-size:0;
+      background:var(--paper);
+      color:var(--ink);
+      padding-block-end:14rem
+    }
+    .hero__media {
+      inset:auto 0 0;
+      block-size:15rem;
+      background-position:50% 78%;
+      filter:saturate(.74) brightness(.9)
+    }
+    .hero__veil {
+      display:none
+    }
+    .hero__content {
+      padding:3.3rem var(--gutter) 2.2rem
+    }
+    .hero .eyebrow {
+      color:var(--green)
+    }
+    .hero h1 {
+      color:var(--purple);
+      font-size:clamp(3.25rem,13vw,4.8rem)
+    }
+    .hero__copy {
+      color:var(--muted)
+    }
+    .hero__status {
+      border-color:var(--line);
+      color:var(--ink)
+    }
+    .hero__record {
+      color:var(--green)
+    }
+    .button--line {
+      border-color:var(--purple);
+      color:var(--purple)
+    }
+    .section-nav {
+      border-block:1px solid var(--line)
+    }
+    .section-nav__inner {
+      justify-content:space-between
+    }
+    .section-nav a {
+      border:0!important;
+      padding-inline:0;
+      background:transparent!important;
+      color:var(--muted)!important
+    }
+    .section-nav a:hover {
+      color:var(--purple)!important
+    }
+    .snapshot__top,.story__grid,.journal__head,.facilities__layout {
+      grid-template-columns:1fr
+    }
+    .snapshot__cards {
+      grid-template-columns:1fr
+    }
+    .snapshot-card {
+      border:0;
+      border-block-start:1px solid var(--line);
+      border-radius:0;
+      background:transparent
+    }
+    .snapshot-card:hover {
+      transform:none;
+      box-shadow:none
+    }
+    .journal-grid {
+      grid-template-columns:1fr
+    }
+    .journal-card,.journal-card:nth-child(n) {
+      grid-column:auto;
+      min-block-size:18rem
+    }
+    .vision__grid,.oversight__grid {
+      grid-template-columns:1fr
+    }
+    .story {
+      background:var(--wash);
+      color:var(--ink)
+    }
+    .story .eyebrow {
+      color:var(--green)
+    }
+    .story .copy,.story-step p {
+      color:var(--muted)
+    }
+    .story__image {
+      min-block-size:22rem;
+      border-radius:0
+    }
+    .story__caption {
+      border-radius:0;
+      background:rgba(243,238,228,.92);
+      color:var(--ink)
+    }
+    .story-step {
+      border-color:var(--line)
+    }
+    .vision {
+      background:#e9e1d2
+    }
+    .vision-card {
+      border:0;
+      border-radius:0;
+      background:transparent;
+      padding:0
+    }
+    .vision-card img {
+      border-radius:0
+    }
+    .facilities {
+      background:var(--purple);
+      color:var(--paper)
+    }
+    .facilities .eyebrow {
+      color:var(--gold)
+    }
+    .facilities .copy,.facility p {
+      color:#ded2e5
+    }
+    .facility {
+      border-color:rgba(243,238,228,.26)
+    }
+    .facility h3 {
+      color:var(--paper)
+    }
+    .facility__number {
+      background:var(--gold);
+      color:var(--ink)
+    }
+    .oversight {
+      background:var(--wash);
+      color:var(--ink)
+    }
+    .oversight .eyebrow {
+      color:var(--green)
+    }
+    .oversight .copy {
+      color:var(--muted)
+    }
+    .oversight img {
+      border-radius:0
+    }
+    .oversight figcaption {
+      color:var(--muted)
+    }
+    .oversight figcaption strong {
+      color:var(--purple)
+    }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    html {
+      scroll-behavior:auto
+    }
+    .hero__media {
+      animation:none
+    }
+    .reveal {
+      opacity:1;
+      transform:none;
+      transition:none
+    }
+    * {
+      transition-duration:.01ms!important;
+      animation-duration:.01ms!important
+    }
+  }
+
+    @media(max-width:50rem) {
+    .sequence__head,.photo-feature__layout {
+      grid-template-columns:1fr
+    }
+    .build-sequence::after {
+      background:rgba(22,4,31,.82)
+    }
+    .sequence__rail {
+      grid-template-columns:1fr;
+      margin-block-start:2rem
+    }
+    .sequence-card {
+      min-block-size:auto
+    }
+    .sequence-card h3 {
+      margin-block-start:1.8rem
+    }
+    .photo-feature__image {
+      min-block-size:23rem
+    }
+    .photo-feature__copy {
+      padding-block:0
+    }
+    .slide-left,.slide-right {
+      transform:translateY(1.5rem)
+    }
+    .slide-left.is-visible,.slide-right.is-visible {
+      transform:none
+    }
+  }
+
+  /* Respect reduced-motion preferences */
+    @media(prefers-reduced-motion:reduce) {
+    .slide-left,.slide-right {
+      opacity:1;
+      transform:none;
+      transition:none
+    }
+  }
+
+    .hero {
+    isolation:isolate
+  }
+  .hero::after {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(135deg,rgba(243,238,228,.12),rgba(64,0,104,.16));
+    pointer-events:none
+  }
+  .snapshot {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden
+  }
+  .snapshot::before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(90deg,rgba(243,238,228,.96),rgba(243,238,228,.82)),url("../homepage/assets/construction/site-03.jpeg") center/cover no-repeat;
+    filter:saturate(.7)
+  }
+  .snapshot .wrap {
+    position:relative
+  }
+  .journal {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden
+  }
+  .journal::before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(rgba(250,246,239,.94),rgba(250,246,239,.94)),url("../homepage/assets/construction/site-02.jpeg") center/cover no-repeat;
+    filter:saturate(.7)
+  }
+  .journal .wrap {
+    position:relative
+  }
+  .vision {
+    position:relative;
+    isolation:isolate;
+    overflow:hidden
+  }
+  .vision::before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(90deg,rgba(233,225,210,.96),rgba(233,225,210,.78)),url("../homepage/assets/construction/site-08.jpeg") center/cover no-repeat;
+    filter:saturate(.68)
+  }
+  .vision .wrap {
+    position:relative
+  }
+  .section-backdrop {
+    position:relative;
+    overflow:hidden
+  }
+  .story__image::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(0deg,rgba(23,6,31,.46),transparent 50%);
+    pointer-events:none
+  }
+  .journal-card__caption {
+    backdrop-filter:blur(3px)
+  }
+  .hero__content {
+    z-index:1
+  }
+  .photo-feature__copy {
+    position:relative
+  }
+  .photo-feature__copy::before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:-2rem -1.5rem;
+    background:rgba(243,238,228,.78);
+    backdrop-filter:blur(8px)
+  }
+  .hero {
+    display:grid;
+    min-block-size:clamp(25rem,54vh,34rem);
+    align-items:center;
+    background:#0a3d66;
+    color:#fff;
+    padding:0;
+  }
+  .hero__media {
+    position:absolute;
+    inset:0;
+    opacity:.55;
+    background-position:center 72%;
+    filter:saturate(.7) contrast(1.02) brightness(.72);
+  }
+  .hero__veil {
+    display:block;
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,rgba(4,35,64,.9) 0%,rgba(9,64,103,.75) 48%,rgba(11,86,133,.42) 100%),linear-gradient(0deg,rgba(2,28,54,.45),transparent 65%);
+  }
+  .hero__content {
+    position:relative;
+    z-index:2;
+    max-inline-size:60rem;
+    padding:clamp(3rem,7vw,5.75rem) var(--gutter);
+  }
+  .hero .eyebrow {
+    color:#c5e8ff;
+  }
+  .hero h1 {
+    max-inline-size:13ch;
+    color:#fff;
+    font-size:clamp(2.75rem,2.6vw + 1.65rem,4.6rem);
+    line-height:.96;
+  }
+  .hero__copy {
+    max-inline-size:56ch;
+    margin-block-start:1rem;
+    color:#e8f5ff;
+    font-size:1.05rem;
+  }
+  .hero__status {
+    margin-block-start:1rem;
+    border-color:rgba(255,255,255,.55);
+    background:rgba(7,45,76,.28);
+    color:#fff;
+    backdrop-filter:blur(6px);
+  }
+  .hero__actions {
+    margin-block-start:1rem;
+  }
+  .hero__record {
+    margin-block-start:1rem;
+    color:#c5e8ff;
+  }
+  .button--line {
+    border-color:rgba(255,255,255,.72);
+    color:#fff;
+  }
+  @media(min-width:51rem) {
+    .hero {
+      display:grid;
+      grid-template-columns:1fr;
+      min-block-size:clamp(25rem,54vh,34rem);
+      background:#0a3d66;
+      color:#fff;
+    }
+    .hero__media {
+      position:absolute;
+      inset:0;
+      grid-column:auto;
+      grid-row:auto;
+      opacity:.55;
+      background-position:center 72%;
+      filter:saturate(.7) contrast(1.02) brightness(.72);
+    }
+    .hero__veil {
+      display:block;
+    }
+    .hero__content {
+      grid-column:auto;
+      grid-row:auto;
+      align-self:center;
+      padding:clamp(3rem,7vw,5.75rem) var(--gutter);
+    }
+    .hero .eyebrow,
+    .hero__record {
+      color:#c5e8ff;
+    }
+    .hero h1 {
+      max-inline-size:13ch;
+      color:#fff;
+      font-size:clamp(2.75rem,2.6vw + 1.65rem,4.6rem);
+    }
+    .hero__copy {
+      color:#e8f5ff;
+    }
+    .hero__status {
+      border-color:rgba(255,255,255,.55);
+      color:#fff;
+    }
+    .button--line {
+      border-color:rgba(255,255,255,.72);
+      color:#fff;
+    }
+  }
+  @media(max-width:50rem) {
+    .hero {
+      display:grid;
+      min-block-size:31rem;
+      padding:0;
+    }
+    .hero__media {
+      position:absolute;
+      inset:0;
+      block-size:auto;
+    }
+    .hero__content {
+      padding:3.5rem var(--gutter);
+    }
+    .hero h1 {
+      font-size:clamp(2.8rem,12vw,4.25rem);
+    }
+  }
+  .journal-card__caption {
+    backdrop-filter:none;
+  }
+  .section-nav a {
+    transition:background .22s ease,color .22s ease;
+  }
+  .section-nav a:hover {
+    background:#0a5f99!important;
+    color:#fff!important;
+  }
+  @media(min-width:51rem) {
+    .section-nav a {
+      padding:.95rem 1.1rem;
+      border-inline:1px solid transparent!important;
+    }
+    .section-nav a:hover {
+      background:#0a5f99!important;
+      color:#fff!important;
+    }
+  }
+  </style>
+</head>
+<body>
+ <a class="skip" href="#main">
+  Skip to main content
+ </a>
+ <nav aria-label="Primary navigation" class="nav">
+  <div class="wrap nav__inner">
+   <a class="brand" href="../homepage/DPS%20Millennium%20Homepage.dc.html">
+    <img alt="DPS Millennium shield" src="../homepage/assets/shield.svg"/>
+    <span>
+     DPS Millennium
+    </span>
+   </a>
+   <div class="nav__links">
+    <a href="../homepage/DPS%20Millennium%20Homepage.dc.html">
+     Home
+    </a>
+    <a href="../about/DPS%20Millennium%20About.dc.html">
+     About
+    </a>
+    <a href="../fee/DPS%20Millennium%20Fees.dc.html">
+     Fees
+    </a>
+    <a class="nav__register" href="../about/DPS%20Millennium%20About.dc.html#register">
+     Register interest
+    </a>
+   </div>
+  </div>
+ </nav>
+  <header class="hero">
+  <div aria-hidden="true" class="hero__media">
+  </div>
+  <div aria-hidden="true" class="hero__veil">
+  </div>
+  <div class="wrap hero__content">
+   <p class="eyebrow">
+    Campus development · Al Wukair, Qatar
+   </p>
+   <h1>
+    The campus takes shape.
+   </h1>
+   <p class="hero__copy">
+    A new learning environment is taking form for DPS Millennium. Follow the journey from approved design to verified construction progress.
+   </p>
+   <p class="hero__status">
+    Construction underway · Tentative opening: April 2027
+   </p>
+   <div class="hero__actions">
+    <a class="button button--gold" href="#journal">
+     View construction progress
+    </a>
+    <a class="button button--line" href="#vision">
+     Explore the campus design
+    </a>
+   </div>
+   <p class="hero__record">
+    Site record · eight verified photographs
+   </p>
+  </div>
+ </header>
+  <nav aria-label="Campus page sections" class="section-nav">
+  <div class="wrap section-nav__inner">
+   <a href="#snapshot">
+    Current status
+   </a>
+   <a href="#journal">
+    Build journal
+   </a>
+   <a href="#vision">
+    Campus design
+   </a>
+   <a href="#facilities">
+    Facilities
+   </a>
+  </div>
+ </nav>
+ <main id="main">
+   <section class="snapshot" id="snapshot">
+   <div class="wrap">
+    <div class="snapshot__top reveal">
+     <div>
+      <p class="eyebrow">
+       The project today
+      </p>
+      <h2 class="heading">
+       A clear record, from site to school.
+      </h2>
+     </div>
+     <p class="copy">
+      We separate architectural imagery from real site photography and publish construction progress in a format that families can understand at a glance.
+     </p>
+    </div>
+    <div class="snapshot__cards">
+     <article class="snapshot-card reveal">
+      <p class="snapshot-card__key">
+       Current stage
+      </p>
+      <h3>
+       Structure rising
+      </h3>
+      <p>
+       Foundations are complete and ground-floor columns are cast across the site footprint.
+      </p>
+     </article>
+     <article class="snapshot-card reveal">
+      <p class="snapshot-card__key">
+       Opening target
+      </p>
+      <h3>
+       April 2027
+      </h3>
+      <p>
+       This is the current tentative opening period. Any formal revision will be published here.
+      </p>
+     </article>
+     <article class="snapshot-card reveal">
+      <p class="snapshot-card__key">
+       Reporting standard
+      </p>
+      <h3>
+       Verified on site
+      </h3>
+      <p>
+       Every update is based on approved design material or photography taken at the project site.
+      </p>
+     </article>
+    </div>
+   </div>
+  </section>
+  <section aria-labelledby="sequence-title" class="build-sequence">
+   <div class="wrap">
+    <div class="sequence__head">
+     <div class="slide-left">
+      <p class="eyebrow">
+       Construction sequence
+      </p>
+      <h2 class="heading" id="sequence-title">
+       A visible journey, one stage at a time.
+      </h2>
+     </div>
+     <p class="copy slide-right">
+      This page records what has been completed, what is currently visible on site and what families can expect to see in future updates.
+     </p>
+    </div>
+    <div class="sequence__rail">
+     <article class="sequence-card reveal">
+      <span class="sequence-card__number">
+       01 / COMPLETE
+      </span>
+      <h3>
+       The groundwork
+      </h3>
+      <p>
+       The foundation bases and ground-level structure establish the footprint of the future school.
+      </p>
+      <small>
+       Recorded in the site journal
+      </small>
+     </article>
+     <article class="sequence-card reveal">
+      <span class="sequence-card__number">
+       02 / CURRENT
+      </span>
+      <h3>
+       The frame emerges
+      </h3>
+      <p>
+       Columns, reinforcement and formwork are now giving the campus its first recognisable form.
+      </p>
+      <small>
+       Construction underway
+      </small>
+     </article>
+     <article class="sequence-card reveal">
+      <span class="sequence-card__number">
+       03 / NEXT
+      </span>
+      <h3>
+       The story continues
+      </h3>
+      <p>
+       New photographs and approved information will be added as the project moves through its next milestones.
+      </p>
+      <small>
+       Updates will appear here
+      </small>
+     </article>
+    </div>
+   </div>
+  </section>
+  <section class="photo-feature">
+   <div class="wrap photo-feature__layout">
+    <div class="photo-feature__copy slide-left">
+     <p class="eyebrow">
+      A school in progress
+     </p>
+     <h2 class="heading">
+      Every detail starts with a strong foundation.
+     </h2>
+     <p class="copy">
+      A campus is more than a building plan. It is the setting for future lessons, friendships, achievements and everyday school life.
+     </p>
+     <p class="photo-feature__quote">
+      The photographs on this page are a direct, honest view of the work happening now.
+     </p>
+     <p class="floating-label">
+      Real site photography
+     </p>
+     <p class="photo-feature__note">
+      Architectural images are labelled separately so families can distinguish the planned campus from the current construction site.
+     </p>
+    </div>
+    <figure class="photo-feature__image slide-right">
+     <img alt="Concrete columns and reinforcement across the DPS Millennium construction site" src="../homepage/assets/construction/site-05.jpeg"/>
+    </figure>
+   </div>
+  </section>
+      <!-- Project story -->
+  <section class="story" id="story">
+   <div class="wrap">
+    <p class="eyebrow">
+     The school taking shape
+    </p>
+    <h2 class="heading">
+     Built with purpose, in the open.
+    </h2>
+    <p class="copy">
+     The campus is being developed as a place for learning, belonging and growth. The current structure is the first visible stage of that long-term commitment.
+    </p>
+    <div class="story__grid">
+     <figure class="story__image reveal">
+      <img alt="Concrete columns across the DPS Millennium construction site in Al Wukair" src="../homepage/assets/construction/site-07.jpeg"/>
+      <figcaption class="story__caption">
+       Current site view: the ground-floor column grid is now visible across the campus footprint.
+      </figcaption>
+     </figure>
+     <div class="story__side">
+      <article class="story-step reveal">
+       <p class="story-step__number">
+        01 · FOUNDATION
+       </p>
+       <h3>
+        The site is established
+       </h3>
+       <p>
+        Foundation work and ground beams create the base for the future campus.
+       </p>
+      </article>
+      <article class="story-step reveal">
+       <p class="story-step__number">
+        02 · STRUCTURE
+       </p>
+       <h3>
+        The plan becomes visible
+       </h3>
+       <p>
+        Columns and formwork begin to define the layout of the school building.
+       </p>
+      </article>
+      <article class="story-step reveal">
+       <p class="story-step__number">
+        03 · NEXT PHASE
+       </p>
+       <h3>
+        Progress will be documented
+       </h3>
+       <p>
+        New verified photographs will be added as each construction stage is completed.
+       </p>
+      </article>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="journal" id="journal">
+   <div class="wrap">
+    <div class="journal__head reveal">
+     <div>
+      <p class="eyebrow">
+       Build journal
+      </p>
+      <h2 class="heading">
+       Construction, stage by stage.
+      </h2>
+     </div>
+     <p class="copy">
+      A visual record of the campus in development. Captions describe only what can be seen in each photograph.
+     </p>
+    </div>
+    <div class="journal-grid">
+     <figure class="journal-card reveal">
+      <img alt="Foundation work and reinforcement at the construction site" src="../homepage/assets/construction/site-01.jpeg"/>
+      <figcaption class="journal-card__caption">
+       <span>
+        Stage 01
+       </span>
+       <strong>
+        Foundations
+       </strong>
+       <small>
+        Foundation bases and ground beams set out.
+       </small>
+      </figcaption>
+     </figure>
+     <figure class="journal-card reveal">
+      <img alt="Steel reinforcement grid prepared for concrete work" src="../homepage/assets/construction/site-03.jpeg"/>
+      <figcaption class="journal-card__caption">
+       <span>
+        Stage 02
+       </span>
+       <strong>
+        Reinforcement
+       </strong>
+       <small>
+        Steel tied and prepared for the next pour.
+       </small>
+      </figcaption>
+     </figure>
+     <figure class="journal-card reveal">
+      <img alt="Concrete columns with timber formwork on the construction site" src="../homepage/assets/construction/site-08.jpeg"/>
+      <figcaption class="journal-card__caption">
+       <span>
+        Stage 03
+       </span>
+       <strong>
+        Formwork
+       </strong>
+       <small>
+        Columns and shutters taking shape.
+       </small>
+      </figcaption>
+     </figure>
+     <figure class="journal-card reveal">
+      <img alt="Scaffolding and formwork around the first structural columns" src="../homepage/assets/construction/site-02.jpeg"/>
+      <figcaption class="journal-card__caption">
+       <span>
+        Stage 04
+       </span>
+       <strong>
+        Access scaffold
+       </strong>
+       <small>
+        Scaffold installed around the structural frame.
+       </small>
+      </figcaption>
+     </figure>
+     <figure class="journal-card reveal">
+      <img alt="Concrete columns extending across the construction site" src="../homepage/assets/construction/site-05.jpeg"/>
+      <figcaption class="journal-card__caption">
+       <span>
+        Stage 05
+       </span>
+       <strong>
+        Structure rising
+       </strong>
+       <small>
+        Vertical structure progressing across the footprint.
+       </small>
+      </figcaption>
+     </figure>
+    </div>
+   </div>
+  </section>
+  <section class="vision" id="vision">
+   <div class="wrap">
+    <div class="vision__head reveal">
+     <p class="eyebrow">
+      Campus design
+     </p>
+     <h2 class="heading">
+      A vision made visible before the doors open.
+     </h2>
+     <p class="copy">
+      The following images are architect's materials, shown separately from construction photography. They illustrate the intended front elevation of the campus.
+     </p>
+    </div>
+    <div class="vision__grid">
+     <article class="vision-card reveal">
+      <img alt="Architect's impression of the proposed DPS Millennium campus front elevation" src="../homepage/assets/campus-concept.jpeg"/>
+      <h3>
+       The campus as designed
+      </h3>
+      <p>
+       The concept illustration shows the intended character and front elevation of the future school.
+      </p>
+      <small>
+       Architect's impression · indicative only
+      </small>
+     </article>
+     <article class="vision-card reveal">
+      <img alt="Architectural pencil study of the proposed DPS Millennium campus" src="../homepage/assets/campus-sketch.jpeg"/>
+      <h3>
+       The study behind it
+      </h3>
+      <p>
+       An earlier architectural study of the same elevation and its planning direction.
+      </p>
+      <small>
+       Architectural study · indicative only
+      </small>
+     </article>
+    </div>
+   </div>
+  </section>
+  <section class="facilities" id="facilities">
+   <div class="wrap facilities__layout">
+    <div class="reveal">
+     <p class="eyebrow">
+      Planned facilities
+     </p>
+     <h2 class="heading">
+      Designed around the school day.
+     </h2>
+     <p class="copy">
+      The current campus scope supports academic learning, practical discovery, reading, movement and gathering. Final specifications will be published by the school when confirmed.
+     </p>
+    </div>
+    <div class="facilities__list">
+     <article class="facility reveal">
+      <span class="facility__number">
+       01
+      </span>
+      <div>
+       <h3>
+        Teaching blocks
+       </h3>
+       <p>
+        Classrooms arranged by phase, from Nursery through Class XII.
+       </p>
+      </div>
+     </article>
+     <article class="facility reveal">
+      <span class="facility__number">
+       02
+      </span>
+      <div>
+       <h3>
+        Science laboratories
+       </h3>
+       <p>
+        Physics, chemistry and biology laboratories for senior students.
+       </p>
+      </div>
+     </article>
+     <article class="facility reveal">
+      <span class="facility__number">
+       03
+      </span>
+      <div>
+       <h3>
+        Library
+       </h3>
+       <p>
+        A central space for reading, research and independent learning.
+       </p>
+      </div>
+     </article>
+     <article class="facility reveal">
+      <span class="facility__number">
+       04
+      </span>
+      <div>
+       <h3>
+        Sport and assembly
+       </h3>
+       <p>
+        Courts, play areas and a covered assembly space.
+       </p>
+      </div>
+     </article>
+    </div>
+   </div>
+  </section>
+      <!-- Project oversight -->
+  <section class="oversight" id="oversight">
+   <div class="wrap">
+    <div class="reveal">
+     <p class="eyebrow">
+      Project oversight
+     </p>
+     <h2 class="heading">
+      Reviewed on site, at every stage.
+     </h2>
+     <p class="copy">
+      DPS Group representatives, the design team and the contractor meet through the build to review programme, quality and safety.
+     </p>
+    </div>
+    <div class="oversight__grid">
+     <figure class="reveal">
+      <img alt="Project review meeting in the site office" src="../homepage/assets/construction/site-06.jpeg"/>
+      <figcaption>
+       <strong>
+        Progress review
+       </strong>
+       Programme and drawings reviewed in the site office.
+      </figcaption>
+     </figure>
+     <figure class="reveal">
+      <img alt="Representatives together on the construction site" src="../homepage/assets/construction/site-04.jpeg"/>
+      <figcaption>
+       <strong>
+        Site walk
+       </strong>
+       Representatives on site during a structural inspection.
+      </figcaption>
+     </figure>
+    </div>
+   </div>
+  </section>
+      <!-- Stay informed -->
+  <section class="cta">
+   <div class="wrap cta__layout">
+    <div class="reveal">
+     <p class="eyebrow">
+      Stay informed
+     </p>
+     <h2 class="heading">
+      Follow the build to opening.
+     </h2>
+     <p>
+      Register your interest to receive admissions news and future campus updates from DPS Millennium International School.
+     </p>
+    </div>
+    <a class="button button--gold reveal" href="../about/DPS%20Millennium%20About.dc.html#register">
+     Register your interest
+    </a>
+   </div>
+  </section>
+ </main>
+   <!-- Footer -->
+  <footer class="footer">
+  <div class="wrap footer__inner">
+   <span>
+    DPS Millennium International School · Al Wukair, Qatar
+   </span>
+   <a href="../homepage/DPS%20Millennium%20Homepage.dc.html">
+    Return to home
+   </a>
+  </div>
+ </footer>
+  <script>
+  const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const animatedItems=document.querySelectorAll(".reveal,.slide-left,.slide-right");
+    if(reducedMotion||!("IntersectionObserver" in window)){
+      animatedItems.forEach(item=>item.classList.add("is-visible"));
+    }else{
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach((entry,index)=>{
+          if(!entry.isIntersecting)return;
+          entry.target.style.transitionDelay=`${(index%3)*90}ms`;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },{threshold:.14,rootMargin:"0px 0px -5% 0px"});
+      animatedItems.forEach(item=>observer.observe(item));
+    }
+ </script>
+</body>
+</html>
