@@ -1093,21 +1093,6 @@ class Component extends DCLogic {
     }, 2100);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.hashTimer);
-    clearTimeout(this.cardT);
-    if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
-    clearInterval(this.glideTick);
-    [this.flyT, this.landT, this.gcT, this.teaseT, this.breathT].forEach((id) => id && clearTimeout(id));
-    if (this.bloomRaf) cancelAnimationFrame(this.bloomRaf);
-    if (this.teaseRaf) cancelAnimationFrame(this.teaseRaf);
-    if (this.teaseObs) this.teaseObs.disconnect();
-    if (this.onBloom) {
-      window.removeEventListener('scroll', this.onBloom);
-      window.removeEventListener('resize', this.onBloom);
-    }
-  }
-
   // Which cards sit at a row edge depends on the column count, so the page
   // gutter is assigned from the same breakpoint the grid uses — not from DOM
   // order, which only happens to be right at four columns.
@@ -1135,7 +1120,10 @@ class Component extends DCLogic {
     if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
     clearInterval(this.glideTick);
     window.removeEventListener('resize', this.sync);
+    [this.flyT, this.landT, this.gcT, this.teaseT, this.breathT].forEach((id) => id && clearTimeout(id));
     cancelAnimationFrame(this.bloomRaf);
+    if (this.teaseRaf) cancelAnimationFrame(this.teaseRaf);
+    if (this.teaseObs) this.teaseObs.disconnect();
     cancelAnimationFrame(this.progRaf);
     clearTimeout(this.sbarHide);
     if (this.onProg) {
