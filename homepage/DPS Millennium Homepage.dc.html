@@ -164,17 +164,6 @@ footer ul a{display:inline-block;padding-block:.4rem}
 </div>
 </sc-if>
 
-<div data-cue="1" style="position:fixed;inset-inline:0;inset-block-end:clamp(1.1rem,3.2vh,2rem);z-index:70;display:flex;justify-content:center;pointer-events:none;transition:opacity 320ms ease">
-  <a href="#render" onClick="{{ glide }}" style="pointer-events:auto;display:inline-flex;align-items:center;gap:.85rem;padding:.4rem .45rem .4rem 1.2rem;border-radius:99px;background:#D8A800;color:#17061F;box-shadow:0 10px 30px rgba(23,6,31,.32);opacity:0;transition:background .25s ease,transform .25s cubic-bezier(.16,1,.3,1);animation:rise 620ms calc(var(--t) + 520ms) cubic-bezier(.16,1,.3,1) forwards" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">
-    <span style="font-size:.625rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase">Scroll to colour it in</span>
-    <span style="position:relative;display:grid;place-items:center;inline-size:1.85rem;block-size:1.85rem;border-radius:99px;background:#17061F;color:#D8A800;overflow:hidden">
-      <span style="display:block;animation:pillArrow 2400ms 1s cubic-bezier(.5,0,.5,1) infinite">
-        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" aria-hidden="true"><path d="M5.5 0v10M1 6l4.5 4.5L10 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </span>
-  </a>
-</div>
-
 <div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
 
   <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
@@ -191,20 +180,20 @@ footer ul a{display:inline-block;padding-block:.4rem}
     <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
       <li style="position:relative"><a href="#top" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
       <li data-menu="about" style="position:relative">
-        <a href="../about/DPS Millennium About.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="DPS Millennium About.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.about }}">
-          <li><a href="../about/DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
-          <li><a href="../about/DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Objectives</a></li>
-          <li><a href="../about/DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Key Visionaries</a></li>
-          <li><a href="../about/DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
-          <li><a href="../about/DPS Millennium About.dc.html#settled" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Our Story</a></li>
+          <li><a href="DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
+          <li><a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Objectives</a></li>
+          <li><a href="DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Key Visionaries</a></li>
+          <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
+          <li><a href="DPS Millennium About.dc.html#settled" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Our Story</a></li>
         </ul>
       </li>
       <li data-menu="campus" style="position:relative">
-        <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.campus }}">
           <li><a href="#render" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
-          <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Location &amp; Access</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
         </ul>
@@ -213,7 +202,7 @@ footer ul a{display:inline-block;padding-block:.4rem}
         <a href="#register" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
         <ul style="{{ sub.admissions }}">
           <li><a href="#register" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
-          <li><a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
+          <li><a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">How to Apply — soon</a></li>
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Age &amp; Year Groups — soon</a></li>
         </ul>
@@ -262,7 +251,7 @@ footer ul a{display:inline-block;padding-block:.4rem}
         <p style="font-size:clamp(1.0625rem,1rem + .5vw,1.24rem);color:#DCCBE8;max-inline-size:46ch;margin-block-start:1.5rem;opacity:0;animation:rise 620ms calc(var(--t) + 260ms) cubic-bezier(.16,1,.3,1) forwards">Right now it is a building site in Al Wukair. Scroll, and the architect's study below fills in with the building it becomes.</p>
         <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-block-start:2.2rem;opacity:0;animation:rise 620ms calc(var(--t) + 360ms) cubic-bezier(.16,1,.3,1) forwards">
           <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register your interest</a>
-          <a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
+          <a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)">See the campus</a>
         </div>
       </div>
       <div data-crest-target="1" role="img" aria-label="DPS Millennium International School crest" style="position:relative;inline-size:100%;max-inline-size:23.125rem;margin-inline-start:auto;aspect-ratio:1296/1299;opacity:0">
@@ -355,12 +344,12 @@ footer ul a{display:inline-block;padding-block:.4rem}
 <main>
   <section data-screen-label="Quick links" id="links" style="background:#17061F;color:#F3EEE4">
     <div style="display:grid;grid-template-columns:{{ dirCols }};gap:0">
-      <a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" data-dir-card="1" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(1.9rem,2.9vw,2.7rem) clamp(1.6rem,2.4vw,2.4rem);min-block-size:clamp(13rem,17vw,17.5rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
+      <a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" data-dir-card="1" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(1.9rem,2.9vw,2.7rem) clamp(1.6rem,2.4vw,2.4rem);min-block-size:clamp(13rem,17vw,17.5rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
         <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05">Fees structure</h3>
         <p style="font-size:.925rem;opacity:.72">What a place costs, per year group.</p>
         <span style="margin-block-start:auto;inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span>
       </a>
-      <a href="../about/DPS Millennium About.dc.html" onClick="{{ leave }}" data-dir-card="1" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(1.9rem,2.9vw,2.7rem) clamp(1.6rem,2.4vw,2.4rem);min-block-size:clamp(13rem,17vw,17.5rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
+      <a href="DPS Millennium About.dc.html" onClick="{{ leave }}" data-dir-card="1" style="position:relative;display:flex;flex-direction:column;gap:.8rem;padding:clamp(1.9rem,2.9vw,2.7rem) clamp(1.6rem,2.4vw,2.4rem);min-block-size:clamp(13rem,17vw,17.5rem);background:linear-gradient(#F3EEE4,#F3EEE4) bottom/100% 0% no-repeat #17061F;transition:background-size .45s cubic-bezier(.16,1,.3,1),color .3s ease" style-hover="background-size:100% 100%;color:#17061F">
         <h3 style="text-transform:uppercase;font-weight:600;font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);letter-spacing:-.015em;line-height:1.05">About us</h3>
         <p style="font-size:.925rem;opacity:.72">Mission, vision, and who is building this.</p>
         <span style="margin-block-start:auto;inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span>
@@ -382,8 +371,9 @@ footer ul a{display:inline-block;padding-block:.4rem}
     <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
       <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.02;font-size:clamp(1.7rem,1.1rem + 2.9vw,3.1rem);text-wrap:balance">Notice board</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(17.5rem,1fr));gap:clamp(1rem,1.6vw,1.4rem);margin-block-start:clamp(2rem,4vw,2.75rem)">
-        <div role="button" tabindex="0" data-notice="0" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
-          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Information</span>
+        <div role="button" tabindex="0" data-notice="0" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;position:relative;overflow:hidden" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <div data-ink="1" aria-hidden="true" style="position:absolute;inset:0;border-radius:14px;padding:clamp(1.75rem,2.4vw,2.35rem);display:flex;flex-direction:column;gap:1.1rem;background:#F3EEE4;color:#17061F;pointer-events:none;-webkit-mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px));mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px))"></div>
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;color:#C4D1C0" data-muted="1">/Information</span>
           <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Information corner</h3>
           <ul onClick="{{ stopText }}" style="list-style:none;margin:0;padding:0;display:grid;gap:1.05rem">
             <li style="display:grid;gap:.15rem"><time datetime="2026-08-01" style="font-family:'Plex Serif',Georgia,serif;font-size:.82rem;color:#D8A800;font-variant-numeric:tabular-nums">1 Aug 2026</time><b style="font-weight:500;font-size:1rem;line-height:1.4">Registration of interest is open</b></li>
@@ -392,16 +382,18 @@ footer ul a{display:inline-block;padding-block:.4rem}
           </ul>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>All information</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
         </div>
-        <div role="button" tabindex="0" data-notice="1" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
-          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Events</span>
+        <div role="button" tabindex="0" data-notice="1" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;position:relative;overflow:hidden" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <div data-ink="1" aria-hidden="true" style="position:absolute;inset:0;border-radius:14px;padding:clamp(1.75rem,2.4vw,2.35rem);display:flex;flex-direction:column;gap:1.1rem;background:#F3EEE4;color:#17061F;pointer-events:none;-webkit-mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px));mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px))"></div>
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;color:#C4D1C0" data-muted="1">/Events</span>
           <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Events corner</h3>
-          <p onClick="{{ stopText }}" style="font-size:.975rem;opacity:.78;line-height:1.6">No events yet. Campus open days and admissions sessions will be listed here as soon as dates are set — register and we'll email you first.</p>
+          <p onClick="{{ stopText }}" data-muted="1" style="font-size:.975rem;color:#CFD9C9;line-height:1.6">No events yet. Campus open days and admissions sessions will be listed here as soon as dates are set — register and we'll email you first.</p>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>Register for updates</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
         </div>
-        <div role="button" tabindex="0" data-notice="2" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#F3EEE4 0 var(--br,0px),rgba(243,238,228,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#F3EEE4 0 var(--b2,0px),rgba(243,238,228,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#F3EEE4 0 var(--b4,0px),rgba(243,238,228,0) var(--b5,0px));transition:color .55s ease" style-hover="color:#17061F" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
-          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;opacity:.75">/Circulars</span>
+        <div role="button" tabindex="0" data-notice="2" onClick="{{ openCard }}" onKeyDown="{{ cardKey }}" style="cursor:pointer;display:flex;flex-direction:column;gap:1.1rem;padding:clamp(1.75rem,2.4vw,2.35rem);min-block-size:clamp(20rem,25vw,23.5rem);border-radius:14px;border:1px solid rgba(243,238,228,.28);color:#F3EEE4;position:relative;overflow:hidden" onPointerEnter="{{ flood }}" onPointerLeave="{{ flood }}">
+          <div data-ink="1" aria-hidden="true" style="position:absolute;inset:0;border-radius:14px;padding:clamp(1.75rem,2.4vw,2.35rem);display:flex;flex-direction:column;gap:1.1rem;background:#F3EEE4;color:#17061F;pointer-events:none;-webkit-mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px));mask-image:radial-gradient(circle at var(--mx,50%) var(--my,50%),#000 0 var(--br,0px),rgba(0,0,0,0) var(--bf,0px)),radial-gradient(circle at var(--mx2,50%) var(--my2,50%),#000 0 var(--b2,0px),rgba(0,0,0,0) var(--b3,0px)),radial-gradient(circle at var(--mx3,50%) var(--my3,50%),#000 0 var(--b4,0px),rgba(0,0,0,0) var(--b5,0px))"></div>
+          <span style="align-self:start;font-size:.75rem;padding:.28rem .7rem;border-radius:99px;border:1px solid currentColor;color:#C4D1C0" data-muted="1">/Circulars</span>
           <h3 onClick="{{ stopText }}" style="text-transform:uppercase;font-weight:600;font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);letter-spacing:-.01em;line-height:1.02">Academic circulars</h3>
-          <p onClick="{{ stopText }}" style="font-size:.975rem;opacity:.78;line-height:1.6">Circulars are issued to enrolled families once the school year starts in April 2027. Anything families need before then is posted under Information.</p>
+          <p onClick="{{ stopText }}" data-muted="1" style="font-size:.975rem;color:#CFD9C9;line-height:1.6">Circulars are issued to enrolled families once the school year starts in April 2027. Anything families need before then is posted under Information.</p>
           <span style="margin-block-start:auto;padding-block-start:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase"><span>From April 2027</span><span style="inline-size:2rem;block-size:2rem;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-size:.85rem">→</span></span>
         </div>
       </div>
@@ -553,7 +545,7 @@ footer ul a{display:inline-block;padding-block:.4rem}
         <p style="font-family:'Plex Arabic','Plex Sans',sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem">مدرسة ميلينيوم الدولية</p>
         <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem">
           <a href="#register" onClick="{{ glide }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
-          <a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Fees</a>
+          <a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Fees</a>
           <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Contact</a>
         </div>
       </div>
@@ -571,7 +563,7 @@ footer ul a{display:inline-block;padding-block:.4rem}
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Admissions</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
             <li><a href="#register" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Register Interest</a></li>
-            <li><a href="../fee/DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Fees Structure</a></li>
+            <li><a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Fees Structure</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Year Groups</a></li>
           </ul>
         </div>
@@ -579,7 +571,7 @@ footer ul a{display:inline-block;padding-block:.4rem}
           <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
           <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
             <li><a href="#render" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Concept Design</a></li>
-            <li><a href="../campus/DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
+            <li><a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Progress</a></li>
             <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
           </ul>
         </div>
@@ -1030,6 +1022,51 @@ class Component extends DCLogic {
 
     this.armBloom();
     this.armProgress();
+    this.armNoticeInk();
+  }
+
+  // Each notice card carries an empty masked overlay; fill it with a clone of the
+  // card's own children so the dark text is the same text, in the same place — the
+  // mask then reveals cream ground and ink type as one blob. Cloned from the DOM
+  // rather than duplicated in the template so the copy stays editable in one place,
+  // and re-cloned if that copy changes.
+  armNoticeInk() {
+    const cards = Array.from(document.querySelectorAll('[data-notice]'));
+    if (!cards.length) return;
+    this.inkObs = [];
+    cards.forEach((card) => {
+      const ink = card.querySelector('[data-ink]');
+      if (!ink) return;
+      const build = () => {
+        card.style.color = '';
+        ink.textContent = '';
+        Array.from(card.children).forEach((ch) => {
+          if (ch === ink) return;
+          ink.appendChild(ch.cloneNode(true));
+        });
+        // Secondary copy is dimmed with a solid colour, never opacity: any element
+        // with opacity < 1 forms its own stacking context and paints ABOVE this
+        // overlay — which is why body text stayed washed while headings inverted.
+        // Restate those tones for cream ground.
+        ink.querySelectorAll('[data-muted]').forEach((d) => {
+          d.style.color = '#463552';
+          if (parseFloat(getComputedStyle(d).borderTopWidth) > 0) d.style.borderColor = '#BEB2C4';
+        });
+        // Gold dates read on green but not on cream — darken them in the ink copy.
+        ink.querySelectorAll('time').forEach((t) => { t.style.color = '#7A5A00'; });
+      };
+      build();
+      if (typeof MutationObserver !== 'function') return;
+      let queued = false;
+      const obs = new MutationObserver((muts) => {
+        if (muts.every((m) => ink.contains(m.target) || m.target === ink)) return;
+        if (queued) return;
+        queued = true;
+        setTimeout(() => { queued = false; build(); }, 60);
+      });
+      obs.observe(card, { childList: true, subtree: true, characterData: true });
+      this.inkObs.push(obs);
+    });
   }
 
   // After the pulse, the loader crest travels to its resting place beside the
@@ -1054,6 +1091,21 @@ class Component extends DCLogic {
         this.gcT = setTimeout(() => layer.remove(), 240);
       }, 900);
     }, 2100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    clearTimeout(this.cardT);
+    if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
+    clearInterval(this.glideTick);
+    [this.flyT, this.landT, this.gcT, this.teaseT, this.breathT].forEach((id) => id && clearTimeout(id));
+    if (this.bloomRaf) cancelAnimationFrame(this.bloomRaf);
+    if (this.teaseRaf) cancelAnimationFrame(this.teaseRaf);
+    if (this.teaseObs) this.teaseObs.disconnect();
+    if (this.onBloom) {
+      window.removeEventListener('scroll', this.onBloom);
+      window.removeEventListener('resize', this.onBloom);
+    }
   }
 
   // Which cards sit at a row edge depends on the column count, so the page
@@ -1083,10 +1135,7 @@ class Component extends DCLogic {
     if (this.onCardKey) window.removeEventListener('keydown', this.onCardKey);
     clearInterval(this.glideTick);
     window.removeEventListener('resize', this.sync);
-    [this.flyT, this.landT, this.gcT, this.teaseT, this.breathT].forEach((id) => id && clearTimeout(id));
     cancelAnimationFrame(this.bloomRaf);
-    if (this.teaseRaf) cancelAnimationFrame(this.teaseRaf);
-    if (this.teaseObs) this.teaseObs.disconnect();
     cancelAnimationFrame(this.progRaf);
     clearTimeout(this.sbarHide);
     if (this.onProg) {
@@ -1103,6 +1152,7 @@ class Component extends DCLogic {
     }
     (this.countRaf || []).forEach((r) => cancelAnimationFrame(r));
     if (this.countIo) this.countIo.disconnect();
+    (this.inkObs || []).forEach((o) => o.disconnect());
   }
 
   step(n) {
@@ -1286,12 +1336,17 @@ class Component extends DCLogic {
       // the overlap reads as one fluid blob rather than a circle or a box.
       flood: (e) => {
         const el = e.currentTarget;
+        // The ink layer is a masked clone of the card's own content, so the blob
+        // carries the cream AND the dark text as one shape — no separate colour
+        // clock to fall out of step with the fill.
+        const ink = el.querySelector('[data-ink]');
+        const setP = (k, v) => { el.style.setProperty(k, v); if (ink) ink.style.setProperty(k, v); };
         const r = el.getBoundingClientRect();
         const x = e.clientX - r.left, y = e.clientY - r.top;
         // Three lobes clustered on the pointer, not pinned to the card, so the
         // union reads as one blob rather than separate circles popping in.
         const c = { '--mx': x, '--my': y, '--mx2': x + 62, '--my2': y - 44, '--mx3': x - 54, '--my3': y + 50 };
-        Object.keys(c).forEach((k) => el.style.setProperty(k, c[k] + 'px'));
+        Object.keys(c).forEach((k) => setP(k, c[k] + 'px'));
 
         // Eased in JS: custom-property transitions don't survive the inline-style
         // pipeline, so the swell is driven frame by frame instead.
@@ -1310,7 +1365,7 @@ class Component extends DCLogic {
           const p = Math.min(1, (t - t0) / dur);
           keys.forEach((k) => {
             const e2 = 1 - Math.pow(1 - p, expo[k]);
-            el.style.setProperty(k, (from[k] + (to[k] - from[k]) * e2) + 'px');
+            setP(k, (from[k] + (to[k] - from[k]) * e2) + 'px');
           });
           if (p < 1) el.__blob = requestAnimationFrame(step);
         };
