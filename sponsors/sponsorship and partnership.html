@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Partnerships and sponsorship opportunities at DPS Millennium International School.">
+<title>Partnerships & Sponsorships — DPS Millennium International School</title>
+
+<style>
+:root{
+  --paper:#F5F2F7;
+  --paper-warm:#E9E1D2;
+  --ink:#17061F;
+  --purple:#400068;
+  --green:#E9E1D2;
+  --gold:#D8A800;
+  --indigo:#382898;
+  --red:#D82818;
+  --muted:#C3B2CE;
+  --text-muted:#5E4C6B;
+  --gutter:clamp(1.25rem,5vw,4.5rem);
+  --max:82rem;
+  --radius:14px;
+}
+*,
+*::before,
+*::after{box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  background:var(--purple);
+  -webkit-text-size-adjust:100%;
+  scrollbar-width:none;
+}
+html::-webkit-scrollbar{display:none}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:clamp(1rem,.96rem + .2vw,1.0625rem);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding:0}
+:where(a,button,input,textarea):focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:3px;
+}
+::selection{background:var(--gold);color:var(--ink)}
+
+.serif{
+  font-family:"IBM Plex Serif","Plex Serif",Georgia,serif;
+}
+.container{
+  width:min(var(--max),100%);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.eyebrow{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.section{
+  padding-block:clamp(4rem,10vh,7.5rem);
+}
+.rule{
+  height:1px;
+  background:rgba(23,6,31,.16);
+}
+
+/* Intro curtain */
+#cover{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:var(--purple);
+  display:grid;
+  place-items:center;
+  color:#F3EEE4;
+  pointer-events:none;
+  transform:translateY(0);
+  transition:transform 700ms cubic-bezier(.76,0,.24,1);
+}
+#cover.done{transform:translateY(-101%)}
+#cover .stars{
+  position:absolute;
+  inset:0;
+  opacity:.07;
+  background:
+    radial-gradient(circle at 50% 45%, transparent 0 18%, rgba(216,168,0,.65) 18.1% 18.25%, transparent 18.4% 28%, rgba(243,238,228,.5) 28.1% 28.2%, transparent 28.4%),
+    radial-gradient(circle at 20% 25%, rgba(216,168,0,.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 72%, rgba(243,238,228,.8) 0 1px, transparent 2px);
+}
+.loader{
+  position:relative;
+  display:grid;
+  justify-items:center;
+  gap:1.4rem;
+  animation:loaderIn .7s .15s both;
+}
+.loader-seal{
+  width:min(38vw,9rem);
+  aspect-ratio:1;
+  border:1px solid rgba(243,238,228,.5);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.loader-seal::before,
+.loader-seal::after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(216,168,0,.7);
+  border-radius:50%;
+}
+.loader-seal::before{inset:10%}
+.loader-seal::after{inset:26%}
+.loader-cross{
+  width:35%;
+  height:35%;
+  border:1px solid var(--gold);
+  transform:rotate(45deg);
+}
+.loader-title{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.loader-line{
+  width:min(46vw,15rem);
+  height:1px;
+  background:rgba(243,238,228,.24);
+  overflow:hidden;
+}
+.loader-line span{
+  display:block;
+  width:100%;
+  height:100%;
+  background:var(--gold);
+  transform-origin:left;
+  animation:meter 1.3s .15s both cubic-bezier(.4,0,.2,1);
+}
+@keyframes loaderIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes meter{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Navigation — matched to the DPS Millennium site navigation */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--ink);
+  color:#F3EEE4;
+  border-bottom:1px solid rgba(243,238,228,.08);
+}
+.nav-inner{
+  min-height:4.6rem;
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  margin-inline-end:auto;
+  flex:0 0 auto;
+}
+.brand-mark{width:2rem;height:2rem;flex:0 0 auto}
+.brand strong{display:block;font-size:1rem;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.brand small{display:block;margin-top:.18rem;color:var(--muted);font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.nav-links{display:flex;list-style:none;align-items:center;gap:0}
+.nav-links>li{position:relative}
+.nav-links>li>a{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.9rem .7rem;
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transition:color .2s ease;
+}
+.nav-links>li>a:hover{color:var(--gold)}
+.nav-links i{
+  width:.4em;height:.4em;
+  border-inline-end:1.5px solid currentColor;
+  border-block-end:1.5px solid currentColor;
+  transform:rotate(45deg) translateY(-.1em);
+  transition:transform .2s ease;
+}
+.nav-dropdown:hover>a i,.nav-dropdown:focus-within>a i{transform:rotate(225deg) translateY(-.1em)}
+.dropdown-menu{
+  position:absolute;
+  top:100%;
+  left:50%;
+  min-width:13.5rem;
+  transform:translate(-50%,-.5rem);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  list-style:none;
+  padding:.55rem 0;
+  background:#F3EEE4;
+  color:var(--ink);
+  box-shadow:0 18px 45px rgba(23,6,31,.28);
+  border-top:2px solid var(--gold);
+  transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translate(-50%,0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:.55rem 1.1rem;
+  font-size:.875rem;
+  line-height:1.35;
+  transition:background .15s ease,color .15s ease;
+}
+.dropdown-menu a:hover{background:var(--paper-warm);color:var(--purple)}
+.dropdown-menu a.disabled{color:var(--text-muted);pointer-events:none}
+.nav-register{display:flex;gap:.6rem;align-items:center;flex:0 0 auto}
+.nav-register a{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  background:var(--gold);
+  color:var(--ink);
+  font-weight:500;
+  font-size:.9rem;
+  padding:.75rem 1.35rem;
+  border-radius:99px;
+  transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1);
+}
+.nav-register a:hover{background:#E8B600;color:var(--ink);transform:translateY(-2px)}
+.menu-button{
+  display:none;
+  border:1px solid rgba(243,238,228,.25);
+  border-radius:99px;
+  background:transparent;
+  color:#F3EEE4;
+  padding:.5rem .9rem;
+}
+/* Hero */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:var(--purple);
+  color:#F3EEE4;
+  padding-block:clamp(4rem,9vh,7rem) clamp(4.5rem,9vh,7rem);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  width:42rem;
+  height:42rem;
+  right:-15rem;
+  top:-18rem;
+  border:1px solid rgba(216,168,0,.18);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 7rem rgba(216,168,0,.035),
+    0 0 0 15rem rgba(243,238,228,.025);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:auto -10% 0;
+  height:1px;
+  background:rgba(243,238,228,.18);
+}
+.hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);
+  gap:clamp(2.5rem,8vw,8rem);
+  align-items:center;
+}
+.hero-copy{animation:rise .75s .8s both}
+.hero .eyebrow{color:var(--gold);margin-bottom:1.5rem}
+.hero h1{
+  max-width:13ch;
+  font-size:clamp(2.7rem,1.25rem + 5.1vw,5.4rem);
+  line-height:.98;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.hero p{
+  max-width:55ch;
+  margin-top:1.6rem;
+  color:#DCCBE8;
+  font-size:clamp(1.05rem,1rem + .45vw,1.22rem);
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.8rem;
+  margin-top:2.2rem;
+}
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.65rem;
+  border:1px solid transparent;
+  border-radius:99px;
+  padding:.82rem 1.4rem;
+  font-size:.92rem;
+  font-weight:500;
+  transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s ease,color .2s ease;
+}
+.button:hover{transform:translateY(-2px)}
+.button-primary{background:var(--gold);color:var(--ink)}
+.button-primary:hover{background:#E8B600}
+.button-outline{border-color:#F3EEE4;color:#F3EEE4;background:transparent}
+.button-outline:hover{background:rgba(243,238,228,.1)}
+
+.hero-seal{
+  width:min(100%,23rem);
+  aspect-ratio:1;
+  margin-inline:auto;
+  position:relative;
+  display:grid;
+  place-items:center;
+  animation:sealIn 1s 1s both;
+}
+.hero-seal::before{
+  content:"";
+  position:absolute;
+  inset:3%;
+  border:1px solid rgba(216,168,0,.65);
+  border-radius:50%;
+}
+.hero-seal::after{
+  content:"";
+  position:absolute;
+  inset:9%;
+  border:1px solid rgba(243,238,228,.3);
+  border-radius:50%;
+}
+.seal-core{
+  position:relative;
+  z-index:1;
+  width:55%;
+  aspect-ratio:1;
+  border:1px solid rgba(243,238,228,.45);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  transform:rotate(45deg);
+}
+.seal-core span{display:block}
+.seal-core .s1{background:var(--gold)}
+.seal-core .s2{background:var(--red)}
+.seal-core .s3{background:var(--indigo)}
+.seal-core .s4{background:var(--purple)}
+.seal-word{
+  position:absolute;
+  bottom:7%;
+  z-index:2;
+  width:100%;
+  text-align:center;
+  font-size:.65rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#F3EEE4;
+}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes sealIn{from{opacity:0;transform:scale(.75) rotate(-8deg)}to{opacity:1;transform:none}}
+
+/* Intro statement */
+.intro{background:var(--paper)}
+.intro-grid{
+  display:grid;
+  grid-template-columns:minmax(12rem,.6fr) minmax(0,1.4fr);
+  gap:clamp(2rem,7vw,7rem);
+  align-items:start;
+}
+.section-key{color:var(--green)}
+.intro h2{
+  max-width:18ch;
+  font-size:clamp(2rem,1.2rem + 3vw,3.5rem);
+  line-height:1.02;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.intro p{
+  max-width:65ch;
+  margin-top:1.4rem;
+  color:var(--text-muted);
+  font-size:clamp(1.05rem,1rem + .3vw,1.18rem);
+}
+.intro-note{
+  margin-top:2rem;
+  padding-top:1rem;
+  border-top:1px solid rgba(23,6,31,.16);
+  color:var(--green);
+  font-size:.84rem;
+}
+
+/* Opportunity sections */
+.dark{
+  background:var(--ink);
+  color:#F3EEE4;
+}
+.dark .section-key{color:var(--gold)}
+.dark .body-muted{color:var(--muted)}
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  gap:2rem;
+  align-items:end;
+}
+.section-heading h2{
+  max-width:18ch;
+  margin-top:.7rem;
+  font-size:clamp(2rem,1.2rem + 3vw,3.4rem);
+  line-height:1.02;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.section-heading p{
+  max-width:45ch;
+  color:var(--text-muted);
+}
+.dark .section-heading p{color:var(--muted)}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  margin-top:clamp(2.5rem,5vw,4rem);
+  border-top:1px solid rgba(243,238,228,.18);
+  border-inline-start:1px solid rgba(243,238,228,.18);
+}
+.card{
+  min-height:20rem;
+  padding:clamp(1.6rem,2.4vw,2.4rem);
+  border-inline-end:1px solid rgba(243,238,228,.18);
+  border-bottom:1px solid rgba(243,238,228,.18);
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  transition:background .35s ease,color .35s ease;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--paper);
+  transform:translateY(101%);
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+  z-index:0;
+}
+.card:hover{color:var(--ink)}
+.card:hover::before{transform:translateY(0)}
+.card > *{position:relative;z-index:1}
+.card-number{
+  font-family:"IBM Plex Serif",Georgia,serif;
+  color:var(--gold);
+  font-size:1.8rem;
+  line-height:1;
+}
+.card h3{
+  margin-top:1.5rem;
+  font-size:1.25rem;
+  line-height:1.05;
+  text-transform:uppercase;
+  letter-spacing:-.015em;
+}
+.card p{
+  margin-top:.85rem;
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.55;
+  transition:color .35s ease;
+}
+.card:hover p{color:var(--text-muted)}
+.card-arrow{
+  margin-top:auto;
+  padding-top:2rem;
+  font-size:.7rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+/* Sponsorship */
+.sponsor{
+  background:var(--paper-warm);
+}
+.sponsor-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);
+  gap:clamp(2rem,7vw,7rem);
+  align-items:start;
+}
+.sponsor-copy h2{
+  max-width:14ch;
+  margin-top:.7rem;
+  font-size:clamp(2rem,1.2rem + 3vw,3.4rem);
+  line-height:1.02;
+  text-transform:uppercase;
+  letter-spacing:-.025em;
+}
+.sponsor-copy p{
+  max-width:48ch;
+  margin-top:1.2rem;
+  color:var(--text-muted);
+}
+.sponsor-list{
+  list-style:none;
+  border-top:1px solid rgba(23,6,31,.18);
+}
+.sponsor-list li{
+  display:grid;
+  grid-template-columns:2.8rem 1fr auto;
+  gap:1.2rem;
+  align-items:center;
+  padding:1.25rem 0;
+  border-bottom:1px solid rgba(23,6,31,.18);
+}
+.sponsor-list b{
+  font-family:"IBM Plex Serif",Georgia,serif;
+  color:var(--purple);
+  font-size:1.1rem;
+}
+.sponsor-list span{font-size:.92rem;color:var(--text-muted)}
+.sponsor-list i{
+  width:2rem;height:2rem;border:1px solid currentColor;border-radius:50%;
+  display:grid;place-items:center;font-style:normal;font-size:.85rem;
+}
+
+/* Principles */
+.principles{
+  background:var(--green);
+  color:#F3EEE4;
+}
+.principle-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  margin-top:3.5rem;
+  border-top:1px solid rgba(243,238,228,.25);
+}
+.principle{
+  padding:2rem 2rem 0 0;
+  margin-right:2rem;
+  border-bottom:0;
+}
+.principle + .principle{
+  border-left:1px solid rgba(243,238,228,.25);
+  padding-left:2rem;
+}
+.principle h3{
+  font-size:1.15rem;
+  text-transform:uppercase;
+  line-height:1.05;
+  letter-spacing:-.01em;
+}
+.principle p{
+  margin-top:.8rem;
+  color:#D9E7DE;
+  font-size:.92rem;
+}
+
+/* Form */
+.contact{
+  background:var(--paper);
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:clamp(2rem,7vw,7rem);
+}
+.contact h2{
+  max-width:14ch;
+  margin-top:.7rem;
+  font-size:clamp(2rem,1.2rem + 3vw,3.4rem);
+  line-height:1.02;
+  text-transform:uppercase;
+  letter-spacing:-.025em;
+}
+.contact-copy p{
+  max-width:48ch;
+  margin-top:1.2rem;
+  color:var(--text-muted);
+}
+.form{
+  display:grid;
+  gap:1rem;
+}
+.field{
+  display:grid;
+  gap:.4rem;
+}
+.field label{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--green);
+}
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid rgba(23,6,31,.2);
+  border-radius:10px;
+  background:white;
+  color:var(--ink);
+  padding:.82rem .95rem;
+  outline:none;
+}
+.field textarea{min-height:8rem;resize:vertical}
+.field input:focus,
+.field textarea:focus,
+.field select:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(64,0,104,.1)}
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+.form-note{
+  font-size:.78rem;
+  color:var(--text-muted);
+}
+.status{
+  min-height:1.4rem;
+  font-size:.85rem;
+  color:var(--green);
+}
+
+/* Footer */
+footer{
+  background:var(--ink);
+  color:#F3EEE4;
+  padding-block:4rem 2.5rem;
+}
+.footer-top{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2.5rem clamp(2rem,6vw,5rem);
+  align-items:start;
+}
+.footer-brand{flex:0 1 18rem}
+.footer-brand p{
+  margin-top:.7rem;
+  color:var(--muted);
+  font-size:.9rem;
+}
+.footer-mark{
+  width:7.5rem;
+  height:7.5rem;
+}
+.footer-columns{
+  flex:1 1 30rem;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2rem 3rem;
+}
+.footer-columns h4{
+  margin-bottom:.8rem;
+  color:var(--gold);
+  font-size:.7rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.footer-columns ul{list-style:none;display:grid;gap:.45rem}
+.footer-columns a{color:var(--muted);font-size:.88rem}
+.footer-columns a:hover{color:#F3EEE4}
+.footer-bottom{
+  margin-top:3rem;
+  padding-top:1.5rem;
+  border-top:1px solid rgba(243,238,228,.2);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem 2rem;
+  color:#9C86AB;
+  font-size:.78rem;
+}
+
+/* Progress */
+.progress{
+  position:fixed;
+  z-index:120;
+  right:.3rem;
+  top:50%;
+  width:.25rem;
+  height:5rem;
+  border-radius:99px;
+  background:rgba(216,168,0,.2);
+  transform:translateY(-50%);
+}
+.progress span{
+  display:block;
+  width:100%;
+  height:0;
+  border-radius:99px;
+  background:var(--gold);
+}
+
+/* Toast */
+.toast{
+  position:fixed;
+  z-index:300;
+  left:50%;
+  bottom:1.5rem;
+  transform:translate(-50%,120%);
+  background:var(--ink);
+  color:#F3EEE4;
+  border:1px solid rgba(243,238,228,.2);
+  border-radius:99px;
+  padding:.75rem 1.2rem;
+  box-shadow:0 15px 45px rgba(23,6,31,.3);
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+  font-size:.85rem;
+}
+.toast.show{transform:translate(-50%,0)}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible{opacity:1;transform:none}
+
+@media (max-width:1050px){
+  .nav-links{display:none}
+  .menu-button{display:block}
+  .nav-inner{position:relative}
+  .nav-register{display:none}
+  .nav.open .nav-links{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    display:grid;
+    background:var(--ink);
+    border-top:1px solid rgba(243,238,228,.15);
+    padding:.5rem var(--gutter) 1rem;
+    max-height:calc(100vh - 4.6rem);
+    overflow:auto;
+  }
+  .nav.open .nav-links>li>a{padding:.8rem 0}
+  .nav.open .dropdown-menu{
+    position:static;
+    min-width:0;
+    transform:none;
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    display:none;
+    background:transparent;
+    color:#F3EEE4;
+    border-top:0;
+    box-shadow:none;
+    padding:.1rem 0 .4rem 1rem;
+  }
+  .nav.open .nav-dropdown:hover .dropdown-menu,
+  .nav.open .nav-dropdown:focus-within .dropdown-menu{display:block}
+  .nav.open .dropdown-menu a{padding:.5rem 0;color:#C3B2CE}
+  .nav.open .dropdown-menu a:hover{background:transparent;color:var(--gold)}
+  .hero-grid{grid-template-columns:1fr 20rem}
+  .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .hero-grid,
+  .intro-grid,
+  .sponsor-grid,
+  .contact-grid{grid-template-columns:1fr}
+  .hero-seal{width:min(70vw,19rem);margin-top:1rem}
+  .section-heading{display:block}
+  .section-heading p{margin-top:1rem}
+  .cards{grid-template-columns:1fr}
+  .card{min-height:17rem}
+  .principle-grid{grid-template-columns:1fr}
+  .principle,
+  .principle + .principle{
+    margin:0;
+    padding:1.6rem 0;
+    border-left:0;
+    border-bottom:1px solid rgba(243,238,228,.25);
+  }
+  .principle:first-child{padding-top:0}
+  .footer-columns{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .form-row{grid-template-columns:1fr}
+  .footer-columns{grid-template-columns:1fr}
+  .hero h1{font-size:clamp(2.45rem,13vw,3.8rem)}
+  .progress{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-delay:0ms!important;
+    transition-duration:.01ms!important;
+  }
+  #cover{transition:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loading moment: deliberately restrained, matching the approved "Seal" direction. -->
+<div id="cover" aria-hidden="true">
+  <div class="stars"></div>
+  <div class="loader">
+    <div class="loader-seal"><div class="loader-cross"></div></div>
+    <div class="loader-title">DPS Millennium International School</div>
+    <div class="loader-line"><span></span></div>
+  </div>
+</div>
+
+<nav class="nav" id="nav" aria-label="Primary navigation">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="DPS Millennium International School home">
+      <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#D8A800" stroke-width="2"/>
+        <circle cx="50" cy="50" r="39" fill="none" stroke="#F3EEE4" stroke-opacity=".45"/>
+        <path d="M50 17L83 50 50 83 17 50Z" fill="none" stroke="#F3EEE4" stroke-width="2"/>
+        <path d="M50 20L80 50H50Z" fill="#D8A800"/>
+        <path d="M50 50H80L50 80Z" fill="#400068"/>
+        <path d="M50 50V20L20 50Z" fill="#D82818"/>
+        <path d="M20 50H50V80Z" fill="#382898"/>
+      </svg>
+      <span>
+        <strong>DPS Millennium</strong>
+        <small>International School</small>
+      </span>
+    </a>
+
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#top">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="../about/DPS Millennium About.dc.html">About Us <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="../about/DPS Millennium About.dc.html#purpose">Mission &amp; Vision</a></li>
+          <li><a href="../about/DPS Millennium About.dc.html#commitments">Objectives</a></li>
+          <li><a href="../about/DPS Millennium About.dc.html#leadership">Key Visionaries</a></li>
+          <li><a href="../about/DPS Millennium About.dc.html#group">The DPS Group</a></li>
+          <li><a href="../about/DPS Millennium About.dc.html#settled">Our Story</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#partnerships">The Campus <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#partnerships">Concept Design</a></li>
+          <li><a href="#sponsorships">Construction Progress</a></li>
+          <li><a href="#contact">Location &amp; Access</a></li>
+          <li><a href="#" class="disabled">Facilities — soon</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#contact">Admissions <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#contact">Register Interest</a></li>
+          <li><a href="../fee/DPS Millennium Fees.dc.html">Fees Structure</a></li>
+          <li><a href="#" class="disabled">How to Apply — soon</a></li>
+          <li><a href="#" class="disabled">Age &amp; Year Groups — soon</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#partnerships">Notice Board <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#partnerships">Information Corner</a></li>
+          <li><a href="#sponsorships">Events Corner</a></li>
+          <li><a href="#partnerships">Academic Circulars</a></li>
+          <li><a href="#contact">School Calendar</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#partnerships">Curriculum <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#partnerships">CBSE at Millennium</a></li>
+          <li><a href="#" class="disabled">Subjects Offered — soon</a></li>
+          <li><a href="#" class="disabled">Assessment — soon</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#contact">Contact <i aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#contact">Enquiry Form</a></li>
+          <li><a href="#contact">P.O. Box &amp; Address</a></li>
+          <li><a href="#contact">Phone &amp; Email</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav-register">
+      <a href="#contact">Register</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Al Wukair · Qatar · CBSE</p>
+      <h1>Build what comes next.</h1>
+      <p>
+        Partnerships at DPS Millennium are an opportunity to contribute to a new school
+        while helping shape meaningful experiences for the students and community it will serve.
+      </p>
+      <div class="actions">
+        <a class="button button-primary" href="#contact">Become a partner <span aria-hidden="true">→</span></a>
+        <a class="button button-outline" href="#sponsorships">Explore sponsorships</a>
+      </div>
+    </div>
+
+    <div class="hero-seal" role="img" aria-label="Abstract DPS Millennium seal inspired by the school's four-colour crest">
+      <div class="seal-core">
+        <span class="s1"></span><span class="s2"></span>
+        <span class="s3"></span><span class="s4"></span>
+      </div>
+      <div class="seal-word">Partnerships · 2026</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section intro">
+    <div class="container intro-grid">
+      <div>
+        <p class="eyebrow section-key">01 / Why partner</p>
+      </div>
+      <div class="reveal">
+        <h2>A school is built by more than bricks.</h2>
+        <p>
+          DPS Millennium International School is being established in Al Wukair with a
+          long-term focus on learning, opportunity and community. The right partnerships
+          can extend that mission beyond the classroom — connecting students with people,
+          organisations, expertise and experiences that make education more relevant.
+        </p>
+        <p class="intro-note">
+          We are interested in relationships that create genuine value for students,
+          the school and the wider community — not simply logo placement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="partnerships">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow section-key">02 / Partnerships</p>
+          <h2>Ways to work together.</h2>
+        </div>
+        <p class="body-muted">
+          From knowledge-sharing to technology and student development, partnerships can
+          take many forms. We welcome conversations around ideas that fit both organisations.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <span class="card-number serif">01</span>
+          <h3>Educational partnerships</h3>
+          <p>Workshops, subject expertise, mentoring, enrichment and opportunities that complement the curriculum.</p>
+          <span class="card-arrow">Explore an idea →</span>
+        </article>
+        <article class="card reveal">
+          <span class="card-number serif">02</span>
+          <h3>Technology & innovation</h3>
+          <p>Support digital learning, responsible technology use, innovation programmes and practical student experiences.</p>
+          <span class="card-arrow">Build together →</span>
+        </article>
+        <article class="card reveal">
+          <span class="card-number serif">03</span>
+          <h3>Community partnerships</h3>
+          <p>Collaborate on initiatives that connect the school with organisations and communities across Qatar.</p>
+          <span class="card-arrow">Connect →</span>
+        </article>
+        <article class="card reveal">
+          <span class="card-number serif">04</span>
+          <h3>Student development</h3>
+          <p>Competitions, internships, leadership, careers exposure and other experiences beyond the classroom.</p>
+          <span class="card-arrow">Create opportunity →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sponsor" id="sponsorships">
+    <div class="container sponsor-grid">
+      <div class="sponsor-copy reveal">
+        <p class="eyebrow section-key" style="color:var(--green)">03 / Sponsorships</p>
+        <h2>Put support where it can matter.</h2>
+        <p>
+          Sponsorship can help make programmes, events and student opportunities possible.
+          Specific sponsorship packages can be developed around an organisation's interests,
+          objectives and the needs of the school.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <ul class="sponsor-list">
+          <li><b>01</b><span>Events & competitions</span><i aria-hidden="true">→</i></li>
+          <li><b>02</b><span>Technology & innovation</span><i aria-hidden="true">→</i></li>
+          <li><b>03</b><span>Sports & student activities</span><i aria-hidden="true">→</i></li>
+          <li><b>04</b><span>Scholarships & student support</span><i aria-hidden="true">→</i></li>
+          <li><b>05</b><span>Campus and learning initiatives</span><i aria-hidden="true">→</i></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section principles">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow" style="color:var(--gold)">04 / Our approach</p>
+          <h2>Partnerships with purpose.</h2>
+        </div>
+        <p style="color:#D9E7DE">
+          Every relationship should be clear about what it contributes and who it benefits.
+        </p>
+      </div>
+
+      <div class="principle-grid">
+        <article class="principle reveal">
+          <h3>Student first</h3>
+          <p>Opportunities should have a clear educational, developmental or community benefit.</p>
+        </article>
+        <article class="principle reveal">
+          <h3>Long-term thinking</h3>
+          <p>We value relationships that can grow beyond a single event or campaign.</p>
+        </article>
+        <article class="principle reveal">
+          <h3>Shared value</h3>
+          <p>Strong partnerships work for both organisations while keeping the school's purpose at the centre.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-copy reveal">
+        <p class="eyebrow section-key">05 / Start a conversation</p>
+        <h2>Have an idea?</h2>
+        <p>
+          Tell us a little about your organisation and what you would like to explore.
+          The form below is a front-end prototype and does not send information to a server.
+        </p>
+      </div>
+
+      <form class="form reveal" id="partnerForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="organisation">Organisation</label>
+            <input id="organisation" name="organisation" type="text" autocomplete="organization" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <div class="field">
+            <label for="type">I'm interested in</label>
+            <select id="type" name="type" required>
+              <option value="">Select one</option>
+              <option>Partnership</option>
+              <option>Sponsorship</option>
+              <option>Both</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Tell us about your idea</label>
+          <textarea id="message" name="message" placeholder="What would you like to explore together?" required></textarea>
+        </div>
+
+        <button class="button button-primary" type="submit" style="width:max-content">Send enquiry <span aria-hidden="true">→</span></button>
+        <p class="status" id="formStatus" aria-live="polite"></p>
+        <p class="form-note">Prototype only — no information is transmitted or stored.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg class="footer-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#D8A800" stroke-width="1.5"/>
+          <circle cx="50" cy="50" r="39" fill="none" stroke="#F3EEE4" stroke-opacity=".4"/>
+          <path d="M50 17L83 50 50 83 17 50Z" fill="none" stroke="#F3EEE4" stroke-width="1.5"/>
+          <path d="M50 20L80 50H50Z" fill="#D8A800"/>
+          <path d="M50 50H80L50 80Z" fill="#400068"/>
+          <path d="M50 50V20L20 50Z" fill="#D82818"/>
+          <path d="M20 50H50V80Z" fill="#382898"/>
+        </svg>
+        <p>مدرسة ميلينيوم الدولية</p>
+        <p>DPS Millennium International School<br>Al Wukair · Qatar</p>
+      </div>
+
+      <div class="footer-columns">
+        <div>
+          <h4>Partnerships</h4>
+          <ul>
+            <li><a href="#partnerships">Educational</a></li>
+            <li><a href="#partnerships">Technology</a></li>
+            <li><a href="#partnerships">Community</a></li>
+            <li><a href="#partnerships">Student development</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Sponsorships</h4>
+          <ul>
+            <li><a href="#sponsorships">Events</a></li>
+            <li><a href="#sponsorships">Technology</a></li>
+            <li><a href="#sponsorships">Student activities</a></li>
+            <li><a href="#sponsorships">Student support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#contact">Start a conversation</a></li>
+            <li><a href="#top">Back to top</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>DPS Millennium International School · part of the DPS Group of Institutions</p>
+      <p>Tentative opening: 4 April 2027</p>
+    </div>
+  </div>
+</footer>
+
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+<div class="toast" id="toast" role="status">Thanks — this is a prototype enquiry.</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const cover = document.getElementById("cover");
+  const nav = document.getElementById("nav");
+  const menuButton = document.getElementById("menuButton");
+  const navLinks = document.getElementById("navLinks");
+  const progressBar = document.getElementById("progressBar");
+  const form = document.getElementById("partnerForm");
+  const status = document.getElementById("formStatus");
+  const toast = document.getElementById("toast");
+
+  // Intro curtain
+  window.addEventListener("load", () => {
+    setTimeout(() => cover.classList.add("done"), 700);
+  });
+
+  // Mobile navigation
+  menuButton.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    menuButton.setAttribute("aria-expanded", String(open));
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Smooth in-page navigation with sticky-nav offset.
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", event => {
+      const id = link.getAttribute("href");
+      const target = document.querySelector(id);
+      if (!target) return;
+
+      event.preventDefault();
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const offset = nav.getBoundingClientRect().height + 12;
+      const y = target.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: Math.max(0, y),
+        behavior: reduced ? "auto" : "smooth"
+      });
+    });
+  });
+
+  // Scroll progress indicator.
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? window.scrollY / max : 0;
+    progressBar.style.height = `${Math.min(1, Math.max(0, ratio)) * 100}%`;
+  };
+  window.addEventListener("scroll", updateProgress, {passive:true});
+  window.addEventListener("resize", updateProgress);
+  updateProgress();
+
+  // Scroll reveal.
+  const revealItems = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.12});
+    revealItems.forEach(el => observer.observe(el));
+  } else {
+    revealItems.forEach(el => el.classList.add("visible"));
+  }
+
+  // Prototype form interaction.
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      status.textContent = "Please complete the required fields.";
+      return;
+    }
+
+    status.textContent = "Enquiry captured locally for this prototype.";
+    toast.classList.add("show");
+    form.reset();
+
+    window.setTimeout(() => toast.classList.remove("show"), 3200);
+  });
+})();
+</script>
+</body>
+</html>
