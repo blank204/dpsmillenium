@@ -7,6 +7,7 @@
   <title>Campus Development | DPS Millennium International School</title>
   <link rel="icon" href="../homepage/assets/shield.svg" type="image/svg+xml">
   <style>
+  /* Fonts */
   @font-face {
     font-family:PlexSans;
     src:url("../homepage/assets/fonts/plex-sans-400.woff2") format("woff2");
@@ -27,6 +28,8 @@
     font-weight:600;
     font-display:swap
   }
+
+  /* Site-wide variables */
     :root {
     --ink:#17061f;
     --purple:#400068;
@@ -109,6 +112,8 @@
     border:1px solid rgba(243,238,228,.62);
     color:var(--paper)
   }
+
+  /* Accessibility */
     .skip {
     position:absolute;
     z-index:10;
@@ -164,6 +169,8 @@
     color:var(--gold);
     padding:.5rem .9rem
   }
+
+  /* Hero section */
     .hero {
     position:relative;
     display:grid;
@@ -260,6 +267,8 @@
     background:var(--purple);
     color:var(--paper)
   }
+
+  /* Shared section styles */
     section {
     padding-block:clamp(4rem,9vw,7.5rem)
   }
@@ -308,6 +317,8 @@
     color:var(--muted);
     font-size:.94rem
   }
+
+  /* Project story */
     .story {
     background:var(--ink);
     color:var(--paper)
@@ -374,6 +385,8 @@
     color:#d5c6dd;
     font-size:.94rem
   }
+
+  /* Build journal */
     .journal {
     background:var(--wash)
   }
@@ -441,6 +454,8 @@
     color:#ded2e5;
     font-size:.82rem
   }
+
+  /* Campus design */
     .vision {
     background:var(--paper)
   }
@@ -482,6 +497,8 @@
     font-size:.78rem;
     font-weight:600
   }
+
+  /* Facilities */
     .facilities {
     background:#e9e1d2
   }
@@ -526,6 +543,8 @@
     color:var(--muted);
     font-size:.94rem
   }
+
+  /* Project oversight */
     .oversight {
     background:var(--purple);
     color:var(--paper)
@@ -618,6 +637,8 @@
       transform:scale(1.06) translate3d(-1.2%,-1%,0)
     }
   }
+
+  /* Construction sequence */
     .build-sequence {
     position:relative;
     isolation:isolate;
@@ -776,6 +797,8 @@
     opacity:1;
     transform:none
   }
+
+  /* Desktop layout */
     @media(min-width:51rem) {
     .hero {
       display:grid;
@@ -1461,6 +1484,90 @@
       font-size:clamp(2.8rem,12vw,4.25rem);
     }
   }
+  .sequence__rail {
+    gap:1rem;
+    background:transparent;
+    border:0;
+  }
+  .sequence-card {
+    border:1px solid rgba(243,238,228,.3);
+    border-radius:1.15rem;
+    overflow:hidden;
+  }
+  .journal-picker {
+    display:flex;
+    flex-wrap:wrap;
+    gap:.55rem;
+    justify-content:center;
+    margin:2rem auto 1.15rem;
+  }
+  .journal-picker button {
+    border:1px solid rgba(23,6,31,.22);
+    border-radius:999px;
+    background:rgba(250,246,239,.85);
+    color:var(--purple);
+    cursor:pointer;
+    padding:.55rem .9rem;
+    font:600 .72rem/1 PlexSans,Arial,sans-serif;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    transition:background .2s ease,color .2s ease,transform .2s ease;
+  }
+  .journal-picker button:hover,
+  .journal-picker button[aria-selected="true"] {
+    background:#0a5f99;
+    border-color:#0a5f99;
+    color:#fff;
+  }
+  .journal-picker button:hover {
+    transform:translateY(-2px);
+  }
+  .journal-grid {
+    display:block;
+    max-inline-size:52rem;
+    margin:0 auto;
+  }
+  .journal-card,
+  .journal-card:nth-child(n) {
+    display:none;
+    min-block-size:0;
+    aspect-ratio:16/8.5;
+    border-radius:1.25rem;
+    grid-column:auto;
+    box-shadow:0 1.1rem 2.6rem rgba(23,6,31,.18);
+  }
+  .journal-card.is-current {
+    display:block;
+    animation:stageIn .48s cubic-bezier(.16,1,.3,1) both;
+  }
+  .journal-card img {
+    inline-size:100%;
+    block-size:100%;
+    object-fit:cover;
+  }
+  .journal-card__caption {
+    padding:3rem 1.5rem 1.4rem;
+  }
+  @keyframes stageIn {
+    from { opacity:0; transform:translateY(.8rem) scale(.985); }
+    to { opacity:1; transform:none; }
+  }
+  @media(max-width:50rem) {
+    .journal-picker {
+      justify-content:flex-start;
+      margin-block-start:1.4rem;
+    }
+    .journal-picker button {
+      padding:.5rem .7rem;
+      font-size:.66rem;
+    }
+    .journal-card,
+    .journal-card:nth-child(n) {
+      aspect-ratio:4/3;
+      min-block-size:0;
+      border-radius:1rem;
+    }
+  }
   .journal-card__caption {
     backdrop-filter:none;
   }
@@ -1511,6 +1618,7 @@
    </div>
   </div>
  </nav>
+   <!-- Hero / introduction -->
   <header class="hero">
   <div aria-hidden="true" class="hero__media">
   </div>
@@ -1542,6 +1650,7 @@
    </p>
   </div>
  </header>
+   <!-- In-page navigation -->
   <nav aria-label="Campus page sections" class="section-nav">
   <div class="wrap section-nav__inner">
    <a href="#snapshot">
@@ -1559,7 +1668,8 @@
   </div>
  </nav>
  <main id="main">
-   <section class="snapshot" id="snapshot">
+      <!-- Current project status -->
+  <section class="snapshot" id="snapshot">
    <div class="wrap">
     <div class="snapshot__top reveal">
      <div>
@@ -1611,6 +1721,7 @@
     </div>
    </div>
   </section>
+      <!-- Construction sequence -->
   <section aria-labelledby="sequence-title" class="build-sequence">
    <div class="wrap">
     <div class="sequence__head">
@@ -1672,6 +1783,7 @@
     </div>
    </div>
   </section>
+      <!-- Featured construction photo -->
   <section class="photo-feature">
    <div class="wrap photo-feature__layout">
     <div class="photo-feature__copy slide-left">
@@ -1756,6 +1868,7 @@
     </div>
    </div>
   </section>
+      <!-- Construction journal -->
   <section class="journal" id="journal">
    <div class="wrap">
     <div class="journal__head reveal">
@@ -1771,8 +1884,15 @@
       A visual record of the campus in development. Captions describe only what can be seen in each photograph.
      </p>
     </div>
+    <div class="journal-picker" role="tablist" aria-label="Construction stages">
+     <button type="button" role="tab" aria-selected="true" data-stage="0">Stage 01</button>
+     <button type="button" role="tab" aria-selected="false" data-stage="1">Stage 02</button>
+     <button type="button" role="tab" aria-selected="false" data-stage="2">Stage 03</button>
+     <button type="button" role="tab" aria-selected="false" data-stage="3">Stage 04</button>
+     <button type="button" role="tab" aria-selected="false" data-stage="4">Stage 05</button>
+    </div>
     <div class="journal-grid">
-     <figure class="journal-card reveal">
+     <figure class="journal-card is-current" data-stage-panel="0">
       <img alt="Foundation work and reinforcement at the construction site" src="../homepage/assets/construction/site-01.jpeg"/>
       <figcaption class="journal-card__caption">
        <span>
@@ -1786,7 +1906,7 @@
        </small>
       </figcaption>
      </figure>
-     <figure class="journal-card reveal">
+     <figure class="journal-card" data-stage-panel="1">
       <img alt="Steel reinforcement grid prepared for concrete work" src="../homepage/assets/construction/site-03.jpeg"/>
       <figcaption class="journal-card__caption">
        <span>
@@ -1800,7 +1920,7 @@
        </small>
       </figcaption>
      </figure>
-     <figure class="journal-card reveal">
+     <figure class="journal-card" data-stage-panel="2">
       <img alt="Concrete columns with timber formwork on the construction site" src="../homepage/assets/construction/site-08.jpeg"/>
       <figcaption class="journal-card__caption">
        <span>
@@ -1814,7 +1934,7 @@
        </small>
       </figcaption>
      </figure>
-     <figure class="journal-card reveal">
+     <figure class="journal-card" data-stage-panel="3">
       <img alt="Scaffolding and formwork around the first structural columns" src="../homepage/assets/construction/site-02.jpeg"/>
       <figcaption class="journal-card__caption">
        <span>
@@ -1828,7 +1948,7 @@
        </small>
       </figcaption>
      </figure>
-     <figure class="journal-card reveal">
+     <figure class="journal-card" data-stage-panel="4">
       <img alt="Concrete columns extending across the construction site" src="../homepage/assets/construction/site-05.jpeg"/>
       <figcaption class="journal-card__caption">
        <span>
@@ -1845,6 +1965,7 @@
     </div>
    </div>
   </section>
+      <!-- Campus design -->
   <section class="vision" id="vision">
    <div class="wrap">
     <div class="vision__head reveal">
@@ -1886,6 +2007,7 @@
     </div>
    </div>
   </section>
+      <!-- Planned facilities -->
   <section class="facilities" id="facilities">
    <div class="wrap facilities__layout">
     <div class="reveal">
@@ -2022,6 +2144,7 @@
    </a>
   </div>
  </footer>
+   <!-- Reveal-on-scroll animation -->
   <script>
   const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const animatedItems=document.querySelectorAll(".reveal,.slide-left,.slide-right");
@@ -2038,6 +2161,15 @@
       },{threshold:.14,rootMargin:"0px 0px -5% 0px"});
       animatedItems.forEach(item=>observer.observe(item));
     }
+    const stageButtons=document.querySelectorAll("[data-stage]");
+    const stagePanels=document.querySelectorAll("[data-stage-panel]");
+    stageButtons.forEach(button=>{
+      button.addEventListener("click",()=>{
+        const selected=button.dataset.stage;
+        stageButtons.forEach(item=>item.setAttribute("aria-selected",String(item===button)));
+        stagePanels.forEach(panel=>panel.classList.toggle("is-current",panel.dataset.stagePanel===selected));
+      });
+    });
  </script>
 </body>
 </html>
