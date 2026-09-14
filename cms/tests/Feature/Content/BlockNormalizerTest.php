@@ -116,6 +116,17 @@ class BlockNormalizerTest extends TestCase
         $this->assertBlockError([['type' => 'html_page', 'html_page_id' => $page->id, 'mode' => 'link']], 'blocks.0', false, [$existing]);
     }
 
+    public function test_editor_cannot_duplicate_an_existing_html_page_block(): void
+    {
+        $page = HtmlPage::create(['token' => Str::random(32), 'title' => 'Seating', 'bytes' => 10]);
+        $existing = ['type' => 'html_page', 'version' => 1, 'html_page_id' => $page->id, 'mode' => 'embed'];
+
+        $out = $this->normalize([$existing], false, [$existing]);
+        $this->assertSame('html_page', $out[0]['type']);
+
+        $this->assertBlockError([$existing, $existing], 'blocks.1', false, [$existing]);
+    }
+
     public function test_super_admin_can_add_html_page_block(): void
     {
         $page = HtmlPage::create(['token' => Str::random(32), 'title' => 'Seating', 'bytes' => 10]);

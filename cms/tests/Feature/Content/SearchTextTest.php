@@ -34,4 +34,20 @@ class SearchTextTest extends TestCase
         }
         $this->assertStringNotContainsString('<strong>', $text);
     }
+
+    public function test_table_block_with_no_rows_does_not_throw(): void
+    {
+        $post = Post::factory()->make([
+            'title' => 'Empty table post',
+            'summary' => null,
+            'newsletter_term' => null,
+            'blocks' => [
+                ['type' => 'table', 'version' => 1, 'has_header' => false, 'rows' => []],
+            ],
+        ]);
+
+        $text = SearchText::fromPost($post);
+
+        $this->assertSame('Empty table post', $text);
+    }
 }

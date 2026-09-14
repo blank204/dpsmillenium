@@ -21,10 +21,11 @@ class BlockNormalizer
 
         $errors = [];
         $out = [];
+        $availableHtmlPages = array_values(array_filter($previous, fn ($p) => ($p['type'] ?? null) === 'html_page'));
 
         foreach (array_values($input) as $i => $block) {
             try {
-                $out[] = $this->one(is_array($block) ? $block : [], $isSuperAdmin, $previous);
+                $out[] = $this->one(is_array($block) ? $block : [], $isSuperAdmin, $availableHtmlPages);
             } catch (InvalidArgumentException $e) {
                 $errors["blocks.{$i}"] = 'Block '.($i + 1).': '.$e->getMessage();
             }
@@ -37,7 +38,7 @@ class BlockNormalizer
         return $out;
     }
 
-    private function one(array $b, bool $isSuperAdmin, array $previous): array
+    private function one(array $b, bool $isSuperAdmin, array &$availableHtmlPages): array
     {
         $type = $b['type'] ?? null;
 
@@ -50,7 +51,7 @@ class BlockNormalizer
             'youtube' => $this->youtube($b),
             'video' => ['type' => 'video', 'version' => 1, 'media_id' => $this->mediaId($b['media_id'] ?? null, 'video'), 'caption' => $this->caption($b['caption'] ?? null)],
             'table' => $this->table($b),
-            'html_page' => $this->htmlPage($b, $isSuperAdmin, $previous),
+            'html_page' => $this->htmlPage($b, $isSuperAdmin, $availableHtmlPages),
             default => throw new InvalidArgumentException('Unknown block type.'),
         };
     }
@@ -157,7 +158,7 @@ class BlockNormalizer
         return ['type' => 'table', 'version' => 1, 'has_header' => (bool) ($b['has_header'] ?? false), 'rows' => $rows];
     }
 
-    private function htmlPage(array $b, bool $isSuperAdmin, array $previous): array
+    private function htmlPage(array $b, bool $isSuperAdmin, array &$availableHtmlPages): array
     {
         $normalized = [
             'type' => 'html_page',
@@ -171,12 +172,20 @@ class BlockNormalizer
         }
 
         if (! $isSuperAdmin) {
-            $unchanged = collect($previous)->contains(fn ($p) => ($p['type'] ?? null) === 'html_page'
-                && (int) ($p['html_page_id'] ?? 0) === $normalized['html_page_id']
-                && ($p['mode'] ?? null) === $normalized['mode']);
-            if (! $unchanged) {
+            $matchKey = null;
+            foreach ($availableHtmlPages as $key => $p) {
+                if ((int) ($p['html_page_id'] ?? 0) === $normalized['html_page_id']
+                    && ($p['mode'] ?? null) === $normalized['mode']) {
+                    $matchKey = $key;
+                    break;
+                }
+            }
+            if ($matchKey === null) {
                 throw new InvalidArgumentException('Only IT (Super admin) can add or change custom page blocks.');
             }
+            // Each previous html_page block authorises at most one submitted
+            // instance per normalize() call, so an editor cannot duplicate it.
+            unset($availableHtmlPages[$matchKey]);
         }
 
         return $normalized;

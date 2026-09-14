@@ -17,7 +17,7 @@ final class SearchText
                 'gallery' => array_column($block['items'] ?? [], 'caption'),
                 'pdf' => array_column($block['files'] ?? [], 'label'),
                 'link' => [$block['label'] ?? null],
-                'table' => array_merge(...array_map(fn ($r) => array_values($r), $block['rows'] ?? [[]])),
+                'table' => array_merge([], ...array_map(fn ($r) => array_values($r), $block['rows'] ?? [])),
                 default => [],
             });
         }
