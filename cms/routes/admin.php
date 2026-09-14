@@ -15,4 +15,11 @@ Route::middleware(['auth', 'session.version'])->group(function () {
             Route::get('_role-probe', fn () => 'ok');
         }
     });
+
+    if (app()->environment('testing')) {
+        Route::post('_actor-probe', function (\Tests\Support\ProbeActorRequest $request) {
+            $actor = $request->actor();
+            return $actor->name.'|'.$actor->role;
+        });
+    }
 });
