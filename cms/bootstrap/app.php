@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'session.version' => \App\Http\Middleware\EnforceSessionVersion::class,
         ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
+        $middleware->appendToGroup('web', \App\Http\Middleware\RunDueTasksAfterResponse::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
