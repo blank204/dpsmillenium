@@ -169,7 +169,7 @@ Deleting a grade, calendar type or series that is in use is blocked; it can be r
 1. **Login.**
 2. **Dashboard:** "New post" and "New calendar entry" actions; lists of *Recently published*, *Scheduled* (with time remaining), *Pinned* (with unpin dates), *Drafts*.
 3. **New post, choose section:** Info / Event / Circular / Newsletter.
-4. **Post editor:** section fields, add/reorder/remove blocks, autosave draft every 10 s and on blur. Drafts are shared, so any editor can continue one.
+4. **Post editor:** section fields, add/reorder/remove blocks, autosave every 10 s and on blur to the browser (localStorage) on that device, offered back when the editor reopens the post. **Save draft** stores it on the server (name required, audited) so any editor can continue it.
 5. **Preview:** exact public rendering, phone and desktop widths.
 6. **Publish dialog:** name (required, blank) · Now / Schedule (date + time) · Remove on (optional) · Pin + unpin date (optional) · "Small fix, don't move it to the top" (edits of live posts only).
 7. **All posts:** filter by section and status (Draft / Scheduled / Live / Hidden), search, actions Edit · Duplicate · Delete (confirm + name).
