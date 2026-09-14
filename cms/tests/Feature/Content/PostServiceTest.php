@@ -274,4 +274,68 @@ class PostServiceTest extends TestCase
         $this->assertSame('Before title', $entry->beforeData()['title']);
         $this->assertSame('After title', $entry->afterData()['title']);
     }
+
+    public function test_restoring_invalid_version_onto_live_post_is_rejected_and_leaves_it_unchanged(): void
+    {
+        $post = $this->service->saveDraft(null, Section::Event, $this->data(), $this->actor(), false);
+        $cover = $this->media('image');
+        $post = $this->service->publish(
+            $post,
+            $this->data(['cover_media_id' => $cover->id, 'event_date_start' => '2026-09-10']),
+            new PublishOptions(),
+            $this->actor(),
+            false
+        );
+
+        $v1 = $post->versions()->where('version', 1)->first();
+        $titleBefore = $post->title;
+        $coverBefore = $post->cover_media_id;
+        $sortAtBefore = $post->sort_at;
+
+        try {
+            $this->service->restoreVersion($post, $v1, $this->actor('IT'));
+            $this->fail('cover-less version restored onto a live event');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('cover_media_id', $e->errors());
+        }
+
+        $this->assertSame($titleBefore, $post->title);
+        $this->assertSame($coverBefore, $post->cover_media_id);
+
+        $fresh = Post::find($post->id);
+        $this->assertSame('live', $fresh->adminStatus());
+        $this->assertSame($coverBefore, $fresh->cover_media_id);
+        $this->assertEquals($sortAtBefore, $fresh->sort_at);
+        $this->assertFalse(AuditEntry::where('action', 'post.version_restored')->exists());
+    }
+
+    public function test_restore_version_and_delete_guards_against_trashed_posts(): void
+    {
+        $post = $this->service->saveDraft(null, Section::Info, $this->data(), $this->actor(), false);
+        $post = $this->service->publish($post, $this->data(), new PublishOptions(), $this->actor(), false);
+        $version = $post->versions()->first();
+
+        $this->service->delete($post, $this->actor());
+        $trashed = Post::withTrashed()->find($post->id);
+
+        try {
+            $this->service->restoreVersion($trashed, $version, $this->actor());
+            $this->fail('restored a version onto a trashed post');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('post', $e->errors());
+        }
+
+        $deletedAtBefore = $trashed->deleted_at;
+        $auditCountBefore = AuditEntry::where('action', 'post.deleted')->count();
+
+        try {
+            $this->service->delete($trashed, $this->actor());
+            $this->fail('deleted an already-trashed post');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('post', $e->errors());
+        }
+
+        $this->assertEquals($deletedAtBefore, Post::withTrashed()->find($post->id)->deleted_at);
+        $this->assertSame($auditCountBefore, AuditEntry::where('action', 'post.deleted')->count());
+    }
 }

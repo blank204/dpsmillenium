@@ -146,6 +146,10 @@ class PostService
 
     public function delete(Post $post, Actor $actor): void
     {
+        if ($post->trashed()) {
+            throw ValidationException::withMessages(['post' => 'This post is already in the recycle bin.']);
+        }
+
         DB::transaction(function () use ($post, $actor) {
             $before = $post->snapshot();
             $post->delete();
@@ -167,25 +171,56 @@ class PostService
         });
     }
 
-    public function restoreVersion(Post $post, PostVersion $version, Actor $actor): Post
+    public function restoreVersion(Post $post, PostVersion $version, Actor $actor, bool $isSuperAdmin = true): Post
     {
         abort_unless((int) $version->post_id === (int) $post->id, 404);
 
-        return DB::transaction(function () use ($post, $version, $actor) {
-            $before = $post->snapshot();
-            foreach (self::CONTENT_FIELDS as $field) {
-                if (array_key_exists($field, $version->data)) {
+        if ($post->trashed()) {
+            throw ValidationException::withMessages(['post' => 'Restore the post from the recycle bin first.']);
+        }
+
+        $original = $post->getAttributes();
+
+        try {
+            return DB::transaction(function () use ($post, $version, $actor, $isSuperAdmin) {
+                $before = $post->snapshot();
+                $notDraft = $post->adminStatus() !== 'draft';
+
+                $previousBlocks = $post->getOriginal('blocks');
+                if (is_string($previousBlocks)) {
+                    $previousBlocks = json_decode($previousBlocks, true) ?? [];
+                }
+
+                foreach (self::CONTENT_FIELDS as $field) {
+                    if (! array_key_exists($field, $version->data)) {
+                        continue;
+                    }
+                    if ($field === 'blocks') {
+                        $post->blocks = $this->blocks->normalize((array) $version->data['blocks'], $isSuperAdmin, $previousBlocks ?? []);
+
+                        continue;
+                    }
                     $post->{$field} = $version->data[$field];
                 }
-            }
-            if (in_array($post->adminStatus(), ['live', 'hidden'], true)) {
-                $post->updated_at_public = CarbonImmutable::now();
-            }
-            $post->search_text = SearchText::fromPost($post);
-            $post->save();
 
-            return $this->recordChange($post, 'post.version_restored', $actor, $before);
-        });
+                if (in_array($post->adminStatus(), ['live', 'hidden'], true)) {
+                    $post->updated_at_public = CarbonImmutable::now();
+                }
+
+                if ($notDraft) {
+                    PostRules::assertPublishable($post);
+                }
+
+                $post->search_text = SearchText::fromPost($post);
+                $post->save();
+
+                return $this->recordChange($post, 'post.version_restored', $actor, $before);
+            });
+        } catch (\Throwable $e) {
+            // A rejected version restore must leave the in-memory model exactly as it was.
+            $post->setRawAttributes($original, true);
+            throw $e;
+        }
     }
 
     public function purgeExpired(?CarbonInterface $now = null): int
@@ -193,7 +228,7 @@ class PostService
         $cutoff = CarbonImmutable::instance($now ?? CarbonImmutable::now())->subDays((int) config('cms.recycle_days'));
         $count = 0;
 
-        Post::onlyTrashed()->whereNull('purged_at')->where('deleted_at', '<=', $cutoff)->each(function (Post $post) use (&$count) {
+        Post::onlyTrashed()->whereNull('purged_at')->where('deleted_at', '<=', $cutoff)->lazyById()->each(function (Post $post) use (&$count) {
             DB::transaction(function () use ($post) {
                 $before = $post->snapshot();
                 PostVersion::where('post_id', $post->id)->delete();
