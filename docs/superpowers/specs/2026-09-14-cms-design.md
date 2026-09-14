@@ -45,7 +45,7 @@ Media gallery (**flagged important**, needs its own frontend) · leadership prof
 
 ## 4. Chosen approach
 
-**Laravel (PHP 8.2+) application with a MySQL/MariaDB database, three layers:**
+**Laravel 13 (PHP 8.3+) application with a MySQL/MariaDB database, three layers:** (Laravel 13 chosen over 12 because 12's security support ends February 2027, right at school opening; 13 is supported to Q1 2028.)
 
 1. **Admin panel.** Server-rendered CMS screens, functional and unstyled in Phase 1, restyled to Claude Design's designs later.
 2. **Public rendering.** Server-rendered HTML for homepage box data, post pages, archive and calendar, so content is present without JavaScript and WhatsApp/social previews work.
@@ -304,7 +304,7 @@ All media processing is automatic and invisible to editors.
 
 - **Daily backups:** database dump + uploads archive, stored outside the web root, retained 30 days, downloadable by Super admin.
 - **Portability:** migrations + restore from backup reproduce the site on any compatible host.
-- **Hosting requirements sheet** (deliverable for IT): PHP ≥ 8.2 with extensions (pdo_mysql, mbstring, openssl, fileinfo, gd or imagick, zip), MySQL ≥ 8.0 or MariaDB ≥ 10.6, SSL certificate, cron availability, ≥ 10 GB storage, ability to point the web root to `public/`.
+- **Hosting requirements sheet** (deliverable for IT): PHP ≥ 8.3 with extensions (pdo_mysql, mbstring, openssl, fileinfo, gd or imagick, exif, zip, intl), MySQL ≥ 8.0 or MariaDB ≥ 10.6, SSL certificate, cron availability, ≥ 10 GB storage, ability to point the web root to `public/`.
 
 ## 14. Environments
 
