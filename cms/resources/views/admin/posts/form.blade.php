@@ -11,6 +11,7 @@
             @if ($post->first_published_at) · Posted {{ $post->first_published_at->format('j M Y, g:i A') }}@endif
             @if ($post->updated_at_public) · Updated {{ $post->updated_at_public->format('j M Y, g:i A') }}@endif
             @if ($post->publicPath()) · Link: <code>{{ $post->publicPath() }}</code>@endif
+            @if (auth()->user()->isSuperAdmin()) · <a href="{{ route('admin.posts.versions', $post) }}">Version history</a>@endif
         </p>
     @endif
     @include('admin.partials.errors')

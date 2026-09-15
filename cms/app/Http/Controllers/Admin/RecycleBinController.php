@@ -14,4 +14,12 @@ class RecycleBinController extends Controller
             'days' => (int) config('cms.recycle_days'),
         ]);
     }
+
+    public function restore(\App\Http\Requests\Admin\NameOnlyRequest $request, int $id, \App\Content\PostService $posts)
+    {
+        $post = Post::onlyTrashed()->whereNull('purged_at')->findOrFail($id);
+        $posts->restore($post, $request->actor());
+
+        return redirect()->route('admin.recycle.index')->with('status', '"'.$post->title.'" restored. It is live again if it was live before.');
+    }
 }

@@ -46,6 +46,20 @@ Route::middleware(['auth', 'session.version'])->group(function () {
     }
 
     Route::middleware('role:super_admin')->group(function () {
+        Route::get('change-log', [\App\Http\Controllers\Admin\AuditController::class, 'index'])->name('audit.index');
+        Route::get('change-log/{entry}', [\App\Http\Controllers\Admin\AuditController::class, 'show'])->name('audit.show');
+        Route::post('change-log/verify', [\App\Http\Controllers\Admin\AuditController::class, 'verify'])->name('audit.verify');
+
+        Route::get('posts/{post}/versions', [\App\Http\Controllers\Admin\VersionController::class, 'index'])->name('posts.versions');
+        Route::post('posts/{post}/versions/{version}/restore', [\App\Http\Controllers\Admin\VersionController::class, 'restore'])->name('posts.versions.restore');
+
+        Route::post('recycle-bin/{id}/restore', [RecycleBinController::class, 'restore'])->whereNumber('id')->name('recycle.restore');
+
+        Route::get('security', [\App\Http\Controllers\Admin\SecurityController::class, 'edit'])->name('security.edit');
+        Route::post('security/editor-password', [\App\Http\Controllers\Admin\SecurityController::class, 'editorPassword'])->name('security.editor-password');
+        Route::post('security/own-password', [\App\Http\Controllers\Admin\SecurityController::class, 'ownPassword'])->name('security.own-password');
+        Route::post('security/logout-all', [\App\Http\Controllers\Admin\SecurityController::class, 'logoutAll'])->name('security.logout-all');
+
         if (app()->environment('testing')) {
             Route::get('_role-probe', fn () => 'ok');
         }
