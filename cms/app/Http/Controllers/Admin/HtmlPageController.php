@@ -49,6 +49,7 @@ class HtmlPageController extends Controller
     {
         DB::transaction(function () use ($page, $request) {
             $page->delete();
+            Storage::disk('pages')->delete($page->storagePath());
             $this->audit->record('html_page.deleted', $request->actor(), $page, ['title' => $page->title], null);
         });
 

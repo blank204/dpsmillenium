@@ -15,7 +15,7 @@ class SandboxedPageController extends Controller
         return response(Storage::disk('pages')->get($page->storagePath()), 200, [
             'Content-Type' => 'text/html; charset=utf-8',
             // Opaque origin: scripts may run but cannot read site cookies, storage or the admin.
-            'Content-Security-Policy' => "sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; default-src 'self' data: https:; script-src 'unsafe-inline' https:; style-src 'unsafe-inline' https:; frame-ancestors 'self'",
+            'Content-Security-Policy' => "sandbox allow-scripts allow-popups; default-src 'self' data: https:; script-src 'unsafe-inline' https:; style-src 'unsafe-inline' https:; frame-ancestors 'self'",
             'X-Content-Type-Options' => 'nosniff',
             'Referrer-Policy' => 'no-referrer',
             'X-Robots-Tag' => 'noindex',

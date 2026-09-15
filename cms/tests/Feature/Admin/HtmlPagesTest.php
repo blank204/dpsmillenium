@@ -39,11 +39,13 @@ class HtmlPagesTest extends TestCase
         $csp = $res->headers->get('Content-Security-Policy');
         $this->assertStringContainsString('sandbox', $csp);
         $this->assertStringNotContainsString('allow-same-origin', $csp);
+        $this->assertStringNotContainsString('allow-popups-to-escape-sandbox', $csp);
         $this->assertSame('nosniff', $res->headers->get('X-Content-Type-Options'));
         $this->assertStringContainsString('text/html', $res->headers->get('Content-Type'));
 
         $this->delete(route('admin.pages.destroy', $page), ['actor_name' => 'IT'])->assertRedirect();
         $this->get(route('pages.sandboxed', $page->token))->assertNotFound();
+        Storage::disk('pages')->assertMissing($page->storagePath());
         $this->assertSame(['html_page.uploaded', 'html_page.deleted'], AuditEntry::orderBy('id')->pluck('action')->all());
     }
 

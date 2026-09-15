@@ -60,6 +60,17 @@ class SettingsTest extends TestCase
         $this->assertSame(['Nursery', 'KG1', 'KG2', 'KG3'], array_slice(Grade::ordered()->pluck('label')->all(), 0, 4));
     }
 
+    public function test_swap_two_grade_labels_in_one_save(): void
+    {
+        $payload = $this->payload();
+        // grades[1] = KG1, grades[2] = KG2 (both hit the unique index in one update).
+        [$payload['grades'][1]['label'], $payload['grades'][2]['label']] = [$payload['grades'][2]['label'], $payload['grades'][1]['label']];
+
+        $this->put(route('admin.settings.update'), $payload)->assertRedirect();
+
+        $this->assertSame(['Pre-KG', 'KG2', 'KG1'], array_slice(Grade::ordered()->pluck('label')->all(), 0, 3));
+    }
+
     public function test_validation(): void
     {
         $this->put(route('admin.settings.update'), $this->payload(['homepage_count' => ['info' => 0]]))->assertSessionHasErrors('homepage_count.info');
