@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Audit\AuditLogger;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Support\Actor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -25,20 +25,36 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'max:200'],
         ]);
 
-        $key = Str::lower($data['username']).'|'.$request->ip();
+        // Resolve the account through the DB first so the lockout key collides
+        // exactly the way the column collation does (accent-, case- and
+        // width-insensitive): "ÉDITOR", "édïtör" and full-width "ｅｄｉｔｏｒ" all
+        // share the one budget of the "editor" account. Every username that
+        // matches no account shares a single per-IP bucket, which also bounds
+        // how many audit rows an unauthenticated client can create.
+        $account = Account::where('username', $data['username'])->first();
+        $key = 'login:'.($account ? 'account:'.$account->id : 'unknown').'|'.$request->ip();
         $max = config('cms.login.max_attempts');
 
         if (RateLimiter::tooManyAttempts($key, $max)) {
-            $audit->record('auth.lockout', Actor::fromRequest($request, null), null, null, ['username' => $data['username']]);
-            $minutes = (int) ceil(RateLimiter::availableIn($key) / 60);
+            // Already locked: the lockout itself was audited when it began, so
+            // blocked attempts write nothing (no unbounded audit growth).
             throw ValidationException::withMessages([
-                'username' => "Too many attempts. Try again in {$minutes} minutes.",
+                'username' => $this->lockedMessage($key),
             ]);
         }
 
         if (! Auth::attempt(['username' => $data['username'], 'password' => $data['password']])) {
             RateLimiter::hit($key, config('cms.login.lockout_seconds'));
-            $audit->record('auth.login_failed', Actor::fromRequest($request, null), null, null, ['username' => $data['username']]);
+            $audit->record('auth.login_failed', Actor::fromRequest($request, null), $account, null, ['username' => $data['username']]);
+
+            if (RateLimiter::tooManyAttempts($key, $max)) {
+                $audit->record('auth.lockout', Actor::fromRequest($request, null), $account, null, [
+                    'attempted_username' => $data['username'],
+                    'failed_attempts' => $max,
+                    'locked_seconds' => (int) config('cms.login.lockout_seconds'),
+                ]);
+            }
+
             throw ValidationException::withMessages([
                 'username' => 'Username or password is incorrect.',
             ]);
@@ -50,6 +66,13 @@ class AuthController extends Controller
         $audit->record('auth.login', Actor::fromRequest($request, null), $request->user());
 
         return redirect()->route('admin.dashboard');
+    }
+
+    private function lockedMessage(string $key): string
+    {
+        $minutes = max(1, (int) ceil(RateLimiter::availableIn($key) / 60));
+
+        return "Too many attempts. Try again in {$minutes} minutes.";
     }
 
     public function logout(Request $request, AuditLogger $audit)
