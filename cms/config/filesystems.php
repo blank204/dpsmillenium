@@ -67,6 +67,13 @@ return [
             'throw' => false,
         ],
 
+        'pages' => [
+            'driver' => 'local',
+            'root' => storage_path('app/html-pages'),
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
     ],
 
     /*

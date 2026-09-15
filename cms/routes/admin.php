@@ -60,6 +60,15 @@ Route::middleware(['auth', 'session.version'])->group(function () {
         Route::post('security/own-password', [\App\Http\Controllers\Admin\SecurityController::class, 'ownPassword'])->name('security.own-password');
         Route::post('security/logout-all', [\App\Http\Controllers\Admin\SecurityController::class, 'logoutAll'])->name('security.logout-all');
 
+        Route::get('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
+
+        Route::get('custom-pages', [\App\Http\Controllers\Admin\HtmlPageController::class, 'index'])->name('pages.index');
+        Route::post('custom-pages', [\App\Http\Controllers\Admin\HtmlPageController::class, 'store'])->name('pages.store');
+        Route::delete('custom-pages/{page}', [\App\Http\Controllers\Admin\HtmlPageController::class, 'destroy'])->name('pages.destroy');
+
+        Route::get('system', [\App\Http\Controllers\Admin\SystemController::class, 'show'])->name('system.show');
+
         if (app()->environment('testing')) {
             Route::get('_role-probe', fn () => 'ok');
         }
