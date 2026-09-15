@@ -14,10 +14,26 @@ class PostActionController extends Controller
 
     public function duplicate(NameOnlyRequest $request, Post $post)
     {
+        $isSuperAdmin = $request->user()->isSuperAdmin();
+        $blocks = $post->blocks ?? [];
+        $droppedHtmlPage = false;
+
+        if (! $isSuperAdmin) {
+            $blocks = array_values(array_filter($blocks, function (array $block) use (&$droppedHtmlPage) {
+                if (($block['type'] ?? null) === 'html_page') {
+                    $droppedHtmlPage = true;
+
+                    return false;
+                }
+
+                return true;
+            }));
+        }
+
         $data = [
             'title' => mb_substr('Copy of '.$post->title, 0, config('cms.limits.title')),
             'summary' => $post->summary,
-            'blocks' => $post->blocks,
+            'blocks' => $blocks,
             // A stored range is an expanded id list, so re-submit it as "specific" (same label).
             'grades' => ['mode' => $post->grade_mode === 'range' ? 'specific' : $post->grade_mode, 'ids' => $post->grade_ids ?? []],
             'event_date_start' => $post->event_date_start?->format('Y-m-d'),
@@ -29,9 +45,14 @@ class PostActionController extends Controller
             'newsletter_pdf_media_id' => $post->newsletter_pdf_media_id,
             'newsletter_link' => $post->newsletter_link,
         ];
-        $copy = $this->posts->saveDraft(null, $post->section, $data, $request->actor(), true);
+        $copy = $this->posts->saveDraft(null, $post->section, $data, $request->actor(), $isSuperAdmin);
 
-        return redirect()->route('admin.posts.edit', $copy)->with('status', 'Copy created as a draft. Change what you need, then publish.');
+        $status = 'Copy created as a draft. Change what you need, then publish.';
+        if ($droppedHtmlPage) {
+            $status .= ' Custom HTML page blocks were not copied — ask IT to add them.';
+        }
+
+        return redirect()->route('admin.posts.edit', $copy)->with('status', $status);
     }
 
     public function unschedule(NameOnlyRequest $request, Post $post)

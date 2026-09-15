@@ -25,5 +25,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', \App\Http\Middleware\RunDueTasksAfterResponse::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Never echo the actor's typed name back into a failed form (see
+        // resources/views/admin/partials/actor-name.blade.php) — merges with,
+        // does not replace, Laravel's default password-field list.
+        $exceptions->dontFlash(['actor_name']);
     })->create();

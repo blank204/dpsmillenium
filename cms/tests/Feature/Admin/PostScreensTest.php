@@ -5,9 +5,11 @@ namespace Tests\Feature\Admin;
 use App\Content\Section;
 use App\Models\Account;
 use App\Models\AuditEntry;
+use App\Models\HtmlPage;
 use App\Models\Post;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class PostScreensTest extends TestCase
@@ -143,5 +145,62 @@ class PostScreensTest extends TestCase
         $post = Post::factory()->published()->create();
         $post->delete();
         $this->get(route('admin.posts.edit', $post->id))->assertNotFound();
+    }
+
+    public function test_actor_name_is_not_flashed_after_failed_submit(): void
+    {
+        $this->post(route('admin.posts.store', 'info'), $this->form(['title' => '']))->assertSessionHasErrors('title');
+
+        $this->assertNull(session('_old_input.actor_name'));
+    }
+
+    public function test_blocks_data_is_hex_escaped_against_script_breakout(): void
+    {
+        $post = Post::factory()->draft()->create([
+            'blocks' => [['type' => 'table', 'version' => 1, 'has_header' => false, 'rows' => [['<!--<script>', 'b']]]],
+        ]);
+
+        $html = $this->get(route('admin.posts.edit', $post))->assertOk()->getContent();
+
+        preg_match('/id="blocks-data">(.*?)<\/script>/s', $html, $m);
+        $this->assertNotEmpty($m, 'could not find the #blocks-data script tag');
+        $this->assertStringContainsString('\\u003C', $m[1]);
+        $this->assertStringNotContainsString('<!--<script>', $m[1]);
+    }
+
+    public function test_duplicate_strips_html_page_blocks_for_editor_but_keeps_for_super_admin(): void
+    {
+        $page = HtmlPage::create(['token' => Str::random(32), 'title' => 'Seating', 'bytes' => 10]);
+        $blocks = [
+            ['type' => 'text', 'version' => 1, 'html' => '<p>Hi</p>'],
+            ['type' => 'html_page', 'version' => 1, 'html_page_id' => $page->id, 'mode' => 'link'],
+        ];
+        $original = Post::factory()->published()->create(['title' => 'Has custom page', 'blocks' => $blocks]);
+
+        $this->post(route('admin.posts.duplicate', $original), ['actor_name' => 'A'])
+            ->assertRedirect()
+            ->assertSessionHas('status', fn ($status) => str_contains($status, 'Custom HTML page blocks were not copied'));
+        $editorCopy = Post::where('title', 'Copy of Has custom page')->firstOrFail();
+        $this->assertFalse(collect($editorCopy->blocks)->contains(fn ($b) => $b['type'] === 'html_page'));
+
+        $superAdmin = Account::factory()->superAdmin()->create();
+        $this->actingAs($superAdmin)->withSession(['session_version' => $superAdmin->session_version]);
+        $this->post(route('admin.posts.duplicate', $original), ['actor_name' => 'B'])->assertRedirect();
+        $superCopy = Post::where('title', 'Copy of Has custom page')->where('id', '!=', $editorCopy->id)->firstOrFail();
+        $this->assertTrue(collect($superCopy->blocks)->contains(fn ($b) => $b['type'] === 'html_page'));
+    }
+
+    public function test_preview_of_existing_post_does_not_reject_its_own_html_page_block(): void
+    {
+        $page = HtmlPage::create(['token' => Str::random(32), 'title' => 'Seating', 'bytes' => 10]);
+        $blocks = [['type' => 'html_page', 'version' => 1, 'html_page_id' => $page->id, 'mode' => 'link']];
+        $post = Post::factory()->published()->create(['blocks' => $blocks]);
+
+        $this->post(route('admin.posts.preview'), [
+            'section' => $post->section->value,
+            'title' => $post->title,
+            'post_id' => $post->id,
+            'blocks_json' => json_encode($blocks),
+        ])->assertOk()->assertDontSee('This post has problems');
     }
 }

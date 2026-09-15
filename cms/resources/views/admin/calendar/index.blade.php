@@ -15,7 +15,7 @@
         <thead><tr>@foreach (['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as $d)<th>{{ $d }}</th>@endforeach</tr></thead>
         <tbody>
         @php($day = $monthStart->startOfWeek(\Carbon\CarbonInterface::SUNDAY))
-        @while ($day < $next->endOfWeek(\Carbon\CarbonInterface::SATURDAY))
+        @while ($day < $next->subDay()->endOfWeek(\Carbon\CarbonInterface::SATURDAY))
             <tr>
             @for ($i = 0; $i < 7; $i++)
                 @php($dayEntries = $entries->filter(fn ($e) => $e->start_date->lte($day) && ($e->end_date ?? $e->start_date)->gte($day)))

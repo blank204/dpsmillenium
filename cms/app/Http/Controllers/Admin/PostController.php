@@ -102,8 +102,12 @@ class PostController extends Controller
     public function preview(Request $request, BlockNormalizer $normalizer)
     {
         $section = Section::tryFrom((string) $request->input('section')) ?? abort(404);
+        // Without the existing post's own blocks as $previous, an editor previewing a
+        // post that already has an authorised html_page block would get a spurious
+        // "only IT can add or change custom page blocks" error for that same block.
+        $previous = ($postId = $request->input('post_id')) ? (Post::find($postId)?->blocks ?? []) : [];
         try {
-            $blocks = $normalizer->normalize((array) json_decode((string) $request->input('blocks_json', '[]'), true), $request->user()->isSuperAdmin());
+            $blocks = $normalizer->normalize((array) json_decode((string) $request->input('blocks_json', '[]'), true), $request->user()->isSuperAdmin(), $previous);
         } catch (ValidationException $e) {
             return response()->view('admin.posts.preview', ['errors_list' => $e->errors(), 'post' => null], 422);
         }

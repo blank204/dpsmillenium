@@ -16,6 +16,9 @@
   var blocks = JSON.parse(document.getElementById('blocks-data').textContent || '[]');
   var autosaveKey = 'cms-autosave:' + form.getAttribute('data-autosave-key');
   var statusEl = document.querySelector('[data-region="autosave-status"]');
+  var dirty = false;
+  form.addEventListener('input', function () { dirty = true; });
+  form.addEventListener('change', function () { dirty = true; });
 
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
@@ -70,7 +73,7 @@
     show();
     input.addEventListener('change', function () {
       if (!input.files[0]) { return; }
-      upload(input.files[0], input.getAttribute('data-kind')).then(function (m) { target.value = m.id; show(); input.value = ''; });
+      upload(input.files[0], input.getAttribute('data-kind')).then(function (m) { target.value = m.id; show(); input.value = ''; }).catch(function () {});
     });
   });
 
@@ -300,7 +303,8 @@
   }
 
   /* ---------- list rendering ---------- */
-  function render() {
+  function render(silent) {
+    if (!silent) { dirty = true; }
     list.innerHTML = '';
     if (!blocks.length) { list.appendChild(el('p', { 'data-state': 'empty', text: 'No content yet. Add a block below.' })); }
     blocks.forEach(function (block, idx) {
@@ -339,7 +343,7 @@
   document.getElementById('preview-button').addEventListener('click', function () {
     serialize();
     var temp = el('form', { method: 'post', action: this.getAttribute('data-preview-url'), target: '_blank' });
-    ['_token', 'section', 'title', 'summary', 'blocks_json'].forEach(function (name) {
+    ['_token', 'section', 'title', 'summary', 'blocks_json', 'post_id'].forEach(function (name) {
       var src = form.querySelector('[name="' + name + '"]');
       if (src) { temp.appendChild(el('input', { type: 'hidden', name: name, value: src.value })); }
     });
@@ -353,6 +357,11 @@
     serialize();
     var fields = {};
     Array.prototype.forEach.call(form.elements, function (f) {
+      // Buttons (including the two <button name="intent" value="draft"|"publish">
+      // submit buttons) are never part of the saved/restored state: they have no
+      // meaningful "current value" to persist, and writing a button's value back
+      // on restore would silently flip which submit button looks "chosen".
+      if (f.tagName === 'BUTTON' || f.type === 'submit' || f.type === 'button') { return; }
       if (!f.name || f.name === 'actor_name' || f.name === '_token' || f.name === '_method' || f.type === 'file') { return; }
       if ((f.type === 'checkbox' || f.type === 'radio') && !f.checked) { return; }
       fields[f.name] = fields[f.name] === undefined ? f.value : [].concat(fields[f.name], f.value);
@@ -361,8 +370,10 @@
   }
 
   function autosave() {
+    if (!dirty) { return; }
     try {
       localStorage.setItem(autosaveKey, JSON.stringify(snapshot()));
+      dirty = false;
       say('Unsaved changes kept on this computer at ' + new Date().toLocaleTimeString() + '. Remember to Save draft or Publish.');
     } catch (e) { /* storage full or blocked: ignore */ }
   }
@@ -371,6 +382,7 @@
     Object.keys(saved.fields).forEach(function (name) {
       var values = [].concat(saved.fields[name]);
       Array.prototype.forEach.call(form.querySelectorAll('[name="' + name + '"]'), function (f) {
+        if (f.tagName === 'BUTTON' || f.type === 'submit' || f.type === 'button') { return; }
         if (f.type === 'checkbox' || f.type === 'radio') { f.checked = values.indexOf(f.value) !== -1; }
         else if (name !== 'blocks_json') { f.value = values[0]; }
       });
@@ -378,7 +390,8 @@
     Object.keys(saved.media || {}).forEach(function (id) { mediaCache[id] = saved.media[id]; });
     blocks = JSON.parse(saved.fields.blocks_json || '[]');
     syncGrades();
-    render();
+    render(true);
+    dirty = false;
     say('Unsaved changes restored.');
   }
 
@@ -397,5 +410,5 @@
   setInterval(autosave, 10000);
   form.addEventListener('focusout', autosave);
 
-  render();
+  render(true);
 })();

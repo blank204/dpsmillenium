@@ -25,6 +25,7 @@
         @csrf
         @if ($post->exists) @method('PUT') @endif
         <input type="hidden" name="section" value="{{ $post->section->value }}">
+        <input type="hidden" name="post_id" value="{{ $post->id }}">
 
         <fieldset data-region="basics"><legend>Basics</legend>
             <label>Title <input name="title" required maxlength="{{ config('cms.limits.title') }}" value="{{ old('title', $post->title) }}"></label>
@@ -90,11 +91,16 @@
                 <button type="button" id="add-block">Add</button>
             </div>
             <input type="hidden" name="blocks_json" id="blocks_json">
-            <script type="application/json" id="blocks-data">@json(old('blocks_json') ? json_decode(old('blocks_json'), true) : ($post->blocks ?? []))</script>
-            {{-- Blade's @json() directive splits its argument on every comma (it is not
-                 paren/bracket-depth aware), so an expression with more than two commas
-                 gets silently truncated. Build the value in a plain variable first, then
-                 pass a single, comma-free argument to @json(). --}}
+            {{-- Blade's @json() directive splits its argument on every literal comma (it is
+                 not paren/bracket-depth aware) and only keeps the first three pieces as
+                 value/flags/depth. With the ternary's one comma (inside json_decode(...,
+                 true)), the literal "512" default depth ends up passed as the *flags*
+                 argument instead, silently dropping the JSON_HEX_TAG/APOS/AMP/QUOT flags
+                 @json() is supposed to apply — so a saved value containing "<!--<script>"
+                 would render unescaped and break out of this script tag. Build the value in
+                 a plain variable first, then pass a single, comma-free argument to @json(). --}}
+            @php($blocksData = old('blocks_json') ? json_decode(old('blocks_json'), true) : ($post->blocks ?? []))
+            <script type="application/json" id="blocks-data">@json($blocksData)</script>
             @php($mediaForBlocks = \App\Models\MediaAsset::whereIn('id', collect($post->blocks ?? [])->flatMap(fn ($b) => array_filter([$b['media_id'] ?? null, ...array_column($b['items'] ?? [], 'media_id'), ...array_column($b['files'] ?? [], 'media_id')]))->merge([$post->cover_media_id, $post->newsletter_pdf_media_id])->filter()->all())->get()->mapWithKeys(fn ($m) => [$m->id => ['id' => $m->id, 'kind' => $m->kind, 'original_name' => $m->original_name, 'preview_url' => $m->kind === 'image' ? $m->url('400.jpg') : $m->url($m->kind === 'pdf' ? 'file.pdf' : 'file.mp4')]]))
             <script type="application/json" id="media-data">@json($mediaForBlocks)</script>
             <p data-region="autosave-status" aria-live="polite"></p>

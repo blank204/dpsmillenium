@@ -73,4 +73,21 @@ class UploadAndCalendarScreensTest extends TestCase
         $post->delete();
         $this->get(route('admin.recycle.index'))->assertOk()->assertSee('Binned');
     }
+
+    public function test_calendar_grid_has_no_extra_trailing_week_when_next_month_starts_sunday(): void
+    {
+        // October 2026 ends on a Saturday (Oct 31) and November 2026 starts on a Sunday
+        // (Nov 1). A naive "next month's start -> endOfWeek(Saturday)" boundary would
+        // therefore render one whole superfluous week of November at the end of the grid.
+        $html = $this->get(route('admin.calendar.index', ['year' => 2026, 'month' => 10]))->assertOk()->getContent();
+
+        preg_match_all('/<tr>(.*?)<\/tr>/s', $html, $rows);
+        $bodyRows = array_slice($rows[1], 1); // drop the Sun..Sat header row
+        $this->assertNotEmpty($bodyRows);
+
+        foreach ($bodyRows as $row) {
+            preg_match('/<td[^>]*>\s*<span>(\d+)<\/span>/', $row, $firstCell);
+            $this->assertNotSame('1', $firstCell[1] ?? null, 'a calendar row must not start on Nov 1 — the grid ran one week too long');
+        }
+    }
 }
