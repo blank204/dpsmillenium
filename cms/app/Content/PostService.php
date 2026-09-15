@@ -228,8 +228,14 @@ class PostService
         $cutoff = CarbonImmutable::instance($now ?? CarbonImmutable::now())->subDays((int) config('cms.recycle_days'));
         $count = 0;
 
-        Post::onlyTrashed()->whereNull('purged_at')->where('deleted_at', '<=', $cutoff)->lazyById()->each(function (Post $post) use (&$count) {
-            DB::transaction(function () use ($post) {
+        Post::onlyTrashed()->whereNull('purged_at')->where('deleted_at', '<=', $cutoff)->lazyById()->each(function (Post $candidate) use (&$count, $cutoff) {
+            $purged = DB::transaction(function () use ($candidate, $cutoff) {
+                // Re-read under a row lock: cron and the visitor fallback may both
+                // pick this post; the second must see it purged (or restored) and skip.
+                $post = Post::onlyTrashed()->whereKey($candidate->id)->whereNull('purged_at')->where('deleted_at', '<=', $cutoff)->lockForUpdate()->first();
+                if ($post === null) {
+                    return false;
+                }
                 $before = $post->snapshot();
                 PostVersion::where('post_id', $post->id)->delete();
                 $post->forceFill([
@@ -245,8 +251,12 @@ class PostService
                     'purged_at' => CarbonImmutable::now(),
                 ])->saveQuietly();
                 $this->audit->record('post.purged', Actor::system(), $post, $before, null);
+
+                return true;
             });
-            $count++;
+            if ($purged) {
+                $count++;
+            }
         });
 
         return $count;

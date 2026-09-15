@@ -35,6 +35,52 @@ class DueTasksTest extends TestCase
         $this->assertTrue(AuditEntry::where('action', 'post.auto_published')->where('target_id', $due->id)->where('actor_name', 'System (scheduled)')->exists());
     }
 
+    public function test_running_twice_publishes_and_audits_once(): void
+    {
+        $due = Post::factory()->scheduled(now()->subMinute())->create();
+
+        $this->assertSame(1, app(DueTasks::class)->run()['published']);
+        $this->assertSame(0, app(DueTasks::class)->run()['published']);
+
+        $this->assertSame(1, AuditEntry::where('action', 'post.auto_published')->where('target_id', $due->id)->count());
+    }
+
+    public function test_publish_due_rechecks_state_under_lock(): void
+    {
+        $tasks = app(DueTasks::class);
+        $now = CarbonImmutable::now();
+
+        $post = Post::factory()->scheduled(now()->subMinute())->create();
+        $this->assertTrue($tasks->publishDue($post->id, $now));
+        $this->assertFalse($tasks->publishDue($post->id, $now), 'already published by another runner');
+
+        // Unscheduled between the runner's candidate query and its update.
+        $unscheduled = Post::factory()->scheduled(now()->subMinute())->create();
+        Post::whereKey($unscheduled->id)->update(['status' => PostStatus::Draft->value]);
+        $this->assertFalse($tasks->publishDue($unscheduled->id, $now));
+        $this->assertSame(PostStatus::Draft, $unscheduled->fresh()->status);
+
+        // Rescheduled to the future in the same window.
+        $moved = Post::factory()->scheduled(now()->subMinute())->create();
+        Post::whereKey($moved->id)->update(['publish_at' => now()->addDay()]);
+        $this->assertFalse($tasks->publishDue($moved->id, $now));
+        $this->assertSame(PostStatus::Scheduled, $moved->fresh()->status);
+
+        $this->assertSame(1, AuditEntry::where('action', 'post.auto_published')->count());
+    }
+
+    public function test_purging_twice_audits_once(): void
+    {
+        $post = Post::factory()->published()->create();
+        $post->delete();
+        $this->travel(8)->days();
+
+        $posts = app(\App\Content\PostService::class);
+        $this->assertSame(1, $posts->purgeExpired());
+        $this->assertSame(0, $posts->purgeExpired());
+        $this->assertSame(1, AuditEntry::where('action', 'post.purged')->count());
+    }
+
     public function test_clears_expired_pins(): void
     {
         $expired = Post::factory()->published()->create(['pinned_until' => now()->subMinute()]);
