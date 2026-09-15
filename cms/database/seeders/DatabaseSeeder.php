@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Demo data: php artisan db:seed --class=DemoSeeder (never in production)
     }
 }
