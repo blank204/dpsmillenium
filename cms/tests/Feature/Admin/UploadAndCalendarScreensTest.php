@@ -35,6 +35,20 @@ class UploadAndCalendarScreensTest extends TestCase
             ->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'not a PDF'));
     }
 
+    public function test_oversized_or_corrupt_photo_upload_is_422_with_plain_message_not_500(): void
+    {
+        $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::pngDeclaring(12000, 6000), 'huge.png')])
+            ->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'megapixels'));
+
+        $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::pngDeclaring(64, 64), 'damaged.png')])
+            ->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'could not be read'));
+
+        $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::corruptJpeg(), 'broken.jpg')])
+            ->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'could not be read'));
+
+        $this->assertSame(0, MediaAsset::count());
+    }
+
     public function test_media_edit_crops(): void
     {
         $id = $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::jpegWithExif(1000, 500), 'a.jpg')])->json('id');

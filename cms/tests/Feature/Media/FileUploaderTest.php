@@ -66,6 +66,59 @@ class FileUploaderTest extends TestCase
         }
     }
 
+    public function test_image_over_pixel_cap_is_rejected_before_decoding(): void
+    {
+        // 12000 × 6000 = 72 MP declared in a file of a few hundred bytes: decoding it
+        // would need ~300 MB+ of GD memory, so it must be refused from the header alone.
+        try {
+            app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::pngDeclaring(12000, 6000), 'huge.png'), 'image');
+            $this->fail('Expected rejection');
+        } catch (UploadRejected $e) {
+            $this->assertStringContainsString('12000 × 6000', $e->getMessage());
+            $this->assertStringContainsString('megapixels', $e->getMessage());
+        }
+        $this->assertSame(0, \App\Models\MediaAsset::count());
+        $this->assertSame([], Storage::disk('media')->allFiles());
+    }
+
+    public function test_pixel_cap_comes_from_config(): void
+    {
+        config(['cms.limits.image_pixels' => 1000]);
+        $this->expectException(UploadRejected::class);
+        app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::pngDeclaring(40, 40, true), 'small.png'), 'image');
+    }
+
+    public function test_image_under_pixel_cap_is_accepted(): void
+    {
+        $asset = app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::pngDeclaring(40, 30, true), 'ok.png'), 'image');
+        $this->assertSame([40, 30], [$asset->width, $asset->height]);
+    }
+
+    public function test_corrupt_jpeg_gets_plain_message_and_leaves_nothing(): void
+    {
+        try {
+            app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::corruptJpeg(), 'broken.jpg'), 'image');
+            $this->fail('Expected rejection');
+        } catch (UploadRejected $e) {
+            $this->assertStringContainsString('"broken.jpg" could not be read', $e->getMessage());
+        }
+        $this->assertSame(0, \App\Models\MediaAsset::count());
+        $this->assertSame([], Storage::disk('media')->allFiles());
+    }
+
+    public function test_image_whose_header_reads_but_data_is_corrupt_gets_plain_message_and_leaves_nothing(): void
+    {
+        try {
+            app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::pngDeclaring(64, 64), 'damaged.png'), 'image');
+            $this->fail('Expected rejection');
+        } catch (UploadRejected $e) {
+            $this->assertStringContainsString('"damaged.png" could not be read', $e->getMessage());
+        }
+        $this->assertSame(0, \App\Models\MediaAsset::count());
+        $this->assertSame([], Storage::disk('media')->allFiles());
+        $this->assertSame([], Storage::disk('media')->directories());
+    }
+
     public function test_mp4_upload(): void
     {
         $asset = app(FileUploader::class)->upload(Fixtures::uploaded(Fixtures::mp4(), 'clip.mp4'), 'video');

@@ -25,7 +25,7 @@ class FileUploader
         $name = mb_substr($file->getClientOriginalName(), 0, 255);
 
         match ($kind) {
-            'image' => $this->checkImage($mime, $bytes, $name),
+            'image' => $this->checkImage($mime, $bytes, $name, $file->getRealPath()),
             'pdf' => $this->checkPdf($mime, $bytes, $name, $file->getRealPath()),
             'video' => $this->checkVideo($mime, $bytes, $name, $file->getRealPath()),
             default => throw new UploadRejected('Unsupported upload type.'),
@@ -41,7 +41,16 @@ class FileUploader
             ]);
 
             if ($kind === 'image') {
-                $this->images->process($asset, $file->getRealPath());
+                try {
+                    $this->images->process($asset, $file->getRealPath());
+                } catch (\Throwable $e) {
+                    // Decoder errors (truncated JPEG, damaged PNG, unsupported HEIC) must
+                    // become a plain-language message, never a 500. The row rolls back with
+                    // the transaction; remove any variants already written.
+                    Storage::disk('media')->deleteDirectory($asset->dir());
+                    report($e);
+                    throw new UploadRejected($this->unreadable($name));
+                }
             } else {
                 $target = $kind === 'pdf' ? 'file.pdf' : 'file.mp4';
                 Storage::disk('media')->putFileAs($asset->dir(), $file, $target);
@@ -56,7 +65,65 @@ class FileUploader
         return rtrim(rtrim(number_format($bytes / 1048576, 1), '0'), '.').' MB';
     }
 
-    private function checkImage(string $mime, int $bytes, string $name): void
+    private function unreadable(string $name): string
+    {
+        return "\"{$name}\" could not be read. It may be damaged or in an unusual format. Save it as JPG and try again.";
+    }
+
+    /**
+     * Read width/height from the file header only (no decoding) and refuse photos
+     * whose decoded size would exhaust PHP memory, which is an uncatchable fatal error.
+     */
+    private function checkImageDimensions(string $mime, string $name, string $path): void
+    {
+        $size = @getimagesize($path);
+        [$width, $height] = is_array($size) ? [(int) $size[0], (int) $size[1]] : [0, 0];
+
+        if (($width < 1 || $height < 1) && ($mime === 'image/heic' || $mime === 'image/heif') && class_exists(\Imagick::class)) {
+            try {
+                $probe = new \Imagick();
+                $probe->pingImage($path);
+                [$width, $height] = [$probe->getImageWidth(), $probe->getImageHeight()];
+                $probe->clear();
+            } catch (\Throwable) {
+                [$width, $height] = [0, 0];
+            }
+        }
+
+        if ($width < 1 || $height < 1) {
+            throw new UploadRejected($this->unreadable($name));
+        }
+
+        $pixels = $width * $height;
+        $cap = (int) config('cms.limits.image_pixels');
+        $fitsMemory = $this->decodeFitsMemory($pixels);
+        if ($pixels > $cap || ! $fitsMemory) {
+            $mp = rtrim(rtrim(number_format($pixels / 1_000_000, 1), '0'), '.');
+            $limit = rtrim(rtrim(number_format(min($cap, $pixels) / 1_000_000, 1), '0'), '.');
+            $why = $pixels > $cap ? "The limit is {$limit} megapixels" : 'That is too large for this server to process';
+            throw new UploadRejected("\"{$name}\" is {$width} × {$height} pixels ({$mp} megapixels). {$why}. Resize it (for example, share it from your phone as a smaller photo) and upload again.");
+        }
+    }
+
+    private function decodeFitsMemory(int $pixels): bool
+    {
+        $limit = trim((string) ini_get('memory_limit'));
+        if ($limit === '' || $limit === '-1') {
+            return true;
+        }
+        $bytes = (int) $limit;
+        $bytes *= match (strtolower(substr($limit, -1))) {
+            'g' => 1024 ** 3,
+            'm' => 1024 ** 2,
+            'k' => 1024,
+            default => 1,
+        };
+
+        // ~5 bytes per decoded pixel, plus headroom for the scaled master and variants.
+        return $pixels * 5 + 64 * 1024 * 1024 < $bytes - memory_get_usage(true);
+    }
+
+    private function checkImage(string $mime, int $bytes, string $name, string $path): void
     {
         if ($mime === 'image/heic' || $mime === 'image/heif') {
             if (config('cms.image_driver') !== 'imagick') {
@@ -69,6 +136,7 @@ class FileUploader
         if ($bytes > $limit) {
             throw new UploadRejected("\"{$name}\" is {$this->mb($bytes)}. The limit is {$this->mb($limit)} per photo.");
         }
+        $this->checkImageDimensions($mime, $name, $path);
     }
 
     private function checkPdf(string $mime, int $bytes, string $name, string $path): void
