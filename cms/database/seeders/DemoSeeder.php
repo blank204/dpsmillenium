@@ -10,7 +10,6 @@ use App\Media\FileUploader;
 use App\Models\Account;
 use App\Models\CalendarType;
 use App\Models\Grade;
-use App\Models\MediaAsset;
 use App\Models\NewsletterSeries;
 use App\Models\Post;
 use App\Support\Actor;
@@ -124,17 +123,30 @@ class DemoSeeder extends Seeder
         $img = imagecreatetruecolor(1600, 1000);
         imagefill($img, 0, 0, imagecolorallocate($img, ...$rgb));
         imagestring($img, 5, 40, 40, 'DPS Millennium demo image: '.$name, imagecolorallocate($img, 255, 255, 255));
-        $path = tempnam(sys_get_temp_dir(), 'demo').'.jpg';
+        $placeholder = tempnam(sys_get_temp_dir(), 'demo');
+        $path = $placeholder.'.jpg';
         imagejpeg($img, $path, 85);
 
-        return $this->uploader->upload(new UploadedFile($path, $name, 'image/jpeg', null, true), 'image')->id;
+        try {
+            return $this->uploader->upload(new UploadedFile($path, $name, 'image/jpeg', null, true), 'image')->id;
+        } finally {
+            imagedestroy($img);
+            @unlink($placeholder);
+            @unlink($path);
+        }
     }
 
     private function pdf(string $name): int
     {
-        $path = tempnam(sys_get_temp_dir(), 'demo').'.pdf';
+        $placeholder = tempnam(sys_get_temp_dir(), 'demo');
+        $path = $placeholder.'.pdf';
         file_put_contents($path, "%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n");
 
-        return $this->uploader->upload(new UploadedFile($path, $name, 'application/pdf', null, true), 'pdf')->id;
+        try {
+            return $this->uploader->upload(new UploadedFile($path, $name, 'application/pdf', null, true), 'pdf')->id;
+        } finally {
+            @unlink($placeholder);
+            @unlink($path);
+        }
     }
 }
