@@ -153,7 +153,9 @@
     });
     var apply = el('button', { type: 'button', text: 'Apply crop / resize', onclick: function () {
       if (!block.media_id) { return; }
-      var body = {};
+      var nameInput = form.querySelector('input[name="actor_name"]');
+      // Name is read at click time and never stored; the input stays as typed for the later Save.
+      var body = { actor_name: nameInput ? nameInput.value : '' };
       if (+fields.w > 0 && +fields.h > 0) { body.crop = { x: +fields.x, y: +fields.y, w: +fields.w, h: +fields.h }; }
       if (+fields.max_width > 0) { body.max_width = +fields.max_width; }
       fetch(form.getAttribute('data-media-edit-url').replace('__ID__', block.media_id), {
@@ -161,7 +163,11 @@
         headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       }).then(function (r) { return r.json().then(function (j) { if (!r.ok) { throw new Error(j.message || 'Could not edit the photo.'); } return j; }); })
-        .then(function (j) { mediaCache[j.id] = j; render(); say('Photo updated.'); })
+        .then(function (j) {
+          // A new cropped copy: the original stays unchanged until this post is saved.
+          mediaCache[j.id] = j; block.media_id = j.id; dirty = true; render();
+          say('Cropped copy ready. Save the post to use it on the site.');
+        })
         .catch(function (err) { alertInline(err.message); });
     } });
     var m = mediaCache[block.media_id];

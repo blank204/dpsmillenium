@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Audit\AuditLogger;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\MediaEditRequest;
 use App\Media\FileUploader;
 use App\Media\ImageProcessor;
 use App\Media\UploadRejected;
 use App\Models\MediaAsset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class MediaUploadController extends Controller
 {
@@ -24,25 +29,39 @@ class MediaUploadController extends Controller
         return response()->json($this->payload($asset));
     }
 
-    public function edit(Request $request, MediaAsset $asset, ImageProcessor $images)
+    /**
+     * Crop/resize never changes an existing asset (it may be used by live or
+     * duplicated posts). It makes a new asset from the cleaned master and
+     * returns its id; the block switches to it and the change reaches the
+     * public site only through Save/Publish, which writes a version and an
+     * audit entry. The crop itself is also audited with the typed name.
+     */
+    public function edit(MediaEditRequest $request, MediaAsset $asset, ImageProcessor $images, AuditLogger $audit)
     {
         abort_unless($asset->kind === 'image', 404);
-        $data = $request->validate([
-            'crop' => ['nullable', 'array'],
-            'crop.x' => ['required_with:crop', 'integer', 'min:0'],
-            'crop.y' => ['required_with:crop', 'integer', 'min:0'],
-            'crop.w' => ['required_with:crop', 'integer', 'min:1'],
-            'crop.h' => ['required_with:crop', 'integer', 'min:1'],
-            'max_width' => ['nullable', 'integer', 'min:50', 'max:2560'],
-        ]);
+        $crop = $request->validated('crop');
+        $maxWidth = $request->validated('max_width');
 
         try {
-            $images->edit($asset, $data['crop'] ?? null, $data['max_width'] ?? null);
+            $copy = DB::transaction(function () use ($request, $asset, $images, $audit, $crop, $maxWidth) {
+                $copy = $images->derive($asset, $crop, $maxWidth);
+                try {
+                    $audit->record('media.cropped', $request->actor(), $copy,
+                        ['media_id' => $asset->id, 'token' => $asset->token, 'crop' => $asset->crop, 'max_width' => $asset->max_width],
+                        ['source_media_id' => $asset->id, 'media_id' => $copy->id, 'token' => $copy->token, 'crop' => $copy->crop, 'max_width' => $copy->max_width],
+                    );
+                } catch (Throwable $e) {
+                    Storage::disk('media')->deleteDirectory($copy->dir());
+                    throw $e;
+                }
+
+                return $copy;
+            });
         } catch (UploadRejected $e) {
             return response()->json(['message' => $e->getMessage()], 422);
         }
 
-        return response()->json($this->payload($asset->refresh()));
+        return response()->json($this->payload($copy));
     }
 
     private function payload(MediaAsset $asset): array

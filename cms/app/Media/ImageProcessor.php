@@ -4,6 +4,7 @@ namespace App\Media;
 
 use App\Models\MediaAsset;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 
@@ -36,9 +37,15 @@ class ImageProcessor
         $this->writeVariants($asset, $image);
     }
 
-    public function edit(MediaAsset $asset, ?array $crop, ?int $maxWidth): void
+    /**
+     * Build a new image asset from $source's cleaned master with the crop and
+     * width limit applied. $source and its files are never modified.
+     */
+    public function derive(MediaAsset $source, ?array $crop, ?int $maxWidth): MediaAsset
     {
-        $image = $this->manager()->read(Storage::disk('media')->path($asset->dir().'/master.jpg'));
+        $disk = Storage::disk('media');
+        $masterPath = $source->dir().'/master.jpg';
+        $image = $this->manager()->read($disk->path($masterPath));
 
         if ($crop !== null) {
             $x = max(0, (int) $crop['x']);
@@ -56,12 +63,27 @@ class ImageProcessor
             $image->scaleDown(width: max(50, $maxWidth));
         }
 
-        $asset->crop = $crop;
-        $asset->max_width = $maxWidth;
-        $asset->rev = $asset->rev + 1;
-        $asset->save();
+        $copy = MediaAsset::create([
+            'kind' => 'image',
+            'token' => Str::random(32),
+            'original_name' => $source->original_name,
+            'mime' => 'image/jpeg',
+            'bytes' => (int) $disk->size($masterPath),
+            'width' => $source->width,
+            'height' => $source->height,
+            'crop' => $crop,
+            'max_width' => $maxWidth,
+        ]);
 
-        $this->writeVariants($asset, $image);
+        try {
+            $disk->copy($masterPath, $copy->dir().'/master.jpg');
+            $this->writeVariants($copy, $image);
+        } catch (\Throwable $e) {
+            $disk->deleteDirectory($copy->dir());
+            throw $e;
+        }
+
+        return $copy->refresh();
     }
 
     private function writeVariants(MediaAsset $asset, ImageInterface $source): void

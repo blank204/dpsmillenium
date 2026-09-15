@@ -39,9 +39,42 @@ class UploadAndCalendarScreensTest extends TestCase
     {
         $id = $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::jpegWithExif(1000, 500), 'a.jpg')])->json('id');
 
-        $this->post(route('admin.media.edit', $id), ['crop' => ['x' => 0, 'y' => 0, 'w' => 500, 'h' => 500], 'max_width' => 300])
-            ->assertOk()->assertJsonPath('id', $id);
-        $this->assertSame(2, MediaAsset::find($id)->rev);
+        $source = MediaAsset::findOrFail($id);
+        $sourceVariant = Storage::disk('media')->get($source->dir().'/800.jpg');
+
+        $newId = $this->postJson(route('admin.media.edit', $id), ['actor_name' => '  Ms. Priya ', 'crop' => ['x' => 0, 'y' => 0, 'w' => 500, 'h' => 500], 'max_width' => 300])
+            ->assertOk()->json('id');
+
+        // Non-destructive: the original (possibly used by live posts) is untouched;
+        // the cropped copy only reaches the site when a post is saved with it.
+        $this->assertNotSame($id, $newId);
+        $this->assertSame(1, $source->fresh()->rev);
+        $this->assertNull($source->fresh()->crop);
+        $this->assertSame($sourceVariant, Storage::disk('media')->get($source->dir().'/800.jpg'));
+
+        $copy = MediaAsset::findOrFail($newId);
+        $this->assertSame(['x' => 0, 'y' => 0, 'w' => 500, 'h' => 500], $copy->crop);
+        [$w, $h] = getimagesizefromstring(Storage::disk('media')->get($copy->dir().'/1600.jpg'));
+        $this->assertSame([300, 300], [$w, $h]);
+
+        $entry = \App\Models\AuditEntry::where('action', 'media.cropped')->sole();
+        $this->assertSame('Ms. Priya', $entry->actor_name);
+        $this->assertSame('MediaAsset', $entry->target_type);
+        $this->assertSame($newId, (int) $entry->target_id);
+        $this->assertStringContainsString('"source_media_id":'.$id, (string) $entry->after_json);
+    }
+
+    public function test_media_edit_requires_actor_name(): void
+    {
+        $id = $this->post(route('admin.media.upload'), ['kind' => 'image', 'file' => Fixtures::uploaded(Fixtures::jpegWithExif(600, 400), 'a.jpg')])->json('id');
+
+        $this->postJson(route('admin.media.edit', $id), ['crop' => ['x' => 0, 'y' => 0, 'w' => 100, 'h' => 100]])
+            ->assertStatus(422)->assertJsonValidationErrors('actor_name');
+        $this->postJson(route('admin.media.edit', $id), ['actor_name' => '   ', 'max_width' => 100])
+            ->assertStatus(422)->assertJsonValidationErrors('actor_name');
+
+        $this->assertSame(1, MediaAsset::count());
+        $this->assertFalse(\App\Models\AuditEntry::where('action', 'media.cropped')->exists());
     }
 
     public function test_calendar_crud(): void
