@@ -10,6 +10,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
+            \Illuminate\Support\Facades\Route::middleware('public')
+                ->group(base_path('routes/public.php'));
+
             \Illuminate\Support\Facades\Route::middleware('web')
                 ->prefix(config('cms.admin_path'))
                 ->name('admin.')
@@ -23,6 +26,13 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
         $middleware->appendToGroup('web', \App\Http\Middleware\RunDueTasksAfterResponse::class);
+        // Stateless group for public media and sandboxed custom pages: no
+        // StartSession, EncryptCookies or CSRF, so no Set-Cookie on responses
+        // that carry public cache headers. The due-tasks hook is cache-only.
+        $middleware->group('public', [
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\RunDueTasksAfterResponse::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Never echo the actor's typed name back into a failed form (see
