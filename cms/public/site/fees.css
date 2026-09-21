@@ -1,6 +1,6 @@
 /* DPS Millennium — Fees. Values from Claude Design's fees prototype. */
 
-.fhero{background:var(--plum);color:var(--cream);position:relative;overflow:hidden;
+.fhero{background:var(--ink);color:var(--cream);position:relative;overflow:hidden;
   padding-block:clamp(3rem,8vh,5.5rem) clamp(3.5rem,9vh,6rem)}
 .fhero-stars{position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:50%;block-size:100%;
   background:url("assets/seal-l7-stars.svg") no-repeat 62% 60%/330%;opacity:.1;pointer-events:none}
