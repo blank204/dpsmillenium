@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#F6F2EA}
+body{margin:0;background:#F6F2EA;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;caret-color:#400068;accent-color:#400068}
+p,h1,h2,h3,h4{margin:0}
+img,svg{max-width:100%;display:block}
+table{border-collapse:collapse;width:100%}
+input,select,textarea,button{font-family:inherit}
+a{color:#400068;text-decoration:none}
+a:hover{color:#8C6A00}
+::selection{background:#D8A800;color:#17061F}
+:where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #D8A800;outline-offset:2px}
+[data-nav][data-on="1"]{background:#FFFFFF !important;color:#400068 !important;font-weight:600 !important;box-shadow:inset 3px 0 0 #D8A800 !important}
+[data-nav]:hover{background:rgba(255,255,255,.55)}
+[data-chip][data-on="1"]{background:#400068 !important;color:#F3EEE4 !important;border-color:#400068 !important}
+[data-sec]:hover{border-color:#400068 !important;background:#FFFDF8 !important}
+[data-row]:hover{background:#FBF8F2}
+[data-tstep][data-on="1"]{background:#FFFFFF !important;border-color:#400068 !important}
+[data-tstep][data-on="1"] [data-tnum]{background:#D8A800 !important;color:#17061F !important}
+[data-tpane]{animation:tstep 420ms cubic-bezier(.16,1,.3,1) both}
+@keyframes tstep{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes tapring{0%{box-shadow:0 0 0 0 rgba(216,168,0,.6)}70%{box-shadow:0 0 0 16px rgba(216,168,0,0)}100%{box-shadow:0 0 0 0 rgba(216,168,0,0)}}
+</style>
+</helmet>
+
+<sc-if value="{{ atLogin }}">
+<div data-screen="login" style="min-block-size:100vh;background:#400068;display:grid;place-items:center;padding:2rem">
+  <div style="inline-size:min(26rem,100%)">
+    <div style="display:flex;align-items:center;gap:.8rem;margin-block-end:1.6rem">
+      <img src="assets/shield.svg" alt="" style="inline-size:2.6rem" />
+      <span>
+        <b style="display:block;color:#F3EEE4;font-weight:600;font-size:1.05rem;letter-spacing:-.01em">DPS Millennium</b>
+        <span style="display:block;color:#C3B2CE;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase">Staff content manager</span>
+      </span>
+    </div>
+    <form onSubmit="{{ doLogin }}" style="background:#FFF;border-radius:4px;padding:1.6rem">
+      <h1 style="font-size:1.35rem;font-weight:600;letter-spacing:-.02em">Log in</h1>
+      <p style="margin-block-start:.35rem;color:#5E4C6B;font-size:.9rem">Use the shared staff login.</p>
+
+      <sc-if value="{{ loginWrong }}">
+        <p data-region="form-errors" style="margin-block-start:1.1rem;padding:.75rem .9rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">Username or password is incorrect.</p>
+      </sc-if>
+      <sc-if value="{{ loginLocked }}">
+        <p data-region="form-errors" style="margin-block-start:1.1rem;padding:.75rem .9rem;background:#FBF1D2;border-inline-start:3px solid #8C6A00;color:#6B4E00;font-size:.9rem">Too many attempts. Try again in 9 minutes.</p>
+      </sc-if>
+
+      <label style="display:block;margin-block-start:1.2rem">
+        <span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.35rem">Username</span>
+        <input type="text" defaultValue="editor" style="inline-size:100%;padding:.75rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;color:#17061F;background:#FFF" />
+      </label>
+      <label style="display:block;margin-block-start:.9rem">
+        <span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.35rem">Password</span>
+        <input type="password" defaultValue="demo-editor-pass" style="inline-size:100%;padding:.75rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;color:#17061F;background:#FFF" />
+      </label>
+      <button type="submit" style="inline-size:100%;margin-block-start:1.3rem;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.8rem 1.3rem;font-size:1rem;font-weight:600;cursor:pointer">Log in</button>
+      <p style="margin-block-start:1rem;color:#5E4C6B;font-size:.85rem">Forgot your password? Contact school IT.</p>
+    </form>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-block-start:1.2rem">
+      <sc-for list="{{ loginChips }}" as="chip" hint-placeholder-count="3">
+        <button type="button" data-chip="1" data-on="{{ chip.on }}" data-k="{{ chip.k }}" data-v="{{ chip.v }}" onClick="{{ pick }}" style="background:transparent;color:#C3B2CE;border:1px solid rgba(243,238,228,.3);border-radius:99px;padding:.4rem .8rem;font-size:.75rem;cursor:pointer">{{ chip.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ inApp }}" hint-placeholder-val="{{ true }}">
+<div style="min-block-size:100vh;display:grid;grid-template-rows:auto 1fr">
+
+  <header style="background:#400068;color:#F3EEE4;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem clamp(1rem,2.5vw,1.6rem);flex-wrap:wrap">
+    <a href="#" data-to="dashboard" onClick="{{ go }}" style="display:flex;align-items:center;gap:.7rem;color:#F3EEE4">
+      <img src="assets/shield.svg" alt="" style="inline-size:1.9rem" />
+      <span>
+        <b style="display:block;font-weight:600;font-size:.95rem;letter-spacing:-.01em">DPS Millennium</b>
+        <span style="display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE">Staff content manager</span>
+      </span>
+    </a>
+    <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap">
+      <span style="font-size:.85rem;color:#DCCBE8">Signed in as <b style="color:#F3EEE4;font-weight:600">{{ roleLabel }}</b></span>
+      <button type="button" onClick="{{ toggleRole }}" style="background:transparent;color:#F3EEE4;border:1px solid rgba(243,238,228,.4);border-radius:3px;padding:.5rem .8rem;font-size:.8rem;cursor:pointer">{{ roleSwitch }}</button>
+      <button type="button" onClick="{{ logout }}" style="background:transparent;color:#C3B2CE;border:none;padding:.5rem .3rem;font-size:.8rem;cursor:pointer;text-decoration:underline">Log out</button>
+    </div>
+  </header>
+
+  <div style="display:grid;grid-template-columns:15rem minmax(0,1fr);align-items:start">
+    <nav style="background:#EFE8DA;border-inline-end:1px solid #E2D9C8;padding:1rem 0;position:sticky;inset-block-start:0;display:flex;flex-direction:column;gap:.15rem;min-block-size:calc(100vh - 4rem)">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+        <button type="button" data-nav="1" data-on="{{ item.on }}" data-to="{{ item.to }}" onClick="{{ go }}" style="text-align:start;background:transparent;border:none;color:#3A2A44;padding:.8rem 1.1rem;font-size:.95rem;cursor:pointer">{{ item.label }}</button>
+      </sc-for>
+      <sc-if value="{{ hasAdmin }}">
+        <p style="margin:1.1rem 1.1rem .4rem;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A6884">School IT</p>
+        <sc-for list="{{ navAdmin }}" as="item" hint-placeholder-count="5">
+          <button type="button" data-nav="1" data-on="{{ item.on }}" data-to="{{ item.to }}" onClick="{{ go }}" style="text-align:start;background:transparent;border:none;color:#3A2A44;padding:.8rem 1.1rem;font-size:.95rem;cursor:pointer">{{ item.label }}</button>
+        </sc-for>
+      </sc-if>
+      <p style="margin:1.1rem 1.1rem .4rem;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A6884">Help</p>
+      <sc-for list="{{ navSide }}" as="item" hint-placeholder-count="2">
+        <button type="button" data-nav="1" data-on="{{ item.on }}" data-to="{{ item.to }}" onClick="{{ go }}" style="text-align:start;background:transparent;border:none;color:#3A2A44;padding:.8rem 1.1rem;font-size:.95rem;cursor:pointer">{{ item.label }}</button>
+      </sc-for>
+    </nav>
+
+    <main style="padding:clamp(1.1rem,2.5vw,2rem);min-inline-size:0">
+
+      <sc-if value="{{ hasChips }}">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-block-end:1.3rem;padding:.55rem .7rem;background:#EFE8DA;border:1px dashed #CFC4B0;border-radius:4px">
+          <span style="font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A6884;margin-inline-end:.3rem">States</span>
+          <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="4">
+            <button type="button" data-chip="1" data-on="{{ chip.on }}" data-k="{{ chip.k }}" data-v="{{ chip.v }}" onClick="{{ pick }}" style="background:#FFF;color:#3A2A44;border:1px solid #CFC4B0;border-radius:99px;padding:.35rem .75rem;font-size:.78rem;cursor:pointer">{{ chip.label }}</button>
+          </sc-for>
+          <sc-if value="{{ hooks }}">
+            <code style="margin-inline-start:auto;font-size:.7rem;color:#5E4C6B">data-screen="{{ screenHook }}"</code>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDash }}">
+      <div data-screen="dashboard">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Dashboard</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Post something, or check what is waiting to go live.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-block-start:1.2rem">
+          <button type="button" data-to="choose-section" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:.5rem;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.85rem 1.4rem;font-size:1rem;font-weight:600;cursor:pointer">New post</button>
+          <button type="button" data-to="calendar" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:.5rem;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.85rem 1.3rem;font-size:1rem;font-weight:500;cursor:pointer">Calendar entry</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(21rem,100%),1fr));gap:1rem;margin-block-start:1.6rem;align-items:start">
+
+          <section data-region="scheduled" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Scheduled</h2>
+            <sc-if value="{{ d.schedEmpty }}"><p style="margin-block-start:.8rem;color:#7A6884;font-size:.92rem">Nothing scheduled.</p></sc-if>
+            <sc-for list="{{ d.sched }}" as="item" hint-placeholder-count="1">
+              <div data-state="scheduled" style="display:grid;gap:.2rem;padding-block:.8rem;border-block-end:1px solid #EFE8DA">
+                <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-weight:500;font-size:.95rem;color:#17061F">{{ item.title }}</a>
+                <span style="font-size:.82rem;color:#5E4C6B">{{ item.section }}</span>
+                <span style="font-size:.82rem;color:#2E2480;font-weight:500">{{ item.go }} · {{ item.rel }}</span>
+              </div>
+            </sc-for>
+          </section>
+
+          <section data-region="pinned" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Pinned</h2>
+            <sc-if value="{{ d.pinnedEmpty }}"><p style="margin-block-start:.8rem;color:#7A6884;font-size:.92rem">Nothing pinned.</p></sc-if>
+            <sc-for list="{{ d.pinned }}" as="item" hint-placeholder-count="1">
+              <div data-state="live" style="display:grid;gap:.45rem;padding-block:.8rem;border-block-end:1px solid #EFE8DA">
+                <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-weight:500;font-size:.95rem;color:#17061F">{{ item.title }}</a>
+                <span style="font-size:.82rem;color:#5E4C6B">{{ item.section }} · unpins {{ item.unpin }}</span>
+                <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:end">
+                  <label style="display:block;flex:1 1 9rem;min-inline-size:0">
+                    <span style="display:block;font-size:.72rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+                    <input type="text" defaultValue="" autoComplete="off" placeholder="" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+                  </label>
+                  <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem .9rem;font-size:.85rem;font-weight:500;cursor:pointer">Unpin now</button>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+
+          <section data-region="drafts" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Drafts <span style="color:#7A6884;font-weight:500;letter-spacing:0;text-transform:none">({{ d.draftCount }})</span></h2>
+            <sc-if value="{{ d.draftsEmpty }}"><p style="margin-block-start:.8rem;color:#7A6884;font-size:.92rem">No drafts.</p></sc-if>
+            <div style="max-block-size:22rem;overflow:auto">
+              <sc-for list="{{ d.drafts }}" as="item" hint-placeholder-count="2">
+                <div data-state="draft" data-row="1" style="display:grid;gap:.2rem;padding-block:.75rem;border-block-end:1px solid #EFE8DA">
+                  <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-weight:500;font-size:.95rem;color:#17061F">{{ item.title }}</a>
+                  <span style="font-size:.82rem;color:#5E4C6B">{{ item.section }} · saved {{ item.saved }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <section data-region="published" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Recently published</h2>
+            <sc-if value="{{ d.pubEmpty }}"><p style="margin-block-start:.8rem;color:#7A6884;font-size:.92rem">Nothing published yet. Start with “New post”.</p></sc-if>
+            <sc-for list="{{ d.pub }}" as="item" hint-placeholder-count="4">
+              <div data-state="live" data-row="1" style="display:grid;gap:.2rem;padding-block:.75rem;border-block-end:1px solid #EFE8DA">
+                <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-weight:500;font-size:.95rem;color:#17061F">{{ item.title }}</a>
+                <span style="font-size:.82rem;color:#5E4C6B">{{ item.section }} · {{ item.when }}</span>
+              </div>
+            </sc-for>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isSections }}">
+      <div data-screen="choose-section">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">What are you posting?</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Pick one. You can change the wording later, not the box it sits in.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(17rem,100%),1fr));gap:1rem;margin-block-start:1.5rem">
+          <button type="button" data-sec="1" data-to="post-editor" onClick="{{ go }}" style="text-align:start;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.4rem;cursor:pointer;min-block-size:9.5rem;display:grid;align-content:start;gap:.5rem">
+            <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.25rem;color:#400068">01</span>
+            <b style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em">Information corner</b>
+            <span style="color:#5E4C6B;font-size:.92rem">Notices, timetables, anything parents need to know.</span>
+          </button>
+          <button type="button" data-sec="1" data-to="post-editor" onClick="{{ go }}" style="text-align:start;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.4rem;cursor:pointer;min-block-size:9.5rem;display:grid;align-content:start;gap:.5rem">
+            <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.25rem;color:#400068">02</span>
+            <b style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em">Events corner</b>
+            <span style="color:#5E4C6B;font-size:.92rem">Something that already happened. Needs a date and a cover photo.</span>
+          </button>
+          <button type="button" data-sec="1" data-to="post-editor" onClick="{{ go }}" style="text-align:start;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.4rem;cursor:pointer;min-block-size:9.5rem;display:grid;align-content:start;gap:.5rem">
+            <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.25rem;color:#400068">03</span>
+            <b style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em">Academic circulars</b>
+            <span style="color:#5E4C6B;font-size:.92rem">Syllabus, exam and academic letters — usually a PDF.</span>
+          </button>
+          <button type="button" data-sec="1" data-to="post-editor" onClick="{{ go }}" style="text-align:start;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.4rem;cursor:pointer;min-block-size:9.5rem;display:grid;align-content:start;gap:.5rem">
+            <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.25rem;color:#400068">04</span>
+            <b style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em">Newsletter</b>
+            <span style="color:#5E4C6B;font-size:.92rem">One issue of a series, as a PDF or a link.</span>
+          </button>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isEditor }}">
+      <div data-screen="post-editor">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.8rem 1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+          <span style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">{{ ed.section }}</span>
+          <span data-state="1" style="padding:.25rem .6rem;border-radius:99px;font-size:.78rem;font-weight:600;color:{{ ed.fg }};background:{{ ed.bg }}">{{ ed.statusLabel }}</span>
+          <sc-if value="{{ ed.posted }}"><span style="font-size:.85rem;color:#5E4C6B">Posted {{ ed.posted }}</span></sc-if>
+          <sc-if value="{{ ed.updated }}"><span style="font-size:.85rem;color:#5E4C6B">Updated {{ ed.updated }}</span></sc-if>
+          <sc-if value="{{ ed.link }}"><a href="#" data-to="post-preview" onClick="{{ go }}" style="font-size:.85rem">{{ ed.link }}</a></sc-if>
+          <sc-if value="{{ isSuper }}"><button type="button" data-to="post-versions" onClick="{{ go }}" style="margin-inline-start:auto;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.82rem;cursor:pointer">Version history</button></sc-if>
+        </div>
+
+        <sc-if value="{{ ed.schedLine }}">
+          <p style="margin-block-start:.8rem;padding:.7rem .9rem;background:#E8E6F6;border-inline-start:3px solid #2E2480;color:#2E2480;font-size:.9rem">{{ ed.schedLine }}</p>
+        </sc-if>
+        <sc-if value="{{ ed.hiddenLine }}">
+          <p style="margin-block-start:.8rem;padding:.7rem .9rem;background:#FBF1D2;border-inline-start:3px solid #8C6A00;color:#6B4E00;font-size:.9rem">{{ ed.hiddenLine }}</p>
+        </sc-if>
+        <sc-if value="{{ ed.restoreBar }}">
+          <div style="margin-block-start:.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;padding:.7rem .9rem;background:#EFE8DA;border:1px solid #CFC4B0;border-radius:4px">
+            <span style="font-size:.9rem;color:#3A2A44">You have unsaved changes from 11:04 today on this device.</span>
+            <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.82rem;font-weight:500;cursor:pointer">Restore them</button>
+            <button type="button" style="background:transparent;color:#5E4C6B;border:none;font-size:.82rem;cursor:pointer;text-decoration:underline">Discard</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ ed.hasErrors }}">
+          <div data-region="form-errors" style="margin-block-start:.8rem;padding:.9rem 1rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;border-radius:4px">
+            <b style="display:block;color:#8C1D18;font-size:.95rem;font-weight:600">Three things need fixing before this can be saved</b>
+            <ul style="margin:.5rem 0 0;padding-inline-start:1.1rem;color:#8C1D18;font-size:.9rem">
+              <sc-for list="{{ ed.errors }}" as="err" hint-placeholder-count="3"><li>{{ err }}</li></sc-for>
+            </ul>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-wrap:wrap;gap:1.1rem;margin-block-start:1.1rem;align-items:start">
+          <div style="flex:3 1 26rem;display:grid;gap:1.1rem;min-inline-size:0">
+
+            <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+              <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Basics</h2>
+              <label style="display:block;margin-block-start:.9rem">
+                <span style="display:block;font-size:.85rem;font-weight:600;color:#3A2A44;margin-block-end:.3rem">Title</span>
+                <input type="text" maxLength="150" defaultValue="{{ ed.title }}" style="inline-size:100%;padding:.75rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:1rem;background:#FFF;overflow-wrap:anywhere" />
+                <span style="display:block;margin-block-start:.25rem;font-size:.78rem;color:#7A6884">Up to 150 characters</span>
+              </label>
+              <label style="display:block;margin-block-start:.9rem">
+                <span style="display:block;font-size:.85rem;font-weight:600;color:#3A2A44;margin-block-end:.3rem">Short summary</span>
+                <textarea rows="2" maxLength="300" defaultValue="" style="inline-size:100%;padding:.75rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;background:#FFF;resize:vertical"></textarea>
+                <span style="display:block;margin-block-start:.25rem;font-size:.78rem;color:#7A6884">Shown in lists and WhatsApp previews</span>
+              </label>
+            </section>
+
+            <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+              <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Grades</h2>
+              <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-block-start:.9rem">
+                <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .85rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="grades" defaultChecked="" />Not grade-specific</label>
+                <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .85rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="grades" />All grades</label>
+                <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .85rem;border:1px solid #400068;background:#F6F2FA;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="grades" defaultChecked="1" />A range</label>
+                <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .85rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="grades" />Pick grades</label>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:end;margin-block-start:.9rem">
+                <label style="display:block">
+                  <span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">From</span>
+                  <select defaultValue="V" style="padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;background:#FFF">
+                    <sc-for list="{{ ed.gradeList }}" as="g" hint-placeholder-count="15"><option value="{{ g }}">{{ g }}</option></sc-for>
+                  </select>
+                </label>
+                <label style="display:block">
+                  <span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">To</span>
+                  <select defaultValue="V" style="padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;background:#FFF">
+                    <sc-for list="{{ ed.gradeList }}" as="g" hint-placeholder-count="15"><option value="{{ g }}">{{ g }}</option></sc-for>
+                  </select>
+                </label>
+                <p style="margin-block-end:.5rem;font-size:.85rem;color:#5E4C6B">Parents will see <b style="font-weight:600;color:#17061F">Grade V</b></p>
+              </div>
+              <div style="margin-block-start:1rem;padding-block-start:.9rem;border-block-start:1px solid #EFE8DA">
+                <p style="font-size:.8rem;font-weight:600;color:#3A2A44">Or tick the exact grades</p>
+                <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-block-start:.6rem">
+                  <sc-for list="{{ ed.gradeList }}" as="g" hint-placeholder-count="15">
+                    <label style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.88rem;background:#FFF;cursor:pointer;white-space:nowrap"><input type="checkbox" />{{ g }}</label>
+                  </sc-for>
+                </div>
+              </div>
+            </section>
+
+            <sc-if value="{{ ed.isNewsletter }}">
+            <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+              <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Newsletter issue</h2>
+              <p style="margin-block-start:.9rem;padding:.8rem .9rem;background:#FBF1D2;border-inline-start:3px solid #8C6A00;color:#6B4E00;font-size:.9rem">No newsletters set up yet. Ask IT to add one in Settings.</p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));gap:.8rem;margin-block-start:.9rem;opacity:.55;pointer-events:none">
+                <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Newsletter series</span><select style="inline-size:100%;padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;background:#FFF"><option>—</option></select></label>
+                <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Academic year</span><input type="text" defaultValue="2026-27" style="inline-size:100%;padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;background:#FFF" /></label>
+                <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Term</span><input type="text" defaultValue="Term I" style="inline-size:100%;padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;background:#FFF" /></label>
+              </div>
+            </section>
+            </sc-if>
+
+            <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem">
+                <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Content blocks <span style="color:#7A6884;font-weight:500;letter-spacing:0;text-transform:none">({{ ed.count }} of 100)</span></h2>
+                <button type="button" style="display:inline-flex;align-items:center;gap:.45rem;background:#400068;color:#F3EEE4;border:1px solid #400068;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;font-weight:500;cursor:pointer">+ Add block</button>
+              </div>
+
+              <sc-if value="{{ ed.empty }}">
+                <div style="margin-block-start:1rem;padding:2.2rem 1.2rem;text-align:center;border:1px dashed #CFC4B0;border-radius:4px;background:#FBF8F2">
+                  <p style="font-size:1.02rem;font-weight:500">Nothing in the post yet.</p>
+                  <p style="margin-block-start:.35rem;color:#5E4C6B;font-size:.92rem">Add a block — text for a message, PDF for a letter, photo for pictures.</p>
+                  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-block-start:1rem">
+                    <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;cursor:pointer">Text</button>
+                    <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;cursor:pointer">Photo</button>
+                    <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;cursor:pointer">PDF file(s)</button>
+                    <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;cursor:pointer">Table</button>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;gap:.8rem;margin-block-start:1rem">
+                <sc-for list="{{ ed.blocks }}" as="block" hint-placeholder-count="3">
+                  <article data-block="{{ block.type }}" style="border:1px solid #E2D9C8;border-radius:4px;background:#FBF8F2">
+                    <header style="display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-block-end:1px solid #E2D9C8;background:#EFE8DA;border-start-start-radius:4px;border-start-end-radius:4px">
+                      <span style="inline-size:1.6rem;block-size:1.6rem;display:grid;place-items:center;background:#400068;color:#F3EEE4;border-radius:3px;font-size:.8rem;font-weight:600">{{ block.n }}</span>
+                      <b style="font-size:.9rem;font-weight:600">{{ block.name }}</b>
+                      <sc-if value="{{ block.collapsed }}"><span style="font-size:.85rem;color:#5E4C6B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-inline-size:0">{{ block.summary }}</span></sc-if>
+                      <span style="margin-inline-start:auto;display:flex;gap:.3rem">
+                        <button type="button" aria-label="Move up" style="inline-size:2.2rem;block-size:2.2rem;background:#FFF;border:1px solid #CFC4B0;border-radius:3px;color:#400068;cursor:pointer">↑</button>
+                        <button type="button" aria-label="Move down" style="inline-size:2.2rem;block-size:2.2rem;background:#FFF;border:1px solid #CFC4B0;border-radius:3px;color:#400068;cursor:pointer">↓</button>
+                        <button type="button" aria-label="Remove block" style="inline-size:2.2rem;block-size:2.2rem;background:#FFF;border:1px solid #CFC4B0;border-radius:3px;color:#B3261E;cursor:pointer">✕</button>
+                      </span>
+                    </header>
+                    <sc-if value="{{ block.err }}">
+                      <p style="margin:0;padding:.55rem .8rem;background:#FBE7E5;color:#8C1D18;font-size:.85rem;border-block-end:1px solid #F0CFCB">{{ block.err }}</p>
+                    </sc-if>
+                    <sc-if value="{{ block.isText }}">
+                      <div style="padding:.8rem">
+                        <textarea rows="3" defaultValue="{{ block.html }}" placeholder="Type the message parents will read." style="inline-size:100%;padding:.7rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;background:#FFF;resize:vertical"></textarea>
+                        <p style="margin-block-start:.4rem;font-size:.78rem;color:#7A6884">Bold, italic, lists and links are kept. Anything else pasted in becomes plain text.</p>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isPhoto }}">
+                      <div style="padding:.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));gap:.8rem">
+                        <div style="background:#E2D9C8;border:1px solid #CFC4B0;border-radius:3px;aspect-ratio:4/3;display:grid;place-items:center;color:#5E4C6B;font-size:.85rem;text-align:center;padding:.8rem">Photo · 1600 × 1200<br />JPG, PNG or WebP up to 15 MB</div>
+                        <div style="display:grid;gap:.6rem;align-content:start">
+                          <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Caption</span><input type="text" defaultValue="{{ block.caption }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+                          <div style="border:1px solid #CFC4B0;border-radius:3px;padding:.7rem;background:#FFF">
+                            <b style="display:block;font-size:.8rem;font-weight:600">Crop</b>
+                            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;margin-block-start:.5rem">
+                              <label style="display:block"><span style="display:block;font-size:.7rem;color:#5E4C6B">X</span><input type="number" defaultValue="0" style="inline-size:100%;padding:.45rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.85rem" /></label>
+                              <label style="display:block"><span style="display:block;font-size:.7rem;color:#5E4C6B">Y</span><input type="number" defaultValue="120" style="inline-size:100%;padding:.45rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.85rem" /></label>
+                              <label style="display:block"><span style="display:block;font-size:.7rem;color:#5E4C6B">W</span><input type="number" defaultValue="1600" style="inline-size:100%;padding:.45rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.85rem" /></label>
+                              <label style="display:block"><span style="display:block;font-size:.7rem;color:#5E4C6B">H</span><input type="number" defaultValue="900" style="inline-size:100%;padding:.45rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.85rem" /></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isGallery }}">
+                      <div style="padding:.8rem">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(7rem,1fr));gap:.6rem">
+                          <div style="background:#E2D9C8;border:1px solid #CFC4B0;border-radius:3px;aspect-ratio:1;display:grid;place-items:end start;padding:.4rem;color:#5E4C6B;font-size:.75rem">On stage</div>
+                          <div style="background:#E2D9C8;border:1px solid #CFC4B0;border-radius:3px;aspect-ratio:1;display:grid;place-items:end start;padding:.4rem;color:#7A6884;font-size:.75rem">No caption</div>
+                          <div style="background:#E2D9C8;border:1px solid #CFC4B0;border-radius:3px;aspect-ratio:1;display:grid;place-items:end start;padding:.4rem;color:#5E4C6B;font-size:.75rem">With colleagues</div>
+                          <button type="button" style="border:1px dashed #CFC4B0;border-radius:3px;aspect-ratio:1;background:#FFF;color:#400068;font-size:.85rem;cursor:pointer">+ Add photos</button>
+                        </div>
+                        <p style="margin-block-start:.5rem;font-size:.78rem;color:#7A6884">3 of 60 photos</p>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isPdf }}">
+                      <div style="padding:.8rem;display:grid;gap:.5rem">
+                        <sc-for list="{{ block.files }}" as="f" hint-placeholder-count="3">
+                          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.5rem .6rem;background:#FFF;border:1px solid #E2D9C8;border-radius:3px">
+                            <span style="inline-size:2.2rem;block-size:2.2rem;display:grid;place-items:center;background:#FBE7E5;color:#8C1D18;border-radius:3px;font-size:.65rem;font-weight:600">PDF</span>
+                            <input type="text" defaultValue="{{ f.label }}" style="flex:1 1 12rem;min-inline-size:0;padding:.55rem .65rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem" />
+                            <span style="font-size:.8rem;color:#7A6884">{{ f.size }}</span>
+                            <button type="button" style="inline-size:2.2rem;block-size:2.2rem;background:#FFF;border:1px solid #CFC4B0;border-radius:3px;color:#B3261E;cursor:pointer">✕</button>
+                          </div>
+                        </sc-for>
+                        <button type="button" style="justify-self:start;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem .9rem;font-size:.88rem;cursor:pointer">+ Add PDFs</button>
+                        <p style="margin:0;font-size:.78rem;color:#7A6884">Up to 20 PDFs in this block, 20 MB each.</p>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isLink }}">
+                      <div style="padding:.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(12rem,100%),1fr));gap:.7rem">
+                        <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Button label</span><input type="text" maxLength="100" defaultValue="{{ block.label }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+                        <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Web address</span><input type="text" defaultValue="{{ block.url }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /><span style="display:block;margin-block-start:.25rem;font-size:.78rem;color:#7A6884">Must start with https://</span></label>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isYt }}">
+                      <div style="padding:.8rem;display:grid;gap:.7rem">
+                        <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">YouTube link</span><input type="text" defaultValue="{{ block.url }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+                        <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+                          <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF;cursor:pointer"><input type="radio" name="ytmode" />Show as a link</label>
+                          <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .8rem;border:1px solid #400068;border-radius:3px;font-size:.9rem;background:#F6F2FA;cursor:pointer"><input type="radio" name="ytmode" defaultChecked="1" />Show the video player</label>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isVideo }}">
+                      <div style="padding:.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(12rem,100%),1fr));gap:.7rem">
+                        <div style="background:#E2D9C8;border:1px solid #CFC4B0;border-radius:3px;aspect-ratio:16/9;display:grid;place-items:center;color:#5E4C6B;font-size:.85rem">MP4 · {{ block.size }} of 50 MB</div>
+                        <label style="display:block;align-self:start"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Caption</span><input type="text" defaultValue="{{ block.caption }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isTable }}">
+                      <div style="padding:.8rem">
+                        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-block-end:.6rem">
+                          <label style="display:inline-flex;align-items:center;gap:.45rem;font-size:.88rem"><input type="checkbox" defaultChecked="1" />First row is a heading</label>
+                          <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.85rem;cursor:pointer">Paste from a spreadsheet</button>
+                        </div>
+                        <div style="overflow:auto;border:1px solid #E2D9C8;border-radius:3px;background:#FFF">
+                          <table style="font-size:.88rem;min-inline-size:28rem">
+                            <thead><tr>
+                              <sc-for list="{{ block.head }}" as="h" hint-placeholder-count="3"><th style="text-align:start;padding:.5rem .6rem;background:#EFE8DA;border-block-end:1px solid #E2D9C8;font-weight:600">{{ h }}</th></sc-for>
+                            </tr></thead>
+                            <tbody>
+                              <sc-for list="{{ block.rows }}" as="r" hint-placeholder-count="4"><tr>
+                                <sc-for list="{{ r }}" as="c" hint-placeholder-count="3"><td style="padding:.4rem .5rem;border-block-end:1px solid #EFE8DA;vertical-align:top;white-space:pre-line">{{ c }}</td></sc-for>
+                              </tr></sc-for>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div style="display:flex;gap:.5rem;margin-block-start:.6rem">
+                          <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.85rem;cursor:pointer">+ Row</button>
+                          <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.85rem;cursor:pointer">+ Column</button>
+                          <span style="margin-inline-start:auto;font-size:.78rem;color:#7A6884">4 of 500 rows · 3 of 20 columns</span>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isPage }}">
+                      <div style="padding:.8rem">
+                        <sc-if value="{{ isSuper }}">
+                          <div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:end">
+                            <label style="display:block"><span style="display:block;font-size:.8rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Page</span><select defaultValue="3" style="padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF"><option value="3">#3 Bus route map 2026-27</option><option value="2">#2 Uniform shop order form</option></select></label>
+                            <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .8rem;border:1px solid #400068;border-radius:3px;font-size:.9rem;background:#F6F2FA"><input type="radio" name="pgmode" defaultChecked="1" />Link to it</label>
+                            <label style="display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .8rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF"><input type="radio" name="pgmode" />Embed it</label>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ ed.isDraft }}">
+                          <p style="margin-block-start:.6rem;padding:.7rem .9rem;background:#EFE8DA;border-inline-start:3px solid #7A6884;color:#3A2A44;font-size:.88rem">Page #3 “Bus route map 2026-27”, shown as a link. Only IT (Super admin) can add or change custom page blocks — you can leave this one as it is.</p>
+                        </sc-if>
+                      </div>
+                    </sc-if>
+                  </article>
+                </sc-for>
+              </div>
+              <sc-if value="{{ ed.manyMode }}">
+                <p style="margin-block-start:.8rem;font-size:.85rem;color:#5E4C6B">Long posts collapse to one line each. Press a block to open it.</p>
+              </sc-if>
+            </section>
+
+            <p style="font-size:.85rem;color:#5E4C6B">{{ ed.autosave }} · autosaved on this device only</p>
+          </div>
+
+          <aside style="flex:1 1 18rem;display:grid;gap:1rem;min-inline-size:0">
+            <section data-region="publish" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+              <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Publishing</h2>
+              <div style="display:grid;gap:.5rem;margin-block-start:.9rem">
+                <label style="display:flex;align-items:center;gap:.5rem;padding:.65rem .75rem;border:1px solid #400068;background:#F6F2FA;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="when" defaultChecked="1" />Publish now</label>
+                <label style="display:flex;align-items:center;gap:.5rem;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;cursor:pointer"><input type="radio" name="when" />Schedule for later (Qatar time)</label>
+                <input type="datetime-local" defaultValue="2026-09-17T07:00" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+              </div>
+              <label style="display:block;margin-block-start:.9rem">
+                <span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Remove from the website on (optional)</span>
+                <input type="date" defaultValue="" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+              </label>
+              <label style="display:flex;align-items:center;gap:.5rem;margin-block-start:.9rem;font-size:.92rem"><input type="checkbox" />Pin to the top of its box</label>
+              <label style="display:block;margin-block-start:.5rem">
+                <span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Unpin on (required when pinned)</span>
+                <input type="date" defaultValue="" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+              </label>
+              <sc-if value="{{ ed.isLive }}">
+                <div style="margin-block-start:.9rem;padding:.7rem .8rem;background:#FBF8F2;border:1px solid #E2D9C8;border-radius:3px">
+                  <label style="display:flex;align-items:start;gap:.5rem;font-size:.92rem"><input type="checkbox" style="margin-block-start:.2rem" />Small fix, don’t move it to the top</label>
+                  <p style="margin-block-start:.4rem;font-size:.8rem;color:#5E4C6B">Parents will see “Updated” with today’s date either way.</p>
+                </div>
+              </sc-if>
+              <label style="display:block;margin-block-start:1rem">
+                <span style="display:block;font-size:.85rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+                <input type="text" defaultValue="" autoComplete="off" maxLength="80" style="inline-size:100%;padding:.7rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.95rem;background:#FFF" />
+                <span style="display:block;margin-block-start:.3rem;font-size:.8rem;color:#5E4C6B">This is recorded in the change log.</span>
+              </label>
+              <div style="display:grid;gap:.5rem;margin-block-start:1rem">
+                <button type="button" style="inline-size:100%;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.8rem 1.2rem;font-size:1rem;font-weight:600;cursor:pointer">{{ ed.primary }}</button>
+                <sc-if value="{{ ed.isDraft }}">
+                  <button type="button" style="inline-size:100%;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem;font-weight:500;cursor:pointer">Save draft</button>
+                </sc-if>
+                <button type="button" data-to="post-preview" onClick="{{ go }}" style="inline-size:100%;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem;font-weight:500;cursor:pointer">Preview</button>
+              </div>
+            </section>
+            <sc-if value="{{ ed.isScheduled }}">
+              <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+                <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Unschedule</h2>
+                <p style="margin-block-start:.5rem;font-size:.88rem;color:#5E4C6B">Puts it back to a draft. Nothing is lost.</p>
+                <label style="display:block;margin-block-start:.7rem">
+                  <span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+                  <input type="text" defaultValue="" autoComplete="off" style="inline-size:100%;padding:.65rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+                </label>
+                <button type="button" style="inline-size:100%;margin-block-start:.6rem;background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.7rem 1rem;font-size:.92rem;font-weight:500;cursor:pointer">Unschedule</button>
+              </section>
+            </sc-if>
+          </aside>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isPreview }}">
+      <div data-screen="post-preview">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;justify-content:space-between">
+          <div>
+            <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Parent view</h1>
+            <p style="margin-block-start:.3rem;color:#5E4C6B">What families see on the public page. Nothing here is saved.</p>
+          </div>
+          <div style="display:flex;gap:.4rem">
+            <button type="button" data-chip="1" data-on="{{ pvPhoneOn }}" data-k="pv" data-v="phone" onClick="{{ pick }}" style="background:#FFF;color:#3A2A44;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem 1rem;font-size:.9rem;cursor:pointer">Phone</button>
+            <button type="button" data-chip="1" data-on="{{ pvDeskOn }}" data-k="pv" data-v="desktop" onClick="{{ pick }}" style="background:#FFF;color:#3A2A44;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem 1rem;font-size:.9rem;cursor:pointer">Desktop</button>
+          </div>
+        </div>
+
+        <sc-if value="{{ pvInvalid }}">
+          <div data-region="form-errors" style="margin-block-start:1rem;padding:.9rem 1rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;border-radius:4px">
+            <b style="display:block;color:#8C1D18;font-size:.95rem;font-weight:600">This post cannot go live yet</b>
+            <ul style="margin:.5rem 0 0;padding-inline-start:1.1rem;color:#8C1D18;font-size:.9rem">
+              <sc-for list="{{ pv.problems }}" as="p" hint-placeholder-count="2"><li>{{ p }}</li></sc-for>
+            </ul>
+          </div>
+        </sc-if>
+
+        <div style="margin-block-start:1.2rem;display:flex;justify-content:center">
+          <div style="inline-size:{{ pv.width }};max-inline-size:100%;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;overflow:hidden">
+            <div style="background:#400068;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.6rem">
+              <img src="assets/shield.svg" alt="" style="inline-size:1.4rem" />
+              <span style="color:#F3EEE4;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase">Academic circulars</span>
+            </div>
+            <article style="padding:clamp(1.1rem,3vw,2rem)">
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8C6A00">Grade V</p>
+              <h2 style="margin-block-start:.6rem;font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.4rem,1.1rem + 1.2vw,2rem);line-height:1.15;letter-spacing:-.025em;font-weight:600;text-wrap:pretty">Grade V Half Yearly Examination Syllabus 2026-27</h2>
+              <p style="margin-block-start:.7rem;font-size:.85rem;color:#5E4C6B">Posted 3 September 2026 · <span style="color:#7A6884">Updated 10 September 2026</span></p>
+              <div style="inline-size:2.6rem;block-size:2px;background:#D8A800;margin-block:1.2rem"></div>
+
+              <div style="display:grid;gap:1.4rem">
+                <sc-for list="{{ pv.blocks }}" as="block" hint-placeholder-count="4">
+                  <div data-block="{{ block.type }}">
+                    <sc-if value="{{ block.isText }}">
+                      <p style="font-size:1rem;line-height:1.65;color:#2A1B33;text-wrap:pretty">Dear Parents, please find the syllabus for each subject below. Students must be seated <strong style="font-weight:600">10 minutes</strong> before the examination begins.</p>
+                    </sc-if>
+                    <sc-if value="{{ block.isPhoto }}">
+                      <figure style="margin:0">
+                        <div style="background:#E2D9C8;aspect-ratio:3/2;border-radius:3px;display:grid;place-items:center;color:#5E4C6B;font-size:.85rem">Photo</div>
+                        <figcaption style="margin-block-start:.5rem;font-size:.85rem;color:#5E4C6B">{{ block.caption }}</figcaption>
+                      </figure>
+                    </sc-if>
+                    <sc-if value="{{ block.isGallery }}">
+                      <div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(6.5rem,1fr));gap:.5rem">
+                          <div style="background:#E2D9C8;aspect-ratio:1;border-radius:3px"></div>
+                          <div style="background:#E2D9C8;aspect-ratio:1;border-radius:3px"></div>
+                          <div style="background:#E2D9C8;aspect-ratio:1;border-radius:3px"></div>
+                        </div>
+                        <p style="margin-block-start:.5rem;font-size:.85rem;color:#5E4C6B">3 photos · tap to open</p>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isPdf }}">
+                      <div style="display:grid;gap:.5rem">
+                        <sc-for list="{{ block.files }}" as="f" hint-placeholder-count="3">
+                          <a href="#" style="display:flex;align-items:center;gap:.7rem;padding:.85rem .9rem;border:1px solid #E2D9C8;border-radius:3px;background:#FBF8F2">
+                            <span style="inline-size:2.1rem;block-size:2.1rem;flex:0 0 auto;display:grid;place-items:center;background:#FBE7E5;color:#8C1D18;border-radius:3px;font-size:.62rem;font-weight:600">PDF</span>
+                            <span style="min-inline-size:0">
+                              <b style="display:block;font-size:.95rem;font-weight:500;color:#17061F;overflow-wrap:anywhere">{{ f.label }}</b>
+                              <span style="font-size:.78rem;color:#5E4C6B">{{ f.size }} · opens in a new tab</span>
+                            </span>
+                          </a>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isLink }}">
+                      <a href="#" style="display:inline-flex;align-items:center;gap:.5rem;background:#D8A800;color:#17061F;border-radius:3px;padding:.8rem 1.3rem;font-size:.95rem;font-weight:600">{{ block.label }} →</a>
+                    </sc-if>
+                    <sc-if value="{{ block.isYt }}">
+                      <div style="background:#17061F;aspect-ratio:16/9;border-radius:3px;display:grid;place-items:center;color:#F3EEE4;font-size:.9rem">YouTube player</div>
+                    </sc-if>
+                    <sc-if value="{{ block.isVideo }}">
+                      <figure style="margin:0">
+                        <div style="background:#17061F;aspect-ratio:16/9;border-radius:3px;display:grid;place-items:center;color:#F3EEE4;font-size:.9rem">MP4 video</div>
+                        <figcaption style="margin-block-start:.5rem;font-size:.85rem;color:#5E4C6B">{{ block.caption }}</figcaption>
+                      </figure>
+                    </sc-if>
+                    <sc-if value="{{ block.isTable }}">
+                      <div style="overflow:auto;border:1px solid #E2D9C8;border-radius:3px">
+                        <table style="font-size:.9rem;min-inline-size:22rem">
+                          <thead><tr>
+                            <sc-for list="{{ block.head }}" as="h" hint-placeholder-count="3"><th style="text-align:start;padding:.6rem .7rem;background:#EFE8DA;font-weight:600;border-block-end:1px solid #E2D9C8">{{ h }}</th></sc-for>
+                          </tr></thead>
+                          <tbody>
+                            <sc-for list="{{ block.rows }}" as="r" hint-placeholder-count="4"><tr>
+                              <sc-for list="{{ r }}" as="c" hint-placeholder-count="3"><td style="padding:.55rem .7rem;border-block-end:1px solid #EFE8DA;vertical-align:top;white-space:pre-line">{{ c }}</td></sc-for>
+                            </tr></sc-for>
+                          </tbody>
+                        </table>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ block.isPage }}">
+                      <a href="#" style="display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.1rem;border:1px solid #400068;border-radius:3px;color:#400068;font-size:.92rem;font-weight:500">Bus route map 2026-27 ↗</a>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isPosts }}">
+      <div data-screen="posts-index">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">All posts</h1>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin-block-start:1.1rem;padding:.9rem 1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Section</span><select style="padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>All sections</option><option>Information corner</option><option>Events corner</option><option>Academic circulars</option><option>Newsletter</option></select></label>
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Status</span><select style="padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>Any status</option><option>Draft</option><option>Scheduled</option><option>Live</option><option>Hidden</option></select></label>
+          <label style="display:block;flex:1 1 14rem;min-inline-size:0"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Search titles</span><input type="text" defaultValue="" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /></label>
+          <button type="button" style="background:#400068;color:#F3EEE4;border:1px solid #400068;border-radius:3px;padding:.7rem 1.2rem;font-size:.92rem;font-weight:500;cursor:pointer">Filter</button>
+        </div>
+
+        <sc-if value="{{ pi.empty }}">
+          <div style="margin-block-start:1.1rem;padding:2.4rem 1.2rem;text-align:center;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+            <p style="font-size:1.02rem;font-weight:500">No posts match these filters.</p>
+            <p style="margin-block-start:.35rem;color:#5E4C6B;font-size:.92rem">Try clearing the search box, or choose “Any status”.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ piHas }}">
+        <div style="margin-block-start:1.1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;overflow:auto">
+          <table style="font-size:.92rem;min-inline-size:48rem">
+            <thead><tr>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Title</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Section</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Status</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Date</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Actions</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ pi.rows }}" as="r" hint-placeholder-count="6">
+                <tr data-row="1" data-state="1">
+                  <td style="padding:.7rem .9rem;border-block-end:1px solid #EFE8DA;max-inline-size:26rem">
+                    <sc-if value="{{ r.pin }}"><span style="display:inline-block;margin-inline-end:.4rem;color:#8C6A00;font-size:.8rem;font-weight:600">PINNED</span></sc-if>
+                    <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-weight:500;color:#17061F">{{ r.title }}</a>
+                  </td>
+                  <td style="padding:.7rem .9rem;border-block-end:1px solid #EFE8DA;color:#5E4C6B;white-space:nowrap">{{ r.section }}</td>
+                  <td style="padding:.7rem .9rem;border-block-end:1px solid #EFE8DA"><span style="padding:.2rem .55rem;border-radius:99px;font-size:.76rem;font-weight:600;white-space:nowrap;color:{{ r.fg }};background:{{ r.bg }}">{{ r.status }}</span></td>
+                  <td style="padding:.7rem .9rem;border-block-end:1px solid #EFE8DA;color:#5E4C6B;white-space:nowrap">{{ r.date }}</td>
+                  <td style="padding:.7rem .9rem;border-block-end:1px solid #EFE8DA;white-space:nowrap">
+                    <span style="display:flex;gap:.35rem">
+                      <button type="button" data-to="post-editor" onClick="{{ go }}" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.45rem .7rem;font-size:.82rem;cursor:pointer">Edit</button>
+                      <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.45rem .7rem;font-size:.82rem;cursor:pointer">Duplicate</button>
+                      <button type="button" style="background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.45rem .7rem;font-size:.82rem;cursor:pointer">Delete…</button>
+                    </span>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;margin-block-start:.9rem">
+          <p style="font-size:.85rem;color:#5E4C6B">Showing 1–8 of 34 · 25 per page</p>
+          <div style="display:flex;gap:.4rem">
+            <button type="button" style="background:#FFF;color:#7A6884;border:1px solid #E2D9C8;border-radius:3px;padding:.55rem .9rem;font-size:.88rem">Previous</button>
+            <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.55rem .9rem;font-size:.88rem;cursor:pointer">Next</button>
+          </div>
+        </div>
+        <div style="margin-block-start:1rem;padding:.9rem 1rem;background:#FBF1D2;border-inline-start:3px solid #8C6A00;border-radius:4px">
+          <b style="display:block;font-size:.92rem;font-weight:600;color:#6B4E00">Deleting asks for your name</b>
+          <p style="margin-block-start:.3rem;font-size:.88rem;color:#6B4E00">Deleted posts go to the recycle bin for 30 days. Only IT can restore them.</p>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isCal }}">
+      <div data-screen="calendar">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Holidays and exams</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">These show on the public calendar. They are not posts.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:1.1rem;margin-block-start:1.2rem;align-items:start">
+          <section style="flex:3 1 30rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;overflow:hidden;min-inline-size:0">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.8rem 1rem;border-block-end:1px solid #E2D9C8;background:#EFE8DA">
+              <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.85rem;cursor:pointer">← August</button>
+              <b style="font-size:1rem;font-weight:600">September 2026</b>
+              <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.5rem .8rem;font-size:.85rem;cursor:pointer">October →</button>
+            </div>
+            <div style="overflow:auto"><div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));min-inline-size:30rem;background:#E2D9C8;gap:1px;padding:1px">
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Sun</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Mon</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Tue</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Wed</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Thu</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Fri</span>
+              <span style="background:#FBF8F2;padding:.45rem;text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4C6B">Sat</span>
+              <sc-for list="{{ cl.cells }}" as="c" hint-placeholder-count="32">
+                <div style="background:#FFF;min-block-size:5.2rem;padding:.4rem;display:grid;align-content:start;gap:.25rem">
+                  <span style="font-size:.8rem;color:#7A6884">{{ c.day }}</span>
+                  <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="0">
+                    <span style="display:block;font-size:.72rem;line-height:1.3;padding:.2rem .3rem;border-radius:2px;background:#F6F2FA;color:#3A2A44;border-inline-start:2px solid #400068;overflow-wrap:anywhere;text-wrap:pretty">{{ it.t }}</span>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div></div>
+            <sc-if value="{{ cl.empty }}">
+              <p style="padding:1rem;font-size:.9rem;color:#5E4C6B;border-block-start:1px solid #E2D9C8">No entries this month. Add one on the right.</p>
+            </sc-if>
+          </section>
+
+          <aside style="flex:1 1 18rem;min-inline-size:0;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.1rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">{{ cl.formTitle }}</h2>
+            <sc-if value="{{ cl.err }}">
+              <p data-region="form-errors" style="margin-block-start:.8rem;padding:.65rem .8rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.88rem">The end date is before the start date.</p>
+            </sc-if>
+            <label style="display:block;margin-block-start:.9rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Title</span><input type="text" defaultValue="{{ cl.title }}" maxLength="150" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /></label>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Type</span><select defaultValue="{{ cl.type }}" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>Holiday</option><option>Exam</option></select></label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-block-start:.7rem">
+              <label style="display:block"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Start date</span><input type="date" defaultValue="{{ cl.start }}" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+              <label style="display:block"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">End date</span><input type="date" defaultValue="{{ cl.end }}" style="inline-size:100%;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+            </div>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Grades (optional)</span><select style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>All grades</option><option>A range</option><option>Pick grades</option></select></label>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Note (optional)</span><textarea rows="2" maxLength="500" defaultValue="" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF;resize:vertical"></textarea></label>
+            <label style="display:block;margin-block-start:.9rem">
+              <span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+              <input type="text" defaultValue="" autoComplete="off" maxLength="80" style="inline-size:100%;padding:.7rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" />
+              <span style="display:block;margin-block-start:.3rem;font-size:.8rem;color:#5E4C6B">This is recorded in the change log.</span>
+            </label>
+            <button type="button" style="inline-size:100%;margin-block-start:.9rem;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer">{{ cl.saveLabel }}</button>
+            <sc-if value="{{ cl.editing }}">
+              <button type="button" style="inline-size:100%;margin-block-start:.5rem;background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.7rem 1rem;font-size:.9rem;font-weight:500;cursor:pointer">Delete this entry</button>
+            </sc-if>
+          </aside>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isBin }}">
+      <div data-screen="recycle-bin">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Recycle bin</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Deleted posts stay here for 30 days, then go for good.</p>
+        <sc-if value="{{ binNoRestore }}">
+          <p style="margin-block-start:1rem;padding:.8rem .9rem;background:#EFE8DA;border-inline-start:3px solid #7A6884;color:#3A2A44;font-size:.9rem">You can see what was deleted, but restoring is an IT job. Ask school IT and tell them the post title.</p>
+        </sc-if>
+        <sc-if value="{{ bn.empty }}">
+          <div style="margin-block-start:1.1rem;padding:2.4rem 1.2rem;text-align:center;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+            <p style="font-size:1.02rem;font-weight:500">The recycle bin is empty.</p>
+          </div>
+        </sc-if>
+        <div style="display:grid;gap:.8rem;margin-block-start:1.1rem">
+          <sc-for list="{{ bn.rows }}" as="r" hint-placeholder-count="2">
+            <div data-state="deleted" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:end;justify-content:space-between">
+              <div style="min-inline-size:0">
+                <b style="display:block;font-size:1rem;font-weight:500">{{ r.title }}</b>
+                <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">{{ r.section }} · deleted {{ r.deleted }}</span>
+                <span style="display:block;margin-block-start:.2rem;font-size:.85rem;color:#8C1D18">Removed permanently on {{ r.gone }}</span>
+              </div>
+              <sc-if value="{{ bn.canRestore }}">
+                <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:end">
+                  <label style="display:block">
+                    <span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+                    <input type="text" defaultValue="" autoComplete="off" style="padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+                  </label>
+                  <button type="button" style="background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;font-weight:600;cursor:pointer">Restore</button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isLog }}">
+      <div data-screen="audit-index">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Change log</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Every action, in order, with the name the person typed. Entries cannot be edited or removed.</p>
+
+        <sc-if value="{{ lg.intact }}">
+          <p style="margin-block-start:1rem;padding:.75rem .9rem;background:#E3F1E7;border-inline-start:3px solid #1A5C33;color:#134726;font-size:.9rem">Chain verified to entry #482. Nothing has been tampered with.</p>
+        </sc-if>
+        <sc-if value="{{ lg.altered }}">
+          <div data-region="form-errors" style="margin-block-start:1rem;padding:.9rem 1rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;border-radius:4px">
+            <b style="display:block;color:#8C1D18;font-size:.95rem;font-weight:600">ALTERED — the chain breaks at entry #479</b>
+            <p style="margin-block-start:.3rem;color:#8C1D18;font-size:.9rem">Entries after #478 no longer match their stored hashes. Export the log now and contact the hosting provider before making further changes.</p>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin-block-start:1.1rem;padding:.9rem 1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Action</span><select style="padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>Any action</option><option>post.published</option><option>post.edited</option><option>post.deleted</option><option>settings.updated</option><option>auth.login</option></select></label>
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Login</span><select style="padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>Both logins</option><option>editor</option><option>superadmin</option></select></label>
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">From</span><input type="date" defaultValue="2026-09-01" style="padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+          <label style="display:block"><span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">To</span><input type="date" defaultValue="2026-09-16" style="padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+          <button type="button" style="background:#400068;color:#F3EEE4;border:1px solid #400068;border-radius:3px;padding:.7rem 1.2rem;font-size:.92rem;font-weight:500;cursor:pointer">Filter</button>
+          <button type="button" style="margin-inline-start:auto;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.7rem 1.1rem;font-size:.92rem;font-weight:500;cursor:pointer">Export CSV</button>
+        </div>
+
+        <sc-if value="{{ lg.empty }}">
+          <div style="margin-block-start:1.1rem;padding:2.4rem 1.2rem;text-align:center;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+            <p style="font-size:1.02rem;font-weight:500">No entries in this range.</p>
+            <p style="margin-block-start:.35rem;color:#5E4C6B;font-size:.92rem">Widen the dates or choose “Any action”.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ logHas }}">
+        <div style="margin-block-start:1.1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;overflow:auto">
+          <table style="font-size:.9rem;min-inline-size:52rem">
+            <thead><tr>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">#</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">When</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Typed name</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Login</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Action</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">Item</th>
+              <th style="text-align:start;padding:.7rem .9rem;background:#EFE8DA;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#5E4C6B">IP</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ lg.rows }}" as="r" hint-placeholder-count="5">
+                <tr data-row="1">
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA;color:#7A6884;font-variant-numeric:tabular-nums">{{ r.n }}</td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA;white-space:nowrap"><a href="#" data-to="audit-show" onClick="{{ go }}" style="font-weight:500">{{ r.when }}</a></td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA">{{ r.name }}</td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA;color:#5E4C6B">{{ r.login }}</td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA"><code style="font-size:.82rem;color:#400068">{{ r.action }}</code></td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA;color:#5E4C6B;white-space:nowrap">{{ r.item }}</td>
+                  <td style="padding:.65rem .9rem;border-block-end:1px solid #EFE8DA;color:#7A6884;font-variant-numeric:tabular-nums">{{ r.ip }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isEntry }}">
+      <div data-screen="audit-show">
+        <a href="#" data-to="audit-index" onClick="{{ go }}" style="font-size:.88rem">← Back to the change log</a>
+        <h1 style="margin-block-start:.6rem;font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Entry #482</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B"><code style="color:#400068">post.edited</code> · {{ en.item }}</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(20rem,100%),1fr));gap:1rem;margin-block-start:1.2rem;align-items:start">
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Who and when</h2>
+            <dl style="margin:.9rem 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem .9rem;font-size:.92rem">
+              <dt style="color:#5E4C6B">When</dt><dd style="margin:0;font-weight:500">{{ en.when }}</dd>
+              <dt style="color:#5E4C6B">Typed name</dt><dd style="margin:0;font-weight:500">{{ en.name }}</dd>
+              <dt style="color:#5E4C6B">Login used</dt><dd style="margin:0;font-weight:500">{{ en.login }}</dd>
+              <dt style="color:#5E4C6B">IP address</dt><dd style="margin:0;font-variant-numeric:tabular-nums">{{ en.ip }}</dd>
+              <dt style="color:#5E4C6B">Device</dt><dd style="margin:0;overflow-wrap:anywhere">{{ en.device }}</dd>
+              <dt style="color:#5E4C6B">Session</dt><dd style="margin:0;font-family:ui-monospace,monospace;font-size:.85rem">{{ en.session }}</dd>
+            </dl>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">What changed</h2>
+            <div style="margin-block-start:.9rem;display:grid;gap:.7rem">
+              <div style="padding:.7rem .8rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;border-radius:3px">
+                <span style="display:block;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8C1D18">Before</span>
+                <span style="display:block;margin-block-start:.25rem;font-size:.92rem;color:#17061F;overflow-wrap:anywhere">{{ en.before }}</span>
+              </div>
+              <div style="padding:.7rem .8rem;background:#E3F1E7;border-inline-start:3px solid #1A5C33;border-radius:3px">
+                <span style="display:block;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#134726">After</span>
+                <span style="display:block;margin-block-start:.25rem;font-size:.92rem;color:#17061F;overflow-wrap:anywhere">{{ en.after }}</span>
+              </div>
+            </div>
+            <p style="margin-block-start:.9rem;font-size:.82rem;color:#7A6884">Entry hash <span style="font-family:ui-monospace,monospace;color:#5E4C6B">{{ en.hash }}</span> — links to entry #481.</p>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isVersions }}">
+      <div data-screen="post-versions">
+        <a href="#" data-to="post-editor" onClick="{{ go }}" style="font-size:.88rem">← Back to the post</a>
+        <h1 style="margin-block-start:.6rem;font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Version history</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Post #15 · last 4 saves kept. Restoring writes a new version, it does not erase anything.</p>
+        <div style="display:grid;gap:.7rem;margin-block-start:1.2rem">
+          <sc-for list="{{ vs }}" as="v" hint-placeholder-count="4">
+            <div style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:end;justify-content:space-between">
+              <div style="min-inline-size:0">
+                <span style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+                  <b style="font-size:.95rem;font-weight:600">Version {{ v.n }}</b>
+                  <sc-if value="{{ v.current }}"><span style="padding:.2rem .55rem;border-radius:99px;background:#E3F1E7;color:#1A5C33;font-size:.74rem;font-weight:600">Current</span></sc-if>
+                </span>
+                <span style="display:block;margin-block-start:.3rem;font-size:.88rem;color:#5E4C6B">{{ v.when }} · {{ v.by }}</span>
+                <span style="display:block;margin-block-start:.25rem;font-size:.92rem;overflow-wrap:anywhere">{{ v.title }}</span>
+              </div>
+              <sc-if value="{{ v.restorable }}">
+                <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:end">
+                  <label style="display:block">
+                    <span style="display:block;font-size:.78rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+                    <input type="text" defaultValue="" autoComplete="off" style="padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+                  </label>
+                  <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.65rem 1rem;font-size:.9rem;font-weight:500;cursor:pointer">Restore this version</button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isSettings }}">
+      <div data-screen="settings">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Settings</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Lists that editors choose from, and how many posts each homepage box shows.</p>
+
+        <sc-if value="{{ st.dupe }}">
+          <p data-region="form-errors" style="margin-block-start:1rem;padding:.8rem .9rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">“Primary Newsletter” already exists. Names must be different.</p>
+        </sc-if>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(20rem,100%),1fr));gap:1rem;margin-block-start:1.2rem;align-items:start">
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Grades</h2>
+            <p style="margin-block-start:.4rem;font-size:.85rem;color:#7A6884">Hiding a grade keeps old posts intact; it just stops appearing in new ones.</p>
+            <div style="margin-block-start:.9rem;max-block-size:20rem;overflow:auto;border:1px solid #EFE8DA;border-radius:3px">
+              <sc-for list="{{ st.grades }}" as="g" hint-placeholder-count="8">
+                <div data-row="1" style="display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-block-end:1px solid #EFE8DA">
+                  <b style="flex:1 1 auto;font-size:.92rem;font-weight:500">{{ g.name }}</b>
+                  <input type="number" defaultValue="{{ g.order }}" aria-label="Sort order" style="inline-size:4.4rem;padding:.4rem .5rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.85rem" />
+                  <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:#5E4C6B"><input type="checkbox" />Hide</label>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-block-start:.8rem">
+              <input type="text" placeholder="Add a grade" style="flex:1 1 8rem;min-inline-size:0;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+              <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem .9rem;font-size:.88rem;font-weight:500;cursor:pointer">Add</button>
+            </div>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Calendar types</h2>
+            <div style="margin-block-start:.9rem;border:1px solid #EFE8DA;border-radius:3px">
+              <sc-for list="{{ st.types }}" as="t" hint-placeholder-count="3">
+                <div data-row="1" style="display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-block-end:1px solid #EFE8DA">
+                  <b style="flex:1 1 auto;font-size:.92rem;font-weight:500">{{ t.name }}</b>
+                  <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:#5E4C6B"><input type="checkbox" defaultChecked="{{ t.hidden }}" />Hide</label>
+                </div>
+              </sc-for>
+            </div>
+
+            <h2 style="margin-block-start:1.4rem;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Newsletter series</h2>
+            <div style="margin-block-start:.9rem;border:1px solid #EFE8DA;border-radius:3px">
+              <sc-for list="{{ st.letters }}" as="l" hint-placeholder-count="3">
+                <div data-row="1" style="display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-block-end:1px solid #EFE8DA">
+                  <b style="flex:1 1 auto;font-size:.92rem;font-weight:500">{{ l.name }}</b>
+                  <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:#5E4C6B"><input type="checkbox" defaultChecked="{{ l.hidden }}" />Hide</label>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-block-start:.8rem">
+              <input type="text" defaultValue="Primary Newsletter" style="flex:1 1 8rem;min-inline-size:0;padding:.6rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+              <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.6rem .9rem;font-size:.88rem;font-weight:500;cursor:pointer">Add</button>
+            </div>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Homepage counts</h2>
+            <p style="margin-block-start:.4rem;font-size:.85rem;color:#7A6884">How many posts each box shows on the public homepage. 1 to 20.</p>
+            <div style="display:grid;gap:.7rem;margin-block-start:.9rem">
+              <sc-for list="{{ st.counts }}" as="c" hint-placeholder-count="4">
+                <label style="display:flex;align-items:center;gap:.7rem">
+                  <span style="flex:1 1 auto;font-size:.92rem">{{ c.s }}</span>
+                  <input type="number" min="1" max="20" defaultValue="{{ c.n }}" style="inline-size:4.6rem;padding:.5rem .6rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+                </label>
+              </sc-for>
+            </div>
+            <label style="display:block;margin-block-start:1.1rem">
+              <span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span>
+              <input type="text" defaultValue="" autoComplete="off" style="inline-size:100%;padding:.65rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" />
+            </label>
+            <button type="button" style="inline-size:100%;margin-block-start:.8rem;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer">Save settings</button>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isSecurity }}">
+      <div data-screen="security">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Security</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Two shared logins. Change a password here and everyone using it is signed out.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(21rem,100%),1fr));gap:1rem;margin-block-start:1.2rem;align-items:start">
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Change a password</h2>
+            <sc-if value="{{ sec.wrong }}">
+              <p data-region="form-errors" style="margin-block-start:.9rem;padding:.7rem .85rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">The current password is not correct.</p>
+            </sc-if>
+            <sc-if value="{{ sec.short }}">
+              <p data-region="form-errors" style="margin-block-start:.9rem;padding:.7rem .85rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">The new password must be at least 12 characters.</p>
+            </sc-if>
+            <sc-if value="{{ sec.mismatch }}">
+              <p data-region="form-errors" style="margin-block-start:.9rem;padding:.7rem .85rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">The two new passwords do not match.</p>
+            </sc-if>
+            <label style="display:block;margin-block-start:.9rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Which login</span><select style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF"><option>editor</option><option>superadmin</option></select></label>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Current password</span><input type="password" defaultValue="" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /></label>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">New password</span><input type="password" defaultValue="" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /><span style="display:block;margin-block-start:.25rem;font-size:.8rem;color:#7A6884">At least 12 characters.</span></label>
+            <label style="display:block;margin-block-start:.7rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">New password again</span><input type="password" defaultValue="" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /></label>
+            <label style="display:block;margin-block-start:.9rem"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span><input type="text" defaultValue="" autoComplete="off" style="inline-size:100%;padding:.65rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+            <button type="button" style="inline-size:100%;margin-block-start:.9rem;background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer">Change password</button>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Who is signed in</h2>
+            <sc-if value="{{ sec.noSessions }}">
+              <p style="margin-block-start:.9rem;color:#7A6884;font-size:.92rem">Nobody else is signed in right now.</p>
+            </sc-if>
+            <div style="display:grid;gap:.6rem;margin-block-start:.9rem">
+              <sc-for list="{{ sec.sessions }}" as="ss" hint-placeholder-count="3">
+                <div data-row="1" style="border:1px solid #EFE8DA;border-radius:3px;padding:.7rem .8rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between">
+                  <div style="min-inline-size:0">
+                    <b style="display:block;font-size:.9rem;font-weight:600">{{ ss.login }}</b>
+                    <span style="display:block;font-size:.84rem;color:#5E4C6B;overflow-wrap:anywhere">{{ ss.device }} · {{ ss.ip }}</span>
+                    <span style="display:block;font-size:.82rem;color:#7A6884">Last seen {{ ss.last }}</span>
+                  </div>
+                  <button type="button" style="background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.55rem .85rem;font-size:.85rem;font-weight:500;cursor:pointer">Sign out</button>
+                </div>
+              </sc-for>
+            </div>
+            <button type="button" style="inline-size:100%;margin-block-start:.9rem;background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.7rem 1rem;font-size:.92rem;font-weight:500;cursor:pointer">Sign everyone out</button>
+            <p style="margin-block-start:1.2rem;padding:.7rem .85rem;background:#EFE8DA;border-inline-start:3px solid #7A6884;color:#3A2A44;font-size:.88rem">Failed logins lock the login for 10 minutes after 5 tries. Lockouts appear in the change log.</p>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isPages }}">
+      <div data-screen="custom-pages">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">Custom pages</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">Standalone HTML pages that editors can link to from a post. IT only.</p>
+
+        <sc-if value="{{ pg.bad }}">
+          <p data-region="form-errors" style="margin-block-start:1rem;padding:.8rem .9rem;background:#FBE7E5;border-inline-start:3px solid #B3261E;color:#8C1D18;font-size:.9rem">Only .html files can be uploaded here. That file looked like a .zip.</p>
+        </sc-if>
+
+        <section style="margin-block-start:1.1rem;background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+          <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Upload a page</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:end;margin-block-start:.9rem">
+            <label style="display:block;flex:1 1 14rem;min-inline-size:0"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Page title</span><input type="text" defaultValue="" maxLength="150" style="inline-size:100%;padding:.65rem .75rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.92rem;background:#FFF" /></label>
+            <label style="display:block;flex:1 1 12rem;min-inline-size:0"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">HTML file</span><input type="file" style="inline-size:100%;padding:.55rem .6rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.88rem;background:#FFF" /></label>
+            <label style="display:block;flex:1 1 9rem;min-inline-size:0"><span style="display:block;font-size:.82rem;font-weight:600;color:#3A2A44;margin-block-end:.25rem">Your name</span><input type="text" defaultValue="" autoComplete="off" style="inline-size:100%;padding:.65rem .7rem;border:1px solid #CFC4B0;border-radius:3px;font-size:.9rem;background:#FFF" /></label>
+            <button type="button" style="background:#D8A800;color:#17061F;border:1px solid #D8A800;border-radius:3px;padding:.7rem 1.2rem;font-size:.92rem;font-weight:600;cursor:pointer">Upload</button>
+          </div>
+          <p style="margin-block-start:.6rem;font-size:.82rem;color:#7A6884">Scripts in the file are kept as they are. Only upload pages you wrote or trust.</p>
+        </section>
+
+        <sc-if value="{{ pg.none }}">
+          <div style="margin-block-start:1.1rem;padding:2.2rem 1.2rem;text-align:center;background:#FFF;border:1px solid #E2D9C8;border-radius:4px">
+            <p style="font-size:1.02rem;font-weight:500">No custom pages yet.</p>
+            <p style="margin-block-start:.35rem;color:#5E4C6B;font-size:.92rem">Upload one above, then editors can link to it from a post.</p>
+          </div>
+        </sc-if>
+        <div style="display:grid;gap:.7rem;margin-block-start:1.1rem">
+          <sc-for list="{{ pg.rows }}" as="r" hint-placeholder-count="2">
+            <div data-row="1" style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1rem;display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;justify-content:space-between">
+              <div style="min-inline-size:0">
+                <b style="display:block;font-size:.95rem;font-weight:500">#{{ r.id }} {{ r.title }}</b>
+                <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">{{ r.size }} · uploaded {{ r.date }}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:.45rem">
+                <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.55rem .85rem;font-size:.85rem;cursor:pointer">Open</button>
+                <button type="button" style="background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.55rem .85rem;font-size:.85rem;cursor:pointer">Replace file</button>
+                <button type="button" style="background:#FFF;color:#8C1D18;border:1px solid #E0B4AF;border-radius:3px;padding:.55rem .85rem;font-size:.85rem;cursor:pointer">Delete…</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isSystem }}">
+      <div data-screen="system">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">System</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">What the server has, and whether the scheduled jobs are running.</p>
+
+        <sc-if value="{{ sy.warn }}">
+          <div style="margin-block-start:1rem;padding:.9rem 1rem;background:#FBF1D2;border-inline-start:3px solid #8C6A00;border-radius:4px">
+            <b style="display:block;font-size:.95rem;font-weight:600;color:#6B4E00">Two things need the hosting provider</b>
+            <p style="margin-block-start:.3rem;font-size:.9rem;color:#6B4E00">The <code>zip</code> extension is missing, so CSV exports will fail. The scheduled job has not run for 3 days, so scheduled posts will not go live on time.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sy.allGood }}">
+          <p style="margin-block-start:1rem;padding:.75rem .9rem;background:#E3F1E7;border-inline-start:3px solid #1A5C33;color:#134726;font-size:.9rem">Everything the site needs is present and the scheduled job ran 4 minutes ago.</p>
+        </sc-if>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(19rem,100%),1fr));gap:1rem;margin-block-start:1.2rem;align-items:start">
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">PHP extensions</h2>
+            <div style="display:grid;gap:.5rem;margin-block-start:.9rem">
+              <sc-for list="{{ sy.exts }}" as="x" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem .65rem;border:1px solid #EFE8DA;border-radius:3px">
+                  <span style="font-family:ui-monospace,monospace;font-size:.88rem;flex:1 1 auto">{{ x.name }}</span>
+                  <span style="padding:.2rem .55rem;border-radius:99px;font-size:.74rem;font-weight:600;color:{{ x.fg }};background:{{ x.bg }}">{{ x.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Environment</h2>
+            <dl style="margin:.9rem 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem .9rem;font-size:.9rem">
+              <dt style="color:#5E4C6B">PHP</dt><dd style="margin:0;font-weight:500">8.2.14</dd>
+              <dt style="color:#5E4C6B">Database</dt><dd style="margin:0;font-weight:500">SQLite 3.41 · 12.4 MB</dd>
+              <dt style="color:#5E4C6B">Uploads folder</dt><dd style="margin:0;font-weight:500">Writable · 418 MB used</dd>
+              <dt style="color:#5E4C6B">Max upload size</dt><dd style="margin:0;font-weight:500">20 MB</dd>
+              <dt style="color:#5E4C6B">Server time</dt><dd style="margin:0;font-weight:500">16 Sep 2026, 11:42 (Qatar)</dd>
+            </dl>
+          </section>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:1.2rem">
+            <h2 style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5E4C6B">Scheduled job</h2>
+            <p style="margin-block-start:.9rem;font-size:.92rem">Publishes scheduled posts, unpins expired pins and empties the recycle bin after 30 days.</p>
+            <p style="margin-block-start:.7rem;font-size:.92rem;color:{{ sy.cronFg }}">Last run: {{ sy.cronLine }}</p>
+            <button type="button" style="inline-size:100%;margin-block-start:.9rem;background:#FFF;color:#400068;border:1px solid #CFC4B0;border-radius:3px;padding:.7rem 1rem;font-size:.92rem;font-weight:500;cursor:pointer">Run it now</button>
+            <p style="margin-block-start:.6rem;font-size:.82rem;color:#7A6884">Safe to press at any time.</p>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isTutorial }}">
+      <div data-screen="tutorial">
+        <h1 style="font-size:1.6rem;font-weight:600;letter-spacing:-.025em">How to post a circular</h1>
+        <p style="margin-block-start:.3rem;color:#5E4C6B">One minute, six steps. It plays on its own — press a step to jump.</p>
+
+        <div style="display:grid;grid-template-columns:16rem minmax(0,1fr);gap:1.1rem;margin-block-start:1.2rem;align-items:start">
+          <div style="display:grid;gap:.45rem">
+            <sc-for list="{{ tu.steps }}" as="st" hint-placeholder-count="6">
+              <button type="button" data-tstep="1" data-on="{{ st.on }}" data-k="tut" data-v="{{ st.i }}" onClick="{{ pickNum }}" style="text-align:start;display:flex;gap:.7rem;align-items:start;background:#FBF8F2;border:1px solid #E2D9C8;border-radius:4px;padding:.7rem .8rem;cursor:pointer">
+                <span data-tnum="1" style="inline-size:1.7rem;block-size:1.7rem;flex:0 0 auto;display:grid;place-items:center;background:#EFE8DA;color:#3A2A44;border-radius:99px;font-size:.82rem;font-weight:600">{{ st.n }}</span>
+                <span style="min-inline-size:0">
+                  <b style="display:block;font-size:.92rem;font-weight:600">{{ st.head }}</b>
+                  <span style="display:block;font-size:.78rem;color:#7A6884;font-variant-numeric:tabular-nums">{{ st.clock }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+
+          <section style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;overflow:hidden;min-inline-size:0">
+            <div style="block-size:3px;background:#EFE8DA">
+              <div style="block-size:3px;background:#D8A800;inline-size:{{ tu.pct }};transition:inline-size 420ms cubic-bezier(.16,1,.3,1)"></div>
+            </div>
+            <div data-tpane="{{ tu.idx }}" key="{{ tu.idx }}" style="padding:clamp(1.1rem,2.5vw,1.8rem)">
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8C6A00">Step {{ tu.step.n }} of 6 · {{ tu.step.clock }}</p>
+              <h2 style="margin-block-start:.5rem;font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.3rem,1.1rem + .9vw,1.8rem);font-weight:600;letter-spacing:-.025em;text-wrap:pretty">{{ tu.step.head }}</h2>
+              <p style="margin-block-start:.6rem;font-size:1rem;color:#3A2A44;max-inline-size:40rem;text-wrap:pretty">{{ tu.step.body }}</p>
+
+              <div style="margin-block-start:1.2rem;border:1px solid #E2D9C8;border-radius:4px;background:#F6F2EA;overflow:hidden">
+                <div style="background:#400068;padding:.55rem .8rem;display:flex;align-items:center;gap:.5rem">
+                  <img src="assets/shield.svg" alt="" style="inline-size:1.1rem" />
+                  <span style="color:#C3B2CE;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase">{{ tu.step.where }}</span>
+                </div>
+                <div style="padding:1.1rem;display:grid;gap:.7rem">
+                  <sc-if value="{{ tu.step.showButtons }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+                      <span style="background:#D8A800;color:#17061F;border-radius:3px;padding:.75rem 1.3rem;font-size:.95rem;font-weight:600;animation:tapring 1.8s ease-out infinite">{{ tu.step.cta }}</span>
+                      <span style="background:#FFF;color:#7A6884;border:1px solid #E2D9C8;border-radius:3px;padding:.75rem 1.2rem;font-size:.95rem">Calendar entry</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ tu.step.showSections }}">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(9rem,100%),1fr));gap:.6rem">
+                      <span style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:.9rem;font-size:.88rem;color:#7A6884">Information corner</span>
+                      <span style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:.9rem;font-size:.88rem;color:#7A6884">Events corner</span>
+                      <span style="background:#FFFDF8;border:1px solid #400068;border-radius:4px;padding:.9rem;font-size:.88rem;font-weight:600;color:#400068;animation:tapring 1.8s ease-out infinite">Academic circulars</span>
+                      <span style="background:#FFF;border:1px solid #E2D9C8;border-radius:4px;padding:.9rem;font-size:.88rem;color:#7A6884">Newsletter</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ tu.step.showField }}">
+                    <div style="background:#FFF;border:1px solid #400068;border-radius:3px;padding:.8rem .9rem;font-size:.95rem;color:#17061F;overflow-wrap:anywhere">{{ tu.step.fieldValue }}<span style="display:inline-block;inline-size:2px;block-size:1.1em;vertical-align:-.2em;margin-inline-start:2px;background:#400068"></span></div>
+                    <p style="margin:0;font-size:.8rem;color:#7A6884">{{ tu.step.fieldHint }}</p>
+                  </sc-if>
+                  <sc-if value="{{ tu.step.showPdf }}">
+                    <div style="display:grid;gap:.5rem">
+                      <div style="display:flex;align-items:center;gap:.6rem;background:#FFF;border:1px solid #E2D9C8;border-radius:3px;padding:.55rem .65rem">
+                        <span style="inline-size:2rem;block-size:2rem;display:grid;place-items:center;background:#FBE7E5;color:#8C1D18;border-radius:3px;font-size:.6rem;font-weight:600">PDF</span>
+                        <b style="font-size:.9rem;font-weight:500">Main subjects</b>
+                        <span style="margin-inline-start:auto;font-size:.8rem;color:#7A6884">1.4 MB</span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:.6rem;background:#FFF;border:1px solid #E2D9C8;border-radius:3px;padding:.55rem .65rem">
+                        <span style="inline-size:2rem;block-size:2rem;display:grid;place-items:center;background:#FBE7E5;color:#8C1D18;border-radius:3px;font-size:.6rem;font-weight:600">PDF</span>
+                        <b style="font-size:.9rem;font-weight:500">French 2L</b>
+                        <span style="margin-inline-start:auto;font-size:.8rem;color:#7A6884">420 KB</span>
+                      </div>
+                      <span style="justify-self:start;border:1px dashed #CFC4B0;border-radius:3px;padding:.6rem .9rem;font-size:.88rem;color:#400068;animation:tapring 1.8s ease-out infinite">+ Add PDFs</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ tu.step.showPublish }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center">
+                      <span style="background:#D8A800;color:#17061F;border-radius:3px;padding:.75rem 1.4rem;font-size:.95rem;font-weight:600;animation:tapring 1.8s ease-out infinite">Publish</span>
+                      <span style="padding:.25rem .6rem;border-radius:99px;background:#E3F1E7;color:#1A5C33;font-size:.8rem;font-weight:600">Live</span>
+                      <span style="font-size:.88rem;color:#5E4C6B">Appears in Recently published</span>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      </sc-if>
+
+      <div data-region="screen-tail"></div>
+    </main>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;editor&quot;,&quot;super&quot;],&quot;default&quot;:&quot;editor&quot;,&quot;tsType&quot;:&quot;'editor' | 'super'&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;stateLab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;showHooks&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+class Component extends DCLogic {
+  state = {screen:'dashboard', loggedIn:true, role:null, dash:'full', ed:'draft', posts:'full', bin:'full', log:'ok', pages:'some', cal:'entries', sec:'ok', pv:'phone', pvValid:true, login:'clean', sys:'warn', set:'ok', tut:0};
+
+  componentDidMount(){
+    this._t = setInterval(()=>{
+      if(this.state.screen==='tutorial') this.setState(s=>({tut:(s.tut+1)%6}));
+    }, 4600);
+  }
+  componentWillUnmount(){ clearInterval(this._t); }
+
+  go = e => { const to = e.currentTarget.dataset.to; this.setState({screen:to}); window.scrollTo(0,0); };
+  pick = e => { const {k,v} = e.currentTarget.dataset; this.setState({[k]: v}); };
+  pickNum = e => { const {k,v} = e.currentTarget.dataset; this.setState({[k]: Number(v)}); };
+  toggleRole = () => this.setState(s=>({role: (s.role ?? this.props.role ?? 'editor')==='super' ? 'editor' : 'super', screen:'dashboard'}));
+  doLogin = e => { e.preventDefault(); this.setState({loggedIn:true, screen:'dashboard'}); };
+  logout = () => this.setState({loggedIn:false, screen:'dashboard', login:'clean'});
+
+  chipsFor(screen){
+    const C = {
+      dashboard:[['dash','full','Normal'],['dash','empty','All lists empty'],['dash','many','20+ drafts']],
+      'post-editor':[['ed','draft','Draft'],['ed','live','Live'],['ed','scheduled','Scheduled'],['ed','hidden','Hidden'],['ed','noblocks','No blocks yet'],['ed','errors','Validation errors'],['ed','many','30+ blocks'],['ed','all','Every block type'],['ed','long','150-char title'],['ed','newsletter','Newsletter, no series']],
+      'post-preview':[['pv','phone','Phone'],['pv','desktop','Desktop'],['pvValid','no','Invalid content']],
+      'posts-index':[['posts','full','Results'],['posts','empty','No matches']],
+      calendar:[['cal','entries','With entries'],['cal','empty','No entries'],['cal','edit','Edit entry'],['cal','error','End before start']],
+      'recycle-bin':[['bin','full','Has deleted posts'],['bin','empty','Empty bin']],
+      'audit-index':[['log','ok','Integrity OK'],['log','altered','ALTERED'],['log','empty','No matches']],
+      settings:[['set','ok','Normal'],['set','dupe','Duplicate name']],
+      security:[['sec','ok','Normal'],['sec','short','Password too short'],['sec','mismatch','Confirmation mismatch'],['sec','wrong','Wrong current password'],['sec','none','No sessions']],
+      'custom-pages':[['pages','some','Pages uploaded'],['pages','none','None yet'],['pages','badfile','Wrong file type']],
+      system:[['sys','warn','Missing extension'],['sys','ok','All good']],
+      login:[['login','clean','Clean'],['login','wrong','Wrong password'],['login','locked','Locked out']]
+    };
+    return (C[screen]||[]).map(([k,v,label])=>({k,v,label,on:String(this.state[k])===v?'1':'0'}));
+  }
+
+  blocksFor(mode){
+    const T = (n,html,err)=>({n,name:'Text',isText:true,html,err});
+    const PDF = n=>({n,name:'PDF file(s)',isPdf:true,files:[{label:'Main subjects',size:'1.4 MB'},{label:'French 2L',size:'420 KB'},{label:'French 3L',size:'398 KB'},{label:'Hindi 2L',size:'512 KB'},{label:'Hindi 3L',size:'488 KB'},{label:'Malayalam 2L — second language reading list for the half yearly examination',size:'361 KB'}]});
+    const TB = n=>({n,name:'Table',isTable:true,head:['Class','Room','Roll numbers'],rows:[['VII A','101','1–32'],['VII B','102','1–30'],['VIII A','201','1–31'],['VIII B','202','1–29\n(late joiners 30–31)']]});
+    const LK = (n,url,err)=>({n,name:'Link button',isLink:true,label:'Hear it first: register interest',url,err});
+    if(mode==='noblocks') return [];
+    if(mode==='errors') return [T(1,'',"This text block is empty. Type something or remove the block."), PDF(2), LK(3,'dpsmillennium.com/register','Block 3: The link must be a full web address starting with https://')];
+    if(mode==='many') return Array.from({length:30},(_,i)=>({n:i+1,name:['Text','Photo','PDF file(s)','Table'][i%4],collapsed:true,summary:['Dear Parents, please find the syllabus…','seating-plan-2026.jpg','Main subjects + 5 more','3 columns × 5 rows'][i%4]}));
+    if(mode==='all') return [
+      T(1,'<p>Dear Parents, please find the syllabus for each subject below.</p>'),
+      {n:2,name:'Photo',isPhoto:true,caption:'Receiving the award',crop:true},
+      {n:3,name:'Photo gallery',isGallery:true,count:3},
+      PDF(4), LK(5,'https://dpsmillennium.com/#register'),
+      {n:6,name:'YouTube video',isYt:true,url:'https://youtu.be/dQw4w9WgXcQ',mode:'player'},
+      {n:7,name:'Short video',isVideo:true,caption:'Short clip from the ceremony',size:'38 MB'},
+      TB(8),
+      {n:9,name:'Custom HTML page',isPage:true,pageId:3,mode:'link'}
+    ];
+    return [T(1,'<p>Dear Parents, please find the syllabus for each subject below.</p>'), PDF(2), TB(3), LK(4,'https://dpsmillennium.com/#register')];
+  }
+
+  renderVals(){
+    const role = this.state.role ?? this.props.role ?? 'editor';
+    const isSuper = role === 'super';
+    const s = this.state.screen;
+    const lab = (this.props.stateLab ?? true);
+    const hooks = (this.props.showHooks ?? false);
+    const m = this.state;
+
+    const navItems = [
+      {to:'dashboard',label:'Dashboard'},
+      {to:'choose-section',label:'New post'},
+      {to:'posts-index',label:'All posts'},
+      {to:'calendar',label:'Calendar'},
+      {to:'recycle-bin',label:'Recycle bin'}
+    ].map(i=>({...i,on:s===i.to?'1':'0'}));
+    const navAdmin = (isSuper?[
+      {to:'audit-index',label:'Change log'},
+      {to:'settings',label:'Settings'},
+      {to:'security',label:'Security'},
+      {to:'custom-pages',label:'Custom pages'},
+      {to:'system',label:'System'}
+    ]:[]).map(i=>({...i,on:s===i.to?'1':'0'}));
+    const navSide = [
+      {to:'post-preview',label:'Parent view'},
+      {to:'tutorial',label:'How to post'}
+    ].map(i=>({...i,on:s===i.to?'1':'0'}));
+
+    // Dashboard
+    const pub = [
+      {title:'Grade VII and VIII half yearly examination seating arrangement 2026',section:'Information corner',when:'9 Sep, 13:10',updated:'Updated 10 Sep'},
+      {title:'DPS Millennium educators felicitated at ICC Qatar Teachers’ Day 2026',section:'Events corner',when:'10 Sep, 15:30',updated:null},
+      {title:'Grade V Half Yearly Examination Syllabus 2026-27',section:'Academic circulars',when:'3 Sep, 10:00',updated:null},
+      {title:'Kindergarten Newsletter: Term I',section:'Newsletter',when:'30 Aug, 12:00',updated:null}
+    ];
+    const drafts = m.dash==='many'
+      ? Array.from({length:22},(_,i)=>({title:i===0?'Grade IX project submission dates':'Draft '+(i+1)+' — untitled circular',section:i%2?'Academic circulars':'Events corner',saved:i<3?'Today, 11:0'+(4+i):'12 Sep, 09:2'+i}))
+      : [{title:'Grade IX project submission dates',section:'Academic circulars',saved:'Today, 11:04'},{title:'Untitled',section:'Events corner',saved:'Yesterday, 16:20'}];
+    const empty = m.dash==='empty';
+    const d = {
+      sched: empty?[]:[{title:'Annual Day rehearsal schedule',section:'Information corner',go:'17 Sep 2026, 07:00',rel:'in 22 hours'}],
+      pinned: empty?[]:[{title:'Welcome to DPS Millennium: admissions for 2027-28 open soon',section:'Information corner',unpin:'28 Sep 2026'}],
+      drafts: empty?[]:drafts,
+      pub: empty?[]:pub
+    };
+    d.schedEmpty=!d.sched.length; d.pinnedEmpty=!d.pinned.length; d.draftsEmpty=!d.drafts.length; d.pubEmpty=!d.pub.length;
+    d.draftCount = d.drafts.length;
+
+    // Post editor
+    const e = m.ed;
+    const stat = {draft:['Draft','#5E4C6B','#EFEAE0'],live:['Live','#1A5C33','#E3F1E7'],scheduled:['Scheduled','#2E2480','#E8E6F6'],hidden:['Hidden','#7A5C00','#FBF1D2']};
+    const key = ['live','hidden','scheduled'].includes(e)?e:'draft';
+    const gradeList = ['Pre-KG','KG1','KG2','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+    const ed = {
+      gradeList,
+      section: e==='newsletter'?'Newsletter':'Academic circulars',
+      isNewsletter: e==='newsletter',
+      statusLabel: stat[key][0], fg: stat[key][1], bg: stat[key][2],
+      isLive: key==='live'||key==='hidden',
+      isScheduled: key==='scheduled',
+      isDraft: key==='draft',
+      posted: key==='draft'?null:'3 Sep 2026, 10:00',
+      updated: key==='live'?'10 Sep 2026, 09:02':null,
+      link: key==='draft'?null:'/circulars/21-grade-v-half-yearly-examination-syllabus-2026-27',
+      schedLine: key==='scheduled'?'Goes live 17 Sep 2026, 07:00 (in 22 hours)':null,
+      hiddenLine: key==='hidden'?'Removed from the website on 12 Sep 2026. Parents cannot see it. Nothing has been deleted.':null,
+      title: e==='long'?'Grade-VII-and-VIII-half-yearly-examination-seating-arrangement-and-reporting-instructions-for-parents-and-students-2026-27-revision-two':'Grade V Half Yearly Examination Syllabus 2026-27',
+      summary: '',
+      primary: key==='draft'?'Publish':(key==='scheduled'?'Update schedule':'Save changes'),
+      autosave: 'Saved a moment ago',
+      restoreBar: e==='draft',
+      hasErrors: e==='errors',
+      errors: ['Type your name before saving. This is recorded in the change log.','This text block is empty. Type something or remove the block.','Block 3: The link must be a full web address starting with https://'],
+      blocks: this.blocksFor(e),
+      manyMode: e==='many'
+    };
+    ed.empty = !ed.blocks.length;
+    ed.count = ed.blocks.length;
+
+    // Preview / parent view
+    const pv = {
+      phone: m.pv!=='desktop',
+      width: m.pv==='desktop'?'100%':'390px',
+      valid: m.pvValid!=='no',
+      problems: ['Block 1: this text block is empty.','Block 3: the link is not a full web address.'],
+      blocks: this.blocksFor('all')
+    };
+
+    // All posts
+    const rows = [
+      {id:12,title:'Welcome to DPS Millennium: admissions for 2027-28 open soon',pin:true,section:'Information corner',status:'Live',fg:'#1A5C33',bg:'#E3F1E7',date:'14 Sep 2026'},
+      {id:15,title:'Grade VII and VIII half yearly examination seating arrangement 2026',pin:false,section:'Information corner',status:'Live',fg:'#1A5C33',bg:'#E3F1E7',date:'9 Sep 2026'},
+      {id:30,title:'DPS Millennium educators felicitated at ICC Qatar Teachers’ Day 2026',pin:false,section:'Events corner',status:'Live',fg:'#1A5C33',bg:'#E3F1E7',date:'10 Sep 2026'},
+      {id:21,title:'Grade V Half Yearly Examination Syllabus 2026-27',pin:false,section:'Academic circulars',status:'Live',fg:'#1A5C33',bg:'#E3F1E7',date:'3 Sep 2026'},
+      {id:33,title:'Kindergarten Newsletter: Term I',pin:false,section:'Newsletter',status:'Live',fg:'#1A5C33',bg:'#E3F1E7',date:'30 Aug 2026'},
+      {id:37,title:'Annual Day rehearsal schedule',pin:false,section:'Information corner',status:'Scheduled',fg:'#2E2480',bg:'#E8E6F6',date:'17 Sep 2026'},
+      {id:38,title:'Grade IX project submission dates',pin:false,section:'Academic circulars',status:'Draft',fg:'#5E4C6B',bg:'#EFEAE0',date:'—'},
+      {id:9,title:'Summer reading list 2026',pin:false,section:'Information corner',status:'Hidden',fg:'#7A5C00',bg:'#FBF1D2',date:'1 Jun 2026'}
+    ];
+    const pi = {rows: m.posts==='empty'?[]:rows, empty:m.posts==='empty', count:rows.length};
+
+    // Calendar — September 2026 starts Tuesday
+    const entries = {20:[{t:'Weekly Test I',type:'Exam'}],24:[{t:'Weekly Test I make-up',type:'Exam'},{t:'Staff development day',type:'Holiday'},{t:'Inter-house quiz',type:'Exam'}],30:[{t:'Half yearly examinations',type:'Exam',cont:true}]};
+    const cells = [];
+    for(let i=0;i<2;i++) cells.push({blank:true,day:''});
+    for(let day=1;day<=30;day++) cells.push({blank:false,day,items:(m.cal==='empty'?[]:(entries[day]||[]))});
+    const cl = {cells, empty:m.cal==='empty', editing:m.cal==='edit', err:m.cal==='error'};
+
+    // Recycle bin
+    const bn = {
+      rows: m.bin==='empty'?[]:[
+        {title:'Grade VI unit test timetable (old)',section:'Academic circulars',deleted:'8 Sep 2026 by Ms. Priya (demo)',gone:'8 Oct 2026'},
+        {title:'Sports day photos — duplicate',section:'Events corner',deleted:'2 Sep 2026 by Mr. Anand (demo)',gone:'2 Oct 2026'}
+      ],
+      empty:m.bin==='empty', canRestore:isSuper
+    };
+
+    // Change log
+    const lg = {
+      rows: m.log==='empty'?[]:[
+        {n:482,when:'10 Sep 2026, 09:02',name:'Ms. Priya (demo)',login:'editor',action:'post.edited',item:'Post #15',ip:'10.20.1.44'},
+        {n:481,when:'10 Sep 2026, 08:58',name:'Ms. Priya (demo)',login:'editor',action:'post.published',item:'Post #30',ip:'10.20.1.44'},
+        {n:480,when:'10 Sep 2026, 08:31',name:'—',login:'editor',action:'auth.login',item:'—',ip:'10.20.1.44'},
+        {n:479,when:'9 Sep 2026, 17:12',name:'Mr. Anand (demo)',login:'superadmin',action:'settings.updated',item:'Homepage counts',ip:'10.20.1.7'},
+        {n:478,when:'8 Sep 2026, 14:03',name:'Mr. Anand (demo)',login:'superadmin',action:'post.deleted',item:'Post #8',ip:'10.20.1.7'}
+      ],
+      empty:m.log==='empty', intact:m.log!=='altered', altered:m.log==='altered'
+    };
+    const en = {when:'10 Sep 2026, 09:02:11 (Qatar time)',name:'Ms. Priya (demo)',login:'editor',ip:'10.20.1.44',device:'Chrome 140 on Windows 10',session:'a41f…9c2',item:'Post #15',hash:'7f3a9b2e41c8d05f6a1b',before:'Grade VII seating arrangement',after:'Grade VII and VIII half yearly examination seating arrangement 2026'};
+
+    const vs = [
+      {n:4,when:'10 Sep 2026, 09:02',by:'Ms. Priya (demo)',title:'Grade VII and VIII half yearly examination seating arrangement 2026',current:true},
+      {n:3,when:'9 Sep 2026, 13:10',by:'Ms. Priya (demo)',title:'Grade VII seating arrangement',current:false},
+      {n:2,when:'9 Sep 2026, 12:44',by:'Ms. Priya (demo)',title:'Grade VII seating arrangement',current:false},
+      {n:1,when:'9 Sep 2026, 12:20',by:'Mr. Anand (demo)',title:'Seating arrangement (draft)',current:false}
+    ];
+
+    const st = {
+      dupe: m.set==='dupe',
+      grades: ['Pre-KG','KG1','KG2','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'].map((g,i)=>({name:g,order:(i+1)*10,hidden:false})),
+      types: [{name:'Holiday',hidden:false},{name:'Exam',hidden:false},{name:'Half day',hidden:true}],
+      letters: [{name:'Kindergarten Newsletter',hidden:false},{name:'Primary Newsletter',hidden:false},{name:'Senior Newsletter',hidden:true}],
+      counts: [{s:'Information corner',n:5},{s:'Academic circulars',n:4},{s:'Events corner',n:8},{s:'Newsletter',n:4}]
+    };
+
+    const sec = {
+      short: m.sec==='short', mismatch: m.sec==='mismatch', wrong: m.sec==='wrong',
+      sessions: m.sec==='none'?[]:[
+        {login:'editor',ip:'10.20.1.44',device:'Chrome 140 on Windows 10',last:'2 minutes ago'},
+        {login:'editor',ip:'10.20.1.51',device:'Safari on iPhone',last:'26 minutes ago'},
+        {login:'superadmin',ip:'10.20.1.7',device:'Chrome 140 on macOS',last:'just now'}
+      ],
+      noSessions: m.sec==='none'
+    };
+
+    const pg = {
+      rows: m.pages==='some'?[{id:3,title:'Bus route map 2026-27',size:'184 KB',date:'4 Sep 2026'},{id:2,title:'Uniform shop order form',size:'96 KB',date:'21 Aug 2026'}]:[],
+      none: m.pages!=='some', bad: m.pages==='badfile'
+    };
+
+    const warn = m.sys==='warn';
+    const sy = {
+      warn, allGood: !warn,
+      exts: [{name:'pdo_sqlite',ok:true},{name:'gd',ok:true},{name:'mbstring',ok:true},{name:'fileinfo',ok:true},{name:'zip',ok:!warn},{name:'exif',ok:true}]
+        .map(x=>({...x, label: x.ok?'Present':'Missing', fg: x.ok?'#1A5C33':'#8C1D18', bg: x.ok?'#E3F1E7':'#FBE7E5'})),
+      cronLine: warn?'12 Sep 2026, 11:05 — 3 days ago':'16 Sep 2026, 11:38 — 4 minutes ago',
+      cronFg: warn?'#8C1D18':'#134726'
+    };
+
+    // Tutorial
+    const steps = [
+      {n:1,clock:'0:00 – 0:08',head:'Press New post',body:'It is the first button on the dashboard. Nothing else on the page matters yet.',where:'Dashboard',showButtons:true,cta:'New post'},
+      {n:2,clock:'0:08 – 0:16',head:'Choose Academic circulars',body:'Four big choices. A syllabus letter is a circular.',where:'What are you posting?',showSections:true},
+      {n:3,clock:'0:16 – 0:28',head:'Type the title',body:'Write it the way a parent would read it, in full.',where:'Post editor · Basics',showField:true,fieldValue:'Grade V Half Yearly Examination Syllabus 2026-27',fieldHint:'Up to 150 characters. No need to shorten it.'},
+      {n:4,clock:'0:28 – 0:42',head:'Add the PDF block',body:'Press Add block, choose PDF file(s), pick your files and give each one a short label.',where:'Post editor · Content blocks',showPdf:true},
+      {n:5,clock:'0:42 – 0:50',head:'Type your name',body:'Always empty, always required. It goes in the change log so IT can see who posted.',where:'Post editor · Publishing',showField:true,fieldValue:'Ms. Priya',fieldHint:'Nobody else sees this on the website — only IT, in the change log.'},
+      {n:6,clock:'0:50 – 1:00',head:'Press Publish',body:'It is live. The dashboard shows it under Recently published, and it appears in the homepage box.',where:'Post editor · Publishing',showPublish:true}
+    ];
+    const tu = {steps: steps.map((x,i)=>({...x,i:String(i),on:i===m.tut?'1':'0'})), step: steps[m.tut], idx:String(m.tut),
+      pct: String(Math.round(((m.tut+1)/6)*100))+'%'};
+
+    return {
+      atLogin: !this.state.loggedIn, inApp: this.state.loggedIn,
+      isSuper, roleLabel: isSuper?'Super admin':'Editor', roleSwitch: isSuper?'Switch to Editor':'Switch to Super admin',
+      navItems, navAdmin, navSide, hasAdmin:isSuper,
+      go:this.go, pick:this.pick, pickNum:this.pickNum, toggleRole:this.toggleRole, logout:this.logout, doLogin:this.doLogin,
+      lab, hooks, screenHook:s,
+      chips:this.chipsFor(s), hasChips: lab && this.chipsFor(s).length>0,
+      isDash:s==='dashboard', isSections:s==='choose-section', isEditor:s==='post-editor', isPreview:s==='post-preview',
+      isPosts:s==='posts-index', isCal:s==='calendar', isBin:s==='recycle-bin', isLog:s==='audit-index',
+      isEntry:s==='audit-show', isVersions:s==='post-versions', isSettings:s==='settings', isSecurity:s==='security',
+      isPages:s==='custom-pages', isSystem:s==='system', isTutorial:s==='tutorial',
+      loginWrong:this.state.login==='wrong', loginLocked:this.state.login==='locked', loginChips:this.chipsFor('login'),
+      pvPhoneOn: pv.phone?'1':'0', pvDeskOn: pv.phone?'0':'1', pvInvalid: !pv.valid,
+      piHas: !pi.empty, logHas: !lg.empty, binNoRestore: !bn.canRestore,
+      d, ed, pv, pi, cl, bn, lg, en, vs: vs.map(v=>({...v, restorable: !v.current})), st, sec, pg, sy, tu
+    };
+  }
+}
+</script>
+</body>
+</html>

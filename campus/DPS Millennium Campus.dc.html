@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Arabic";src:url("assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--gutter:clamp(1.25rem,5vw,4.5rem);caret-color:#400068;accent-color:#400068}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#400068;-webkit-text-size-adjust:100%;font-size:clamp(16px,4px + .625vw,20px);scrollbar-width:none}
+::-webkit-scrollbar{inline-size:0;block-size:0}
+body{margin:0;background:#400068;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;height:auto;display:block}
+p,h1,h2,h3,h4{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{color:#D8A800}
+::selection{background:#D8A800;color:#17061F}
+:where(a,button,input,summary):focus-visible{outline:3px solid #D8A800;outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes wordIn{from{transform:translateY(108%)}to{transform:none}}
+@keyframes headIn{from{clip-path:inset(-.18em 0 106% 0);transform:translateY(12px)}to{clip-path:inset(-.18em 0 0 0);transform:none}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ruleIn2{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes slideR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+
+/* Hero plays off the load clock; below the fold an observer flips data-reveal. */
+[data-anim="word"]{animation:wordIn 880ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 95ms + 560ms)}
+header [data-anim="fade"]{animation:fadeIn 780ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 95ms + 640ms)}
+main [data-anim="head"][data-reveal="0"]{clip-path:inset(-.18em 0 106% 0)}
+main [data-anim="head"][data-reveal="1"]{animation:headIn 900ms cubic-bezier(.16,1,.3,1) both}
+main [data-anim="fade"][data-reveal="0"],main [data-anim="row"][data-reveal="0"]{opacity:0}
+main [data-anim="fade"][data-reveal="1"],main [data-anim="row"][data-reveal="1"]{animation:fadeIn 720ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+main [data-anim="left"][data-reveal="0"],main [data-anim="right"][data-reveal="0"]{opacity:0}
+main [data-anim="left"][data-reveal="1"]{animation:slideL 820ms cubic-bezier(.16,1,.3,1) both}
+main [data-anim="right"][data-reveal="1"]{animation:slideR 820ms 90ms cubic-bezier(.16,1,.3,1) both}
+main [data-anim="rule"]{transform-origin:left}
+main [data-anim="rule"][data-reveal="0"]{transform:scaleX(0)}
+main [data-anim="rule"][data-reveal="1"]{animation:ruleIn2 820ms 120ms cubic-bezier(.16,1,.3,1) both}
+
+/* Build journal: one photograph is shown at a time and the others cross-fade
+   out beneath it, so the stage picker reads as a single changing window. */
+[data-stage-panel]{opacity:0;visibility:hidden;pointer-events:none}
+[data-stage-panel][data-on="1"]{opacity:1;visibility:visible;pointer-events:auto}
+@keyframes stageSlideIn{from{opacity:.45;transform:translateX(100%)}to{opacity:1;transform:none}}
+@keyframes stageSlideOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-24%)}}
+[data-stage-panel][data-enter="1"]{z-index:2;animation:stageSlideIn 620ms cubic-bezier(.16,1,.3,1) both}
+[data-stage-panel][data-leave="1"]{visibility:visible !important;z-index:1;animation:stageSlideOut 620ms cubic-bezier(.16,1,.3,1) both}
+html[data-motion="None"] [data-stage-panel]{animation:none !important}
+[data-stage][data-on="1"]{background:#D8A800 !important;color:#17061F !important;border-color:#D8A800 !important}
+
+html[data-motion="Subtle"] [data-anim]{animation-duration:400ms !important;animation-delay:0ms !important}
+html[data-motion="None"] [data-anim]{animation:none !important;opacity:1 !important;transform:none !important;clip-path:none !important}
+
+@media (max-width:63.99em){
+[data-screen-label="Nav"] ul ul a{padding-block:.7rem}
+}
+@media (max-width:52em){
+[data-split]{grid-template-columns:minmax(0,1fr) !important}
+[data-flip]{order:0 !important}
+}
+@media (max-width:47.99em){
+[data-screen-label="Nav"] > div{gap:.6rem}
+[data-screen-label="Nav"] > div > a > span > span{display:none}
+[data-screen-label="Nav"] > div > div > a{padding:.6rem 1rem;font-size:.85rem}
+footer ul a{display:inline-block;padding-block:.4rem}
+[data-jump] button{padding-block:.8rem !important;padding-inline:.8rem !important;font-size:.72rem !important}
+}
+@media (hover:none){[data-sbar]{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+
+<div data-cover="1" aria-hidden="true"></div>
+
+
+<div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
+    <a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
+      <img src="assets/shield.svg" alt="" style="inline-size:2rem" />
+      <span>
+        <b style="display:block;font-weight:600;font-size:1rem;letter-spacing:-.01em">DPS Millennium</b>
+        <span style="display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;font-weight:500">International School</span>
+      </span>
+    </a>
+
+    <button type="button" onClick="{{ toggleBurger }}" style="{{ burgerStyle }}">Menu</button>
+
+    <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
+      <li style="position:relative"><a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
+      <li data-menu="about" style="position:relative">
+        <a href="DPS Millennium About.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.about }}">
+          <li><a href="DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
+          <li><a href="DPS Millennium About.dc.html#crest" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The crest</a></li>
+          <li><a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Commitments</a></li>
+          <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
+          <li><a href="DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Leadership</a></li>
+        </ul>
+      </li>
+      <li data-menu="campus" style="position:relative">
+        <a href="#top" onClick="{{ glide }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.campus }}">
+          <li><a href="#snapshot" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#400068;font-weight:500" style-hover="background:#E9E1D2;color:#400068">Current status</a></li>
+          <li><a href="#journal" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Build journal</a></li>
+          <li><a href="#vision" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Campus design</a></li>
+          <li><a href="#facilities" onClick="{{ glide }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Planned facilities</a></li>
+        </ul>
+      </li>
+      <li data-menu="admissions" style="position:relative">
+        <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.admissions }}">
+          <li><a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
+          <li><a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">How to Apply — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Age &amp; Year Groups — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="notices" style="position:relative">
+        <a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Notice Board<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.notices }}">
+          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Information Corner</a></li>
+          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Events Corner</a></li>
+          <li><a href="DPS Millennium Homepage.dc.html#calendar" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">School Calendar</a></li>
+        </ul>
+      </li>
+      <li data-menu="curriculum" style="position:relative">
+        <a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Curriculum<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.curriculum }}">
+          <li><a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">CBSE at Millennium</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Subjects Offered — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Assessment — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="contact" style="position:relative">
+        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Contact<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.contact }}">
+          <li><a href="DPS Millennium Partnerships.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Partnerships &amp; Sponsorships</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Enquiry Form</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">P.O. Box &amp; Address</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Phone &amp; Email</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register</a>
+    </div>
+  </div>
+</div>
+
+<header data-screen-label="Campus hero" id="top" style="position:relative;overflow:hidden;background:#17061F;color:#F3EEE4;min-block-size:clamp(32rem,82vh,46rem);display:grid;align-items:end">
+  <img src="assets/construction/site-07.jpeg" alt="" aria-hidden="true" fetchpriority="high" decoding="async" style="position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 80%;filter:saturate(.72) contrast(1.05) brightness(.62)" />
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,6,31,.72) 0%,rgba(23,6,31,.28) 38%,rgba(23,6,31,.88) 100%)"></div>
+  <div style="position:relative;z-index:1;max-inline-size:82rem;inline-size:100%;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);padding-block:clamp(6rem,16vh,9rem) clamp(3rem,7vh,4.5rem)">
+    <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0 0 1.4rem;--i:0">Campus development · Al Wukair, Qatar</p>
+    <h1 style="font-weight:600;text-transform:uppercase;letter-spacing:-.04em;line-height:.95;font-size:clamp(2.6rem,1.2rem + 5vw,5.2rem);margin:0;max-inline-size:18ch"><span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:1">The</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:2">campus</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:3">takes</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:4">shape.</span></span></h1>
+    <p data-anim="fade" style="font-size:clamp(1.05rem,1rem + .45vw,1.25rem);color:#DCCBE8;max-inline-size:56ch;margin-block-start:1.6rem;--i:6">A new learning environment is taking form for DPS Millennium. Follow the journey from approved design to verified construction progress.</p>
+    <p data-anim="fade" style="display:inline-flex;align-items:center;gap:.6rem;margin-block-start:1.8rem;border:1px solid rgba(216,168,0,.45);background:rgba(216,168,0,.1);border-radius:99px;padding:.5rem 1rem;font-size:.85rem;color:#F3EEE4;--i:7"><span aria-hidden="true" style="inline-size:.55rem;block-size:.55rem;border-radius:50%;background:#D8A800;flex:none"></span>Construction underway · Tentative opening April 2027</p>
+    <div data-anim="fade" style="display:flex;flex-wrap:wrap;gap:.8rem;margin-block-start:2.2rem;--i:8">
+      <a href="#journal" onClick="{{ glide }}" style="display:inline-flex;align-items:center;justify-content:center;gap:.65rem;border:1px solid transparent;border-radius:99px;padding:.85rem 1.5rem;font-size:.92rem;font-weight:500;background:#D8A800;color:#17061F;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:#E8B600;color:#17061F;transform:translateY(-3px)">View construction progress <span aria-hidden="true">→</span></a>
+      <a href="#vision" onClick="{{ glide }}" style="display:inline-flex;align-items:center;justify-content:center;gap:.65rem;border:1px solid rgba(243,238,228,.55);border-radius:99px;padding:.85rem 1.5rem;font-size:.92rem;font-weight:500;color:#F3EEE4;background:transparent;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:rgba(243,238,228,.12);color:#F3EEE4;transform:translateY(-3px)">Explore the campus design</a>
+    </div>
+    <p data-anim="fade" style="margin-block-start:2rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#9C86AB;--i:9">Site record · eight verified photographs</p>
+  </div>
+</header>
+
+<main>
+  <section data-screen-label="Snapshot" id="snapshot" style="background:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <div data-split="1" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,4rem);align-items:end">
+        <div>
+          <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">The project today</p>
+          <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:20ch;margin:0">A clear record, from site to school.</h2>
+        </div>
+        <p data-anim="fade" style="margin:0;color:#5E4C6B;font-size:1.0625rem;max-inline-size:46ch;--i:1">We separate architectural imagery from real site photography and publish construction progress in a format that families can understand at a glance.</p>
+      </div>
+      <div data-anim="rule" style="block-size:1px;background:rgba(23,6,31,.22);margin-block:clamp(2rem,4vw,3rem)"></div>
+      <div style="display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(17rem,100%),1fr))">
+        <article data-anim="row" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.16);border-block-start:3px solid #400068;padding:clamp(1.4rem,2.5vw,1.9rem);--i:1">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">Current stage</p>
+          <h3 style="margin:.7rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem)">Structure rising</h3>
+          <p style="margin-block-start:.7rem;color:#5E4C6B;font-size:.95rem">Foundations are complete and ground-floor columns are cast across the site footprint.</p>
+        </article>
+        <article data-anim="row" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.16);border-block-start:3px solid #D8A800;padding:clamp(1.4rem,2.5vw,1.9rem);--i:2">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">Opening target</p>
+          <h3 style="margin:.7rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem)">April 2027</h3>
+          <p style="margin-block-start:.7rem;color:#5E4C6B;font-size:.95rem">This is the current tentative opening period. Any formal revision will be published here.</p>
+        </article>
+        <article data-anim="row" style="background:#FAF6EF;border:1px solid rgba(23,6,31,.16);border-block-start:3px solid #1E5A33;padding:clamp(1.4rem,2.5vw,1.9rem);--i:3">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">Reporting standard</p>
+          <h3 style="margin:.7rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem)">Verified on site</h3>
+          <p style="margin-block-start:.7rem;color:#5E4C6B;font-size:.95rem">Every update is based on approved design material or photography taken at the project site.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Sequence" id="sequence" style="background:#17061F;color:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <div data-split="1" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,4rem);align-items:end">
+        <div data-anim="left">
+          <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 1rem">Construction sequence</p>
+          <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:20ch;margin:0">A visible journey, one stage at a time.</h2>
+        </div>
+        <p data-anim="right" style="margin:0;color:#DCCBE8;font-size:1.0625rem;max-inline-size:46ch">This page records what has been completed, what is currently visible on site and what families can expect to see in future updates.</p>
+      </div>
+      <div style="display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(17rem,100%),1fr));margin-block-start:clamp(2.5rem,5vw,3.5rem)">
+        <article data-anim="row" style="border:1px solid rgba(243,238,228,.18);padding:clamp(1.4rem,2.5vw,1.9rem);background:rgba(243,238,228,.03);--i:1">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0"><span style="color:#7FBF97">01 / Complete</span></p>
+          <h3 style="margin:.7rem 0 0;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem);color:#F3EEE4">The groundwork</h3>
+          <p style="margin-block-start:.7rem;color:#C3B2CE;font-size:.95rem">The foundation bases and ground-level structure establish the footprint of the future school.</p>
+          <p style="margin-block-start:1.2rem;padding-block-start:.9rem;border-block-start:1px solid rgba(243,238,228,.16);font-size:.8rem;color:#9C86AB">Recorded in the site journal</p>
+        </article>
+        <article data-anim="row" style="border:1px solid rgba(216,168,0,.45);padding:clamp(1.4rem,2.5vw,1.9rem);background:rgba(216,168,0,.07);--i:2">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0">02 / Current</p>
+          <h3 style="margin:.7rem 0 0;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem);color:#F3EEE4">The frame emerges</h3>
+          <p style="margin-block-start:.7rem;color:#DCCBE8;font-size:.95rem">Columns, reinforcement and formwork are now giving the campus its first recognisable form.</p>
+          <p style="margin-block-start:1.2rem;padding-block-start:.9rem;border-block-start:1px solid rgba(216,168,0,.3);font-size:.8rem;color:#D8A800">Construction underway</p>
+        </article>
+        <article data-anim="row" style="border:1px solid rgba(243,238,228,.18);padding:clamp(1.4rem,2.5vw,1.9rem);background:rgba(243,238,228,.03);--i:3">
+          <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#9C86AB;margin:0">03 / Next</p>
+          <h3 style="margin:.7rem 0 0;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:clamp(1.15rem,1rem + .7vw,1.45rem);color:#F3EEE4">The story continues</h3>
+          <p style="margin-block-start:.7rem;color:#C3B2CE;font-size:.95rem">New photographs and approved information will be added as the project moves through its next milestones.</p>
+          <p style="margin-block-start:1.2rem;padding-block-start:.9rem;border-block-start:1px solid rgba(243,238,228,.16);font-size:.8rem;color:#9C86AB">Updates will appear here</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Photo feature" style="background:#FAF6EF;padding-block:clamp(3.5rem,9vh,6rem);border-block:1px solid rgba(23,6,31,.12)">
+    <div data-split="1" style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(2rem,6vw,5rem);align-items:center">
+      <div data-anim="left">
+        <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">A school in progress</p>
+        <h2 style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.8rem,1.2rem + 2.4vw,2.9rem);text-wrap:balance;max-inline-size:22ch;margin:0">Every detail starts with a strong foundation.</h2>
+        <p style="margin-block-start:1.3rem;color:#5E4C6B;font-size:1.0625rem;max-inline-size:48ch">A campus is more than a building plan. It is the setting for future lessons, friendships, achievements and everyday school life.</p>
+        <p style="margin-block-start:1.8rem;padding-inline-start:1.4rem;border-inline-start:2px solid rgba(216,168,0,.7);font-family:'Plex Serif',Georgia,serif;font-size:clamp(1.1rem,1rem + .5vw,1.3rem);line-height:1.45;color:#17061F;max-inline-size:36ch">The photographs on this page are a direct, honest view of the work happening now.</p>
+        <p style="display:inline-flex;align-items:center;gap:.55rem;margin-block-start:1.8rem;border:1px solid rgba(23,6,31,.28);border-radius:99px;padding:.45rem .95rem;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#400068;white-space:nowrap"><span aria-hidden="true" style="inline-size:.5rem;block-size:.5rem;border-radius:50%;background:#1E5A33;flex:none"></span>Real site photography</p>
+        <p style="margin-block-start:1.4rem;font-size:.875rem;color:#8A7796;max-inline-size:44ch">Architectural images are labelled separately so families can distinguish the planned campus from the current construction site.</p>
+      </div>
+      <figure data-anim="right" style="margin:0">
+        <img src="assets/construction/site-05.jpeg" alt="Concrete columns and reinforcement across the DPS Millennium construction site" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 85%;border-radius:12px;display:block" />
+      </figure>
+    </div>
+  </section>
+
+  <section data-screen-label="Story" id="story" style="background:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">The school taking shape</p>
+      <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:20ch;margin:0">Built with purpose, in the open.</h2>
+      <p data-anim="fade" style="margin-block-start:1.2rem;color:#5E4C6B;font-size:1.0625rem;max-inline-size:70ch;--i:1">The campus is being developed as a place for learning, belonging and growth. The current structure is the first visible stage of that long-term commitment.</p>
+      <div data-split="1" style="display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,4rem);margin-block-start:clamp(2.5rem,5vw,3.5rem);align-items:start">
+        <figure data-anim="left" style="margin:0">
+          <img src="assets/construction/site-07.jpeg" alt="Concrete columns across the DPS Millennium construction site in Al Wukair" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:16/10;object-fit:cover;object-position:50% 90%;border-radius:12px;display:block" />
+          <figcaption style="margin:0;padding-block-start:.9rem;font-size:.875rem;color:#5E4C6B;max-inline-size:52ch">Current site view: the ground-floor column grid is now visible across the campus footprint.</figcaption>
+        </figure>
+        <div style="display:grid;gap:1.25rem">
+          <article data-anim="row" style="border-block-start:2px solid #400068;padding-block-start:1.1rem;--i:1">
+            <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">01 · Foundation</p>
+            <h3 style="margin:.5rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">The site is established</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">Foundation work and ground beams create the base for the future campus.</p>
+          </article>
+          <article data-anim="row" style="border-block-start:1px solid rgba(23,6,31,.18);padding-block-start:1.1rem;--i:2">
+            <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">02 · Structure</p>
+            <h3 style="margin:.5rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">The plan becomes visible</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">Columns and formwork begin to define the layout of the school building.</p>
+          </article>
+          <article data-anim="row" style="border-block-start:1px solid rgba(23,6,31,.18);padding-block-start:1.1rem;--i:3">
+            <p style="font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8A7796;margin:0">03 · Next phase</p>
+            <h3 style="margin:.5rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">Progress will be documented</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">New verified photographs will be added as each construction stage is completed.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Journal" id="journal" style="background:#17061F;color:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <div data-split="1" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,4rem);align-items:end">
+        <div>
+          <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 1rem">Build journal</p>
+          <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:18ch;margin:0">Construction, stage by stage.</h2>
+        </div>
+        <p data-anim="fade" style="margin:0;color:#DCCBE8;font-size:1.0625rem;max-inline-size:46ch;--i:1">A visual record of the campus in development. Captions describe only what can be seen in each photograph.</p>
+      </div>
+
+      <div role="tablist" aria-label="Construction stages" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-block-start:clamp(2rem,4vw,2.8rem)">
+        <button type="button" role="tab" aria-selected="true" data-stage="0" data-on="1" onClick="{{ pickStage }}" style="font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:.6rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.35);background:transparent;color:#F3EEE4">Stage 01</button>
+        <button type="button" role="tab" aria-selected="false" data-stage="1" data-on="0" onClick="{{ pickStage }}" style="font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:.6rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.35);background:transparent;color:#F3EEE4">Stage 02</button>
+        <button type="button" role="tab" aria-selected="false" data-stage="2" data-on="0" onClick="{{ pickStage }}" style="font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:.6rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.35);background:transparent;color:#F3EEE4">Stage 03</button>
+        <button type="button" role="tab" aria-selected="false" data-stage="3" data-on="0" onClick="{{ pickStage }}" style="font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:.6rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.35);background:transparent;color:#F3EEE4">Stage 04</button>
+        <button type="button" role="tab" aria-selected="false" data-stage="4" data-on="0" onClick="{{ pickStage }}" style="font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:.6rem 1.1rem;border-radius:99px;border:1px solid rgba(243,238,228,.35);background:transparent;color:#F3EEE4">Stage 05</button>
+      </div>
+
+      <div data-anim="fade" style="position:relative;margin-block-start:1.5rem;border-radius:12px;overflow:hidden;background:rgba(243,238,228,.06);aspect-ratio:16/9;--i:1">
+        <figure data-stage-panel="0" data-on="1" style="margin:0;position:absolute;inset:0">
+          <img src="assets/construction/site-01.jpeg" alt="Foundation bases and reinforcement at the DPS Millennium construction site" loading="lazy" decoding="async" style="inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 85%" />
+          <figcaption style="position:absolute;inset-inline:0;inset-block-end:0;padding:clamp(1rem,2.5vw,1.6rem);background:linear-gradient(180deg,rgba(23,6,31,0) 0%,rgba(23,6,31,.84) 18%,rgba(23,6,31,.95) 100%)">
+            <span style="display:block;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Stage 01</span>
+            <strong style="display:block;margin-block-start:.3rem;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);font-weight:600;letter-spacing:-.015em;color:#F3EEE4">Foundations</strong>
+            <span style="display:block;margin-block-start:.3rem;font-size:.9rem;color:#DCCBE8">Foundation bases and ground beams set out.</span>
+          </figcaption>
+        </figure>
+        <figure data-stage-panel="1" data-on="0" style="margin:0;position:absolute;inset:0">
+          <img src="assets/construction/site-03.jpeg" alt="Steel reinforcement grid prepared for concrete work" loading="lazy" decoding="async" style="inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 85%" />
+          <figcaption style="position:absolute;inset-inline:0;inset-block-end:0;padding:clamp(1rem,2.5vw,1.6rem);background:linear-gradient(180deg,rgba(23,6,31,0) 0%,rgba(23,6,31,.84) 18%,rgba(23,6,31,.95) 100%)">
+            <span style="display:block;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Stage 02</span>
+            <strong style="display:block;margin-block-start:.3rem;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);font-weight:600;letter-spacing:-.015em;color:#F3EEE4">Reinforcement</strong>
+            <span style="display:block;margin-block-start:.3rem;font-size:.9rem;color:#DCCBE8">Steel tied and prepared for the next pour.</span>
+          </figcaption>
+        </figure>
+        <figure data-stage-panel="2" data-on="0" style="margin:0;position:absolute;inset:0">
+          <img src="assets/construction/site-08.jpeg" alt="Concrete columns with timber formwork on the construction site" loading="lazy" decoding="async" style="inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 85%" />
+          <figcaption style="position:absolute;inset-inline:0;inset-block-end:0;padding:clamp(1rem,2.5vw,1.6rem);background:linear-gradient(180deg,rgba(23,6,31,0) 0%,rgba(23,6,31,.84) 18%,rgba(23,6,31,.95) 100%)">
+            <span style="display:block;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Stage 03</span>
+            <strong style="display:block;margin-block-start:.3rem;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);font-weight:600;letter-spacing:-.015em;color:#F3EEE4">Formwork</strong>
+            <span style="display:block;margin-block-start:.3rem;font-size:.9rem;color:#DCCBE8">Columns and shutters taking shape.</span>
+          </figcaption>
+        </figure>
+        <figure data-stage-panel="3" data-on="0" style="margin:0;position:absolute;inset:0">
+          <img src="assets/construction/site-02.jpeg" alt="Scaffolding and formwork around the first structural columns" loading="lazy" decoding="async" style="inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 85%" />
+          <figcaption style="position:absolute;inset-inline:0;inset-block-end:0;padding:clamp(1rem,2.5vw,1.6rem);background:linear-gradient(180deg,rgba(23,6,31,0) 0%,rgba(23,6,31,.84) 18%,rgba(23,6,31,.95) 100%)">
+            <span style="display:block;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Stage 04</span>
+            <strong style="display:block;margin-block-start:.3rem;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);font-weight:600;letter-spacing:-.015em;color:#F3EEE4">Access scaffold</strong>
+            <span style="display:block;margin-block-start:.3rem;font-size:.9rem;color:#DCCBE8">Scaffold installed around the structural frame.</span>
+          </figcaption>
+        </figure>
+        <figure data-stage-panel="4" data-on="0" style="margin:0;position:absolute;inset:0">
+          <img src="assets/construction/site-05.jpeg" alt="Concrete columns extending across the construction site" loading="lazy" decoding="async" style="inline-size:100%;block-size:100%;object-fit:cover;object-position:50% 85%" />
+          <figcaption style="position:absolute;inset-inline:0;inset-block-end:0;padding:clamp(1rem,2.5vw,1.6rem);background:linear-gradient(180deg,rgba(23,6,31,0) 0%,rgba(23,6,31,.84) 18%,rgba(23,6,31,.95) 100%)">
+            <span style="display:block;font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800">Stage 05</span>
+            <strong style="display:block;margin-block-start:.3rem;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);font-weight:600;letter-spacing:-.015em;color:#F3EEE4">Structure rising</strong>
+            <span style="display:block;margin-block-start:.3rem;font-size:.9rem;color:#DCCBE8">Vertical structure progressing across the footprint.</span>
+          </figcaption>
+        </figure>
+      </div>
+      <p style="margin-block-start:1.1rem;font-size:.8rem;color:#9C86AB">Site photography · unretouched, taken at the project site in Al Wukair.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Vision" id="vision" style="background:#FAF6EF;padding-block:clamp(3.5rem,9vh,6rem);border-block:1px solid rgba(23,6,31,.12)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">Campus design</p>
+      <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:22ch;margin:0">A vision made visible before the doors open.</h2>
+      <p data-anim="fade" style="margin-block-start:1.2rem;color:#5E4C6B;font-size:1.0625rem;max-inline-size:70ch;--i:1">The following images are architect's materials, shown separately from construction photography. They illustrate the intended front elevation of the campus.</p>
+      <div style="display:grid;gap:clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(min(20rem,100%),1fr));margin-block-start:clamp(2.5rem,5vw,3.5rem)">
+        <article data-anim="row" style="--i:1">
+          <img src="assets/campus-concept.jpeg" alt="Architect's impression of the proposed DPS Millennium campus front elevation" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block" />
+          <h3 style="margin:1.2rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.014em;font-size:clamp(1.2rem,1rem + .8vw,1.6rem)">The campus as designed</h3>
+          <p style="margin-block-start:.7rem;color:#5E4C6B;font-size:1rem;max-inline-size:44ch">The concept illustration shows the intended character and front elevation of the future school.</p>
+          <p style="margin-block-start:1rem;padding-block-start:.8rem;border-block-start:1px solid rgba(23,6,31,.18);font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7796">Architect's impression · indicative only</p>
+        </article>
+        <article data-anim="row" style="--i:2">
+          <img src="assets/campus-sketch.jpeg" alt="Architectural pencil study of the proposed DPS Millennium campus" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block" />
+          <h3 style="margin:1.2rem 0 0;color:#400068;font-weight:600;text-transform:uppercase;letter-spacing:-.014em;font-size:clamp(1.2rem,1rem + .8vw,1.6rem)">The study behind it</h3>
+          <p style="margin-block-start:.7rem;color:#5E4C6B;font-size:1rem;max-inline-size:44ch">An earlier architectural study of the same elevation and its planning direction.</p>
+          <p style="margin-block-start:1rem;padding-block-start:.8rem;border-block-start:1px solid rgba(23,6,31,.18);font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7796">Architectural study · indicative only</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Facilities" id="facilities" style="background:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem)">
+    <div data-split="1" style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(2rem,6vw,5rem);align-items:start">
+      <div>
+        <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">Planned facilities</p>
+        <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:16ch;margin:0">Designed around the school day.</h2>
+        <p data-anim="fade" style="margin-block-start:1.2rem;color:#5E4C6B;font-size:1.0625rem;max-inline-size:46ch;--i:1">The current campus scope supports academic learning, practical discovery, reading, movement and gathering. Final specifications will be published by the school when confirmed.</p>
+      </div>
+      <div style="display:grid;gap:0;border-block-start:1px solid rgba(23,6,31,.18)">
+        <article data-anim="row" style="display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1.2rem;align-items:start;padding-block:1.4rem;border-block-end:1px solid rgba(23,6,31,.18);--i:1">
+          <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.5rem;line-height:1;color:#400068">01</span>
+          <div>
+            <h3 style="margin:0;color:#17061F;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">Teaching blocks</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">Classrooms arranged by phase, from Nursery through Class XII.</p>
+          </div>
+        </article>
+        <article data-anim="row" style="display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1.2rem;align-items:start;padding-block:1.4rem;border-block-end:1px solid rgba(23,6,31,.18);--i:2">
+          <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.5rem;line-height:1;color:#400068">02</span>
+          <div>
+            <h3 style="margin:0;color:#17061F;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">Science laboratories</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">Physics, chemistry and biology laboratories for senior students.</p>
+          </div>
+        </article>
+        <article data-anim="row" style="display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1.2rem;align-items:start;padding-block:1.4rem;border-block-end:1px solid rgba(23,6,31,.18);--i:3">
+          <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.5rem;line-height:1;color:#400068">03</span>
+          <div>
+            <h3 style="margin:0;color:#17061F;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">Library</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">A central space for reading, research and independent learning.</p>
+          </div>
+        </article>
+        <article data-anim="row" style="display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1.2rem;align-items:start;padding-block:1.4rem;--i:4">
+          <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.5rem;line-height:1;color:#400068">04</span>
+          <div>
+            <h3 style="margin:0;color:#17061F;font-weight:600;text-transform:uppercase;letter-spacing:-.012em;font-size:1.15rem">Sport and assembly</h3>
+            <p style="margin-block-start:.5rem;color:#5E4C6B;font-size:.95rem">Courts, play areas and a covered assembly space.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showOversight }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Oversight" id="oversight" style="background:#400068;color:#F3EEE4;padding-block:clamp(3.5rem,9vh,6rem);position:relative;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-end:0;inline-size:38%;block-size:100%;background:url('assets/seal-l6-waves.svg') no-repeat 55% 60%/300%;opacity:.09;pointer-events:none"></div>
+    <div style="position:relative;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 1rem">Project oversight</p>
+      <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.028em;line-height:1;font-size:clamp(1.9rem,1.2rem + 2.8vw,3.2rem);text-wrap:balance;max-inline-size:20ch;margin:0">Reviewed on site, at every stage.</h2>
+      <p data-anim="fade" style="margin-block-start:1.2rem;color:#DCCBE8;font-size:1.0625rem;max-inline-size:70ch;--i:1">DPS Group representatives, the design team and the contractor meet through the build to review programme, quality and safety.</p>
+      <div style="display:grid;gap:clamp(1.25rem,2.5vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(20rem,100%),1fr));margin-block-start:clamp(2rem,4vw,3rem)">
+        <figure data-anim="row" style="margin:0;--i:1"><img src="assets/construction/site-06.jpeg" alt="Project review meeting in the site office, drawings and programme documents on the table" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block" /><figcaption style="margin:0;padding-block-start:.9rem;font-size:.9rem;color:#DCCBE8"><strong style="display:block;color:#D8A800;font-weight:600">Progress review</strong>Programme and drawings reviewed in the site office.</figcaption></figure>
+        <figure data-anim="row" style="margin:0;--i:2"><img src="assets/construction/site-04.jpeg" alt="Representatives together on the DPS Millennium construction site" loading="lazy" decoding="async" style="inline-size:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block" /><figcaption style="margin:0;padding-block-start:.9rem;font-size:.9rem;color:#DCCBE8"><strong style="display:block;color:#D8A800;font-weight:600">Site walk</strong>Representatives on site during a structural inspection.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showFollow }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Follow" id="follow" style="background:#FAF6EF;padding-block:clamp(3rem,7vh,5rem);border-block-start:1px solid rgba(23,6,31,.12)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;flex-wrap:wrap;gap:1.5rem clamp(2rem,6vw,4rem);align-items:end;justify-content:space-between">
+      <div>
+        <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33;margin:0 0 1rem">Stay informed</p>
+        <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.022em;line-height:1.05;font-size:clamp(1.4rem,1.1rem + 1.4vw,2.1rem);max-inline-size:34ch;margin:0">Follow the build to opening.</h2>
+        <p data-anim="fade" style="margin-block-start:.9rem;color:#5E4C6B;font-size:1.0625rem;max-inline-size:56ch;--i:1">Register your interest to receive admissions news and future campus updates from DPS Millennium International School.</p>
+      </div>
+      <div data-anim="fade" style="display:flex;flex-wrap:wrap;gap:.7rem;--i:2">
+        <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register your interest</a>
+        <a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:#17061F;border:1px solid rgba(23,6,31,.4);font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;white-space:nowrap;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:rgba(23,6,31,.06);color:#17061F;transform:translateY(-2px)">See the fees</a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+</main>
+
+<div data-jump="1" aria-label="Jump to campus section" style="position:fixed;inset-inline:0;inset-block-end:clamp(1rem,3vh,1.75rem);z-index:80;display:flex;justify-content:center;pointer-events:none">
+  <div style="display:flex;gap:.3rem;padding:.3rem;border-radius:99px;background:rgba(23,6,31,.82);backdrop-filter:blur(10px);box-shadow:0 16px 36px -12px rgba(0,0,0,.55);pointer-events:auto">
+    <button type="button" data-goto="snapshot" onClick="{{ goSnapshot }}" style="{{ jump0 }}">Status</button>
+    <button type="button" data-goto="journal" onClick="{{ goJournal }}" style="{{ jump1 }}">Journal</button>
+    <button type="button" data-goto="vision" onClick="{{ goVision }}" style="{{ jump2 }}">Design</button>
+    <button type="button" data-goto="facilities" onClick="{{ goFacilities }}" style="{{ jump3 }}">Facilities</button>
+  </div>
+</div>
+
+<footer data-screen-label="Footer" style="background:#17061F;color:#F3EEE4;padding-block:4rem calc(2.5rem + 4.5rem)">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+    <div style="display:flex;flex-wrap:wrap;gap:2.5rem clamp(2rem,6vw,5rem);align-items:start">
+      <div style="flex:0 1 16rem">
+        <img src="assets/seal.svg" alt="" style="inline-size:clamp(110px,15vw,150px)" />
+        <p style="font-family:'Plex Arabic','Plex Sans',sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem">مدرسة ميلينيوم الدولية</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem">
+          <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
+          <a href="#top" onClick="{{ glide }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Campus</a>
+          <a href="DPS Millennium Partnerships.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Partner</a>
+        </div>
+      </div>
+      <div style="flex:1 1 24rem;display:grid;gap:2rem clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))">
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">The build</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#snapshot" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Current status</a></li>
+            <li><a href="#sequence" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Construction sequence</a></li>
+            <li><a href="#journal" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Build journal</a></li>
+            <li><a href="#oversight" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Project oversight</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">About</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Mission &amp; Vision</a></li>
+            <li><a href="DPS Millennium About.dc.html#crest" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">The crest</a></li>
+            <li><a href="DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Leadership</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Campus</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#vision" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Campus design</a></li>
+            <li><a href="#facilities" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Planned facilities</a></li>
+            <li><a href="#" style="font-size:.9rem;color:#C3B2CE">Al Wukair, Qatar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">DPS Group</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">DPS Modern Indian School</a></li>
+            <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">DPS Monarch International School</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="margin-block-start:3rem;padding-block-start:1.5rem;border-block-start:1px solid rgba(243,238,228,.2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;font-size:.8125rem;color:#9C86AB">
+      <p>DPS Millennium International School · part of the DPS Group of Institutions</p>
+      <p>Site photography by the school · opening date tentative</p>
+    </div>
+  </div>
+</footer>
+
+<div data-sbar="1" aria-hidden="true" style="position:fixed;inset-block:0;inset-inline-end:0;inline-size:.9rem;z-index:90;transition:opacity .4s ease;pointer-events:none">
+  <div data-sbar-thumb="1" style="position:absolute;inset-inline-end:.25rem;inline-size:.25rem;min-block-size:2.5rem;border-radius:99px;background:rgba(216,168,0,.55);pointer-events:auto;transition:inline-size .18s ease,background .18s ease" style-hover="inline-size:.4rem;background:#D8A800"></div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full&quot;,&quot;Subtle&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Full&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Campus page&quot;},&quot;autoRotateJournal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Campus page&quot;},&quot;showOversight&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Campus page&quot;},&quot;showFollow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Campus page&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const W = window.innerWidth || 1440;
+    this.state = { open: null, burger: false, narrow: W < 1024, here: 'snapshot' };
+    this.stage = 0;
+  }
+
+  // Replaces the native bar with one drawn in the page's own vocabulary: thumb
+  // length reports how long the page is. Idles hidden, fades in while scrolling
+  // or on hover, and drags like the real thing.
+  armProgress() {
+    const rail = document.querySelector('[data-sbar]');
+    const thumb = rail && rail.querySelector('[data-sbar-thumb]');
+    if (!thumb) return;
+    if (matchMedia('(hover:none)').matches) { rail.style.display = 'none'; return; }
+
+    // Set here rather than in the template: any property declared in a template
+    // style attribute is runtime-owned and gets rewritten on re-render, which
+    // would clobber show()/fade().
+    rail.style.opacity = '0';
+    thumb.style.cursor = 'grab';
+
+    let dragging = false, grabOffset = 0;
+    const metrics = () => {
+      const doc = document.documentElement;
+      const vh = window.innerHeight;
+      const max = doc.scrollHeight - vh;
+      const track = rail.clientHeight;
+      const len = Math.max(40, Math.round(track * (vh / doc.scrollHeight)));
+      return { max, track, len, travel: track - len };
+    };
+
+    const draw = () => {
+      this.progRaf = 0;
+      const m = metrics();
+      if (m.max <= 1) { rail.style.display = 'none'; return; }
+      rail.style.display = '';
+      thumb.style.blockSize = m.len + 'px';
+      const p = Math.min(1, Math.max(0, window.scrollY / m.max));
+      thumb.style.transform = 'translateY(' + (p * m.travel).toFixed(1) + 'px)';
+    };
+
+    const show = () => { rail.style.opacity = '1'; };
+    const fade = () => {
+      clearTimeout(this.sbarHide);
+      show();
+      this.sbarHide = setTimeout(() => { if (!dragging && !this.sbarHover) rail.style.opacity = '0'; }, 1100);
+    };
+
+    this.onProg = () => { if (!this.progRaf) this.progRaf = requestAnimationFrame(draw); fade(); };
+    window.addEventListener('scroll', this.onProg, { passive: true });
+    window.addEventListener('resize', this.onProg);
+
+    this.onEdge = (e) => {
+      const near = e.clientX > window.innerWidth - 44;
+      this.sbarHover = near;
+      if (near) { clearTimeout(this.sbarHide); show(); } else if (!dragging) fade();
+    };
+    window.addEventListener('pointermove', this.onEdge, { passive: true });
+
+    this.onDown = (e) => {
+      dragging = true;
+      grabOffset = e.clientY - thumb.getBoundingClientRect().top;
+      thumb.style.cursor = 'grabbing';
+      thumb.setPointerCapture(e.pointerId);
+      show();
+      e.preventDefault();
+    };
+    this.onMove = (e) => {
+      if (!dragging) return;
+      const m = metrics();
+      if (m.travel <= 0) return;
+      const y = e.clientY - rail.getBoundingClientRect().top - grabOffset;
+      window.scrollTo(0, Math.min(1, Math.max(0, y / m.travel)) * m.max);
+    };
+    this.onUp = () => { if (!dragging) return; dragging = false; thumb.style.cursor = 'grab'; fade(); };
+    thumb.addEventListener('pointerdown', this.onDown);
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+
+    draw();
+  }
+
+  componentDidMount() {
+    document.documentElement.dataset.mounted = '1';
+    this.landHash();
+    this.armProgress();
+    this.armAnim();
+    this.armJournal();
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024 });
+    this.sync();
+    window.addEventListener('resize', this.sync);
+
+    // Which section the bar reports is whichever heading last passed under the
+    // sticky nav — not whichever is merely on screen.
+    if (window.__campusScroll) window.removeEventListener('scroll', window.__campusScroll);
+    this.onScroll = () => {
+      if (this.scrolling || performance.now() < (this.lockUntil || 0)) return;
+      const nav = document.querySelector('[data-screen-label="Nav"]');
+      const line = (nav ? nav.getBoundingClientRect().height : 0) + 24;
+      let here = 'snapshot';
+      // At rest at the top the below-the-fold imagery has not resolved yet, so
+      // every section still reports a top of ~0 and the last id would win. At
+      // the top of the page the first section is the answer by position.
+      if (window.scrollY > 4) {
+        ['snapshot', 'journal', 'vision', 'facilities'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= line) here = id;
+        });
+      }
+      if (here !== this.state.here) this.setState({ here: here });
+    };
+    window.__campusScroll = this.onScroll;
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+
+    this.release = () => { this.lockUntil = 0; this.scrolling = false; clearInterval(this.glideTick); };
+    ['wheel', 'touchstart', 'keydown'].forEach((t) => window.addEventListener(t, this.release, { passive: true }));
+    this.onScroll();
+    this.settleT = setTimeout(this.onScroll, 400);
+    // Layout is only trustworthy once the imagery has resolved; re-derive then.
+    window.addEventListener('load', this.onScroll);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.onScroll);
+  }
+
+  // The journal advances on its own so the record reads as a sequence, and a
+  // click both selects and restarts the clock — so choosing a stage never has
+  // the page take it back a second later.
+  armJournal() {
+    this.showStage(0, true);
+    if (!(this.props.autoRotateJournal ?? true)) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ((this.props.motion || 'Full') === 'None') return;
+    this.startRotation();
+  }
+
+  startRotation() {
+    clearInterval(this.stageTimer);
+    const panels = document.querySelectorAll('[data-stage-panel]');
+    if (panels.length < 2) return;
+    this.stageTimer = setInterval(() => {
+      this.showStage((this.stage + 1) % panels.length);
+    }, 4500);
+  }
+
+  showStage(n, instant) {
+    const panels = Array.from(document.querySelectorAll('[data-stage-panel]'));
+    const tabs = Array.from(document.querySelectorAll('[data-stage]'));
+    if (!panels.length) return;
+    const prev = this.stage;
+    this.stage = n;
+    const moving = !instant && prev !== n;
+    clearTimeout(this.leaveT);
+    // The swap itself is a discrete inline write, because a CSS *transition* on
+    // these runtime-managed nodes can be created and then pinned at frame 0 —
+    // which would leave the old photograph under the new caption. The travel is
+    // a keyframe animation instead: those do run, and `both` holds the end
+    // frame, so the stage lands correctly even if the clock never ticks.
+    panels.forEach((p) => {
+      const i = Number(p.dataset.stagePanel);
+      const on = i === n;
+      p.dataset.on = on ? '1' : '0';
+      p.style.opacity = on ? '1' : '0';
+      if (on) {
+        p.style.visibility = 'visible';
+        p.removeAttribute('data-leave');
+        p.removeAttribute('data-enter');
+        if (moving) { void p.offsetWidth; p.setAttribute('data-enter', '1'); }
+      } else if (moving && i === prev) {
+        // The outgoing photograph keeps its box for the length of the slide,
+        // then is hidden outright so nothing can strand it on screen.
+        p.removeAttribute('data-enter');
+        p.setAttribute('data-leave', '1');
+        this.leaveT = setTimeout(() => {
+          p.removeAttribute('data-leave');
+          p.style.visibility = 'hidden';
+        }, 660);
+      } else {
+        p.removeAttribute('data-enter');
+        p.removeAttribute('data-leave');
+        p.style.visibility = 'hidden';
+      }
+    });
+    // Same discrete write for the pills: the selected state is keyed off n, not
+    // off the data-on attribute the template also authors, and the colours are
+    // set inline so no transition has to reach its end value for the picker to
+    // report itself correctly.
+    tabs.forEach((t) => {
+      const on = Number(t.dataset.stage) === n;
+      t.dataset.on = on ? '1' : '0';
+      t.setAttribute('aria-selected', String(on));
+      t.style.background = on ? '#D8A800' : 'transparent';
+      t.style.color = on ? '#17061F' : '#F3EEE4';
+      t.style.borderColor = on ? '#D8A800' : 'rgba(243,238,228,.35)';
+    });
+  }
+
+  afterGlide() {
+    this.lockUntil = performance.now() + 260;
+    this.scrolling = false;
+  }
+
+  jumpTo(id) {
+    this.scrolling = true;
+    this.lockUntil = performance.now() + 3000;
+    this.setState({ here: id });
+    this.glideTo(id);
+  }
+
+  // Eased scroll: creeps off the mark, runs through the middle, settles at the
+  // end. The browser's own smooth scroll is linear-ish and reads mechanical.
+  glideTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 8);
+      return;
+    }
+    const from = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const nav = document.querySelector('[data-screen-label="Nav"]');
+    const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+    const to = Math.min(max, el.getBoundingClientRect().top + from - pad);
+    const dist = Math.abs(to - from);
+    if (dist < 2) return;
+    const dur = Math.min(1500, Math.max(650, dist * 0.55));
+    const t0 = performance.now();
+    clearInterval(this.glideTick);
+    // Timer-driven rather than rAF: a backgrounded or occluded frame never
+    // services requestAnimationFrame, and the jump then does nothing at all.
+    this.glideTick = setInterval(() => {
+      const p = Math.min(1, (performance.now() - t0) / dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      window.scrollTo(0, from + (to - from) * e);
+      if (p >= 1) { clearInterval(this.glideTick); if (this.afterGlide) this.afterGlide(); }
+    }, 16);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    window.removeEventListener('scroll', this.onProg);
+    window.removeEventListener('resize', this.onProg);
+    window.removeEventListener('pointermove', this.onEdge);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    clearTimeout(this.sbarHide);
+    window.removeEventListener('resize', this.sync);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('load', this.onScroll);
+    if (window.__campusScroll === this.onScroll) window.__campusScroll = null;
+    ['wheel', 'touchstart', 'keydown'].forEach((t) => window.removeEventListener(t, this.release));
+    clearInterval(this.glideTick);
+    clearInterval(this.stageTimer);
+    clearTimeout(this.leaveT);
+    clearTimeout(this.settleT);
+    clearTimeout(this.revealFallback);
+    document.querySelectorAll('[data-reveal]').forEach((t) => t.removeAttribute('data-reveal'));
+    if (this.revealIo) this.revealIo.disconnect();
+  }
+
+  // Reveal on approach. The observer only flips an attribute; the movement
+  // itself is CSS, so it runs on the compositor rather than a main-thread
+  // timer. A single fallback timer un-parks anything the observer never
+  // reported, so content can never be stranded hidden.
+  armAnim() {
+    const targets = Array.from(document.querySelectorAll('main [data-anim]'));
+    if (!targets.length) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ((this.props.motion || 'Full') === 'None') return;
+    const vh = window.innerHeight || 800;
+    const show = (el) => {
+      if (el.getAttribute('data-reveal') === '1') return;
+      el.setAttribute('data-reveal', '1');
+    };
+    targets.forEach((el) => {
+      if (el.getBoundingClientRect().top < vh * 0.92) show(el);
+      else el.setAttribute('data-reveal', '0');
+    });
+    this.revealFallback = setTimeout(() => targets.forEach(show), 4000);
+    if (!window.IntersectionObserver) { targets.forEach(show); return; }
+    this.revealIo = new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        this.revealIo.unobserve(e.target);
+        show(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    targets.forEach((el) => { if (el.getAttribute('data-reveal') === '0') this.revealIo.observe(el); });
+  }
+
+  // Arriving with a hash: the browser tries its native anchor jump before this
+  // component has mounted, so the target does not exist yet and the page opens
+  // at the top. Poll briefly for the element and land on it under the nav.
+  landHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    let tries = 0;
+    this.hashTimer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(this.hashTimer);
+        const nav = document.querySelector('[data-screen-label="Nav"]');
+        const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - pad));
+      } else if (++tries > 50) clearInterval(this.hashTimer);
+    }, 100);
+  }
+
+  renderVals() {
+    const narrow = this.state.narrow;
+    document.documentElement.dataset.motion = this.props.motion || 'Full';
+
+    const subNarrow = {
+      position: 'static', listStyle: 'none', margin: 0, padding: '0 0 .5rem',
+      background: 'transparent', color: '#C3B2CE', boxShadow: 'none', borderRadius: 0,
+      opacity: 1, visibility: 'visible', transform: 'none', paddingInlineStart: '1rem'
+    };
+    const subBase = {
+      position: 'absolute', insetBlockStart: '100%', insetInlineStart: 0, minInlineSize: '15rem',
+      background: '#F3EEE4', color: '#17061F', listStyle: 'none', margin: 0, padding: '.5rem 0',
+      borderRadius: '0 0 14px 14px', boxShadow: '0 18px 40px -12px rgba(23,6,31,.45)',
+      transition: 'opacity .18s ease, transform .18s ease, visibility .18s', zIndex: 70
+    };
+    const mk = (k) => narrow
+      ? subNarrow
+      : (this.state.open === k
+          ? { ...subBase, opacity: 1, visibility: 'visible', transform: 'none' }
+          : { ...subBase, opacity: 0, visibility: 'hidden', transform: 'translateY(-6px)' });
+
+    const jump = (id) => {
+      const on = this.state.here === id;
+      return {
+        font: 'inherit', fontSize: '.8125rem', fontWeight: 500, letterSpacing: '.06em',
+        textTransform: 'uppercase', padding: '.7rem 1.05rem', borderRadius: '99px',
+        border: 'none', cursor: 'pointer',
+        background: on ? '#D8A800' : 'transparent',
+        color: on ? '#17061F' : '#F3EEE4',
+        transition: 'background .3s ease, color .3s ease'
+      };
+    };
+
+    return {
+      // The stage swap runs on the DOM, not through state: the five panels are
+      // static markup, so switching them must not re-render the section and
+      // restart its reveal animations.
+      pickStage: (e) => {
+        const n = Number(e.currentTarget.dataset.stage);
+        if (isNaN(n)) return;
+        this.showStage(n);
+        if ((this.props.autoRotateJournal ?? true)) this.startRotation();
+      },
+
+      glide: (e) => {
+        const href = e.currentTarget.getAttribute('href') || '';
+        if (href.length < 2 || href.charAt(0) !== '#' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        const id = href.slice(1);
+        if (!document.getElementById(id)) return;
+        e.preventDefault();
+        if (this.state.burger) this.setState({ burger: false });
+        this.setState({ open: null });
+        if (['snapshot', 'journal', 'vision', 'facilities'].indexOf(id) > -1) this.jumpTo(id);
+        else this.glideTo(id);
+      },
+      goSnapshot: () => this.jumpTo('snapshot'),
+      goJournal: () => this.jumpTo('journal'),
+      goVision: () => this.jumpTo('vision'),
+      goFacilities: () => this.jumpTo('facilities'),
+      jump0: jump('snapshot'), jump1: jump('journal'), jump2: jump('vision'), jump3: jump('facilities'),
+
+      showOversight: this.props.showOversight ?? true,
+      showFollow: this.props.showFollow ?? true,
+
+      leave: (e) => {
+        const href = e.currentTarget.getAttribute('href');
+        if (!href || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        const el = document.createElement('div');
+        el.setAttribute('aria-hidden', 'true');
+        el.style.cssText = 'position:fixed;inset:0;z-index:999;background:#400068;transform:translateY(101%);transition:transform 520ms cubic-bezier(.76,0,.24,1);pointer-events:none';
+        document.body.appendChild(el);
+        requestAnimationFrame(() => { el.style.transform = 'translateY(0)'; });
+        setTimeout(() => { window.location.href = href; }, 540);
+      },
+
+      navOver: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li) this.setState({ open: li.dataset.menu });
+      },
+      navOut: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li && (!e.relatedTarget || !li.contains(e.relatedTarget))) this.setState({ open: null });
+      },
+      toggleBurger: () => this.setState({ burger: !this.state.burger }),
+
+      sub: {
+        about: mk('about'), campus: mk('campus'), admissions: mk('admissions'),
+        notices: mk('notices'), curriculum: mk('curriculum'), contact: mk('contact')
+      },
+
+      burgerStyle: narrow
+        ? { order: 3, display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.65rem 1rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer' }
+        : { display: 'none' },
+
+      menuStyle: narrow
+        ? (this.state.burger
+            ? { display: 'block', position: 'absolute', insetBlockStart: '100%', insetInline: 0, background: '#17061F', padding: '.5rem 0', paddingInline: 'calc(clamp(1.25rem,5vw,4.5rem) - .85rem)', borderBlockStart: '1px solid rgba(243,238,228,.2)', listStyle: 'none', margin: 0, zIndex: 65, maxBlockSize: '70vh', overflowY: 'auto' }
+            : { display: 'none' })
+        : { display: 'flex', listStyle: 'none', margin: 0, padding: 0 }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
