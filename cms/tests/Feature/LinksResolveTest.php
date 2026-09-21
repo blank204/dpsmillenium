@@ -143,7 +143,10 @@ class LinksResolveTest extends TestCase
     {
         $fixtures = $this->seedContent();
 
-        $urls = [route('home'), route('calendar'), route('archive'), $fixtures['post']->publicPath()];
+        $urls = [
+            route('home'), route('calendar'), route('archive'), $fixtures['post']->publicPath(),
+            route('about'), route('campus'), route('fees'), route('partnerships'),
+        ];
         foreach (Section::cases() as $section) {
             $urls[] = route('section', $section->pathSegment());
         }
@@ -151,6 +154,34 @@ class LinksResolveTest extends TestCase
         foreach ($urls as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             $this->assertLinksResolve($url, $html, 'visitor');
+        }
+    }
+
+    public function test_the_shared_nav_reaches_every_public_page(): void
+    {
+        $this->seedContent();
+        $html = $this->get(route('home'))->assertOk()->getContent();
+
+        $expected = [route('about'), route('campus'), route('fees'), route('partnerships'), route('calendar'), route('archive')];
+        foreach (Section::cases() as $section) {
+            $expected[] = route('section', $section->pathSegment());
+        }
+
+        foreach ($expected as $target) {
+            $this->assertStringContainsString('href="'.$target.'"', $html, "the nav does not link to {$target}");
+        }
+    }
+
+    public function test_the_site_assets_the_marketing_pages_reference_exist(): void
+    {
+        foreach (['site/site.css', 'site/site.js', 'site/home.css', 'site/home.js'] as $asset) {
+            $this->assertFileExists(public_path($asset));
+        }
+        foreach (['shield', 'seal', 'seal-l1-ring', 'seal-l8-lettering'] as $svg) {
+            $this->assertFileExists(public_path("site/assets/{$svg}.svg"));
+        }
+        foreach (['campus-sketch', 'campus-concept'] as $jpg) {
+            $this->assertFileExists(public_path("site/assets/{$jpg}.jpeg"));
         }
     }
 
@@ -164,6 +195,50 @@ class LinksResolveTest extends TestCase
                 $this->assertStringNotContainsString($adminPath, $link, "{$url} exposes a staff link");
             }
         }
+    }
+
+    /**
+     * A link like /campus#progress resolves as a route and still goes nowhere if the
+     * page has no element with that id — the visitor lands at the top and nothing
+     * happens. Four of these shipped in the first cut of the shared nav.
+     */
+    public function test_every_in_page_anchor_points_at_something_that_exists(): void
+    {
+        $this->seedContent();
+
+        $pages = ['home', 'about', 'campus', 'fees', 'partnerships', 'calendar', 'archive'];
+        $ids = [];
+        $html = [];
+        foreach ($pages as $page) {
+            $html[$page] = $this->get(route($page))->assertOk()->getContent();
+            preg_match_all('/\bid="([^"]+)"/', $html[$page], $m);
+            $ids[$page] = $m[1];
+        }
+
+        $urlToPage = [];
+        foreach ($pages as $page) {
+            $urlToPage[rtrim(route($page), '/')] = $page;
+        }
+
+        $checked = 0;
+        foreach ($pages as $from) {
+            preg_match_all('/href="([^"]*)#([A-Za-z][\w-]*)"/', $html[$from], $links, PREG_SET_ORDER);
+            foreach ($links as [$whole, $base, $fragment]) {
+                // An empty base means "this page"; otherwise resolve which page it targets.
+                $target = $base === '' ? $from : ($urlToPage[rtrim($base, '/')] ?? null);
+                if ($target === null) {
+                    continue; // points outside the set of pages under test
+                }
+                $this->assertContains(
+                    $fragment,
+                    $ids[$target],
+                    "{$from} links to #{$fragment} on {$target}, which has no element with that id",
+                );
+                $checked++;
+            }
+        }
+
+        $this->assertGreaterThan(10, $checked, 'expected the nav and footer to carry in-page anchors');
     }
 
     public function test_the_admin_stylesheet_and_scripts_are_actually_there(): void
