@@ -17,8 +17,11 @@ class SecurityController extends Controller
 
     public function edit()
     {
+        $current = session()->getId();
         $sessions = DB::table('sessions')->whereNotNull('user_id')->orderByDesc('last_activity')->limit(50)->get()
             ->map(fn ($s) => (object) [
+                'id' => $s->id,
+                'current' => $s->id === $current,
                 'account' => Account::find($s->user_id)?->username ?? 'unknown',
                 'ip' => $s->ip_address,
                 'agent' => $s->user_agent,
@@ -26,6 +29,33 @@ class SecurityController extends Controller
             ]);
 
         return view('admin.security.edit', ['sessions' => $sessions]);
+    }
+
+    /**
+     * Sign out one device without disturbing anyone else. Deleting the row is enough:
+     * the database session driver treats a missing row as a signed-out visitor.
+     */
+    public function logoutSession(NameOnlyRequest $request)
+    {
+        $data = $request->validate(['session_id' => ['required', 'string', 'max:255']]);
+
+        if ($data['session_id'] === $request->session()->getId()) {
+            throw ValidationException::withMessages(['session_id' => 'That is this device. Use “Log out” at the top right instead.']);
+        }
+
+        $row = DB::table('sessions')->where('id', $data['session_id'])->first();
+        if ($row === null) {
+            return back()->with('status', 'That device was already signed out.');
+        }
+
+        DB::table('sessions')->where('id', $data['session_id'])->delete();
+        $this->audit->record('security.session_signed_out', $request->actor(), null, null, [
+            'account' => Account::find($row->user_id)?->username ?? 'unknown',
+            'ip' => $row->ip_address,
+            'user_agent' => $row->user_agent,
+        ]);
+
+        return back()->with('status', 'That device has been signed out.');
     }
 
     public function editorPassword(NameOnlyRequest $request)

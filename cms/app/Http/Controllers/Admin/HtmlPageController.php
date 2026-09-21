@@ -27,12 +27,7 @@ class HtmlPageController extends Controller
             'file' => ['required', 'file', 'max:2048'],
         ]);
 
-        $file = $request->file('file');
-        $head = (string) file_get_contents($file->getRealPath(), false, null, 0, 2048);
-        $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($file->getRealPath());
-        if (! in_array($mime, ['text/html', 'text/plain'], true) || ! preg_match('/<(!doctype html|html|body|div|table|h1|p)\b/i', $head)) {
-            throw ValidationException::withMessages(['file' => 'This is not an HTML page. Upload the .html file.']);
-        }
+        $file = $this->checkedHtml($request->file('file'));
 
         $page = DB::transaction(function () use ($data, $file, $request) {
             $page = HtmlPage::create(['token' => Str::random(32), 'title' => $data['title'], 'bytes' => $file->getSize()]);
@@ -43,6 +38,42 @@ class HtmlPageController extends Controller
         });
 
         return redirect()->route('admin.pages.index')->with('status', "Uploaded. Use custom page #{$page->id} in a post's Custom HTML page block.");
+    }
+
+    /**
+     * Swap the file behind an existing page, keeping its id and token so every post
+     * that already links to it keeps working. Deleting and re-uploading would mint a
+     * new token and quietly break those links.
+     */
+    public function replace(NameOnlyRequest $request, HtmlPage $page)
+    {
+        $request->validate(['file' => ['required', 'file', 'max:2048']]);
+        $file = $this->checkedHtml($request->file('file'));
+
+        DB::transaction(function () use ($page, $file, $request) {
+            $before = ['bytes' => $page->bytes];
+            Storage::disk('pages')->putFileAs('', $file, $page->storagePath());
+            $page->bytes = $file->getSize();
+            $page->save();
+            $this->audit->record('html_page.replaced', $request->actor(), $page, $before, [
+                'bytes' => $page->bytes,
+                'sha256' => hash_file('sha256', $file->getRealPath()),
+            ]);
+        });
+
+        return redirect()->route('admin.pages.index')->with('status', "Replaced the file behind custom page #{$page->id}. The link is unchanged.");
+    }
+
+    /** Rejects anything that is not really an HTML page, whatever the file is named. */
+    private function checkedHtml(\Illuminate\Http\UploadedFile $file): \Illuminate\Http\UploadedFile
+    {
+        $head = (string) file_get_contents($file->getRealPath(), false, null, 0, 2048);
+        $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($file->getRealPath());
+        if (! in_array($mime, ['text/html', 'text/plain'], true) || ! preg_match('/<(!doctype html|html|body|div|table|h1|p)\b/i', $head)) {
+            throw ValidationException::withMessages(['file' => 'This is not an HTML page. Upload the .html file.']);
+        }
+
+        return $file;
     }
 
     public function destroy(NameOnlyRequest $request, HtmlPage $page)

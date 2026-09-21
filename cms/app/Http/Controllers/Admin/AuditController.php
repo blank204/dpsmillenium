@@ -14,6 +14,55 @@ class AuditController extends Controller
 {
     public function index(Request $request)
     {
+        return view('admin.audit.index', [
+            'entries' => $this->filtered($request)->paginate(50)->withQueryString(),
+            'actions' => AuditEntry::query()->select('action')->distinct()->orderBy('action')->pluck('action'),
+            'roles' => AuditEntry::query()->select('account_role')->whereNotNull('account_role')->distinct()->orderBy('account_role')->pluck('account_role'),
+        ]);
+    }
+
+    /**
+     * The whole filtered log as a CSV download. School IT has no database access on
+     * shared hosting, so this is the only way they can keep an off-site copy of the
+     * log — which is the point of an append-only log in the first place.
+     */
+    public function export(Request $request, AuditLogger $audit)
+    {
+        $audit->record('audit.exported', Actor::fromRequest($request, null), null, null, [
+            'filters' => array_filter($request->only(['name', 'action', 'role', 'from', 'to', 'post'])),
+        ]);
+
+        $query = $this->filtered($request);
+        $name = 'change-log-'.now()->format('Y-m-d-His').'.csv';
+
+        return response()->streamDownload(function () use ($query) {
+            $out = fopen('php://output', 'w');
+            // UTF-8 BOM so Excel on the school's Windows PCs reads accented names correctly.
+            fwrite($out, "\xEF\xBB\xBF");
+            fputcsv($out, ['Entry', 'When (Qatar)', 'Typed name', 'Login', 'Action', 'Item', 'IP address', 'Device', 'Session', 'Hash']);
+
+            $query->reorder('id')->chunk(500, function ($rows) use ($out) {
+                foreach ($rows as $e) {
+                    fputcsv($out, [
+                        $e->id,
+                        $e->occurred_at->format('Y-m-d H:i:s'),
+                        $e->actor_name ?? '',
+                        $e->account_role ?? '',
+                        $e->action,
+                        $e->target_type ? $e->target_type.' #'.$e->target_id : '',
+                        $e->ip_address ?? '',
+                        $e->user_agent ?? '',
+                        $e->session_id ?? '',
+                        $e->hash,
+                    ]);
+                }
+            });
+            fclose($out);
+        }, $name, ['Content-Type' => 'text/csv; charset=UTF-8']);
+    }
+
+    private function filtered(Request $request)
+    {
         $query = AuditEntry::query()->orderByDesc('id');
 
         if ($name = trim((string) $request->query('name'))) {
@@ -21,6 +70,9 @@ class AuditController extends Controller
         }
         if ($action = $request->query('action')) {
             $query->where('action', $action);
+        }
+        if ($role = $request->query('role')) {
+            $query->where('account_role', $role);
         }
         if ($from = $request->query('from')) {
             $query->where('occurred_at', '>=', $from.' 00:00:00');
@@ -32,10 +84,7 @@ class AuditController extends Controller
             $query->where('target_type', 'Post')->where('target_id', (int) $postId);
         }
 
-        return view('admin.audit.index', [
-            'entries' => $query->paginate(50)->withQueryString(),
-            'actions' => AuditEntry::query()->select('action')->distinct()->orderBy('action')->pluck('action'),
-        ]);
+        return $query;
     }
 
     public function show(AuditEntry $entry)
