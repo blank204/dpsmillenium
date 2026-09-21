@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPS Millennium CMS: grey-box wireframes (structure only)</title>
+<style>
+  /* Structure only. No brand colours or fonts: Claude Design decides those. */
+  body { font-family:system-ui; margin: 0; padding: 16px; background: #fff; color: #000; }
+  h1 { font-size: 20px; } h2 { font-size: 16px; margin: 32px 0 8px; }
+  .frame { border: 2px solid #000; max-width: 1100px; margin-bottom: 40px; }
+  .phone { max-width: 390px; }
+  .bar { border-bottom: 1px solid #888; padding: 8px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px; }
+  .col { flex: 1 1 280px; border: 1px dashed #888; padding: 8px; min-height: 60px; }
+  .box { border: 1px solid #888; padding: 8px; margin: 8px; }
+  .btn { display: inline-block; border: 1px solid #000; padding: 6px 10px; margin: 2px; }
+  .big { padding: 18px 24px; }
+  .field { border: 1px solid #888; height: 28px; margin: 4px 0 10px; }
+  .area { border: 1px solid #888; height: 80px; margin: 4px 0 10px; }
+  .muted { color: #888; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 8px; }
+  .grid div { border: 1px solid #ccc; min-height: 48px; font-size: 12px; padding: 2px; }
+  .notice { border: 1px solid #000; padding: 8px; margin: 8px; }
+</style>
+</head>
+<body>
+<h1>Grey-box wireframes</h1>
+<p class="muted">Layout structure and priority only. Every label is real. See 01-screens.md for full contents and 03-states.md for states.</p>
+
+<h2>0 &middot; Login (data-screen="login")</h2>
+<div class="frame phone">
+  <div class="box">Log in<div class="muted">Username</div><div class="field"></div><div class="muted">Password</div><div class="field"></div>
+    <span class="btn big">Log in</span>
+    <div class="muted">Forgot your password? Contact school IT.</div>
+  </div>
+</div>
+
+<h2>1 &middot; Dashboard (data-screen="dashboard")</h2>
+<div class="frame">
+  <div class="bar">[Logo] Dashboard &middot; New post &middot; All posts &middot; Calendar &middot; Recycle bin &middot; (S: Change log &middot; Settings &middot; Security &middot; Custom pages &middot; System) <span style="float:right">Signed in as Editor &middot; Log out</span></div>
+  <div class="row"><span class="btn big">+ New post</span><span class="btn big">+ Calendar entry</span></div>
+  <div class="row">
+    <div class="col"><b>Scheduled</b><div class="box">Annual Day rehearsal schedule &middot; Information corner &middot; goes live 17 Sep, 7:00 AM (in 2 days)</div></div>
+    <div class="col"><b>Pinned</b><div class="box">Welcome to DPS Millennium&hellip; &middot; unpins 28 Sep<br>Your name [ ] <span class="btn">Unpin now</span></div></div>
+  </div>
+  <div class="row">
+    <div class="col"><b>Drafts</b><div class="box">Draft: parent orientation notes &middot; saved 3 hours ago</div></div>
+    <div class="col"><b>Recently published</b><div class="box">Grade V Half Yearly Examination Syllabus &middot; 3 Sep</div></div>
+  </div>
+</div>
+
+<h2>2 &middot; Choose section (data-screen="choose-section")</h2>
+<div class="frame"><div class="row">
+  <span class="btn big">Information corner</span><span class="btn big">Events corner</span><span class="btn big">Academic circulars</span><span class="btn big">Newsletter</span>
+</div></div>
+
+<h2>3 &middot; Post editor, desktop (data-screen="post-editor")</h2>
+<div class="frame">
+  <div class="bar">Edit: Academic circulars &middot; Status: Live &middot; Posted 3 Sep 2026 &middot; Updated 10 Sep 2026 &middot; Link /circulars/21-&hellip; &middot; (S: Version history)</div>
+  <div class="notice">Error summary appears here when saving fails</div>
+  <div class="row">
+    <div class="col" style="flex:2 1 520px">
+      <b>Basics</b><div class="muted">Title</div><div class="field"></div><div class="muted">Short summary</div><div class="area"></div>
+      <b>Grades</b><div class="row"><span class="btn">Not grade-specific</span><span class="btn">All grades</span><span class="btn">A range</span><span class="btn">Pick grades</span></div>
+      <b>Content</b>
+      <div class="box">1. Text <span style="float:right"><span class="btn">&uarr;</span><span class="btn">&darr;</span><span class="btn">Remove</span></span><div class="row"><span class="btn">Bold</span><span class="btn">Italic</span><span class="btn">&bull; List</span><span class="btn">1. List</span><span class="btn">Link</span></div><div class="area"></div></div>
+      <div class="box">2. PDF file(s)<div class="box">Main subjects.pdf &middot; label [Main subjects] <span class="btn">Remove PDF</span></div><span class="btn">Add PDF(s)</span></div>
+      <div class="box">3. Table<div class="muted">[x] First row is a heading &middot; paste box &middot; grid &middot; + Row + Column</div><div class="area"></div></div>
+      <div class="row"><span class="btn">Add a block &#x25BE;</span></div>
+      <div class="muted">Unsaved changes kept on this computer at 10:42. Remember to Save draft or Publish.</div>
+    </div>
+    <div class="col">
+      <b>Save changes</b>
+      <div class="muted">[ ] Small fix, don't move it to the top</div>
+      <div class="muted">Remove from the website on (optional)</div><div class="field"></div>
+      <div class="muted">[ ] Pin to the top of its box</div>
+      <div class="muted">Unpin on (required when pinned)</div><div class="field"></div>
+      <div class="muted">Your name (required, saved in the change log): always blank</div><div class="field"></div>
+      <span class="btn">Preview</span><span class="btn big">Save changes</span>
+    </div>
+  </div>
+</div>
+
+<h2>4 &middot; Post editor, phone</h2>
+<div class="frame phone">
+  <div class="bar">&#x2630; New: Events corner</div>
+  <div class="box">Title<div class="field"></div></div>
+  <div class="box">Date the event happened<div class="field"></div>Cover photo (required)<div class="area"></div></div>
+  <div class="box">Content blocks (stacked)</div>
+  <div class="box">Publish panel (stacked, sticky Publish button at bottom)<div class="field"></div><span class="btn big">Publish</span></div>
+</div>
+
+<h2>5 &middot; All posts (data-screen="posts-index")</h2>
+<div class="frame">
+  <div class="row"><span class="btn">Section &#x25BE;</span><span class="btn">Status &#x25BE;</span><div class="field" style="flex:1"></div><span class="btn">Filter</span></div>
+  <div class="box">Title (pinned marker) &middot; Section &middot; Status &middot; Date &middot; Edit | Duplicate | Delete</div>
+  <div class="box">Title &middot; Section &middot; Status &middot; Date &middot; Edit | Duplicate | Delete</div>
+</div>
+
+<h2>6 &middot; Calendar (data-screen="calendar")</h2>
+<div class="frame">
+  <div class="bar">&larr; August &middot; September 2026 &middot; October &rarr;</div>
+  <div class="grid"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    <div></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+    <div>20 Weekly Test I</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div></div>
+  <div class="box">Add an entry: Title &middot; Type &middot; Start &middot; End &middot; Grades &middot; Note &middot; Your name &middot; <span class="btn">Add to calendar</span></div>
+</div>
+
+<h2>7 &middot; Change log (data-screen="audit-index") and detail (data-screen="audit-show")</h2>
+<div class="frame">
+  <div class="row"><span class="btn">Check the log has not been altered</span></div>
+  <div class="row"><div class="field" style="flex:1"></div><span class="btn">Action &#x25BE;</span><span class="btn">From</span><span class="btn">To</span><span class="btn">Filter</span></div>
+  <div class="box">No. 482 &middot; 10 Sep 9:02 AM &middot; Ms. Priya (demo) &middot; editor &middot; post.edited &middot; Post No. 15 &middot; 10.20.1.44 &middot; Details</div>
+  <div class="box"><b>Detail</b>: When / Name typed / Login / IP / Device / Session / Item / Integrity hash<br>Field | Before | After</div>
+</div>
+
+<h2>8 &middot; Post versions (data-screen="post-versions")</h2>
+<div class="frame">
+  <div class="bar">Version history: Grade V Half Yearly Examination Syllabus 2026-27</div>
+  <div class="box">Version 3 &middot; 10 Sep, 9:02 AM &middot; by Ms. Priya (demo) &middot; "Grade V Half Yearly Examination Syllabus 2026-27" (expandable) <span class="btn">Restore this version</span></div>
+  <div class="box">Version 2 &middot; 9 Sep, 3:10 PM &middot; by Mr. Khan (demo) &middot; "Grade V Syllabus" (expandable) <span class="btn">Restore this version</span></div>
+</div>
+
+<h2>9 &middot; Recycle bin, settings, security, custom pages, system</h2>
+<div class="frame">
+  <div class="row">
+    <div class="col"><b>Recycle bin</b><br>Title &middot; Section &middot; Deleted &middot; Removed permanently on &middot; (S: Restore)</div>
+    <div class="col"><b>Settings</b><br>Homepage counts &middot; Year start month &middot; Grades list &middot; Calendar types &middot; Newsletters &middot; Your name &middot; Save settings</div>
+    <div class="col"><b>Security</b><br>Change Editor password &middot; Change my password &middot; Log out everyone &middot; Active sessions</div>
+    <div class="col"><b>Custom pages</b><br>Upload (title, file, name) &middot; list with ID</div>
+    <div class="col"><b>System</b><br>PHP &middot; Database &middot; Image library &middot; Extensions &middot; Scheduled tasks &middot; Storage &middot; Backups</div>
+  </div>
+</div>
+</body>
+</html>

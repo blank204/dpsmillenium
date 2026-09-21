@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html{background:#400068}
+body{background:#400068}
+[data-cover]{position:fixed;inset:0;z-index:2000;background:#400068;pointer-events:none;transform:translateY(0)}
+[data-cover]::after{content:"";position:absolute;inset:0;background:url('assets/seal-l7-stars.svg') no-repeat 50% 46%/150%;opacity:.08}
+html[data-ready] [data-cover]{transform:translateY(-101%) !important;transition:transform 700ms cubic-bezier(.76,0,.24,1) !important}
+html[data-gone] [data-cover]{display:none !important}
+@view-transition{navigation:auto}
+::view-transition-group(root),::view-transition-image-pair(root){animation-duration:0s}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal;opacity:1}
+</style>
+<script>
+(function(){
+  var root = document.documentElement;
+  function afHold(){
+    var h = window.innerHeight * 1.2, imgs = document.images, i, r;
+    for (i = 0; i < imgs.length; i++) {
+      if (imgs[i].complete) continue;
+      r = imgs[i].getBoundingClientRect();
+      if (r.top < h && r.width > 24) return true;
+    }
+    return false;
+  }
+  function reveal(){
+    if (root.hasAttribute('data-ready')) return;
+    root.setAttribute('data-ready', '');
+    setTimeout(function(){ root.setAttribute('data-gone', ''); }, 900);
+  }
+  var poll = setInterval(function(){
+    var fontsOk = !document.fonts || document.fonts.status === 'loaded';
+    if (root.dataset.mounted === '1' && fontsOk && !afHold()) { clearInterval(poll); reveal(); }
+  }, 50);
+  setTimeout(function(){ clearInterval(poll); reveal(); }, 5000);
+})();
+</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Arabic";src:url("assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--gutter:clamp(1.25rem,5vw,4.5rem);caret-color:#400068;accent-color:#400068}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#400068;-webkit-text-size-adjust:100%;font-size:clamp(16px,4px + .625vw,20px);scrollbar-width:none}
+::-webkit-scrollbar{inline-size:0;block-size:0}
+body{margin:0;background:#400068;color:#17061F;font-family:"Plex Sans",system-ui,sans-serif;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;height:auto;display:block}
+p,h1,h2,h3,h4{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{color:#D8A800}
+table{border-collapse:collapse;inline-size:100%}
+::selection{background:#D8A800;color:#17061F}
+:where(a,button,input,summary):focus-visible{outline:3px solid #D8A800;outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes curtainUp{0%{transform:translateY(0)}100%{transform:translateY(-101%)}}
+@media (max-width:63.99em){
+[data-screen-label="Nav"] ul ul a{padding-block:.7rem}
+}
+@media (max-width:47.99em){
+[data-screen-label="Nav"] > div{gap:.6rem}
+[data-screen-label="Nav"] > div > a > span > span{display:none}
+[data-screen-label="Nav"] > div > div > a{padding:.6rem 1rem;font-size:.85rem}
+footer ul a{display:inline-block;padding-block:.4rem}
+[data-steps]{display:grid !important;grid-template-columns:minmax(0,1fr) !important}
+[data-arrow]{transform:rotate(90deg);flex-basis:auto !important;justify-self:center}
+[data-jump] button{padding-block:.8rem !important;padding-inline:.95rem !important}
+[data-stage]{grid-template-columns:minmax(0,1fr) !important;gap:1.1rem !important}
+[data-stage-head]{padding-inline-start:2.2rem !important}
+[data-stage-media]{padding-inline-start:2.2rem}
+}
+@keyframes wordIn{from{transform:translateY(108%)}to{transform:none}}
+@keyframes headIn{from{clip-path:inset(-.18em 0 106% 0);transform:translateY(12px)}to{clip-path:inset(-.18em 0 0 0);transform:none}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ruleIn2{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes quadIn{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
+@keyframes paneIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+@keyframes badgePop{0%{transform:scale(1)}45%{transform:scale(1.4)}100%{transform:scale(1)}}
+
+/* Hero is above the fold: it plays off the load clock, no observer needed. */
+[data-anim="word"]{animation:wordIn 880ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 95ms + 560ms)}
+[data-anim="quad"]{animation:quadIn 700ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 110ms + 860ms)}
+header [data-anim="fade"]{animation:fadeIn 780ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 95ms + 620ms)}
+[data-seal-spin]{animation:ringSpin 34s linear infinite}
+
+/* Below the fold, the observer flips data-reveal and CSS does the moving. */
+main [data-anim="head"][data-reveal="0"]{clip-path:inset(-.18em 0 106% 0)}
+main [data-anim="head"][data-reveal="1"]{animation:headIn 900ms cubic-bezier(.16,1,.3,1) both}
+main [data-anim="fade"][data-reveal="0"],main [data-anim="row"][data-reveal="0"]{opacity:0}
+main [data-anim="fade"][data-reveal="1"],main [data-anim="row"][data-reveal="1"]{animation:fadeIn 720ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+main [data-anim="rule"]{transform-origin:left}
+main [data-anim="rule"][data-reveal="0"]{transform:scaleX(0)}
+main [data-anim="rule"][data-reveal="1"]{animation:ruleIn2 820ms 120ms cubic-bezier(.16,1,.3,1) both}
+[data-jump-badge][data-pop="1"]{animation:badgePop 420ms cubic-bezier(.16,1,.3,1)}
+
+[data-pane]{display:none}
+[data-pane="1"]{display:block}
+[data-pane][data-enter="1"]{animation:paneIn 480ms cubic-bezier(.16,1,.3,1) both}
+
+[data-plist]{padding-inline-start:1.6rem;transition:background .3s ease,padding-inline-start .38s cubic-bezier(.16,1,.3,1)}
+[data-plist-label],[data-plist-sub]{transition:color .3s ease}
+[data-plist][data-on="1"]{background:rgba(243,238,228,.06) !important;padding-inline-start:2.2rem !important}
+[data-plist][data-on="1"] [data-plist-label]{color:#D8A800 !important}
+[data-plist][data-on="1"] [data-plist-sub]{color:#C3B2CE !important}
+[data-plist-marker]{transition:transform .48s cubic-bezier(.16,1,.3,1),height .48s cubic-bezier(.16,1,.3,1)}
+
+[data-pick]{transition:background .3s ease,color .3s ease,border-color .3s ease}
+[data-pick] i[data-pick-mark]{transition:background .3s ease,color .3s ease,border-color .3s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+[data-pick][data-on="1"]{background:#D8A800 !important;color:#17061F !important;border-color:#D8A800 !important}
+[data-pick][data-on="1"] span[data-pick-mark]{color:#17061F !important}
+[data-pick][data-on="1"] i[data-pick-mark]{background:#D8A800 !important;border-color:#D8A800 !important;color:#17061F !important;transform:rotate(90deg)}
+
+html[data-motion="Subtle"] [data-anim]{animation-duration:400ms !important;animation-delay:0ms !important}
+html[data-motion="None"] [data-anim]{animation:none !important;opacity:1 !important;transform:none !important;clip-path:none !important}
+@media (max-width:52em){
+[data-panes]{grid-template-columns:minmax(0,1fr) !important}
+}
+@media (max-width:47.5em){
+[data-intro-grid]{grid-template-columns:minmax(0,1fr) !important;gap:2rem !important}
+[data-intro-label]{padding-block-start:0 !important}
+[data-intro-h]{max-inline-size:12ch !important;font-size:clamp(2.7rem,12vw,4rem) !important}
+[data-intro-body]{margin-block-start:2rem !important;padding-inline-start:1.25rem !important}
+[data-intro-note]{margin-block-start:2.2rem !important}
+[data-intro-ring]{inline-size:20rem !important;block-size:20rem !important;inset-inline-end:-12rem !important}
+}
+@media (hover:none){[data-sbar]{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+
+<div data-cover="1" aria-hidden="true"></div>
+
+
+<div data-screen-label="Nav" style="background:#17061F;color:#F3EEE4;position:sticky;top:0;z-index:60">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:flex;align-items:center;gap:1.25rem;padding-block:.85rem">
+    <a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.7rem;margin-inline-end:auto" style-hover="color:#F3EEE4">
+      <img src="assets/shield.svg" alt="" style="inline-size:2rem" />
+      <span>
+        <b style="display:block;font-weight:600;font-size:1rem;letter-spacing:-.01em">DPS Millennium</b>
+        <span style="display:block;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:#C3B2CE;font-weight:500">International School</span>
+      </span>
+    </a>
+
+    <button type="button" onClick="{{ toggleBurger }}" style="{{ burgerStyle }}">Menu</button>
+
+    <ul onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}" onFocus="{{ navOver }}" onBlur="{{ navOut }}" style="{{ menuStyle }}">
+      <li style="position:relative"><a href="DPS Millennium Homepage.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
+      <li data-menu="about" style="position:relative">
+        <a href="DPS Millennium About.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.about }}">
+          <li><a href="DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Mission &amp; Vision</a></li>
+          <li><a href="DPS Millennium About.dc.html#crest" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The crest</a></li>
+          <li><a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Commitments</a></li>
+          <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">The DPS Group</a></li>
+          <li><a href="DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Leadership</a></li>
+        </ul>
+      </li>
+      <li data-menu="campus" style="position:relative">
+        <a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.campus }}">
+          <li><a href="DPS Millennium Campus.dc.html#progress" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Current status</a></li>
+          <li><a href="DPS Millennium Campus.dc.html#gallery" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Construction Progress</a></li>
+          <li><a href="DPS Millennium Campus.dc.html#design" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Concept Design</a></li>
+          <li><a href="DPS Millennium Campus.dc.html#facilities" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Planned facilities</a></li>
+        </ul>
+      </li>
+      <li data-menu="admissions" style="position:relative">
+        <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">Admissions<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.admissions }}">
+          <li><a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Register Interest</a></li>
+          <li><a href="DPS Millennium Fees.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Fees Structure</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">How to Apply — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Age &amp; Year Groups — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="notices" style="position:relative">
+        <a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Notice Board<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.notices }}">
+          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Information Corner</a></li>
+          <li><a href="DPS Millennium Homepage.dc.html#notices" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Events Corner</a></li>
+          <li><a href="DPS Millennium Homepage.dc.html#calendar" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">School Calendar</a></li>
+        </ul>
+      </li>
+      <li data-menu="curriculum" style="position:relative">
+        <a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Curriculum<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.curriculum }}">
+          <li><a href="DPS Millennium About.dc.html#commitments" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">CBSE at Millennium</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Subjects Offered — soon</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem;color:#5E4C6B;pointer-events:none">Assessment — soon</a></li>
+        </ul>
+      </li>
+      <li data-menu="contact" style="position:relative">
+        <a href="#" style="display:flex;align-items:center;gap:.4rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Contact<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+        <ul style="{{ sub.contact }}">
+          <li><a href="DPS Millennium Partnerships.dc.html" onClick="{{ leave }}" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Partnerships &amp; Sponsorships</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Enquiry Form</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">P.O. Box &amp; Address</a></li>
+          <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Phone &amp; Email</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;gap:.7rem;background:#D8A800;color:#17061F;font-weight:500;font-size:.9375rem;padding:.85rem 1.5rem;border-radius:99px;transition:background .2s ease,transform .2s cubic-bezier(.16,1,.3,1)" style-hover="background:#E8B600;color:#17061F;transform:translateY(-2px)">Register</a>
+    </div>
+  </div>
+</div>
+
+<header data-screen-label="Partnerships hero" id="top" style="position:relative;overflow:hidden;background:#400068;color:#F3EEE4;padding-block:clamp(4.5rem,10vh,8rem) clamp(5rem,10vh,8rem)">
+  <div data-seal-ring="1" aria-hidden="true" style="position:absolute;inline-size:46rem;block-size:46rem;inset-inline-end:-17rem;inset-block-start:-20rem;border:1px solid rgba(216,168,0,.16);border-radius:50%;box-shadow:0 0 0 8rem rgba(216,168,0,.03),0 0 0 17rem rgba(243,238,228,.02)"></div>
+  <div aria-hidden="true" style="position:absolute;inset:auto -10% 0;block-size:1px;background:rgba(243,238,228,.16)"></div>
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(21rem,100%),1fr));gap:clamp(2.5rem,8vw,7rem);align-items:center">
+    <div>
+      <p data-anim="fade" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0 0 1.6rem;--i:0">Partnerships &amp; Sponsorships</p>
+      <h1 style="max-inline-size:14ch;font-size:clamp(2.8rem,1.25rem + 5.4vw,5.6rem);line-height:.95;letter-spacing:-.04em;text-transform:uppercase;font-weight:600;margin:0"><span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:1">Build</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:2">what</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:3">comes</span></span> <span style="display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.06em"><span data-anim="word" style="display:inline-block;--i:4">next.</span></span></h1>
+      <p data-anim="fade" style="max-inline-size:52ch;margin:1.7rem 0 0;color:#DCCBE8;font-size:clamp(1.05rem,1rem + .45vw,1.22rem);--i:6">A school opening in 2027 is a rare thing to help shape. Partner with DPS Millennium early and your contribution becomes part of how the place works — not an addition to it later.</p>
+      <div data-anim="fade" style="display:flex;flex-wrap:wrap;gap:.8rem;margin-block-start:2.4rem;--i:7">
+        <a href="#partnerships" onClick="{{ glide }}" style="display:inline-flex;align-items:center;justify-content:center;gap:.65rem;border:1px solid transparent;border-radius:99px;padding:.85rem 1.5rem;font-size:.92rem;font-weight:500;background:#D8A800;color:#17061F;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:#E8B600;color:#17061F;transform:translateY(-3px)">Explore the areas <span aria-hidden="true">→</span></a>
+        <a href="#contact" onClick="{{ glide }}" style="display:inline-flex;align-items:center;justify-content:center;gap:.65rem;border:1px solid rgba(243,238,228,.55);border-radius:99px;padding:.85rem 1.5rem;font-size:.92rem;font-weight:500;color:#F3EEE4;background:transparent;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-3px)">Start a conversation</a>
+      </div>
+    </div>
+    <div role="img" aria-label="Abstract DPS Millennium seal built from the school's four crest colours" style="inline-size:min(100%,22rem);aspect-ratio:1;margin-inline:auto;position:relative;display:grid;place-items:center">
+      <div data-seal-spin="1" aria-hidden="true" style="position:absolute;inset:2%;border:1px solid rgba(216,168,0,.5);border-radius:50%;border-block-start-color:rgba(216,168,0,.95);border-inline-end-color:rgba(216,168,0,.05)"></div>
+      <div aria-hidden="true" style="position:absolute;inset:10%;border:1px solid rgba(243,238,228,.22);border-radius:50%"></div>
+      <div style="position:relative;z-index:1;inline-size:52%;aspect-ratio:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;transform:rotate(45deg)">
+        <span data-anim="quad" style="display:block;background:#D8A800;--i:1"></span><span data-anim="quad" style="display:block;background:#D82818;--i:2"></span>
+        <span data-anim="quad" style="display:block;background:#382898;--i:4"></span><span data-anim="quad" style="display:block;background:#400068;border:1px solid rgba(243,238,228,.3);--i:3"></span>
+      </div>
+      <div data-anim="fade" style="position:absolute;inset-block-end:4%;z-index:2;inline-size:100%;text-align:center;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:#C3B2CE;--i:9">Opening April 2027</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section data-screen-label="Why partner" id="why-partner" style="position:relative;overflow:hidden;background:#F3EEE4;padding-block:clamp(5rem,10vw,8rem)">
+    <div data-intro-ring="1" aria-hidden="true" style="position:absolute;inline-size:34rem;block-size:34rem;inset-inline-end:-17rem;inset-block-start:50%;transform:translateY(-50%);border:1px solid rgba(64,0,104,.08);border-radius:50%;box-shadow:0 0 0 5rem rgba(64,0,104,.025),0 0 0 10rem rgba(216,168,0,.018);pointer-events:none"></div>
+    <div data-intro-grid="1" style="position:relative;z-index:1;max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:minmax(10rem,.55fr) minmax(0,1.45fr);gap:clamp(3rem,8vw,8rem);align-items:start">
+
+      <div data-intro-label="1" data-anim="fade" style="display:flex;align-items:center;gap:.9rem;padding-block-start:.55rem;--i:0">
+        <span style="font-family:'Plex Serif',Georgia,serif;font-size:1.25rem;line-height:1;color:#400068">01</span>
+        <span aria-hidden="true" style="inline-size:2.4rem;block-size:1px;background:#D8A800"></span>
+        <h2 style="font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#5E4C6B;white-space:nowrap;margin:0">Why partner</h2>
+      </div>
+
+      <div style="max-inline-size:58rem">
+        <div style="max-inline-size:52rem">
+          <p data-anim="fade" style="margin:0 0 1rem;color:#400068;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;--i:1">Building something meaningful</p>
+          <h2 data-intro-h="1" data-anim="head" style="max-inline-size:16ch;font-size:clamp(2.8rem,2rem + 4vw,5.2rem);line-height:.98;letter-spacing:-.045em;text-transform:uppercase;font-weight:600;color:#17061F;margin:0;text-wrap:balance">A school is built by <span style="color:#400068">more than bricks.</span></h2>
+        </div>
+
+        <div data-intro-body="1" data-anim="fade" style="max-inline-size:48rem;margin-block-start:2.8rem;padding-inline-start:clamp(0rem,5vw,4rem);border-inline-start:2px solid rgba(216,168,0,.7);--i:2">
+          <p style="margin:0;color:#17061F;font-size:clamp(1.15rem,1rem + .5vw,1.35rem);line-height:1.55">DPS Millennium International School is being established in Al Wukair with a long-term focus on <strong style="color:#400068;font-weight:600">learning, opportunity and community.</strong></p>
+          <p style="margin:1rem 0 0;color:#5E4C6B;font-size:clamp(1rem,.95rem + .3vw,1.16rem);line-height:1.7">The right partnerships can extend that mission beyond the classroom — connecting students with people, organisations, expertise and experiences that make education more relevant.</p>
+        </div>
+
+        <div data-intro-note="1" data-anim="fade" style="display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:start;max-inline-size:48rem;margin-block-start:3rem;padding-block-start:1.4rem;border-block-start:1px solid rgba(23,6,31,.14);--i:3">
+          <span aria-hidden="true" style="inline-size:2.2rem;block-size:2.2rem;display:grid;place-items:center;border:1px solid #D8A800;border-radius:50%;color:#400068;font-size:.75rem;font-family:'Plex Serif',Georgia,serif"></span>
+          <p style="margin:0;color:#5E4C6B;font-size:.95rem;line-height:1.65">We are interested in relationships that create genuine value for <strong style="color:#17061F;font-weight:600">students, the school and the wider community</strong> — not simply logo placement.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section data-screen-label="Areas" id="partnerships" style="background:#17061F;color:#F3EEE4;padding-block:clamp(4.5rem,11vh,8rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+      <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.03em;line-height:1;font-size:clamp(2.1rem,1.2rem + 3.2vw,3.6rem);text-wrap:balance;max-inline-size:16ch;margin:0">Four ways to work together.</h2>
+      <div data-panes="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(19rem,100%),1fr));gap:clamp(2rem,5vw,5rem);margin-block-start:clamp(2.5rem,5vw,4rem);align-items:start">
+        <div data-plistwrap="1" style="position:relative;border-block-start:1px solid rgba(243,238,228,.16)">
+          <span data-plist-marker="1" aria-hidden="true" style="position:absolute;inset-inline-start:0;inset-block-start:0;inline-size:2px;block-size:0;background:#D8A800"></span>
+          <button type="button" data-plist="1" onClick="{{ pickPane }}" style="display:grid;grid-template-columns:1fr;gap:.3rem;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(243,238,228,.16);padding-block:1.5rem;padding-inline-end:1rem;font:inherit;color:#F3EEE4;cursor:pointer" style-hover="background:rgba(243,238,228,.04)">
+            <span data-plist-label="1" style="display:block;font-size:1.15rem;font-weight:500;letter-spacing:-.015em">Educational partnerships</span>
+            <span data-plist-sub="1" style="display:block;font-size:.85rem;color:#9C86AC">Workshops, expertise, mentoring, enrichment.</span>
+          </button>
+          <button type="button" data-plist="2" onClick="{{ pickPane }}" style="display:grid;grid-template-columns:1fr;gap:.3rem;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(243,238,228,.16);padding-block:1.5rem;padding-inline-end:1rem;font:inherit;color:#F3EEE4;cursor:pointer" style-hover="background:rgba(243,238,228,.04)">
+            <span data-plist-label="1" style="display:block;font-size:1.15rem;font-weight:500;letter-spacing:-.015em">Technology &amp; innovation</span>
+            <span data-plist-sub="1" style="display:block;font-size:.85rem;color:#9C86AC">Digital learning and practical projects.</span>
+          </button>
+          <button type="button" data-plist="3" onClick="{{ pickPane }}" style="display:grid;grid-template-columns:1fr;gap:.3rem;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(243,238,228,.16);padding-block:1.5rem;padding-inline-end:1rem;font:inherit;color:#F3EEE4;cursor:pointer" style-hover="background:rgba(243,238,228,.04)">
+            <span data-plist-label="1" style="display:block;font-size:1.15rem;font-weight:500;letter-spacing:-.015em">Community partnerships</span>
+            <span data-plist-sub="1" style="display:block;font-size:.85rem;color:#9C86AC">Initiatives connecting the school with Qatar.</span>
+          </button>
+          <button type="button" data-plist="4" onClick="{{ pickPane }}" style="display:grid;grid-template-columns:1fr;gap:.3rem;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(243,238,228,.16);padding-block:1.5rem;padding-inline-end:1rem;font:inherit;color:#F3EEE4;cursor:pointer" style-hover="background:rgba(243,238,228,.04)">
+            <span data-plist-label="1" style="display:block;font-size:1.15rem;font-weight:500;letter-spacing:-.015em">Student development</span>
+            <span data-plist-sub="1" style="display:block;font-size:.85rem;color:#9C86AC">Competitions, placements, careers exposure.</span>
+          </button>
+        </div>
+        <div data-pane="1">
+          <h3 style="font-family:&quot;Plex Serif&quot;,Georgia,serif;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.5rem);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:600">Educational partnerships</h3>
+          <p style="margin-block-start:1.1rem;color:#DCCBE8;font-size:1.05rem;max-inline-size:50ch">Bring specialist knowledge into the school day — as a visiting expert, a recurring workshop, or a mentoring relationship that follows a cohort through the year.</p>
+          <p style="margin-block-start:1.8rem;padding:1.1rem 1.3rem;background:rgba(216,168,0,.09);color:#F3EEE4;font-size:.95rem;max-inline-size:50ch;font-family:&quot;Plex Serif&quot;,Georgia,serif;font-style:italic">A visiting engineer runs four sessions with Classes IX–X on structural design, using the campus build itself as the case study.</p>
+          <div style="display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));margin-block-start:1.8rem">
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">The school brings</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">Curriculum-aligned scheduling, teacher coordination, safeguarding and a defined student group.</p>
+            </div>
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">We would look for</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">A specialist who can commit to a set number of sessions across a term.</p>
+            </div>
+          </div>
+          <button type="button" data-pick="Educational partnerships" onClick="{{ togglePick }}" style="display:inline-flex;align-items:center;gap:.6rem;margin-block-start:2rem;border:1px solid rgba(243,238,228,.5);border-radius:99px;padding:.75rem 1.3rem;background:transparent;color:#F3EEE4;font:inherit;font-size:.88rem;cursor:pointer"><span data-pick-mark="1" aria-hidden="true">+</span><span data-pick-label="1">Add to my enquiry</span></button>
+        </div>
+        <div data-pane="2">
+          <h3 style="font-family:&quot;Plex Serif&quot;,Georgia,serif;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.5rem);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:600">Technology &amp; innovation</h3>
+          <p style="margin-block-start:1.1rem;color:#DCCBE8;font-size:1.05rem;max-inline-size:50ch">Help the school use technology well from the day it opens — the tools, the teaching around them, and the judgement students need to use them responsibly.</p>
+          <p style="margin-block-start:1.8rem;padding:1.1rem 1.3rem;background:rgba(216,168,0,.09);color:#F3EEE4;font-size:.95rem;max-inline-size:50ch;font-family:&quot;Plex Serif&quot;,Georgia,serif;font-style:italic">A cloud provider equips a lab and trains staff; students present what they built at the first annual showcase.</p>
+          <div style="display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));margin-block-start:1.8rem">
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">The school brings</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">A new-build environment with no legacy systems, and staff willing to pilot and give structured feedback.</p>
+            </div>
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">We would look for</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">Software, hardware or expertise, plus a realistic view of training and support.</p>
+            </div>
+          </div>
+          <button type="button" data-pick="Technology &amp; innovation" onClick="{{ togglePick }}" style="display:inline-flex;align-items:center;gap:.6rem;margin-block-start:2rem;border:1px solid rgba(243,238,228,.5);border-radius:99px;padding:.75rem 1.3rem;background:transparent;color:#F3EEE4;font:inherit;font-size:.88rem;cursor:pointer"><span data-pick-mark="1" aria-hidden="true">+</span><span data-pick-label="1">Add to my enquiry</span></button>
+        </div>
+        <div data-pane="3">
+          <h3 style="font-family:&quot;Plex Serif&quot;,Georgia,serif;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.5rem);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:600">Community partnerships</h3>
+          <p style="margin-block-start:1.1rem;color:#DCCBE8;font-size:1.05rem;max-inline-size:50ch">Connect the school to the neighbourhood it is opening into — Al Wukair families, local organisations, and causes students can genuinely contribute to.</p>
+          <p style="margin-block-start:1.8rem;padding:1.1rem 1.3rem;background:rgba(216,168,0,.09);color:#F3EEE4;font-size:.95rem;max-inline-size:50ch;font-family:&quot;Plex Serif&quot;,Georgia,serif;font-style:italic">A sustainability group co-runs a planting programme on the new campus grounds with Middle School students.</p>
+          <div style="display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));margin-block-start:1.8rem">
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">The school brings</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">Student volunteers, parent networks, campus space once open, and communication reach.</p>
+            </div>
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">We would look for</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">A programme or cause with room for school-age participation.</p>
+            </div>
+          </div>
+          <button type="button" data-pick="Community partnerships" onClick="{{ togglePick }}" style="display:inline-flex;align-items:center;gap:.6rem;margin-block-start:2rem;border:1px solid rgba(243,238,228,.5);border-radius:99px;padding:.75rem 1.3rem;background:transparent;color:#F3EEE4;font:inherit;font-size:.88rem;cursor:pointer"><span data-pick-mark="1" aria-hidden="true">+</span><span data-pick-label="1">Add to my enquiry</span></button>
+        </div>
+        <div data-pane="4">
+          <h3 style="font-family:&quot;Plex Serif&quot;,Georgia,serif;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.5rem);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:600">Student development</h3>
+          <p style="margin-block-start:1.1rem;color:#DCCBE8;font-size:1.05rem;max-inline-size:50ch">Create the experiences that sit outside a syllabus — the competition, the placement, the conversation with someone already doing the job they are considering.</p>
+          <p style="margin-block-start:1.8rem;padding:1.1rem 1.3rem;background:rgba(216,168,0,.09);color:#F3EEE4;font-size:.95rem;max-inline-size:50ch;font-family:&quot;Plex Serif&quot;,Georgia,serif;font-style:italic">A firm hosts a careers morning for Classes XI–XII, followed by a small structured work-shadow programme.</p>
+          <div style="display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));margin-block-start:1.8rem">
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">The school brings</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">Student cohorts, staff supervision, and academic recognition where appropriate.</p>
+            </div>
+            <div>
+              <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#D8A800;margin:0">We would look for</p>
+              <p style="margin:.6rem 0 0;color:#C3B2CE;font-size:.92rem">Opportunities with defined outcomes, and mentors willing to give real feedback.</p>
+            </div>
+          </div>
+          <button type="button" data-pick="Student development" onClick="{{ togglePick }}" style="display:inline-flex;align-items:center;gap:.6rem;margin-block-start:2rem;border:1px solid rgba(243,238,228,.5);border-radius:99px;padding:.75rem 1.3rem;background:transparent;color:#F3EEE4;font:inherit;font-size:.88rem;cursor:pointer"><span data-pick-mark="1" aria-hidden="true">+</span><span data-pick-label="1">Add to my enquiry</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Sponsorships" id="sponsorships" style="background:#FAF6EF;padding-block:clamp(4.5rem,11vh,8rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(18rem,100%),1fr));gap:clamp(2rem,7vw,6rem);align-items:start">
+      <div>
+        <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.03em;line-height:1;font-size:clamp(2.1rem,1.2rem + 3.2vw,3.6rem);text-wrap:balance;color:#17061F;max-inline-size:13ch;margin:0">Put support where it matters.</h2>
+        <p data-anim="fade" style="max-inline-size:42ch;margin:1.4rem 0 0;color:#5E4C6B;--i:1">Packages are built around an organisation's interests and the school's needs rather than fixed tiers. Tell us which area interests you and we will come back with what it would take.</p>
+        <p data-anim="fade" style="max-inline-size:42ch;margin:1.6rem 0 0;padding-block-start:1.2rem;border-block-start:1px solid rgba(23,6,31,.16);color:#1E5A33;font-size:.84rem;--i:2">Recognition is agreed in writing before anything is announced, and a sponsor's name is never attached to student work without permission.</p>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;border-block-start:1px solid rgba(23,6,31,.16)">
+        <li data-anim="row" style="--i:1"><button type="button" data-pick="Events &amp; competitions" onClick="{{ togglePick }}" style="display:grid;grid-template-columns:1fr 1.9rem;gap:1.2rem;align-items:center;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(23,6,31,.16);padding:1.35rem .2rem;font:inherit;color:#17061F;cursor:pointer" style-hover="background:rgba(64,0,104,.04)">
+          <span>
+            <span style="display:block;font-size:1.02rem;font-weight:500">Events &amp; competitions</span>
+            <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">Inter-house events, academic competitions, annual day.</span>
+          </span>
+          <i data-pick-mark="1" aria-hidden="true" style="inline-size:1.9rem;block-size:1.9rem;border:1px solid rgba(23,6,31,.3);color:#5E4C6B;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.9rem">+</i>
+        </button></li>
+        <li data-anim="row" style="--i:2"><button type="button" data-pick="Technology &amp; equipment" onClick="{{ togglePick }}" style="display:grid;grid-template-columns:1fr 1.9rem;gap:1.2rem;align-items:center;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(23,6,31,.16);padding:1.35rem .2rem;font:inherit;color:#17061F;cursor:pointer" style-hover="background:rgba(64,0,104,.04)">
+          <span>
+            <span style="display:block;font-size:1.02rem;font-weight:500">Technology &amp; equipment</span>
+            <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">Laboratory, library and classroom equipment.</span>
+          </span>
+          <i data-pick-mark="1" aria-hidden="true" style="inline-size:1.9rem;block-size:1.9rem;border:1px solid rgba(23,6,31,.3);color:#5E4C6B;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.9rem">+</i>
+        </button></li>
+        <li data-anim="row" style="--i:3"><button type="button" data-pick="Sports &amp; student activities" onClick="{{ togglePick }}" style="display:grid;grid-template-columns:1fr 1.9rem;gap:1.2rem;align-items:center;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(23,6,31,.16);padding:1.35rem .2rem;font:inherit;color:#17061F;cursor:pointer" style-hover="background:rgba(64,0,104,.04)">
+          <span>
+            <span style="display:block;font-size:1.02rem;font-weight:500">Sports &amp; student activities</span>
+            <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">Kit, courts, coaching and inter-school fixtures.</span>
+          </span>
+          <i data-pick-mark="1" aria-hidden="true" style="inline-size:1.9rem;block-size:1.9rem;border:1px solid rgba(23,6,31,.3);color:#5E4C6B;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.9rem">+</i>
+        </button></li>
+        <li data-anim="row" style="--i:4"><button type="button" data-pick="Scholarships &amp; student support" onClick="{{ togglePick }}" style="display:grid;grid-template-columns:1fr 1.9rem;gap:1.2rem;align-items:center;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(23,6,31,.16);padding:1.35rem .2rem;font:inherit;color:#17061F;cursor:pointer" style-hover="background:rgba(64,0,104,.04)">
+          <span>
+            <span style="display:block;font-size:1.02rem;font-weight:500">Scholarships &amp; student support</span>
+            <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">Named support for students who need it.</span>
+          </span>
+          <i data-pick-mark="1" aria-hidden="true" style="inline-size:1.9rem;block-size:1.9rem;border:1px solid rgba(23,6,31,.3);color:#5E4C6B;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.9rem">+</i>
+        </button></li>
+        <li data-anim="row" style="--i:5"><button type="button" data-pick="Campus &amp; learning initiatives" onClick="{{ togglePick }}" style="display:grid;grid-template-columns:1fr 1.9rem;gap:1.2rem;align-items:center;inline-size:100%;text-align:start;background:none;border:none;border-block-end:1px solid rgba(23,6,31,.16);padding:1.35rem .2rem;font:inherit;color:#17061F;cursor:pointer" style-hover="background:rgba(64,0,104,.04)">
+          <span>
+            <span style="display:block;font-size:1.02rem;font-weight:500">Campus &amp; learning initiatives</span>
+            <span style="display:block;margin-block-start:.25rem;font-size:.85rem;color:#5E4C6B">Reading spaces, gardens and maker areas.</span>
+          </span>
+          <i data-pick-mark="1" aria-hidden="true" style="inline-size:1.9rem;block-size:1.9rem;border:1px solid rgba(23,6,31,.3);color:#5E4C6B;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.9rem">+</i>
+        </button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section data-screen-label="Contact" id="contact" style="background:#E9E1D2;padding-block:clamp(4.5rem,11vh,8rem)">
+    <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(19rem,100%),1fr));gap:clamp(2.5rem,7vw,6rem);align-items:start">
+      <div>
+        <h2 data-anim="head" style="font-weight:600;text-transform:uppercase;letter-spacing:-.03em;line-height:1;font-size:clamp(2.1rem,1.2rem + 3.2vw,3.6rem);text-wrap:balance;color:#17061F;max-inline-size:12ch;margin:0">Start a conversation.</h2>
+        <p data-anim="fade" style="max-inline-size:44ch;margin:1.4rem 0 0;color:#5E4C6B;--i:1">A short note is enough — no proposal document at this stage. Anything you added while reading is listed below and travels with it.</p>
+        <div data-anim="fade" style="margin-block-start:2.2rem;padding-block-start:1.3rem;border-block-start:1px solid rgba(23,6,31,.22);--i:2">
+          <p style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33;margin:0">Your enquiry <span data-pick-count="1" style="font-weight:400;letter-spacing:.04em;text-transform:none;color:#5E4C6B">— nothing selected yet</span></p>
+          <sc-if value="{{ hasPicks }}" hint-placeholder-val="{{ true }}">
+            <ul style="list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem">
+              <sc-for list="{{ pickList }}" as="pick" hint-placeholder-count="2">
+                <li><button type="button" data-pick="{{ pick }}" onClick="{{ togglePick }}" title="Remove" style="display:inline-flex;align-items:center;gap:.55rem;border:1px solid #400068;border-radius:99px;padding:.42rem .85rem;background:#400068;color:#F3EEE4;font:inherit;font-size:.82rem;cursor:pointer;transition:background .25s ease" style-hover="background:#17061F;color:#F3EEE4">{{ pick }}<span aria-hidden="true" style="opacity:.65">×</span></button></li>
+              </sc-for>
+            </ul>
+          </sc-if>
+        </div>
+        <sc-if value="{{ showNextSteps }}" hint-placeholder-val="{{ true }}">
+        <ol data-anim="fade" style="list-style:none;margin:2.4rem 0 0;padding-block-start:1.3rem;padding-inline:0;border-block-start:1px solid rgba(23,6,31,.22);display:grid;gap:1rem;--i:3">
+          <li style="display:grid;grid-template-columns:1.5rem 1fr;gap:.9rem;color:#5E4C6B;font-size:.92rem"><span style="font-family:&quot;Plex Serif&quot;,Georgia,serif;color:#400068">1</span>You send the note below.</li>
+          <li style="display:grid;grid-template-columns:1.5rem 1fr;gap:.9rem;color:#5E4C6B;font-size:.92rem"><span style="font-family:&quot;Plex Serif&quot;,Georgia,serif;color:#400068">2</span>We talk it through — scope, reach, and whether the timing works against the opening schedule.</li>
+          <li style="display:grid;grid-template-columns:1.5rem 1fr;gap:.9rem;color:#5E4C6B;font-size:.92rem"><span style="font-family:&quot;Plex Serif&quot;,Georgia,serif;color:#400068">3</span>We put it in writing. Nothing is committed, or announced, before both sides have seen it.</li>
+        </ol>
+        </sc-if>
+      </div>
+      <form data-anim="fade" onSubmit="{{ submitEnquiry }}" noValidate="{{ true }}" style="display:grid;gap:1.6rem;align-content:start;--i:2">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));gap:1.6rem">
+          <div style="display:grid;gap:.45rem"><label for="p-name" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33">Your name</label><input id="p-name" name="name" type="text" autoComplete="name" style="inline-size:100%;border:none;border-block-end:1px solid rgba(23,6,31,.28);border-radius:0;background:transparent;color:#17061F;padding:.7rem .1rem;font:inherit;outline:none;transition:border-color .25s ease" style-focus="border-block-end-color:#400068" /></div>
+          <div style="display:grid;gap:.45rem"><label for="p-org" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33">Organisation</label><input id="p-org" name="organisation" type="text" autoComplete="organization" style="inline-size:100%;border:none;border-block-end:1px solid rgba(23,6,31,.28);border-radius:0;background:transparent;color:#17061F;padding:.7rem .1rem;font:inherit;outline:none;transition:border-color .25s ease" style-focus="border-block-end-color:#400068" /></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));gap:1.6rem">
+          <div style="display:grid;gap:.45rem"><label for="p-email" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33">Email</label><input id="p-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" style="inline-size:100%;border:none;border-block-end:1px solid rgba(23,6,31,.28);border-radius:0;background:transparent;color:#17061F;padding:.7rem .1rem;font:inherit;outline:none;transition:border-color .25s ease" style-focus="border-block-end-color:#400068" /></div>
+          <div style="display:grid;gap:.45rem"><label for="p-type" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33">Interested in</label><select id="p-type" name="type" style="inline-size:100%;border:none;border-block-end:1px solid rgba(23,6,31,.28);border-radius:0;background:transparent;color:#17061F;padding:.7rem .1rem;font:inherit;outline:none;transition:border-color .25s ease" style-focus="border-block-end-color:#400068"><option value="">Select one</option><option>Partnership</option><option>Sponsorship</option><option>Both</option></select></div>
+        </div>
+        <div style="display:grid;gap:.45rem"><label for="p-msg" style="font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1E5A33">Your idea</label><textarea id="p-msg" name="message" placeholder="What would you like to explore together?" style="inline-size:100%;border:none;border-block-end:1px solid rgba(23,6,31,.28);border-radius:0;background:transparent;color:#17061F;padding:.7rem .1rem;font:inherit;outline:none;transition:border-color .25s ease;min-block-size:6.5rem;resize:vertical" style-focus="border-block-end-color:#400068"></textarea></div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-block-start:.4rem">
+          <button type="submit" style="display:inline-flex;align-items:center;justify-content:center;gap:.65rem;border:1px solid transparent;border-radius:99px;padding:.85rem 1.5rem;font:inherit;font-size:.92rem;font-weight:500;background:#400068;color:#F3EEE4;cursor:pointer;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:#17061F;color:#F3EEE4;transform:translateY(-3px)">Send enquiry <span aria-hidden="true">→</span></button>
+          <p data-form-status="1" aria-live="polite" style="margin:0;font-size:.85rem;color:#1E5A33"></p>
+        </div>
+        <p style="font-size:.78rem;color:#5E4C6B;margin:0">Prototype only — nothing is transmitted or stored.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div data-jump="1" aria-label="Jump to campus section" style="position:fixed;inset-inline:0;inset-block-end:clamp(1rem,3vh,1.75rem);z-index:80;display:flex;justify-content:center;pointer-events:none">
+  <div style="display:flex;gap:.3rem;padding:.3rem;border-radius:99px;background:rgba(23,6,31,.82);backdrop-filter:blur(10px);box-shadow:0 16px 36px -12px rgba(0,0,0,.55);pointer-events:auto">
+    <button type="button" data-goto="partnerships" onClick="{{ goFees }}" style="{{ jump0 }}">Areas</button>
+    <button type="button" data-goto="sponsorships" onClick="{{ goInstallments }}" style="{{ jump1 }}">Sponsorships</button>
+    <button type="button" data-goto="contact" onClick="{{ goTransport }}" style="{{ jump2 }}">Enquiry<span data-jump-badge="1" aria-hidden="true" style="display:none;margin-inline-start:.5rem;padding:.1rem .45rem;border-radius:99px;background:#17061F;color:#F3EEE4;font-size:.7rem">0</span></button>
+  </div>
+</div>
+
+<footer data-screen-label="Footer" style="background:#17061F;color:#F3EEE4;padding-block:4rem calc(2.5rem + 4.5rem)">
+  <div style="max-inline-size:82rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4.5rem)">
+    <div style="display:flex;flex-wrap:wrap;gap:2.5rem clamp(2rem,6vw,5rem);align-items:start">
+      <div style="flex:0 1 16rem">
+        <img src="assets/seal.svg" alt="" style="inline-size:clamp(110px,15vw,150px)" />
+        <p style="font-family:'Plex Arabic','Plex Sans',sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem">مدرسة ميلينيوم الدولية</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem">
+          <a href="DPS Millennium About.dc.html#register" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Register</a>
+          <a href="DPS Millennium Campus.dc.html" onClick="{{ leave }}" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Campus</a>
+          <a href="#" style="display:inline-flex;align-items:center;background:transparent;color:#F3EEE4;border:1px solid currentColor;font-weight:500;font-size:.9375rem;padding:.7rem 1.3rem;border-radius:99px;transition:background .2s ease" style-hover="background:rgba(243,238,228,.1);color:#F3EEE4">Contact</a>
+        </div>
+      </div>
+      <div style="flex:1 1 24rem;display:grid;gap:2rem clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))">
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Partnerships</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#partnerships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Educational</a></li>
+            <li><a href="#partnerships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Technology</a></li>
+            <li><a href="#partnerships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Community</a></li>
+            <li><a href="#partnerships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Student development</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">About</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="DPS Millennium About.dc.html#purpose" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Mission &amp; Vision</a></li>
+            <li><a href="DPS Millennium About.dc.html#crest" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">The crest</a></li>
+            <li><a href="DPS Millennium About.dc.html#leadership" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">Leadership</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">Sponsorships</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="#sponsorships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Events</a></li>
+            <li><a href="#sponsorships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Technology</a></li>
+            <li><a href="#sponsorships" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Student activities</a></li>
+            <li><a href="#contact" onClick="{{ glide }}" style="font-size:.9rem;color:#C3B2CE">Start a conversation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin-block-end:.8rem;font-weight:600">DPS Group</h4>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.45rem">
+            <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">DPS Modern Indian School</a></li>
+            <li><a href="DPS Millennium About.dc.html#group" onClick="{{ leave }}" style="font-size:.9rem;color:#C3B2CE">DPS Monarch International School</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="margin-block-start:3rem;padding-block-start:1.5rem;border-block-start:1px solid rgba(243,238,228,.2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;font-size:.8125rem;color:#9C86AB">
+      <p>DPS Millennium International School · part of the DPS Group of Institutions</p>
+      <p>Tentative opening: 4 April 2027</p>
+    </div>
+  </div>
+</footer>
+
+<div data-toast="1" role="status" style="position:fixed;z-index:300;inset-inline-start:50%;inset-block-end:1.5rem;transform:translate(-50%,calc(100% + 2rem));background:#17061F;color:#F3EEE4;border:1px solid rgba(243,238,228,.2);border-radius:99px;padding:.75rem 1.2rem;box-shadow:0 15px 45px rgba(23,6,31,.3);transition:transform .35s cubic-bezier(.16,1,.3,1);font-size:.85rem;pointer-events:none">Enquiry ready — prototype only, nothing was sent.</div>
+
+<div data-sbar="1" aria-hidden="true" style="position:fixed;inset-block:0;inset-inline-end:0;inline-size:.9rem;z-index:90;transition:opacity .4s ease;pointer-events:none">
+  <div data-sbar-thumb="1" style="position:absolute;inset-inline-end:.25rem;inline-size:.25rem;min-block-size:2.5rem;border-radius:99px;background:rgba(216,168,0,.55);pointer-events:auto;transition:inline-size .18s ease,background .18s ease" style-hover="inline-size:.4rem;background:#D8A800"></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full&quot;,&quot;Subtle&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Full&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Partnerships page&quot;},&quot;showNextSteps&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Partnerships page&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const W = window.innerWidth || 1440;
+    this.state = { picks: [], open: null, burger: false, narrow: W < 1024, phone: W < 768, here: 'partnerships' };
+  }
+
+  // Replaces the native bar with one drawn in the page's own vocabulary: thumb
+  // length reports how long the page is, so the sense of scale a progress line
+  // loses is kept. Idles hidden, fades in while scrolling or on hover, and
+  // drags like the real thing.
+  armProgress() {
+    const rail = document.querySelector('[data-sbar]');
+    const thumb = rail && rail.querySelector('[data-sbar-thumb]');
+    if (!thumb) return;
+    // Touch devices have their own momentum scrolling and no pointer to park at
+    // the screen edge; the custom rail would only steal a strip of a small one.
+    if (matchMedia('(hover:none)').matches) { rail.style.display = 'none'; return; }
+
+    // The hidden state is set here rather than in the template: any property
+    // declared in a template style attribute is owned by the runtime and gets
+    // rewritten on every re-render, which would clobber show()/fade().
+    rail.style.opacity = '0';
+    thumb.style.cursor = 'grab';
+
+    let dragging = false, grabOffset = 0;
+    const metrics = () => {
+      const doc = document.documentElement;
+      const vh = window.innerHeight;
+      const max = doc.scrollHeight - vh;
+      const track = rail.clientHeight;
+      const len = Math.max(40, Math.round(track * (vh / doc.scrollHeight)));
+      return { max, track, len, travel: track - len };
+    };
+
+    const draw = () => {
+      this.progRaf = 0;
+      const m = metrics();
+      if (m.max <= 1) { rail.style.display = 'none'; return; }
+      rail.style.display = '';
+      thumb.style.blockSize = m.len + 'px';
+      const p = Math.min(1, Math.max(0, window.scrollY / m.max));
+      thumb.style.transform = 'translateY(' + (p * m.travel).toFixed(1) + 'px)';
+    };
+
+    const show = () => { rail.style.opacity = '1'; };
+    const fade = () => {
+      clearTimeout(this.sbarHide);
+      show();
+      this.sbarHide = setTimeout(() => { if (!dragging && !this.sbarHover) rail.style.opacity = '0'; }, 1100);
+    };
+
+    this.onProg = () => { if (!this.progRaf) this.progRaf = requestAnimationFrame(draw); fade(); };
+    window.addEventListener('scroll', this.onProg, { passive: true });
+    window.addEventListener('resize', this.onProg);
+
+    // A wide invisible strip along the edge arms the bar before the pointer has
+    // to hit a 4px target.
+    this.onEdge = (e) => {
+      const near = e.clientX > window.innerWidth - 44;
+      this.sbarHover = near;
+      if (near) { clearTimeout(this.sbarHide); show(); } else if (!dragging) fade();
+    };
+    window.addEventListener('pointermove', this.onEdge, { passive: true });
+
+    this.onDown = (e) => {
+      dragging = true;
+      grabOffset = e.clientY - thumb.getBoundingClientRect().top;
+      thumb.style.cursor = 'grabbing';
+      thumb.setPointerCapture(e.pointerId);
+      show();
+      e.preventDefault();
+    };
+    this.onMove = (e) => {
+      if (!dragging) return;
+      const m = metrics();
+      if (m.travel <= 0) return;
+      const y = e.clientY - rail.getBoundingClientRect().top - grabOffset;
+      window.scrollTo(0, Math.min(1, Math.max(0, y / m.travel)) * m.max);
+    };
+    this.onUp = () => { if (!dragging) return; dragging = false; thumb.style.cursor = 'grab'; fade(); };
+    thumb.addEventListener('pointerdown', this.onDown);
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+    this.sbarEls = { thumb };
+
+    draw();
+  }
+
+  componentDidMount() {
+    document.documentElement.dataset.mounted = '1';
+    this.landHash();
+    this.armProgress();
+    this.armAnim();
+    this.moveMarker(1, true);
+    const first = document.querySelector('[data-plist="1"]');
+    if (first) first.dataset.on = '1';
+    this.sync = () => this.setState({ narrow: window.innerWidth < 1024, phone: window.innerWidth < 768 });
+    this.sync();
+    window.addEventListener('resize', this.sync);
+
+    // Which section the bar reports is whichever heading last passed a third of
+    // the way down the viewport — not whichever is merely on screen.
+    if (window.__feeScroll) window.removeEventListener('scroll', window.__feeScroll);
+    this.onScroll = () => {
+      // A jump owns the highlight until it lands or the reader takes over, so
+      // sections passed on the way never light up.
+      if (this.scrolling || performance.now() < (this.lockUntil || 0)) return;
+      const nav = document.querySelector('[data-screen-label="Nav"]');
+      const line = (nav ? nav.getBoundingClientRect().height : 0) + 24;
+      let here = 'partnerships';
+      ['partnerships', 'sponsorships', 'contact'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) here = id;
+      });
+      if (here !== this.state.here) this.setState({ here: here });
+    };
+    window.__feeScroll = this.onScroll;
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+
+    // Any real input from the reader hands the highlight straight back.
+    this.release = () => { this.lockUntil = 0; this.scrolling = false; clearInterval(this.glideTick); };
+    ['wheel', 'touchstart', 'keydown'].forEach((t) => window.addEventListener(t, this.release, { passive: true }));
+    // The browser restores scroll position after mount, so read it again once
+    // that has settled — otherwise the bar claims Primary halfway down the page.
+    this.onScroll();
+    this.settleT = setTimeout(this.onScroll, 400);
+  }
+
+// The page-to-page cover is created OUTSIDE the React tree and owned by hand.
+  // Anything inside the template is React's to re-render, which is what kept
+  // resetting the curtain mid-load; a detached node cannot be touched.
+
+  // Landing hands the section tracker back, after a short settle so a trailing
+  // scroll event cannot re-derive the section mid-stop.
+  afterGlide() {
+    this.lockUntil = performance.now() + 260;
+    this.scrolling = false;
+  }
+
+  jumpTo(id) {
+    this.scrolling = true;
+    this.lockUntil = performance.now() + 3000;
+    this.setState({ here: id });
+    this.glideTo(id);
+  }
+
+  // Eased scroll: creeps off the mark, runs through the middle, settles at the
+  // end. The browser's own smooth scroll is linear-ish and reads mechanical.
+  glideTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 8);
+      return;
+    }
+    const from = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    // Land the section's own heading directly under the sticky bar, so the
+    // section you asked for starts at the top of what you can read.
+    const nav = document.querySelector('[data-screen-label="Nav"]');
+    const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+    const to = Math.min(max, el.getBoundingClientRect().top + from - pad);
+    const dist = Math.abs(to - from);
+    if (dist < 2) return;
+    const dur = Math.min(1500, Math.max(650, dist * 0.55));
+    const t0 = performance.now();
+    clearInterval(this.glideTick);
+    // Timer-driven rather than rAF: a backgrounded or occluded frame never
+    // services requestAnimationFrame, and the jump then does nothing at all.
+    this.glideTick = setInterval(() => {
+      const p = Math.min(1, (performance.now() - t0) / dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      window.scrollTo(0, from + (to - from) * e);
+      if (p >= 1) { clearInterval(this.glideTick); if (this.afterGlide) this.afterGlide(); }
+    }, 16);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.hashTimer);
+    window.removeEventListener('scroll', this.onProg);
+    window.removeEventListener('resize', this.onProg);
+    window.removeEventListener('pointermove', this.onEdge);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    clearTimeout(this.sbarHide);
+    window.removeEventListener('resize', this.sync);
+    window.removeEventListener('scroll', this.onScroll);
+    if (window.__feeScroll === this.onScroll) window.__feeScroll = null;
+    ['wheel', 'touchstart', 'keydown'].forEach((t) => window.removeEventListener(t, this.release));
+    clearInterval(this.glideTick);
+    clearTimeout(this.settleT);
+    
+    clearTimeout(this.rowFallback);
+    clearInterval(this.siteTimer);
+    clearTimeout(this.revealFallback);
+    document.querySelectorAll('[data-reveal]').forEach((t) => t.removeAttribute('data-reveal'));
+    if (this.revealIo) this.revealIo.disconnect();
+  }
+
+  // Kept only so the shell's teardown call has something to disconnect.
+  armReveal() { return; }
+
+  // Reveal on approach. The observer only flips an attribute; the movement
+  // itself is CSS, so it runs on the compositor rather than a main-thread
+  // timer. A single fallback timer un-parks anything the observer never
+  // reported, so content can never be stranded hidden.
+  armAnim() {
+    const targets = Array.from(document.querySelectorAll('main [data-anim]'));
+    if (!targets.length) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ((this.props.motion || 'Full') === 'None') return;
+    const vh = window.innerHeight || 800;
+    const show = (el) => {
+      if (el.getAttribute('data-reveal') === '1') return;
+      el.setAttribute('data-reveal', '1');
+    };
+    targets.forEach((el) => {
+      if (el.getBoundingClientRect().top < vh * 0.92) show(el);
+      else el.setAttribute('data-reveal', '0');
+    });
+    this.revealFallback = setTimeout(() => targets.forEach(show), 4000);
+    if (!window.IntersectionObserver) { targets.forEach(show); return; }
+    this.revealIo = new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        this.revealIo.unobserve(e.target);
+        show(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    targets.forEach((el) => { if (el.getAttribute('data-reveal') === '0') this.revealIo.observe(el); });
+  }
+
+  // Arriving with a hash: the browser tries its native anchor jump before this
+  // component has mounted, so the target does not exist yet and the page opens at
+  // the top. Poll briefly for the element and land on it under the sticky nav.
+  landHash() {
+    const id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    let tries = 0;
+    this.hashTimer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(this.hashTimer);
+        const nav = document.querySelector('[data-screen-label="Nav"]');
+        const pad = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - pad));
+      } else if (++tries > 50) clearInterval(this.hashTimer);
+    }, 100);
+  }
+
+  // Selections are echoed in three places (jump badge, count line, the "type"
+  // select) that all sit outside this section's subtree. The runtime does not
+  // forward componentDidUpdate, so syncPicks is called straight from the
+  // handler with the next value instead of reading state after commit.
+  // The gold bar tracks the open area down the list instead of each row
+  // carrying its own border — one moving element reads as a single control.
+  // The only motion that stays in JS: the bar's travel depends on measured row
+  // geometry, which CSS cannot express. The easing is still a CSS transition.
+  moveMarker(n, instant) {
+    const wrap = document.querySelector('[data-plistwrap]');
+    const mark = document.querySelector('[data-plist-marker]');
+    const btn = document.querySelector('[data-plist="' + n + '"]');
+    if (!wrap || !mark || !btn) return;
+    const to = btn.getBoundingClientRect().top - wrap.getBoundingClientRect().top;
+    if (instant) {
+      mark.style.transition = 'none';
+      mark.style.height = btn.offsetHeight + 'px';
+      mark.style.transform = 'translateY(' + to + 'px)';
+      void mark.offsetWidth;
+      mark.style.transition = '';
+      return;
+    }
+    mark.style.height = btn.offsetHeight + 'px';
+    mark.style.transform = 'translateY(' + to + 'px)';
+  }
+
+  syncPicks(picks) {
+    const badge = document.querySelector('[data-jump-badge]');
+    if (badge) {
+      badge.style.display = picks.length ? 'inline-block' : 'none';
+      badge.textContent = String(picks.length);
+      badge.removeAttribute('data-pop');
+      void badge.offsetWidth;
+      if (picks.length) badge.setAttribute('data-pop', '1');
+    }
+    const count = document.querySelector('[data-pick-count]');
+    if (count) {
+      count.textContent = picks.length
+        ? '— ' + picks.length + (picks.length === 1 ? ' area selected' : ' areas selected')
+        : '— nothing selected yet';
+    }
+    document.querySelectorAll('[data-pick]').forEach((el) => {
+      const on = picks.indexOf(el.dataset.pick) > -1;
+      el.dataset.on = on ? '1' : '0';
+      const mark = el.querySelector('[data-pick-mark]');
+      if (mark && mark.tagName !== 'I') mark.textContent = on ? '✓' : '+';
+      const lab = el.querySelector('[data-pick-label]');
+      if (lab) lab.textContent = el.dataset.on === '1' ? 'Added to my enquiry' : 'Add to my enquiry';
+    });
+    // Sponsorship rows and partnership areas map onto the enquiry type, so the
+    // select answers itself once something is chosen.
+    const SPON = ['Events & competitions', 'Technology & equipment', 'Sports & student activities', 'Scholarships & student support', 'Campus & learning initiatives'];
+    const sel = document.querySelector('#p-type');
+    if (sel) {
+      const anySpon = picks.some((p) => SPON.indexOf(p) > -1);
+      const anyPart = picks.some((p) => SPON.indexOf(p) === -1);
+      sel.value = anySpon && anyPart ? 'Both' : anySpon ? 'Sponsorship' : anyPart ? 'Partnership' : '';
+    }
+  }
+
+  renderVals() {
+    const narrow = this.state.narrow;
+    const picks = this.state.picks;
+    // Motion depth is a document-level switch so one attribute governs every
+    // keyframe on the page, including the ones on detached nodes.
+    document.documentElement.dataset.motion = this.props.motion || 'Full';
+    const showDesc = this.props.showDescriptors ?? true;
+
+    const subNarrow = {
+      position: 'static', listStyle: 'none', margin: 0, padding: '0 0 .5rem',
+      background: 'transparent', color: '#C3B2CE', boxShadow: 'none', borderRadius: 0,
+      opacity: 1, visibility: 'visible', transform: 'none', paddingInlineStart: '1rem'
+    };
+    const subBase = {
+      position: 'absolute', insetBlockStart: '100%', insetInlineStart: 0, minInlineSize: '15rem',
+      background: '#F3EEE4', color: '#17061F', listStyle: 'none', margin: 0, padding: '.5rem 0',
+      borderRadius: '0 0 14px 14px', boxShadow: '0 18px 40px -12px rgba(23,6,31,.45)',
+      transition: 'opacity .18s ease, transform .18s ease, visibility .18s', zIndex: 70
+    };
+    const mk = (k) => narrow
+      ? subNarrow
+      : (this.state.open === k
+          ? { ...subBase, opacity: 1, visibility: 'visible', transform: 'none' }
+          : { ...subBase, opacity: 0, visibility: 'hidden', transform: 'translateY(-6px)' });
+
+    const jump = (id) => {
+      const on = this.state.here === id;
+      return {
+        font: 'inherit', fontSize: '.8125rem', fontWeight: 500, letterSpacing: '.06em',
+        textTransform: 'uppercase', padding: '.7rem 1.15rem', borderRadius: '99px',
+        border: 'none', cursor: 'pointer',
+        background: on ? '#D8A800' : 'transparent',
+        color: on ? '#17061F' : '#F3EEE4',
+        transition: 'background .3s ease, color .3s ease'
+      };
+    };
+    const descBase = {
+      display: showDesc ? 'block' : 'none',
+      fontSize: '.8125rem', fontWeight: 400, marginBlockStart: '.15rem', maxInlineSize: '46ch'
+    };
+
+    return {
+      twoCols: narrow ? '1fr' : 'repeat(2,minmax(0,1fr))',
+
+      // Reading the page IS filling the form: every area you add is held in
+      // state and listed back at the enquiry, so a partner never has to
+      // re-describe what they just spent two minutes choosing.
+      pickList: picks,
+      hasPicks: picks.length > 0,
+      noPicks: picks.length === 0,
+
+      // The detail pane swaps on the DOM rather than through state: the four
+      // panes are static markup, so switching them must not re-render the
+      // section and restart its reveal animations.
+      pickPane: (e) => {
+        const n = e.currentTarget.dataset.plist;
+        document.querySelectorAll('[data-plist]').forEach((el) => {
+          el.dataset.on = el.dataset.plist === String(n) ? '1' : '0';
+        });
+        this.moveMarker(n);
+        document.querySelectorAll('[data-pane]').forEach((el) => {
+          const on = el.dataset.pane === String(n);
+          el.style.display = on ? 'block' : 'none';
+          el.removeAttribute('data-enter');
+          if (!on) return;
+          // Same node each time, so the animation has to be dropped and the
+          // element reflowed or the second visit plays nothing.
+          void el.offsetWidth;
+          el.setAttribute('data-enter', '1');
+        });
+      },
+
+      togglePick: (e) => {
+        const label = e.currentTarget.dataset.pick;
+        if (!label) return;
+        // Read from live state, not the render closure, so a second click in
+        // the same task builds on the first instead of overwriting it.
+        this.setState((s) => {
+          const cur = s.picks;
+          const next = cur.indexOf(label) > -1
+            ? cur.filter((p) => p !== label)
+            : cur.concat([label]);
+          this.syncPicks(next);
+          return { picks: next };
+        });
+      },
+
+      glide: (e) => {
+        const href = e.currentTarget.getAttribute('href') || '';
+        if (href.length < 2 || href.charAt(0) !== '#' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        const id = href.slice(1);
+        if (!document.getElementById(id)) return;
+        e.preventDefault();
+        if (this.state.burger) this.setState({ burger: false });
+        this.setState({ open: null });
+        if (id === 'partnerships' || id === 'sponsorships' || id === 'contact') this.jumpTo(id);
+        else this.glideTo(id);
+      },
+      goFees: () => this.jumpTo('partnerships'),
+      goInstallments: () => this.jumpTo('sponsorships'),
+      goTransport: () => this.jumpTo('contact'),
+      jump0: jump('partnerships'), jump1: jump('sponsorships'), jump2: jump('contact'),
+
+      submitEnquiry: (ev) => {
+        ev.preventDefault();
+        const f = ev.currentTarget;
+        const status = document.querySelector('[data-form-status]');
+        const val = (n) => (f.elements[n] ? String(f.elements[n].value).trim() : '');
+        // Name, organisation and a way to reply are the real minimum; the note
+        // is optional when areas have already been chosen above.
+        const missing = ['name', 'organisation', 'email'].filter((n) => !val(n));
+        if (!missing.length && !val('type')) missing.push('type');
+        if (!missing.length && !val('message') && !this.state.picks.length) missing.push('message');
+        if (missing.length) {
+          if (status) {
+            status.style.color = '#8A2B12';
+            status.textContent = missing[0] === 'message'
+              ? 'Add a short note, or choose an area above.'
+              : missing[0] === 'type'
+                ? 'Choose what you are interested in.'
+                : 'Please add your name, organisation and email.';
+          }
+          const first = f.elements[missing[0]];
+          if (first && first.focus) first.focus();
+          return;
+        }
+        const n = this.state.picks.length;
+        if (status) {
+          status.style.color = '#1E5A33';
+          status.textContent = n
+            ? 'Thanks — your note and ' + n + (n === 1 ? ' selected area' : ' selected areas') + ' would be on their way.'
+            : 'Thanks — we will be in touch.';
+        }
+        f.reset();
+        this.setState({ picks: [] });
+        this.syncPicks([]);
+        const toast = document.querySelector('[data-toast]');
+        if (!toast) return;
+        toast.style.transform = 'translate(-50%,0)';
+        clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => { toast.style.transform = 'translate(-50%,calc(100% + 2rem))'; }, 3200);
+      },
+      showNextSteps: this.props.showNextSteps ?? true,
+      desc: { ...descBase, color: '#5E4C6B' },
+      descInk: { ...descBase, color: '#C3B2CE' },
+
+      leave: (e) => {
+        const href = e.currentTarget.getAttribute('href');
+        if (!href || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        const el = document.createElement('div');
+        el.setAttribute('aria-hidden', 'true');
+        el.style.cssText = 'position:fixed;inset:0;z-index:999;background:#400068;transform:translateY(101%);transition:transform 520ms cubic-bezier(.76,0,.24,1);pointer-events:none';
+        document.body.appendChild(el);
+        requestAnimationFrame(() => { el.style.transform = 'translateY(0)'; });
+        setTimeout(() => { window.location.href = href; }, 540);
+      },
+
+      navOver: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li) this.setState({ open: li.dataset.menu });
+      },
+      navOut: (e) => {
+        if (narrow) return;
+        const li = e.target.closest && e.target.closest('li[data-menu]');
+        if (li && (!e.relatedTarget || !li.contains(e.relatedTarget))) this.setState({ open: null });
+      },
+      toggleBurger: () => this.setState({ burger: !this.state.burger }),
+
+      sub: {
+        about: mk('about'), campus: mk('campus'), admissions: mk('admissions'),
+        notices: mk('notices'), curriculum: mk('curriculum'), contact: mk('contact')
+      },
+
+      burgerStyle: narrow
+        ? { order: 3, display: 'block', background: 'none', border: '1px solid rgba(243,238,228,.2)', color: 'inherit', borderRadius: '99px', padding: '.65rem 1rem', font: 'inherit', fontSize: '.8125rem', cursor: 'pointer' }
+        : { display: 'none' },
+
+      menuStyle: narrow
+        ? (this.state.burger
+            ? { display: 'block', position: 'absolute', insetBlockStart: '100%', insetInline: 0, background: '#17061F', padding: '.5rem 0', paddingInline: 'calc(clamp(1.25rem,5vw,4.5rem) - .85rem)', borderBlockStart: '1px solid rgba(243,238,228,.2)', listStyle: 'none', margin: 0, zIndex: 65, maxBlockSize: '70vh', overflowY: 'auto' }
+            : { display: 'none' })
+        : { display: 'flex', listStyle: 'none', margin: 0, padding: 0 }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

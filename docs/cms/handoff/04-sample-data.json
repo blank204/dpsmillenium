@@ -1,0 +1,69 @@
+{
+  "note": "Realistic sample content for design. Dates are Qatar time (+03:00). Block shapes match 06-data-shapes.md. All names are generic placeholders, matching cms/database/seeders/DemoSeeder.php.",
+  "grades": ["Pre-KG", "KG1", "KG2", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"],
+  "posts": [
+    {
+      "section": "info", "status": "live", "title": "Welcome to DPS Millennium: admissions for 2027-28 open soon",
+      "summary": "Registration details will be announced here first.", "grades_label": null,
+      "posted": "2026-09-14T08:00:00+03:00", "updated": null, "pinned_until": "2026-09-28T08:00:00+03:00",
+      "url": "/information/12-welcome-to-dps-millennium-admissions-for-2027-28-open-soon",
+      "blocks": [
+        { "type": "text", "version": 1, "html": "<p>Registration details will be announced here first. Families can follow the campus build on the <a href=\"https://dpsmillennium.com/campus\" rel=\"noopener noreferrer\">Campus page</a>.</p>" },
+        { "type": "link", "version": 1, "label": "Hear it first: register interest", "url": "https://dpsmillennium.com/#register" }
+      ]
+    },
+    {
+      "section": "circular", "status": "live", "title": "Grade V Half Yearly Examination Syllabus 2026-27", "summary": null, "grades_label": "Grade V",
+      "posted": "2026-09-03T10:00:00+03:00", "updated": null, "pinned_until": null, "url": "/circulars/21-grade-v-half-yearly-examination-syllabus-2026-27",
+      "blocks": [
+        { "type": "text", "version": 1, "html": "<p>Dear Parents, please find the syllabus for each subject below.</p>" },
+        { "type": "pdf", "version": 1, "files": [
+          { "media_id": 41, "label": "Main subjects" }, { "media_id": 42, "label": "French 2L" }, { "media_id": 43, "label": "French 3L" },
+          { "media_id": 44, "label": "Hindi 2L" }, { "media_id": 45, "label": "Hindi 3L" }, { "media_id": 46, "label": "Malayalam 2L" }
+        ] }
+      ]
+    },
+    {
+      "section": "event", "status": "live", "title": "DPS Millennium educators felicitated at ICC Qatar Teachers’ Day 2026", "summary": "Two teachers honoured for decades of service.",
+      "grades_label": null, "event_date": "2026-09-05", "posted": "2026-09-10T15:30:00+03:00", "updated": null, "pinned_until": null,
+      "cover": { "media_id": 60, "alt": "Awardees with the Principal" }, "url": "/events/30-dps-millennium-educators-felicitated-at-icc-qatar-teachers-day-2026",
+      "blocks": [
+        { "type": "text", "version": 1, "html": "<p>The school proudly celebrates the recognition of its educators.</p><ul><li>KG1–Grade 8 category</li><li>Grade 9–12 category</li></ul>" },
+        { "type": "image", "version": 1, "media_id": 61, "caption": "Receiving the award" },
+        { "type": "gallery", "version": 1, "items": [ { "media_id": 62, "caption": "On stage" }, { "media_id": 63, "caption": null }, { "media_id": 64, "caption": "With colleagues" } ] },
+        { "type": "video", "version": 1, "media_id": 65, "caption": "Short clip from the ceremony" }
+      ]
+    },
+    {
+      "section": "newsletter", "status": "live", "title": "Kindergarten Newsletter: Term I", "series": "Kindergarten Newsletter", "academic_year": "2026-27", "term": "Term I",
+      "cover": { "media_id": 70 }, "pdf_media_id": 71, "link": null, "posted": "2026-08-30T12:00:00+03:00", "updated": null, "pinned_until": null,
+      "url": "/newsletters/33-kindergarten-newsletter-term-i", "blocks": []
+    },
+    {
+      "section": "info", "status": "live", "title": "Grade VII and VIII half yearly examination seating arrangement 2026",
+      "summary": null, "grades_label": "Grades VII–VIII", "posted": "2026-09-09T13:10:00+03:00", "updated": "2026-09-10T09:02:00+03:00", "pinned_until": null,
+      "url": "/information/15-grade-vii-and-viii-half-yearly-examination-seating-arrangement-2026",
+      "blocks": [
+        { "type": "text", "version": 1, "html": "<p>Students must be seated <strong>10 minutes</strong> before the exam.</p>" },
+        { "type": "table", "version": 1, "has_header": true, "rows": [["Class", "Room", "Roll numbers"], ["VII A", "101", "1–32"], ["VII B", "102", "1–30"], ["VIII A", "201", "1–31"], ["VIII B", "202", "1–29\n(late joiners 30–31)"]] },
+        { "type": "html_page", "version": 1, "html_page_id": 3, "mode": "link" }
+      ]
+    },
+    {
+      "section": "info", "status": "scheduled", "title": "Annual Day rehearsal schedule", "summary": null, "grades_label": "All grades",
+      "posted": "2026-09-17T07:00:00+03:00", "updated": null, "pinned_until": null, "url": null,
+      "blocks": [ { "type": "youtube", "version": 1, "url": "https://youtu.be/dQw4w9WgXcQ", "video_id": "dQw4w9WgXcQ", "mode": "player" } ]
+    }
+  ],
+  "calendar": [
+    { "title": "Weekly Test I", "type": "Exam", "start": "2026-09-20", "end": null, "grades_label": "Grades I–VI" },
+    { "title": "Half yearly examinations", "type": "Exam", "start": "2026-10-04", "end": "2026-10-15", "grades_label": "All grades" },
+    { "title": "Qatar National Day", "type": "Holiday", "start": "2026-12-18", "end": null, "grades_label": null },
+    { "title": "Winter break", "type": "Holiday", "start": "2026-12-24", "end": "2027-01-04", "grades_label": null }
+  ],
+  "audit_example": {
+    "id": 482, "when": "2026-09-10T09:02:11+03:00", "name_typed": "Ms. Priya (demo)", "login": "editor", "action": "post.edited",
+    "item": "Post #15", "ip": "10.20.1.44", "device": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/140",
+    "changes": { "title": { "before": "Grade VII seating arrangement", "after": "Grade VII and VIII half yearly examination seating arrangement 2026" } }
+  }
+}
