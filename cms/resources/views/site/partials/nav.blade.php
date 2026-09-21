@@ -26,7 +26,7 @@
                 <a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us<i class="nav-caret"></i></a>
                 <ul class="nav-sub">
                     <li><a href="{{ route('about') }}#purpose">Mission &amp; Vision</a></li>
-                    <li><a href="{{ route('about') }}#objectives">Objectives</a></li>
+                    <li><a href="{{ route('about') }}#commitments">Objectives</a></li>
                     <li><a href="{{ route('about') }}#leadership">Key Visionaries</a></li>
                     <li><a href="{{ route('about') }}#group">The DPS Group</a></li>
                     <li><a href="{{ route('about') }}#crest">The Crest</a></li>
@@ -37,7 +37,7 @@
                 <a href="{{ route('campus') }}" @if (request()->routeIs('campus')) aria-current="page" @endif>The Campus<i class="nav-caret"></i></a>
                 <ul class="nav-sub">
                     <li><a href="{{ $home('render') }}">Concept Design</a></li>
-                    <li><a href="{{ route('campus') }}#progress">Construction Progress</a></li>
+                    <li><a href="{{ route('campus') }}#journal">Construction Progress</a></li>
                     <li><a href="{{ route('campus') }}#facilities">Facilities</a></li>
                     <li><a href="{{ route('campus') }}#location">Location &amp; Access</a></li>
                 </ul>
@@ -67,8 +67,8 @@
             <li data-menu="partnerships">
                 <a href="{{ route('partnerships') }}" @if (request()->routeIs('partnerships')) aria-current="page" @endif>Partnerships<i class="nav-caret"></i></a>
                 <ul class="nav-sub">
-                    <li><a href="{{ route('partnerships') }}#opportunities">Opportunities</a></li>
-                    <li><a href="{{ route('partnerships') }}#enquiry">Make an Enquiry</a></li>
+                    <li><a href="{{ route('partnerships') }}#partnerships">Opportunities</a></li>
+                    <li><a href="{{ route('partnerships') }}#contact">Make an Enquiry</a></li>
                 </ul>
             </li>
 

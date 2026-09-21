@@ -197,6 +197,50 @@ class LinksResolveTest extends TestCase
         }
     }
 
+    /**
+     * A link like /campus#progress resolves as a route and still goes nowhere if the
+     * page has no element with that id — the visitor lands at the top and nothing
+     * happens. Four of these shipped in the first cut of the shared nav.
+     */
+    public function test_every_in_page_anchor_points_at_something_that_exists(): void
+    {
+        $this->seedContent();
+
+        $pages = ['home', 'about', 'campus', 'fees', 'partnerships', 'calendar', 'archive'];
+        $ids = [];
+        $html = [];
+        foreach ($pages as $page) {
+            $html[$page] = $this->get(route($page))->assertOk()->getContent();
+            preg_match_all('/\bid="([^"]+)"/', $html[$page], $m);
+            $ids[$page] = $m[1];
+        }
+
+        $urlToPage = [];
+        foreach ($pages as $page) {
+            $urlToPage[rtrim(route($page), '/')] = $page;
+        }
+
+        $checked = 0;
+        foreach ($pages as $from) {
+            preg_match_all('/href="([^"]*)#([A-Za-z][\w-]*)"/', $html[$from], $links, PREG_SET_ORDER);
+            foreach ($links as [$whole, $base, $fragment]) {
+                // An empty base means "this page"; otherwise resolve which page it targets.
+                $target = $base === '' ? $from : ($urlToPage[rtrim($base, '/')] ?? null);
+                if ($target === null) {
+                    continue; // points outside the set of pages under test
+                }
+                $this->assertContains(
+                    $fragment,
+                    $ids[$target],
+                    "{$from} links to #{$fragment} on {$target}, which has no element with that id",
+                );
+                $checked++;
+            }
+        }
+
+        $this->assertGreaterThan(10, $checked, 'expected the nav and footer to carry in-page anchors');
+    }
+
     public function test_the_admin_stylesheet_and_scripts_are_actually_there(): void
     {
         foreach (['admin/admin.css', 'admin/editor.js', 'admin/grade-picker.js', 'site/site.css', 'img/shield.svg'] as $asset) {
