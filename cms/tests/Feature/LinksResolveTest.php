@@ -143,7 +143,10 @@ class LinksResolveTest extends TestCase
     {
         $fixtures = $this->seedContent();
 
-        $urls = [route('home'), route('calendar'), route('archive'), $fixtures['post']->publicPath()];
+        $urls = [
+            route('home'), route('calendar'), route('archive'), $fixtures['post']->publicPath(),
+            route('about'), route('campus'), route('fees'), route('partnerships'),
+        ];
         foreach (Section::cases() as $section) {
             $urls[] = route('section', $section->pathSegment());
         }
@@ -151,6 +154,34 @@ class LinksResolveTest extends TestCase
         foreach ($urls as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             $this->assertLinksResolve($url, $html, 'visitor');
+        }
+    }
+
+    public function test_the_shared_nav_reaches_every_public_page(): void
+    {
+        $this->seedContent();
+        $html = $this->get(route('home'))->assertOk()->getContent();
+
+        $expected = [route('about'), route('campus'), route('fees'), route('partnerships'), route('calendar'), route('archive')];
+        foreach (Section::cases() as $section) {
+            $expected[] = route('section', $section->pathSegment());
+        }
+
+        foreach ($expected as $target) {
+            $this->assertStringContainsString('href="'.$target.'"', $html, "the nav does not link to {$target}");
+        }
+    }
+
+    public function test_the_site_assets_the_marketing_pages_reference_exist(): void
+    {
+        foreach (['site/site.css', 'site/site.js', 'site/home.css', 'site/home.js'] as $asset) {
+            $this->assertFileExists(public_path($asset));
+        }
+        foreach (['shield', 'seal', 'seal-l1-ring', 'seal-l8-lettering'] as $svg) {
+            $this->assertFileExists(public_path("site/assets/{$svg}.svg"));
+        }
+        foreach (['campus-sketch', 'campus-concept'] as $jpg) {
+            $this->assertFileExists(public_path("site/assets/{$jpg}.jpeg"));
         }
     }
 

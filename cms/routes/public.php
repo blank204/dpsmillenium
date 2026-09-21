@@ -22,6 +22,12 @@ Route::get('/', \App\Http\Controllers\Site\HomeController::class)->name('home');
 Route::get('calendar', \App\Http\Controllers\Site\CalendarController::class)->name('calendar');
 Route::get('archive', \App\Http\Controllers\Site\ArchiveController::class)->name('archive');
 
+// Marketing pages: no data of their own, so plain views.
+Route::view('about', 'site.about')->name('about');
+Route::view('campus', 'site.campus')->name('campus');
+Route::view('fees', 'site.fees')->name('fees');
+Route::view('partnerships', 'site.partnerships')->name('partnerships');
+
 /*
  * Section listings and single posts. The segment list is baked into the pattern from
  * Section::pathSegment() so these never shadow /calendar, /archive or /media.
