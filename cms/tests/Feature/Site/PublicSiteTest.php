@@ -170,6 +170,39 @@ class PublicSiteTest extends TestCase
         $this->get(route('calendar', ['year' => 2026, 'month' => 13]))->assertNotFound();
     }
 
+    /**
+     * The homepage month grid marks days that have a calendar entry. Entries are
+     * fetched with overlapping(), which also returns ones running in from a
+     * neighbouring month — so matching on day-of-month alone lit the wrong cell.
+     */
+    public function test_the_homepage_month_grid_only_marks_days_in_that_month(): void
+    {
+        $type = CalendarType::firstOrCreate(['name' => 'Holiday']);
+        // Ends on 3 September, so it overlaps September but only day 1–3 are in it.
+        CalendarEntry::create([
+            'title' => 'Summer break',
+            'calendar_type_id' => $type->id,
+            'start_date' => '2026-08-20',
+            'end_date' => '2026-09-03',
+            'grade_mode' => 'all',
+        ]);
+
+        $html = $this->get(route('home', ['month' => '2026-09']))->assertOk()->getContent();
+
+        preg_match_all('/<span class="([^"]*calcard-day[^"]*)"[^>]*>(\d+)<\/span>/', $html, $cells, PREG_SET_ORDER);
+        $this->assertNotEmpty($cells);
+
+        $busyInMonth = [];
+        foreach ($cells as [, $class, $day]) {
+            if (str_contains($class, 'is-busy')) {
+                $busyInMonth[] = (int) $day;
+            }
+        }
+
+        sort($busyInMonth);
+        $this->assertSame([1, 2, 3], $busyInMonth, 'only 1–3 September fall inside the entry');
+    }
+
     public function test_draft_post_has_no_public_path(): void
     {
         $this->assertNull(Post::factory()->draft()->create()->publicPath());

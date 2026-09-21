@@ -53,7 +53,6 @@
     </div>
 </header>
 
-<main>
 <section id="why-partner" class="band-cream">
     <div class="shell why-grid">
         <div class="why-label">
@@ -150,7 +149,6 @@
         </div>
     </div>
 </section>
-</main>
 @endsection
 
 @push('scripts')<script src="{{ asset('site/partnerships.js') }}" defer></script>@endpush

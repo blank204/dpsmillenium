@@ -173,11 +173,14 @@
 
         @php($prev = $monthStart->subMonth())
         @php($next = $monthStart->addMonth())
+        {{-- Keyed by full date, not day-of-month: overlapping() returns entries that
+             run into this month from a neighbouring one, so a bare day number would
+             light up the wrong cell (a 3 Aug holiday marking 3 September). --}}
         @php($busy = $monthEntries->flatMap(function ($e) {
             $days = [];
-            for ($d = $e->start_date; $d->lte($e->end_date ?? $e->start_date); $d = $d->addDay()) { $days[] = $d->day; }
+            for ($d = $e->start_date; $d->lte($e->end_date ?? $e->start_date); $d = $d->addDay()) { $days[] = $d->toDateString(); }
             return $days;
-        })->unique()->all())
+        })->unique()->flip()->all())
         <aside class="calcard">
             <div class="calcard-head">
                 <h3>School calendar</h3>
@@ -197,7 +200,7 @@
                         'calcard-day',
                         'is-out' => ! $inMonth,
                         'is-today' => $cursor->isSameDay($now),
-                        'is-busy' => $inMonth && in_array($cursor->day, $busy, true),
+                        'is-busy' => $inMonth && isset($busy[$cursor->toDateString()]),
                     ])>{{ $cursor->day }}</span>
                     @php($cursor = $cursor->addDay())
                 @endwhile

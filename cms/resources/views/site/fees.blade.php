@@ -86,7 +86,6 @@
     </div>
 </div>
 
-<main>
 <section id="fees" class="band-cream">
     <div class="shell">
         <p class="kicker kicker-green"><span class="tick"></span>Nature of fee</p>
@@ -204,7 +203,6 @@
         </p>
     </div>
 </section>
-</main>
 @endsection
 
 @push('scripts')<script src="{{ asset('site/fees.js') }}" defer></script>@endpush
