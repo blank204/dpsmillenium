@@ -2,16 +2,32 @@
 @section('title', 'Preview')
 @section('content')
 <div data-screen="post-preview">
-    <p data-region="preview-widths"><button type="button" onclick="document.getElementById('preview-frame').style.maxWidth='390px'">Phone</button> <button type="button" onclick="document.getElementById('preview-frame').style.maxWidth='none'">Desktop</button></p>
+    <div class="preview-bar">
+        <div>
+            <h1 class="h1">Parent view</h1>
+            <p class="lede">What families see on the public page. Nothing here is saved.</p>
+        </div>
+        <div class="btn-row-tight" data-region="preview-widths">
+            <button type="button" class="btn btn-sm" onclick="document.getElementById('preview-frame').classList.add('is-phone')">Phone</button>
+            <button type="button" class="btn btn-sm" onclick="document.getElementById('preview-frame').classList.remove('is-phone')">Desktop</button>
+        </div>
+    </div>
+
     @if (! empty($errors_list))
-        <div class="error" role="alert"><p>This post has problems:</p><ul>@foreach ($errors_list as $messages)@foreach ($messages as $m)<li>{{ $m }}</li>@endforeach @endforeach</ul></div>
+        <div data-region="form-errors" class="notice notice-error" role="alert">
+            <b>This post cannot go live yet</b>
+            <ul>@foreach ($errors_list as $messages)@foreach ($messages as $m)<li>{{ $m }}</li>@endforeach @endforeach</ul>
+        </div>
     @else
-        <article id="preview-frame" data-region="preview-article">
-            <p>{{ $post->section->label() }}</p>
-            <h1>{{ $post->title }}</h1>
-            @if ($post->summary)<p>{{ $post->summary }}</p>@endif
-            @include('admin.partials.blocks', ['blocks' => $post->blocks])
-        </article>
+        <div class="preview-stage">
+            <article id="preview-frame" class="preview-paper public-article" data-region="preview-article">
+                <p class="eyebrow">{{ $post->section->label() }}</p>
+                <h1 class="public-title">{{ $post->title }}</h1>
+                @if ($post->summary)<p class="public-summary">{{ $post->summary }}</p>@endif
+                <div class="divider"></div>
+                @include('admin.partials.blocks', ['blocks' => $post->blocks])
+            </article>
+        </div>
     @endif
 </div>
 @endsection

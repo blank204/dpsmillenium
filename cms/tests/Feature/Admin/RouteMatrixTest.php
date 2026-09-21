@@ -46,6 +46,7 @@ class RouteMatrixTest extends TestCase
         'admin.media.upload', 'admin.media.edit',
         'admin.calendar.index', 'admin.calendar.store', 'admin.calendar.update', 'admin.calendar.destroy',
         'admin.recycle.index',
+        'admin.tutorial', // static help page, no data and nothing to change
         'staff-cms/_actor-probe', // testing-only probe route (unnamed)
     ];
 

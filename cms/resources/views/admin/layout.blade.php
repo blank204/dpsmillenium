@@ -6,28 +6,74 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'CMS') · DPS Millennium CMS</title>
-    <style>body{font-family:system-ui,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5}label{display:block;margin-top:.75rem}input,select,textarea{font:inherit;max-width:100%}.error{color:#b00020}.flash{padding:.5rem;border:1px solid #888}</style>
+    <link rel="icon" href="{{ asset('img/shield.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ asset('admin/admin.css') }}">
 </head>
 <body>
 @auth
-    <nav data-region="admin-nav">
-        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-        <a href="{{ route('admin.posts.choose') }}">New post</a>
-        <a href="{{ route('admin.posts.index') }}">All posts</a>
-        <a href="{{ route('admin.calendar.index') }}">Calendar</a>
-        <a href="{{ route('admin.recycle.index') }}">Recycle bin</a>
-        @if (auth()->user()->isSuperAdmin())
-            @foreach (['admin.audit.index' => 'Change log', 'admin.settings.edit' => 'Settings', 'admin.security.edit' => 'Security', 'admin.pages.index' => 'Custom pages', 'admin.system.show' => 'System'] as $routeName => $label)
-                @if (Route::has($routeName))<a href="{{ route($routeName) }}">{{ $label }}</a>@endif
+    @php($super = auth()->user()->isSuperAdmin())
+    <header class="topbar">
+        <a class="topbar-brand" href="{{ route('admin.dashboard') }}">
+            <img src="{{ asset('img/shield.svg') }}" alt="">
+            <span>
+                <b>DPS Millennium</b>
+                <span><span>Staff content manager</span></span>
+            </span>
+        </a>
+        <div class="topbar-right">
+            <span class="topbar-who">Signed in as <b data-role="{{ auth()->user()->role }}">{{ $super ? 'Super admin' : 'Editor' }}</b></span>
+            <form method="post" action="{{ route('admin.logout') }}">@csrf<button class="linkish">Log out</button></form>
+        </div>
+    </header>
+
+    <div class="shell">
+        <nav class="sidebar" data-region="admin-nav" aria-label="Sections">
+            @php($nav = [
+                'admin.dashboard'    => 'Dashboard',
+                'admin.posts.choose' => 'New post',
+                'admin.posts.index'  => 'All posts',
+                'admin.calendar.index' => 'Calendar',
+                'admin.recycle.index'  => 'Recycle bin',
+            ])
+            @foreach ($nav as $name => $label)
+                @if (Route::has($name))
+                    <a href="{{ route($name) }}" @if (request()->routeIs($name)) aria-current="page" @endif>{{ $label }}</a>
+                @endif
             @endforeach
-        @endif
-        <form method="post" action="{{ route('admin.logout') }}" style="display:inline">@csrf<button>Log out</button></form>
-        <span data-role="{{ auth()->user()->role }}">Signed in as {{ auth()->user()->isSuperAdmin() ? 'Super admin' : 'Editor' }}</span>
-    </nav>
+
+            @if ($super)
+                <p class="sidebar-group">School IT</p>
+                @foreach ([
+                    'admin.audit.index'    => 'Change log',
+                    'admin.settings.edit'  => 'Settings',
+                    'admin.security.edit'  => 'Security',
+                    'admin.pages.index'    => 'Custom pages',
+                    'admin.system.show'    => 'System',
+                ] as $name => $label)
+                    @if (Route::has($name))
+                        <a href="{{ route($name) }}" @if (request()->routeIs($name)) aria-current="page" @endif>{{ $label }}</a>
+                    @endif
+                @endforeach
+            @endif
+
+            <p class="sidebar-group">Help</p>
+            @if (Route::has('admin.tutorial'))
+                <a href="{{ route('admin.tutorial') }}" @if (request()->routeIs('admin.tutorial')) aria-current="page" @endif>How to post</a>
+            @endif
+            @if (Route::has('home'))
+                <a href="{{ route('home') }}" target="_blank" rel="noopener">View the website ↗</a>
+            @endif
+        </nav>
+
+        <main class="content">
+            @if (session('status'))<p class="notice notice-good flash" role="status">{{ session('status') }}</p>@endif
+            @yield('content')
+        </main>
+    </div>
+@else
+    @yield('content')
 @endauth
-@if (session('status'))<p class="flash" role="status">{{ session('status') }}</p>@endif
 @if (session('clear_autosave'))<span hidden data-clear-autosave="{{ session('clear_autosave') }}"></span>@endif
-<main>@yield('content')</main>
 @stack('scripts')
 </body>
 </html>

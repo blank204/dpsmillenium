@@ -128,13 +128,19 @@ class UploadAndCalendarScreensTest extends TestCase
         // therefore render one whole superfluous week of November at the end of the grid.
         $html = $this->get(route('admin.calendar.index', ['year' => 2026, 'month' => 10]))->assertOk()->getContent();
 
-        preg_match_all('/<tr>(.*?)<\/tr>/s', $html, $rows);
-        $bodyRows = array_slice($rows[1], 1); // drop the Sun..Sat header row
-        $this->assertNotEmpty($bodyRows);
+        // The grid is a flat 7-column CSS grid: seven day-name headings, then one
+        // div.cal-cell per day, carrying is-blank when the day belongs to a neighbouring
+        // month. Read the cells back in order and re-form the weeks.
+        preg_match_all('/<div class="cal-cell ([^"]*)"[^>]*>\s*<span class="cal-day">(\d+)<\/span>/', $html, $cells, PREG_SET_ORDER);
+        $this->assertNotEmpty($cells);
+        $this->assertSame(0, count($cells) % 7, 'the grid must hold whole weeks');
 
-        foreach ($bodyRows as $row) {
-            preg_match('/<td[^>]*>\s*<span>(\d+)<\/span>/', $row, $firstCell);
-            $this->assertNotSame('1', $firstCell[1] ?? null, 'a calendar row must not start on Nov 1 — the grid ran one week too long');
+        foreach (array_chunk($cells, 7) as $i => $week) {
+            $blank = array_filter($week, fn ($c) => str_contains($c[1], 'is-blank'));
+            $this->assertNotCount(7, $blank, "week {$i} belongs entirely to another month — the grid ran one week too long");
         }
+
+        // October 2026 ends on Saturday 31st, so the grid should stop exactly there.
+        $this->assertSame('31', end($cells)[2]);
     }
 }

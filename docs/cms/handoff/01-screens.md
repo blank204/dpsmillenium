@@ -19,8 +19,9 @@ Base path: `/staff-cms` (configurable via `ADMIN_PATH`). E = Editor, S = Super a
 | `security` | `/security` | S | Passwords & sessions | Change shared Editor password (min 12 chars, explains everyone is logged out); change own password (current + new, min 12 chars); log out everyone; active sessions table (login, IP, device, last active) |
 | `custom-pages` | `/custom-pages` | S | Isolated HTML pages | Explanation; upload (title, .html/.htm file up to 2 MB, name); table (ID, title opens page, size, date, remove with name) |
 | `system` | `/system` | S | Health check | PHP version, database version, image library, PHP extensions (yes/NO per extension), scheduled tasks status (last run + source, or "no cron detected" note), storage used, backups status |
+| `tutorial` | `/how-to-post` | E, S | Step-by-step help | Six numbered steps for posting a circular, plus "Things worth knowing" and "If something goes wrong" panels; links to New post and the Dashboard |
 
-Global: navigation (Dashboard, New post, All posts, Calendar, Recycle bin; S adds Change log, Settings, Security, Custom pages, System), "Signed in as Editor/Super admin", Log out, success message banner (`role="status"`), error summary (`data-region="form-errors"` in `01`/`02`/other screens via `admin.partials.errors`).
+Global: navigation (Dashboard, New post, All posts, Calendar, Recycle bin; S adds Change log, Settings, Security, Custom pages, System; Help adds How to post and a link to the public site), "Signed in as Editor/Super admin", Log out, success message banner (`role="status"`), error summary (`data-region="form-errors"` in `01`/`02`/other screens via `admin.partials.errors`).
 
 ## Note on `login`
 
