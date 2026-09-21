@@ -95,6 +95,21 @@ class FileUploader
         }
 
         $pixels = $width * $height;
+
+        /*
+         * A damaged JPEG can still carry bytes that parse as a plausible SOF marker, so
+         * getimagesize() reports a picture that is not really there. Telling a teacher
+         * their 2 KB file "is 258 megapixels" sends them off resizing a photo that was
+         * simply corrupt. Even the most aggressive JPEG rarely clears ~50 pixels per
+         * byte, so a thousand-fold above that means the header is lying, not that the
+         * photo is large. JPEG only: the ratio is meaningless for formats that can
+         * legitimately store a huge flat image in very few bytes.
+         */
+        $bytes = max(1, (int) @filesize($path));
+        if ($mime === 'image/jpeg' && $pixels / $bytes > 1000) {
+            throw new UploadRejected($this->unreadable($name));
+        }
+
         $cap = (int) config('cms.limits.image_pixels');
         $fitsMemory = $this->decodeFitsMemory($pixels);
         if ($pixels > $cap || ! $fitsMemory) {
