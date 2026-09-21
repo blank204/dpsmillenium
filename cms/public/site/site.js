@@ -12,6 +12,8 @@
 (function () {
   'use strict';
 
+  document.documentElement.classList.remove('no-js');
+
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
