@@ -18,7 +18,8 @@
                     <h4>About</h4>
                     <ul>
                         <li><a href="{{ route('about') }}#purpose">Mission &amp; Vision</a></li>
-                        <li><a href="{{ route('about') }}#crest">The crest</a></li>
+                        <li><a href="{{ route('about') }}#crest">Houses</a></li>
+                        <li><a href="{{ route('about') }}#commitments">Core values</a></li>
                         <li><a href="{{ route('about') }}#leadership">Leadership</a></li>
                     </ul>
                 </div>

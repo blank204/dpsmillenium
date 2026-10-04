@@ -26,10 +26,12 @@
                 <a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us<i class="nav-caret"></i></a>
                 <ul class="nav-sub">
                     <li><a href="{{ route('about') }}#purpose">Mission &amp; Vision</a></li>
-                    <li><a href="{{ route('about') }}#commitments">Objectives</a></li>
+                    <li><a href="{{ route('about') }}#commitments">Core Values</a></li>
+                    <li><a href="{{ route('about') }}#objectives">Objectives</a></li>
                     <li><a href="{{ route('about') }}#leadership">Key Visionaries</a></li>
                     <li><a href="{{ route('about') }}#group">The DPS Group</a></li>
-                    <li><a href="{{ route('about') }}#crest">The Crest</a></li>
+                    <li><a href="{{ route('about') }}#crest">Houses</a></li>
+                    <li><a href="{{ route('partnerships') }}">Partnerships &amp; Sponsorships</a></li>
                 </ul>
             </li>
 

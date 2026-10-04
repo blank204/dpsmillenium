@@ -52,6 +52,12 @@
 .commit-n{font-family:"Plex Serif",Georgia,serif;font-size:1.1rem;color:var(--plum)}
 .commit-list b{font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
 .commit-list span:last-child{color:var(--muted);font-size:.95rem}
+.objectives{margin-block-start:clamp(3rem,6vw,4.5rem)}
+.objectives h3{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1E5A33}
+.objectives ol{list-style:none;margin:1.25rem 0 0;padding:0;border-block-start:2px solid #1E5A33}
+.objectives li{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1rem;align-items:baseline;padding-block:1.1rem;border-block-end:1px solid rgba(23,6,31,.16)}
+.objectives li span:first-child{font-family:'Plex Serif',Georgia,serif;color:#400068;font-variant-numeric:tabular-nums}
+.objectives li span:last-child{font-size:clamp(1rem,.97rem + .2vw,1.08rem);max-inline-size:62ch}
 
 /* ---------- group ---------- */
 .group{background:var(--ink);color:var(--cream);padding-block:clamp(4rem,10vh,7.5rem)}

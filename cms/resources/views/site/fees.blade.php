@@ -26,7 +26,7 @@
     <div class="shell fhero-grid">
         <div>
             <p class="kicker kicker-gold">Fees structure</p>
-            <h1 class="hero-title">What a place is likely to cost.</h1>
+            <h1 class="hero-title">What a place actually costs.</h1>
             <p class="hero-lede">Pick a year group and see the first-year total: the one-time fees paid at admission, the annual tuition split across three installments, and transport if you need it.</p>
             <div class="hero-actions">
                 <a class="pill pill-gold" href="#fees">See the full table</a>
