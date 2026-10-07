@@ -232,6 +232,14 @@ footer ul a{display:inline-block;padding-block:.4rem}
           <li><a href="#" style="display:block;padding:.55rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Phone &amp; Email</a></li>
         </ul>
       </li>
+      <li data-menu="login" style="position:relative">
+        <a href="#" aria-haspopup="true" aria-label="Login portal menu" style="display:flex;align-items:center;gap:.45rem;padding:.9rem .85rem;font-size:.8125rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">Login<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em);transition:transform .2s ease"></i></a>
+        <ul style="{{ sub.login }}">
+          <li><a href="student-portal.html" onClick="{{ leave }}" style="display:block;padding:.7rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Student Portal</a></li>
+          <li><a href="parent-portal.html" onClick="{{ leave }}" style="display:block;padding:.7rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Parent Portal</a></li>
+          <li><a href="faculty-portal.html" onClick="{{ leave }}" style="display:block;padding:.7rem 1.1rem;font-size:.875rem" style-hover="background:#E9E1D2;color:#400068">Faculty / Staff Portal</a></li>
+        </ul>
+      </li>
     </ul>
 
     <div style="display:flex;gap:.6rem;align-items:center">
@@ -1417,7 +1425,7 @@ class Component extends DCLogic {
 
       sub: {
         about: mk('about'), campus: mk('campus'), admissions: mk('admissions'),
-        notices: mk('notices'), curriculum: mk('curriculum'), contact: mk('contact')
+        notices: mk('notices'), curriculum: mk('curriculum'), contact: mk('contact'), login: mk('login')
       },
 
       burgerStyle: narrow
@@ -1436,3 +1444,4 @@ class Component extends DCLogic {
 </script>
 </body>
 </html>
+
