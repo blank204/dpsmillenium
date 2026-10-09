@@ -1595,6 +1595,61 @@
       color:#fff!important;
     }
   }
+  
+  .timeline-intro{padding:clamp(3.5rem,8vw,7rem) 0 2rem;background:var(--wash)}
+  .timeline-intro__inner{display:grid;grid-template-columns:1.1fr .8fr;gap:clamp(2rem,7vw,7rem);align-items:end}
+  .timeline-intro h2{max-width:15ch}
+  .timeline-summary{display:flex;align-items:center;gap:.85rem;margin-top:2.2rem;padding:1.05rem 1.2rem;border:1px solid rgba(23,6,31,.13);border-radius:12px;background:rgba(255,255,255,.58);color:var(--muted);font-size:.9rem}
+  .timeline-summary strong{color:var(--ink);font-weight:600}.timeline-summary__pulse{width:.65rem;height:.65rem;border-radius:50%;background:#32834b;box-shadow:0 0 0 5px rgba(50,131,75,.12);animation:statusPulse 2s ease-out infinite}.timeline-summary__divider{height:1.1rem;width:1px;background:var(--line)}.timeline-summary a{margin-left:auto;color:var(--purple);font-weight:600}
+  .timeline{position:relative;overflow:hidden;padding:clamp(4rem,9vw,8rem) 0;background:linear-gradient(180deg,#f3eee4 0%,#fbf8f2 48%,#f3eee4 100%)}
+  .timeline__track{position:absolute;left:50%;top:4rem;bottom:4rem;width:2px;transform:translateX(-50%);background:rgba(64,0,104,.12)}.timeline__track span{display:block;width:100%;height:100%;transform:scaleY(var(--timeline-progress,0));transform-origin:top;background:linear-gradient(180deg,#d8a800,#400068);transition:transform .12s linear}
+  .timeline-entry{position:relative;width:min(var(--max),calc(100% - var(--gutter)*2));margin:0 auto;padding:0 0 clamp(5rem,9vw,8rem)}.timeline-entry:last-child{padding-bottom:0}
+  .timeline-entry__marker{position:absolute;left:50%;top:0;z-index:2;display:grid;place-items:center;width:3.2rem;height:3.2rem;transform:translateX(-50%);border:1px solid rgba(64,0,104,.2);border-radius:50%;background:var(--paper);box-shadow:0 0 0 9px rgba(243,238,228,.72);color:var(--purple);font-size:.73rem;font-weight:600;letter-spacing:.08em}.timeline-entry--current .timeline-entry__marker{background:var(--purple);color:#fff;border-color:var(--gold);box-shadow:0 0 0 9px rgba(243,238,228,.8),0 0 0 12px rgba(216,168,0,.2)}
+  .timeline-entry__content{display:grid;grid-template-columns:1fr 1.03fr;gap:clamp(2.5rem,7vw,7rem);align-items:center;padding-top:4.2rem}.timeline-entry--reverse .timeline-entry__copy{order:2}.timeline-entry--reverse .timeline-entry__image,.timeline-entry--reverse .timeline-entry__gallery{order:1}
+  .timeline-entry__copy{padding:1.2rem 0}.timeline-entry__copy h3{font:600 clamp(1.9rem,1.3rem + 2vw,3.2rem)/1.04 PlexSerif,Georgia,serif;letter-spacing:-.035em;margin:0 0 1rem;max-width:14ch}.timeline-entry__copy .copy{margin:0;max-width:46ch}.timeline-entry__meta{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.5rem 0 0}.timeline-entry__meta span{padding:.42rem .68rem;border:1px solid rgba(64,0,104,.16);border-radius:99px;color:var(--purple);font-size:.74rem;font-weight:600;letter-spacing:.025em}.timeline-entry__footnote{display:block;margin-top:.8rem;color:var(--muted);font-size:.78rem}
+  .timeline-entry__image{position:relative;margin:0;overflow:hidden;border-radius:14px;background:#ddd6ca;box-shadow:0 20px 55px rgba(23,6,31,.13)}.timeline-entry__image::after{position:absolute;inset:0;content:"";pointer-events:none;background:linear-gradient(180deg,transparent 65%,rgba(23,6,31,.24))}.timeline-entry__image img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .5s ease;filter:saturate(.88)}.timeline-entry__image:hover img{transform:scale(1.045);filter:saturate(1.04)}.timeline-entry__image figcaption{position:absolute;z-index:1;left:1rem;bottom:.8rem;color:#fff;font-size:.76rem;text-shadow:0 1px 6px rgba(0,0,0,.5)}.timeline-entry__image--wide img{aspect-ratio:16/10}.timeline-entry__gallery{display:grid;grid-template-columns:1fr .58fr;gap:.9rem;align-items:end}.timeline-entry__gallery .timeline-entry__image--small img{aspect-ratio:3/4}.timeline-entry__gallery--people .timeline-entry__image--small img{aspect-ratio:4/3}.timeline-entry__gallery--vision .timeline-entry__image--small img{aspect-ratio:3/4}.timeline-entry__gallery--foundation{grid-template-columns:1fr .62fr}.timeline-entry__gallery--trio{grid-template-columns:1fr 1fr}.timeline-entry__gallery--trio .timeline-entry__image:last-child{grid-column:1/-1;width:72%;justify-self:center}.timeline-entry__gallery--trio .timeline-entry__image:last-child img{aspect-ratio:16/7}
+  .timeline-end{padding:clamp(4rem,9vw,7rem) 0;background:#17061f;color:#f3eee4}.timeline-end__inner{display:grid;grid-template-columns:1fr auto;gap:1rem 3rem;align-items:center}.timeline-end .eyebrow{grid-column:1/-1;color:var(--gold);margin-bottom:0}.timeline-end h2{font-size:clamp(2rem,1.3rem + 2.8vw,3.4rem)}.timeline-end .copy{color:#c3b2ce;margin:0;max-width:58ch}.timeline-end .button{grid-column:2;grid-row:2/4;white-space:nowrap}
+  @keyframes statusPulse{0%{box-shadow:0 0 0 0 rgba(50,131,75,.28)}70%{box-shadow:0 0 0 8px rgba(50,131,75,0)}100%{box-shadow:0 0 0 0 rgba(50,131,75,0)}}
+  @media(max-width:52rem){.timeline-intro__inner{grid-template-columns:1fr;gap:1rem}.timeline-summary{flex-wrap:wrap}.timeline-summary a{width:100%;margin:.25rem 0 0}.timeline__track{left:1.6rem;transform:none}.timeline-entry{width:calc(100% - var(--gutter)*2);padding-left:3rem;padding-bottom:4.5rem}.timeline-entry__marker{left:1.6rem;width:2.65rem;height:2.65rem}.timeline-entry__content{grid-template-columns:1fr;gap:1.5rem;padding-top:.25rem}.timeline-entry--reverse .timeline-entry__copy,.timeline-entry--reverse .timeline-entry__image,.timeline-entry--reverse .timeline-entry__gallery{order:initial}.timeline-entry__copy{padding-top:.7rem}.timeline-entry__image--wide img{aspect-ratio:4/3}.timeline-end__inner{grid-template-columns:1fr}.timeline-end .eyebrow{grid-column:auto}.timeline-end .button{grid-column:auto;grid-row:auto;justify-self:start;margin-top:1rem}}
+  @media(prefers-reduced-motion:reduce){.timeline-summary__pulse{animation:none}.timeline-entry__image img{transition:none}.timeline__track span{transition:none}}
+  @font-face{font-family:"Plex Arabic";src:url("../homepage/assets/fonts/plex-arabic-400.woff2") format("woff2");font-weight:400;font-display:swap}
+  .hero{background:#0a3d66!important;color:#fff!important;min-block-size:clamp(25rem,54vh,34rem)!important}.hero__media{background-image:url("../homepage/assets/construction/site-07.jpeg")!important;opacity:.55!important;filter:saturate(.7) contrast(1.02) brightness(.72)!important}.hero__veil{background:linear-gradient(90deg,rgba(4,35,64,.9) 0%,rgba(9,64,103,.75) 48%,rgba(11,86,133,.42) 100%),linear-gradient(0deg,rgba(2,28,54,.45),transparent 65%)!important}.hero .eyebrow,.hero__record{color:#c5e8ff!important}.hero h1{max-inline-size:13ch;color:#fff!important;font-size:clamp(2.75rem,2.6vw + 1.65rem,4.6rem)!important;line-height:.96!important}.hero__copy{color:#e8f5ff!important;font-size:1.05rem!important}.hero__status{border-color:rgba(255,255,255,.55)!important;background:rgba(7,45,76,.28)!important;color:#fff!important}.timeline-intro .eyebrow,.timeline-entry__copy .eyebrow{color:#1E5A33}.timeline__track{background:rgba(64,0,104,.16)}.timeline__track span{background:linear-gradient(180deg,#D8A800,#400068)}.timeline-entry__marker{border-color:rgba(64,0,104,.22);color:#400068}.timeline-entry__meta span{border-color:rgba(64,0,104,.2);background:rgba(64,0,104,.035)}
+  .site-footer{background:#17061F;color:#F3EEE4;padding-block:clamp(3.25rem,7vw,5rem) 2rem}.site-footer__inner{display:flex;flex-wrap:wrap;gap:2.5rem clamp(2rem,6vw,5rem);align-items:start}.site-footer__brand{flex:0 1 16rem}.site-footer__brand img{inline-size:clamp(110px,15vw,150px)}.site-footer__arabic{font-family:"Plex Arabic","Plex Sans",sans-serif;direction:rtl;color:#C3B2CE;font-size:.95rem;margin-block-start:.6rem}.site-footer__actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-block-start:1.5rem}.site-footer__actions a{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:99px;padding:.7rem 1.3rem;color:#F3EEE4;font-size:.9375rem;font-weight:500;transition:background .2s ease,color .2s ease,transform .2s ease}.site-footer__actions a:hover{background:rgba(243,238,228,.1);color:#F3EEE4;transform:translateY(-2px)}.site-footer__columns{flex:1 1 24rem;display:grid;gap:2rem clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}.site-footer__group h2{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#D8A800;margin:0 0 .8rem;font-weight:600}.site-footer__group ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}.site-footer__group a{font-size:.9rem;color:#C3B2CE;transition:color .2s ease}.site-footer__group a:hover{color:#F3EEE4}.site-footer__legal{margin-block-start:3rem;padding-block-start:1.5rem;border-block-start:1px solid rgba(243,238,228,.2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;font-size:.8125rem;color:#9C86AB}.site-footer__legal p{margin:0}.site-footer__legal time{color:#C3B2CE}
+  @media(max-width:47.99rem){.site-footer__brand{flex-basis:100%}.site-footer__columns{grid-template-columns:repeat(2,minmax(0,1fr))}.site-footer__legal{display:grid;gap:.7rem}}
+
+  .section-nav{position:relative;background:#17061F;border-block-end:1px solid rgba(243,238,228,.14)}
+  .section-nav__inner{justify-content:center;gap:.45rem;padding-block:.65rem}
+  .section-nav a,.section-nav a:last-child{border:1px solid rgba(243,238,228,.2);border-radius:99px;padding:.55rem .95rem;color:#E7DDEC;font-size:.68rem;letter-spacing:.09em}
+  .section-nav a:hover{background:#D8A800;border-color:#D8A800;color:#17061F}
+  .timeline-intro{position:relative;isolation:isolate;overflow:hidden;padding:clamp(3.5rem,7vw,5.5rem) 0 2.7rem;background:#17061F;color:#F3EEE4}
+  .timeline-intro::before{content:"";position:absolute;z-index:-1;inset-block-start:-35%;inset-inline-end:-10%;width:min(65vw,52rem);aspect-ratio:1;background:url("../homepage/assets/seal-l7-stars.svg") center/contain no-repeat;opacity:.065;pointer-events:none}
+  .timeline-intro__inner{align-items:end;gap:clamp(2rem,6vw,6rem)}
+  .timeline-intro .eyebrow{color:#D8A800}
+  .timeline-intro h2{color:#F3EEE4;max-width:14ch}
+  .timeline-intro .copy{color:#C3B2CE;max-width:43ch}
+  .timeline-summary{position:relative;margin-block-start:2rem;padding:1.1rem 1.3rem;border:1px solid rgba(216,168,0,.32);border-radius:14px;background:rgba(243,238,228,.055);color:#D8C8E0;backdrop-filter:blur(8px)}
+  .timeline-summary strong{color:#F3EEE4}.timeline-summary__divider{background:rgba(243,238,228,.24)}.timeline-summary a{color:#D8A800}.timeline-summary a:hover{color:#F3EEE4}
+  .timeline{padding:clamp(4rem,8vw,7rem) 0;background:radial-gradient(ellipse at 50% 0%,rgba(216,168,0,.07),transparent 42%),#F3EEE4}
+  .timeline__track{top:3rem;bottom:3rem;background:rgba(64,0,104,.16)}
+  .timeline-entry{padding-block-end:clamp(4rem,7vw,6rem)}
+  .timeline-entry__marker{top:0;background:#F3EEE4;border:2px solid #D8A800;box-shadow:0 0 0 8px #F3EEE4;font-size:.7rem}
+  .timeline-entry__content{position:relative;gap:clamp(1.5rem,4vw,4rem);padding:clamp(1.25rem,3vw,2.75rem);border:1px solid rgba(23,6,31,.09);border-radius:22px;background:rgba(255,255,255,.76);box-shadow:0 22px 55px -38px rgba(23,6,31,.38);backdrop-filter:blur(7px);transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s ease,border-color .55s ease}
+  .timeline-entry__content:hover{transform:translateY(-4px);border-color:rgba(64,0,104,.18);box-shadow:0 30px 70px -38px rgba(23,6,31,.36)}
+  .timeline-entry__copy{padding:0}.timeline-entry__copy h3{max-width:16ch;color:#17061F}
+  .timeline-entry__copy .eyebrow{display:flex;align-items:center;gap:.65rem;color:#1E5A33;font-size:.68rem}
+  .timeline-entry__copy .eyebrow::before{content:"";display:inline-block;width:1.1rem;height:2px;background:#D8A800}
+  .timeline-entry__copy .copy{font-size:.98rem}
+  .timeline-entry__meta{gap:.45rem;margin-block-start:1.2rem}.timeline-entry__meta span{background:rgba(64,0,104,.045);border-color:rgba(64,0,104,.13);font-size:.68rem}
+  .timeline-entry__image{border-radius:13px;box-shadow:0 16px 36px -24px rgba(23,6,31,.58)}
+  .timeline-entry__image img{transition:transform .8s cubic-bezier(.16,1,.3,1),filter .5s ease}
+  .timeline-entry__gallery{gap:.7rem}.timeline-entry__gallery--trio .timeline-entry__image:last-child{width:82%}
+  .timeline-entry--current .timeline-entry__content{background:linear-gradient(135deg,#fff 0%,#f4edf7 100%);border-color:rgba(64,0,104,.18)}
+  .timeline-entry--current .timeline-entry__marker{background:#400068;color:#F3EEE4;border-color:#D8A800;box-shadow:0 0 0 8px #F3EEE4,0 0 0 12px rgba(216,168,0,.18)}
+  .timeline-end{position:relative;isolation:isolate;overflow:hidden;background:#400068}
+  .timeline-end::after{content:"";position:absolute;z-index:-1;inset-block:0;inset-inline-end:-5%;width:min(54vw,42rem);background:url("../homepage/assets/seal-l7-stars.svg") center/contain no-repeat;opacity:.07;pointer-events:none}
+  @media(max-width:52rem){.section-nav__inner{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-block:.55rem}.section-nav a{white-space:nowrap}.timeline-intro{padding-block:3.2rem 2.2rem}.timeline-intro::before{inset-inline-end:-35%;width:95vw}.timeline-entry{padding-block-end:4rem}.timeline-entry__content{padding:1.1rem;border-radius:17px}.timeline-entry__content:hover{transform:none}.timeline__track{top:1rem;bottom:1rem}.timeline-entry__marker{top:0}.timeline-entry__gallery--trio .timeline-entry__image:last-child{width:100%}}
+  @media(prefers-reduced-motion:reduce){.timeline-entry__content,.timeline-entry__image img{transition:none}.timeline-entry__content:hover{transform:none}}
+
   </style>
 </head>
  <body id="top">
@@ -1642,7 +1697,7 @@
     </a>
     <button type="button" class="dpsm-burger" data-burger>Menu</button>
     <ul class="dpsm-menu" data-menu-list>
-     <li style="position:relative"><a href="#top" data-glide style="display:flex;align-items:center;gap:.4em;padding:.9em .85em;font-size:.8125em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
+     <li style="position:relative"><a href="../homepage/DPS%20Millennium%20Homepage.dc.html" data-leave style="display:flex;align-items:center;gap:.4em;padding:.9em .85em;font-size:.8125em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Home</a></li>
      <li data-menu="about" style="position:relative">
       <a href="../about/DPS Millennium About.dc.html" data-leave style="display:flex;align-items:center;gap:.4em;padding:.9em .85em;font-size:.8125em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">About Us<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
       <ul data-sub>
@@ -1656,7 +1711,7 @@
      <li data-menu="campus" style="position:relative">
       <a href="../campus/campus-page.html" data-leave style="display:flex;align-items:center;gap:.4em;padding:.9em .85em;font-size:.8125em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">The Campus<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
       <ul data-sub>
-       <li><a href="#render" data-glide style="display:block;padding:.55em 1.1em;font-size:.875em">Concept Design</a></li>
+       <li><a href="#milestone-current" data-glide style="display:block;padding:.55em 1.1em;font-size:.875em">Concept Design</a></li>
        <li><a href="../campus/campus-page.html" data-leave style="display:block;padding:.55em 1.1em;font-size:.875em">Construction Progress</a></li>
        <li><a href="#" style="display:block;padding:.55em 1.1em;font-size:.875em">Location &amp; Access</a></li>
        <li><a href="#" style="display:block;padding:.55em 1.1em;font-size:.875em;color:#5E4C6B;pointer-events:none">Facilities — soon</a></li>
@@ -1695,6 +1750,10 @@
        <li><a href="#" style="display:block;padding:.55em 1.1em;font-size:.875em">P.O. Box &amp; Address</a></li>
        <li><a href="#" style="display:block;padding:.55em 1.1em;font-size:.875em">Phone &amp; Email</a></li>
       </ul>
+     </li>
+     <li data-menu="login" style="position:relative">
+      <a href="#" aria-haspopup="true" aria-label="Login portal menu" style="display:flex;align-items:center;gap:.45em;padding:.9em .85em;font-size:.8125em;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#D8A800">Login<i style="inline-size:.4em;block-size:.4em;border-inline-end:1.5px solid currentColor;border-block-end:1.5px solid currentColor;transform:rotate(45deg) translateY(-.1em)"></i></a>
+      <ul data-sub><li><a href="../homepage/student-portal.html" data-leave style="display:block;padding:.7em 1.1em;font-size:.875em">Student Portal</a></li><li><a href="../homepage/parent-portal.html" data-leave style="display:block;padding:.7em 1.1em;font-size:.875em">Parent Portal</a></li><li><a href="../homepage/faculty-portal.html" data-leave style="display:block;padding:.7em 1.1em;font-size:.875em">Faculty / Staff Portal</a></li></ul>
      </li>
     </ul>
     <div style="display:flex;gap:.6em;align-items:center">
@@ -1784,10 +1843,10 @@
     Construction underway · Tentative opening: April 2027
    </p>
    <div class="hero__actions">
-    <a class="button button--gold" href="#journal">
+    <a class="button button--gold" href="#timeline">
      View construction progress
     </a>
-    <a class="button button--line" href="#vision">
+    <a class="button button--line" href="#milestone-current">
      Explore the campus design
     </a>
    </div>
@@ -1798,545 +1857,84 @@
  </header>
   <nav aria-label="Campus page sections" class="section-nav">
   <div class="wrap section-nav__inner">
-   <a href="#snapshot">
-    Current status
+   <a href="#milestone-foundations">
+    Foundation work
    </a>
-   <a href="#journal">
-    Build journal
+   <a href="#timeline">
+    Construction timeline
    </a>
-   <a href="#vision">
+   <a href="#milestone-current">
     Campus design
    </a>
-   <a href="#facilities">
-    Facilities
+   <a href="#milestone-review">
+    Project reviews
    </a>
   </div>
  </nav>
- <main id="main">
-  <section class="snapshot" id="snapshot">
-   <div class="wrap">
-    <div class="snapshot__top reveal">
-     <div>
-      <p class="eyebrow">
-       The project today
-      </p>
-      <h2 class="heading">
-       A clear record, from site to school.
-      </h2>
-     </div>
-     <p class="copy">
-      We separate architectural imagery from real site photography and publish construction progress in a format that families can understand at a glance.
-     </p>
-    </div>
-    <div class="snapshot__cards">
-     <article class="snapshot-card reveal">
-      <p class="snapshot-card__key">
-       Current stage
-      </p>
-      <h3>
-       Structure rising
-      </h3>
-      <p>
-       Foundations are complete and ground-floor columns are cast across the site footprint.
-      </p>
-     </article>
-     <article class="snapshot-card reveal">
-      <p class="snapshot-card__key">
-       Opening target
-      </p>
-      <h3>
-       April 2027
-      </h3>
-      <p>
-       This is the current tentative opening period. Any formal revision will be published here.
-      </p>
-     </article>
-     <article class="snapshot-card reveal">
-      <p class="snapshot-card__key">
-       Reporting standard
-      </p>
-      <h3>
-       Verified on site
-      </h3>
-      <p>
-       Every update is based on approved design material or photography taken at the project site.
-      </p>
-     </article>
-    </div>
+  <main id="main">
+  <section class="timeline-intro" aria-labelledby="timeline-title">
+   <div class="wrap timeline-intro__inner reveal">
+    <div><p class="eyebrow">Campus progress · Al Wukair</p><h2 class="heading" id="timeline-title">A school taking shape, one milestone at a time.</h2></div>
+    <p class="copy">Follow the work on site through verified photographs, project reviews and the design vision for the campus. Updates will be added as new milestones are confirmed.</p>
    </div>
+   <div class="wrap timeline-summary reveal"><span class="timeline-summary__pulse" aria-hidden="true"></span><strong>Construction underway</strong><span class="timeline-summary__divider" aria-hidden="true"></span><span>Tentative opening: April 2027</span><a href="#milestone-current">Explore the timeline <span aria-hidden="true">↓</span></a></div>
   </section>
-  <section aria-labelledby="sequence-title" class="build-sequence">
-   <div class="wrap">
-    <div class="sequence__head">
-     <div class="slide-left">
-      <p class="eyebrow">
-       Construction sequence
-      </p>
-      <h2 class="heading" id="sequence-title">
-       A visible journey, one stage at a time.
-      </h2>
-     </div>
-     <p class="copy slide-right">
-      This page records what has been completed, what is currently visible on site and what families can expect to see in future updates.
-     </p>
+  <section class="timeline" id="timeline" aria-label="Campus development timeline">
+   <div class="timeline__track" aria-hidden="true"><span></span></div>
+   <article class="timeline-entry timeline-entry--first" id="milestone-foundations">
+    <div class="timeline-entry__marker"><span>01</span></div><div class="timeline-entry__content reveal">
+     <div class="timeline-entry__copy"><p class="eyebrow">Site foundations · Documented</p><h3>The groundwork takes shape.</h3><p class="copy">Foundation-level construction establishes the footprint of the future school. The photographs record the scale of the work taking place across the site.</p><p class="timeline-entry__meta"><span>Site progress</span><span>Photographic record</span></p></div>
+     <div class="timeline-entry__gallery timeline-entry__gallery--foundation"><figure class="timeline-entry__image"><img src="assets/construction/site-01.jpeg" alt="Wide view of foundation-level construction and reinforcement across the school site" loading="lazy"><figcaption>Foundation work across the campus footprint</figcaption></figure><figure class="timeline-entry__image timeline-entry__image--small"><img src="assets/construction/site-02.jpeg" alt="Construction site showing concrete bases, reinforcement and a developing foundation area" loading="lazy"><figcaption>Foundation and base work</figcaption></figure></div>
     </div>
-    <div class="sequence__rail">
-     <article class="sequence-card reveal">
-      <span class="sequence-card__number">
-       01 / COMPLETE
-      </span>
-      <h3>
-       The groundwork
-      </h3>
-      <p>
-       The foundation bases and ground-level structure establish the footprint of the future school.
-      </p>
-      <small>
-       Recorded in the site journal
-      </small>
-     </article>
-     <article class="sequence-card reveal">
-      <span class="sequence-card__number">
-       02 / CURRENT
-      </span>
-      <h3>
-       The frame emerges
-      </h3>
-      <p>
-       Columns, reinforcement and formwork are now giving the campus its first recognisable form.
-      </p>
-      <small>
-       Construction underway
-      </small>
-     </article>
-     <article class="sequence-card reveal">
-      <span class="sequence-card__number">
-       03 / NEXT
-      </span>
-      <h3>
-       The story continues
-      </h3>
-      <p>
-       New photographs and approved information will be added as the project moves through its next milestones.
-      </p>
-      <small>
-       Updates will appear here
-      </small>
-     </article>
+   </article>
+   <article class="timeline-entry timeline-entry--reverse" id="milestone-reinforcement">
+    <div class="timeline-entry__marker"><span>02</span></div><div class="timeline-entry__content reveal">
+     <div class="timeline-entry__copy"><p class="eyebrow">Structure · In progress</p><h3>Reinforcement prepares the next pour.</h3><p class="copy">Steel reinforcement and formwork are visible across the foundation and slab areas, setting up the structural frame to rise.</p><p class="timeline-entry__meta"><span>Structural work</span><span>On-site photography</span></p></div>
+     <figure class="timeline-entry__image"><img src="assets/construction/site-03.jpeg" alt="Dense steel reinforcement grid prepared across the construction site" loading="lazy"><figcaption>Reinforcement laid out across a slab area</figcaption></figure>
     </div>
-   </div>
+   </article>
+   <article class="timeline-entry" id="milestone-frame">
+    <div class="timeline-entry__marker"><span>03</span></div><div class="timeline-entry__content reveal">
+     <div class="timeline-entry__copy"><p class="eyebrow">Structural frame · In progress</p><h3>The campus begins to rise.</h3><p class="copy">Concrete columns, rebar cages and temporary formwork give the building its first visible vertical lines. Each new stage makes the future campus easier to imagine.</p><p class="timeline-entry__meta"><span>Columns and formwork</span><span>Construction underway</span></p></div>
+     <div class="timeline-entry__gallery timeline-entry__gallery--trio"><figure class="timeline-entry__image"><img src="assets/construction/site-05.jpeg" alt="Concrete columns and slab work across the campus construction site" loading="lazy"><figcaption>Columns across the site</figcaption></figure><figure class="timeline-entry__image"><img src="assets/construction/site-07.jpeg" alt="Concrete columns standing across the campus construction site" loading="lazy"><figcaption>Column grid across the footprint</figcaption></figure><figure class="timeline-entry__image timeline-entry__image--small"><img src="assets/construction/site-08.jpeg" alt="Reinforcement and formwork at foundation level" loading="lazy"><figcaption>Reinforcement and formwork details</figcaption></figure></div>
+    </div>
+   </article>
+   <article class="timeline-entry timeline-entry--reverse" id="milestone-review">
+    <div class="timeline-entry__marker"><span>04</span></div><div class="timeline-entry__content reveal">
+     <div class="timeline-entry__copy"><p class="eyebrow">Project coordination · Ongoing</p><h3>Progress reviewed together.</h3><p class="copy">The project team meets to review plans and coordinate the work ahead. Site visits keep the design, construction and school vision connected.</p><p class="timeline-entry__meta"><span>Project review</span><span>Team coordination</span></p></div>
+     <div class="timeline-entry__gallery timeline-entry__gallery--people"><figure class="timeline-entry__image"><img src="assets/construction/site-06.jpeg" alt="Project team reviewing plans around a meeting table" loading="lazy"><figcaption>Project coordination meeting</figcaption></figure><figure class="timeline-entry__image timeline-entry__image--small"><img src="assets/construction/site-04.jpeg" alt="School and project representatives visiting the campus construction site" loading="lazy"><figcaption>Representatives at the site</figcaption></figure></div>
+    </div>
+   </article>
+   <article class="timeline-entry timeline-entry--current" id="milestone-current">
+    <div class="timeline-entry__marker"><span>05</span></div><div class="timeline-entry__content reveal">
+     <div class="timeline-entry__copy"><p class="eyebrow">The next chapter · Updates to follow</p><h3>From structure to school.</h3><p class="copy">As construction advances, this timeline will grow with new site photographs and confirmed milestones. Explore the architectural vision alongside the work taking shape on site.</p><p class="timeline-entry__meta"><span>Next: future progress updates</span><span>Opening target: April 2027*</span></p><small class="timeline-entry__footnote">*Tentative target; subject to formal confirmation.</small></div>
+     <div class="timeline-entry__gallery timeline-entry__gallery--vision"><figure class="timeline-entry__image"><img src="assets/design/campus-concept.jpeg" alt="Architectural impression of the proposed DPS Millennium campus" loading="lazy"><figcaption>Campus concept · architect’s impression</figcaption></figure><figure class="timeline-entry__image timeline-entry__image--small"><img src="assets/design/campus-sketch.jpeg" alt="Architectural sketch of the proposed campus elevation" loading="lazy"><figcaption>Design study · indicative</figcaption></figure></div>
+    </div>
+   </article>
   </section>
-  <section class="photo-feature">
-   <div class="wrap photo-feature__layout">
-    <div class="photo-feature__copy slide-left">
-     <p class="eyebrow">
-      A school in progress
-     </p>
-     <h2 class="heading">
-      Every detail starts with a strong foundation.
-     </h2>
-     <p class="copy">
-      A campus is more than a building plan. It is the setting for future lessons, friendships, achievements and everyday school life.
-     </p>
-     <p class="photo-feature__quote">
-      The photographs on this page are a direct, honest view of the work happening now.
-     </p>
-     <p class="floating-label">
-      Real site photography
-     </p>
-     <p class="photo-feature__note">
-      Architectural images are labelled separately so families can distinguish the planned campus from the current construction site.
-     </p>
-    </div>
-    <figure class="photo-feature__image slide-right">
-     <img alt="Concrete columns and reinforcement across the DPS Millennium construction site" src="../homepage/assets/construction/site-05.jpeg"/>
-    </figure>
-   </div>
-  </section>
-  <section class="story" id="story">
-   <div class="wrap">
-    <p class="eyebrow">
-     The school taking shape
-    </p>
-    <h2 class="heading">
-     Built with purpose, in the open.
-    </h2>
-    <p class="copy">
-     The campus is being developed as a place for learning, belonging and growth. The current structure is the first visible stage of that long-term commitment.
-    </p>
-    <div class="story__grid">
-     <figure class="story__image reveal">
-      <img alt="Concrete columns across the DPS Millennium construction site in Al Wukair" src="../homepage/assets/construction/site-07.jpeg"/>
-      <figcaption class="story__caption">
-       Current site view: the ground-floor column grid is now visible across the campus footprint.
-      </figcaption>
-     </figure>
-     <div class="story__side">
-      <article class="story-step reveal">
-       <p class="story-step__number">
-        01 · FOUNDATION
-       </p>
-       <h3>
-        The site is established
-       </h3>
-       <p>
-        Foundation work and ground beams create the base for the future campus.
-       </p>
-      </article>
-      <article class="story-step reveal">
-       <p class="story-step__number">
-        02 · STRUCTURE
-       </p>
-       <h3>
-        The plan becomes visible
-       </h3>
-       <p>
-        Columns and formwork begin to define the layout of the school building.
-       </p>
-      </article>
-      <article class="story-step reveal">
-       <p class="story-step__number">
-        03 · NEXT PHASE
-       </p>
-       <h3>
-        Progress will be documented
-       </h3>
-       <p>
-        New verified photographs will be added as each construction stage is completed.
-       </p>
-      </article>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section class="journal" id="journal">
-   <div class="wrap">
-    <div class="journal__head reveal">
-     <div>
-      <p class="eyebrow">
-       Build journal
-      </p>
-      <h2 class="heading">
-       Construction, stage by stage.
-      </h2>
-     </div>
-     <p class="copy">
-      A visual record of the campus in development. Captions describe only what can be seen in each photograph.
-     </p>
-    </div>
-    <div class="journal-picker" role="tablist" aria-label="Construction stages">
-     <button type="button" role="tab" aria-selected="true" data-stage="0">Stage 01</button>
-     <button type="button" role="tab" aria-selected="false" data-stage="1">Stage 02</button>
-     <button type="button" role="tab" aria-selected="false" data-stage="2">Stage 03</button>
-     <button type="button" role="tab" aria-selected="false" data-stage="3">Stage 04</button>
-     <button type="button" role="tab" aria-selected="false" data-stage="4">Stage 05</button>
-    </div>
-    <div class="journal-grid">
-     <figure class="journal-card is-current" data-stage-panel="0">
-      <img alt="Foundation work and reinforcement at the construction site" src="../homepage/assets/construction/site-01.jpeg"/>
-      <figcaption class="journal-card__caption">
-       <span>
-        Stage 01
-       </span>
-       <strong>
-        Foundations
-       </strong>
-       <small>
-        Foundation bases and ground beams set out.
-       </small>
-      </figcaption>
-     </figure>
-     <figure class="journal-card" data-stage-panel="1">
-      <img alt="Steel reinforcement grid prepared for concrete work" src="../homepage/assets/construction/site-03.jpeg"/>
-      <figcaption class="journal-card__caption">
-       <span>
-        Stage 02
-       </span>
-       <strong>
-        Reinforcement
-       </strong>
-       <small>
-        Steel tied and prepared for the next pour.
-       </small>
-      </figcaption>
-     </figure>
-     <figure class="journal-card" data-stage-panel="2">
-      <img alt="Concrete columns with timber formwork on the construction site" src="../homepage/assets/construction/site-08.jpeg"/>
-      <figcaption class="journal-card__caption">
-       <span>
-        Stage 03
-       </span>
-       <strong>
-        Formwork
-       </strong>
-       <small>
-        Columns and shutters taking shape.
-       </small>
-      </figcaption>
-     </figure>
-     <figure class="journal-card" data-stage-panel="3">
-      <img alt="Scaffolding and formwork around the first structural columns" src="../homepage/assets/construction/site-02.jpeg"/>
-      <figcaption class="journal-card__caption">
-       <span>
-        Stage 04
-       </span>
-       <strong>
-        Access scaffold
-       </strong>
-       <small>
-        Scaffold installed around the structural frame.
-       </small>
-      </figcaption>
-     </figure>
-     <figure class="journal-card" data-stage-panel="4">
-      <img alt="Concrete columns extending across the construction site" src="../homepage/assets/construction/site-05.jpeg"/>
-      <figcaption class="journal-card__caption">
-       <span>
-        Stage 05
-       </span>
-       <strong>
-        Structure rising
-       </strong>
-       <small>
-        Vertical structure progressing across the footprint.
-       </small>
-      </figcaption>
-     </figure>
-    </div>
-   </div>
-  </section>
-  <section class="vision" id="vision">
-   <div class="wrap">
-    <div class="vision__head reveal">
-     <p class="eyebrow">
-      Campus design
-     </p>
-     <h2 class="heading">
-      A vision made visible before the doors open.
-     </h2>
-     <p class="copy">
-      The following images are architect's materials, shown separately from construction photography. They illustrate the intended front elevation of the campus.
-     </p>
-    </div>
-    <div class="vision__grid">
-     <article class="vision-card reveal">
-      <img alt="Architect's impression of the proposed DPS Millennium campus front elevation" src="../homepage/assets/campus-concept.jpeg"/>
-      <h3>
-       The campus as designed
-      </h3>
-      <p>
-       The concept illustration shows the intended character and front elevation of the future school.
-      </p>
-      <small>
-       Architect's impression · indicative only
-      </small>
-     </article>
-     <article class="vision-card reveal">
-      <img alt="Architectural pencil study of the proposed DPS Millennium campus" src="../homepage/assets/campus-sketch.jpeg"/>
-      <h3>
-       The study behind it
-      </h3>
-      <p>
-       An earlier architectural study of the same elevation and its planning direction.
-      </p>
-      <small>
-       Architectural study · indicative only
-      </small>
-     </article>
-    </div>
-   </div>
-  </section>
-  <section class="facilities" id="facilities">
-   <div class="wrap facilities__layout">
-    <div class="reveal">
-     <p class="eyebrow">
-      Planned facilities
-     </p>
-     <h2 class="heading">
-      Designed around the school day.
-     </h2>
-     <p class="copy">
-      The current campus scope supports academic learning, practical discovery, reading, movement and gathering. Final specifications will be published by the school when confirmed.
-     </p>
-    </div>
-    <div class="facilities__list">
-     <article class="facility reveal">
-      <span class="facility__number">
-       01
-      </span>
-      <div>
-       <h3>
-        Teaching blocks
-       </h3>
-       <p>
-        Classrooms arranged by phase, from Nursery through Class XII.
-       </p>
-      </div>
-     </article>
-     <article class="facility reveal">
-      <span class="facility__number">
-       02
-      </span>
-      <div>
-       <h3>
-        Science laboratories
-       </h3>
-       <p>
-        Physics, chemistry and biology laboratories for senior students.
-       </p>
-      </div>
-     </article>
-     <article class="facility reveal">
-      <span class="facility__number">
-       03
-      </span>
-      <div>
-       <h3>
-        Library
-       </h3>
-       <p>
-        A central space for reading, research and independent learning.
-       </p>
-      </div>
-     </article>
-     <article class="facility reveal">
-      <span class="facility__number">
-       04
-      </span>
-      <div>
-       <h3>
-        Sport and assembly
-       </h3>
-       <p>
-        Courts, play areas and a covered assembly space.
-       </p>
-      </div>
-     </article>
-    </div>
-   </div>
-  </section>
-  <section class="oversight" id="oversight">
-   <div class="wrap">
-    <div class="reveal">
-     <p class="eyebrow">
-      Project oversight
-     </p>
-     <h2 class="heading">
-      Reviewed on site, at every stage.
-     </h2>
-     <p class="copy">
-      DPS Group representatives, the design team and the contractor meet through the build to review programme, quality and safety.
-     </p>
-    </div>
-    <div class="oversight__grid">
-     <figure class="reveal">
-      <img alt="Project review meeting in the site office" src="../homepage/assets/construction/site-06.jpeg"/>
-      <figcaption>
-       <strong>
-        Progress review
-       </strong>
-       Programme and drawings reviewed in the site office.
-      </figcaption>
-     </figure>
-     <figure class="reveal">
-      <img alt="Representatives together on the construction site" src="../homepage/assets/construction/site-04.jpeg"/>
-      <figcaption>
-       <strong>
-        Site walk
-       </strong>
-       Representatives on site during a structural inspection.
-      </figcaption>
-     </figure>
-    </div>
-   </div>
-  </section>
-  <section class="cta">
-   <div class="wrap cta__layout">
-    <div class="reveal">
-     <p class="eyebrow">
-      Stay informed
-     </p>
-     <h2 class="heading">
-      Follow the build to opening.
-     </h2>
-     <p>
-      Register your interest to receive admissions news and future campus updates from DPS Millennium International School.
-     </p>
-    </div>
-    <a class="button button--gold reveal" href="../about/DPS%20Millennium%20About.dc.html#register">
-     Register your interest
-    </a>
-   </div>
-  </section>
+  <section class="timeline-end"><div class="wrap timeline-end__inner reveal"><p class="eyebrow">Stay connected</p><h2 class="heading">Be part of the journey.</h2><p class="copy">Register your interest to receive admissions news and future campus updates from DPS Millennium International School.</p><a class="button button--gold" href="../about/DPS%20Millennium%20About.dc.html#register">Register your interest <span aria-hidden="true">→</span></a></div></section>
  </main>
-  <footer class="footer">
-  <div class="wrap footer__inner">
-   <span>
-    DPS Millennium International School · Al Wukair, Qatar
-   </span>
-   <a href="../homepage/DPS%20Millennium%20Homepage.dc.html">
-    Return to home
-   </a>
+  <footer class="site-footer" id="site-footer">
+  <div class="wrap">
+   <div class="site-footer__inner">
+    <div class="site-footer__brand"><img src="../homepage/assets/seal.svg" alt="DPS Millennium International School crest"><p class="site-footer__arabic" lang="ar">مدرسة ميلينيوم الدولية</p><div class="site-footer__actions"><a href="../about/DPS%20Millennium%20About.dc.html#register" data-leave>Register</a><a href="../fee/DPS%20Millennium%20Fees.dc.html" data-leave>Fees</a><a href="../about/DPS%20Millennium%20About.dc.html#contact" data-leave>Contact</a></div></div>
+    <div class="site-footer__columns">
+     <div class="site-footer__group"><h2>About</h2><ul><li><a href="../about/DPS%20Millennium%20About.dc.html#purpose" data-leave>Mission &amp; Vision</a></li><li><a href="../about/DPS%20Millennium%20About.dc.html#crest" data-leave>The crest</a></li><li><a href="../about/DPS%20Millennium%20About.dc.html#leadership" data-leave>Leadership</a></li></ul></div>
+     <div class="site-footer__group"><h2>Admissions</h2><ul><li><a href="../about/DPS%20Millennium%20About.dc.html#register" data-leave>Register Interest</a></li><li><a href="../fee/DPS%20Millennium%20Fees.dc.html" data-leave>Fees Structure</a></li><li><a href="../about/DPS%20Millennium%20About.dc.html#register" data-leave>Year Groups</a></li></ul></div>
+     <div class="site-footer__group"><h2>Campus</h2><ul><li><a href="#milestone-current" data-glide>Concept Design</a></li><li><a href="#timeline" data-glide>Progress</a></li><li><a href="#timeline" data-glide>Al Wukair, Qatar</a></li></ul></div>
+     <div class="site-footer__group"><h2>DPS Group</h2><ul><li><a href="#">DPS Modern Indian School</a></li><li><a href="#">DPS Monarch International School</a></li></ul></div>
+    </div>
+   </div>
+   <div class="site-footer__legal"><p>DPS Millennium International School · part of the DPS Group of Institutions</p><p>Tentative opening <time datetime="2027-04-04">4 April 2027</time> · Arabic site to follow</p></div>
   </div>
  </footer>
   <script>
   const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const animatedItems=document.querySelectorAll(".reveal,.slide-left,.slide-right");
-    if(reducedMotion||!("IntersectionObserver" in window)){
-      animatedItems.forEach(item=>item.classList.add("is-visible"));
-    }else{
-      const observer=new IntersectionObserver(entries=>{
-        entries.forEach((entry,index)=>{
-          if(!entry.isIntersecting)return;
-          entry.target.style.transitionDelay=`${(index%3)*90}ms`;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },{threshold:.14,rootMargin:"0px 0px -5% 0px"});
-      animatedItems.forEach(item=>observer.observe(item));
-    }
-    const stageButtons=[...document.querySelectorAll("[data-stage]")];
-    const stagePanels=[...document.querySelectorAll("[data-stage-panel]")];
-    let currentStage=0;
-    let stageTimer;
-    let stageCleanup;
-
-    function showStage(index){
-      const nextStage=(index+stageButtons.length)%stageButtons.length;
-      if(nextStage===currentStage)return;
-      const leavingPanel=stagePanels[currentStage];
-      const enteringPanel=stagePanels[nextStage];
-      window.clearTimeout(stageCleanup);
-      stagePanels.forEach(panel=>{
-        if(panel!==leavingPanel&&panel!==enteringPanel){
-          panel.classList.remove("is-current","is-leaving");
-        }
-      });
-      leavingPanel.classList.remove("is-current");
-      leavingPanel.classList.add("is-leaving");
-      enteringPanel.classList.remove("is-leaving");
-      enteringPanel.classList.add("is-current");
-      currentStage=nextStage;
-      stageButtons.forEach((button,buttonIndex)=>{
-        button.setAttribute("aria-selected",String(buttonIndex===currentStage));
-      });
-      stageCleanup=window.setTimeout(()=>leavingPanel.classList.remove("is-leaving"),650);
-    }
-
-    function startStageRotation(){
-      if(reducedMotion||stageButtons.length===0)return;
-      window.clearInterval(stageTimer);
-      stageTimer=window.setInterval(()=>showStage(currentStage+1),4500);
-    }
-
-    stageButtons.forEach((button,index)=>{
-      button.addEventListener("click",()=>{
-        showStage(index);
-        startStageRotation();
-      });
-    });
-
-    startStageRotation();
+  const animatedItems=document.querySelectorAll(".reveal,.slide-left,.slide-right");
+  if(reducedMotion||!("IntersectionObserver" in window)){animatedItems.forEach(item=>item.classList.add("is-visible"));}
+  else{const observer=new IntersectionObserver(entries=>{entries.forEach((entry,index)=>{if(!entry.isIntersecting)return;entry.target.style.transitionDelay=`${(index%3)*90}ms`;entry.target.classList.add("is-visible");observer.unobserve(entry.target);});},{threshold:.14,rootMargin:"0px 0px -5% 0px"});animatedItems.forEach(item=>observer.observe(item));}
+  const timeline=document.querySelector(".timeline");const track=document.querySelector(".timeline__track span");
+  if(timeline&&track&&!reducedMotion){let ticking=false;const paint=()=>{const box=timeline.getBoundingClientRect();const range=timeline.offsetHeight-window.innerHeight;const passed=Math.max(0,Math.min(1,-box.top/(range||1)));track.style.transform="scaleY("+passed+")";ticking=false;};window.addEventListener("scroll",()=>{if(!ticking){requestAnimationFrame(paint);ticking=true;}},{passive:true});paint();}
  </script>
 </body>
 </html>
